@@ -1,0 +1,13 @@
+1、
+Python –m pip –-version   查看当前Python对应的pip版本；
+Python –m pip list  	  查看当前Python对应的pip安装的第三方库；
+Python –m pip install 	  库名即可安装对应的扩展库；
+Python –m pip uninstall   库名即可卸载对应的扩展库
+
+2、
+系统python: anaconda环境下的python 3.7
+	pip install pandas
+独立安装python2.7, 将python.exe改成python2.exe改成python2
+	python2 -m pip install pandas
+
+3、 use ‘pip freeze’  to list the out the packages installed in your environment

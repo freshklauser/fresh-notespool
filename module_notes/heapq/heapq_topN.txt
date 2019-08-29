@@ -1,0 +1,33 @@
+Top N max/min and their corresponding index:
+python获取列表(数组的话先 arr.tolist()转化为list)中最大的N个数及索引
+	python的内置模块heapq，其原理是基于堆的，也就是二叉树
+	特点：时间复杂度 O(N*logK)  ----  k是需要取出来的数量
+		
+	import heapq
+	a=[1,2,3,4,5]
+	re1 = map(a.index, heapq.nlargest(3, a)) #求最大的三个索引    nsmallest与nlargest相反，求最小
+	re2 = heapq.nlargest(3, a) #求最大的三个元素
+	print(list(re1)) #因为re1由map()生成的不是list，直接print不出来，添加list()就行了
+	print(re2) 
+	输出结果为
+	[4, 3, 2]
+	[5, 4, 3]
+
+
+
+eg:
+	import heapq
+
+	amp_top5 = heapq.nlargest(5, amplitute_pos.tolist())      # get top 5 amplitute
+	freq_top5 = map(amplitute_pos.tolist().index, amp_top5)
+	#print(list(freq_top5))
+	#print(np.round(amp_top5,2))
+	peak_dict = {}
+	for i,a in zip(list(freq_top5), np.round(amp_top5,2)):
+		peak_dict[i] = a
+		print('Freq-{} --> Amp-{}'.format(i,a))
+		# Freq-50 --> Amp-3.0
+		# Freq-0 --> Amp-2.0
+		# Freq-75 --> Amp-1.5
+		# Freq-49 --> Amp-0.0
+		# Freq-51 --> Amp-0.0

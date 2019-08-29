@@ -1,0 +1,138 @@
+卷积神经网络：
+	A  -------convole-------> B
+	      filter / kernel
+	(n,n)     (f,f)       (m,m)
+	维度关系如下：m = n - f + 1
+	
+	strider = 1
+		padding 填充：
+			参数：p  ---  填充的层数，p=1表示在数组外围添加一圈，一般添加的一层/圈值为0
+			依据padding情况，一般分为 valid卷积和Same卷积
+				valid卷积：不填充
+					(n,n) * (f,f) --> (n-f+1, n-f+1)    # * 表示卷积符号
+				same卷积：output size is the same with input size
+					(n,n) * (f,f) --> (n+2p-f+1, n+2p-f+1)
+						==> n == n+2p-f+1
+							==> p = (f-1)/2
+					当填充的层数/圈数 p = (f-1)/2 时，卷积运算后的维度与运算前的维度能保持相同
+				so,f通常是奇数，即卷积核的维度为：奇数*奇数
+
+		paddding后的维度关系： m = n + 2p - f + 1
+		
+		
+		
+tf.nn.conv1d():
+	tf.nn.conv1d(
+		value,
+		filters,
+		stride,
+		padding,
+		use_cudnn_on_gpu=None,
+		data_format=None,
+		name=None
+	)
+	作用：计算给定3-D输入和滤波器张量的1-D卷积。(不推荐使用的参数)
+	参数：
+		value：一个3D Tensor；类型必须是float16或float32。
+		filters：一个3D Tensor；必须与value相同。
+		stride：integer；过滤器在每个步骤右移的条目数。
+		padding：'SAME'或'VALID'
+		use_cudnn_on_gpu：可选的bool,默认为True。
+		data_format：一个可选的string,可以是"NWC"和"NCW"；默认为"NWC",
+					数据按[batch,in_width,in_channels]的顺序存储；"NCW"格式将数据存储为[batch, in_channels, in_width]。
+		name：操作的名称(可选)。
+		返回：
+			一Tensor,与输入具有相同的类型。
+			可能引发的异常：ValueError：如果data_format无效。
+
+tf.nn.conv2d():
+	tf.nn.conv2d(
+		input,
+		filter,
+		strides,
+		padding,
+		use_cudnn_on_gpu=True,
+		data_format='NHWC',
+		dilations=[1, 1, 1, 1],
+		name=None
+	)
+	作用：计算给定的4-D input和filter张量的2-D卷积.
+	参数：			
+		input：一个Tensor,必须是下列类型之一：half,bfloat16,float32,float64；
+			   一个4-D张量,维度顺序根据data_format值进行解释,详见下文.
+		filter：一个Tensor,必须与input相同
+				形状为[filter_height, filter_width, in_channels, out_channels]的4-D张量.
+		strides：ints列表,长度为4的1-D张量,input的每个维度的滑动窗口的步幅；
+				 维度顺序由data_format值确定,详见下文.
+		padding：string,可以是："SAME", "VALID",要使用的填充算法的类型.
+		use_cudnn_on_gpu：bool,默认为True.
+		data_format：string,可以是"NHWC", "NCHW",默认为"NHWC"；指定输入和输出数据的数据格式；
+							使用默认格式“NHWC”,数据按以下顺序存储：[batch, height, width, channels]；
+							或者,格式可以是“NCHW”,数据存储顺序为：[batch, channels, height, width].
+		dilations：ints的可选列表,默认为[1, 1, 1, 1],长度为4的1-D张量,input的每个维度的扩张系数；
+				   如果设置为k> 1,则该维度上的每个滤镜元素之间将有k-1个跳过的单元格；
+				   维度顺序由data_format值确定,详见上文；批次和深度尺寸的扩张必须为1.
+		name：操作的名称(可选).
+	返回：
+		一个Tensor,与input具有相同的类型.
+
+tf.nn.max_pool():
+	tf.nn.max_pool(
+		value,
+		ksize,                  # 即 size of filter: f   [1,f,f,1]
+		strides,				# 即 s  [1,s,s,1]
+		padding,
+		data_format='NHWC',
+		name=None
+	)
+	作用：在输入上执行最大池化.
+	参数：
+		value：由data_format指定格式的4-D Tensor.
+		ksize：具有4个元素的1-D整数Tensor.输入张量的每个维度的窗口大小.
+		strides：具有4个元素的1-D整数Tensor.输入张量的每个维度的滑动窗口的步幅.
+		padding：一个字符串,可以是'VALID'或'SAME'.填充算法.
+		data_format：一个字符串.支持'NHWC','NCHW'和'NCHW_VECT_C'.
+		name：操作的可选名称.
+	返回：
+		由data_format指定格式的Tensor.最大池输出张量.
+
+tf.contrib.layers.flatten(P):
+	Flattens the input while maintaining the batch_size.
+    Assumes that the first dimension represents the batch.
+    Args:
+      inputs: A tensor of size [batch_size, ...].
+      outputs_collections: Collection to add the outputs.
+      scope: Optional scope for name_scope.
+    Returns:
+      A flattened tensor with shape [batch_size, k].
+	  
+	参数：	
+		P: output of last pool_layer. [batch_size, height, width, channel]
+	返回：
+		P_flatten: [batch_size,  height*width*channel]
+	TIPS:
+		对于输入的P，将每一个example展开为1-D的Tensor,依然保留batch-size。
+		它返回一个[batch_size,k]的Tensor。
+		通常在CNN的最后一步连接到Fully Connected的网络之前会将其展开，
+		例如CNN的conv层池化后输出的tensor的shape为[batch_size, height, width, channel], 展开就是[batch_size, height * width * channel]。
+
+
+tf.contrib.layers.fully_connected(input, num_output,activation_fn,....):
+	参数：
+		input: 输入，通常是最后一次卷积后flatten的输出
+			shape: `[batch_size, depth]`, `[None, None, None, channels]`
+		num_output：number of output units in the layer.
+		activation_fn：Activation function. The default value is a 'ReLU function'.
+			Explicitly set it to None to skip it and maintain a linear activation.
+		weights_initializer:...
+		...
+	返回：
+		FC
+		
+
+	
+
+
+
+
+

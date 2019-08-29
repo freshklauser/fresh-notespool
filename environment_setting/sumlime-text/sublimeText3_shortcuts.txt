@@ -1,0 +1,59 @@
+1. 'auto_add_fileheader'： ["ctrl+alt+a"]
+2. 'auto_pep8': ["ctrl+shift+8"]
+3. ‘Hide Side Bar’: 
+4. 前后括号间切换： ctrl+M
+5. 自定义函数跳转： ctrl+left(Mouse)
+
+6. Edit>Line
+--->向左缩进：Ctrl+]　　（Tab）
+--->向右缩进：Ctrl+[　　（Shift+Tab)
+	上移行：Ctrl+Shift+↑
+	下移行：Ctrl+Shift+↓
+--->复制本行并复制到下一行：Ctrl+Shift+D
+	
+7. Edit>Text
+	前插行：Ctrl+Shift+Enter
+	后插行：Ctrl+Enter
+--->删除整行： Ctrl+Shift+K 
+	左右字母互换： Ctrl+T 
+--->从光标处开始删除代码至行尾： Ctrl+K+K 
+
+8. Edit>Convert Case
+--->转大写：Ctrl+K+U
+--->转小写：Ctrl+K+L
+	
+9. Selection
+	光标分到每行：Ctrl+Shift+L
+--->前后括号间切换： ctrl+M
+--->选择括号内的内容（继续选择父括号）:Ctrl+Shift+M 
+--->选中当前行：Ctrl+L
+--->选择当前单词：Ctrl+D
+		*选中光标所选文本，继续操作选中下个相同文本，按Ctrl+K跳过，如下：
+		 选中QA后再按Ctrl+D实现批量多选，按Ctrl+K跳过
+
+	选中相同缩进：Ctrl+Shiht+J
+
+
+10. Find
+--->查找：Ctrl+F
+	查找下一个：F3
+	查找上一个：Shift+F3
+	查找上一个：Ctrl+Enter
+	替换：Ctrl+H
+
+11. View
+	打开控制台：Ctrl+`
+	全屏模式：F11
+--->单词检测拼写：F6
+--->展开/隐藏 侧边栏：Ctrl+K+B
+--->分屏：Alt+Shift+数字
+
+12. Goto
+	Ctrl+P：打开搜索框
+	Ctrl+R：打开搜索框，自动带@，输入关键字，查找文件中的函数名
+	Ctrl+G：打开搜索框，自动带：，输入数字跳转到该行代码
+	Alt+-：光标返回上一处（可返回多次类似历史记录）
+--->Ctrl+M：光标移动至括号内结束或开始的位置
+
+13. 打开 shell
+	

@@ -1,0 +1,135 @@
+sublime text3 安装步骤：
+
+1. sublime text3 可用license:
+	ZYNGA INC.
+	50 User License
+	EA7E-811825
+	927BA117 84C9300F 4A0CCBC4 34A56B44
+	985E4562 59F2B63B CCCFF92F 0E646B83
+	0FD6487D 1507AE29 9CC4F9F5 0A6F32E3
+	0343D868 C18E2CD5 27641A71 25475648
+	309705B3 E468DDC4 1B766A18 7952D28C
+	E627DDBA 960A2153 69A2D98A C87C0607
+	45DC6049 8C04EC29 D18DFA40 442C680B
+	1342224D 44D90641 33A3B9F2 46AADB8F
+	
+2. 关闭自动更新提示：
+	“Perference” --> "Settings" --> {}中加 "update_check": false,
+
+3. 安装package control:
+	Ctrl+"`"快捷键或者View-->Show Console菜单打开命令行，粘贴如下代码：
+	code listed as follow:
+		import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
+	Enter运行code即可
+	在“C:\Users\Wang\AppData\Roaming\Sublime Text 3\Packages\User”或
+	菜单栏“Preferences-->Browse Packages”下可以看到package
+	
+4. 安装插件列表(ctrl+shift+p-->进入install package)：
+	AutoPEP8
+	AutoFileName
+	FileHeader
+	SublimeLinter
+	Color Highlighter
+	Anaconda
+	SideBarEnhancements
+	SublimeCodeIntel
+	Theme-Soda
+	Theme-Nexus
+	sublimeREPL
+	Git
+	
+
+5. 参数配置：
+	1) Anaconda：
+		Anaconda参数设置：
+		Setting_Default:
+			1) 改变解释器路径：
+				preference>package settings>anaconda>settings default:
+						*/
+						"python_interpreter": "C:/Users/Wang/Anaconda3/python",
+
+			2) 其他参数设置：
+				*/
+				"anaconda_linter_mark_style": "stippled_underline",
+		Settings--User:
+			{
+				"auto_formatting": true,		# 保存时自动format成设置过的pep8规范
+				"swallow_startup_errors": true,
+			}
+
+	2) Settings--User:
+		{
+			"bold_folder_labels": true,
+			"font_size": 12,
+			"highlight_line": true,
+			"ignored_packages":
+			[
+				"Vintage"
+			],
+			"rulers":
+			[
+				80
+			],
+			"save_on_focus_lost": true,
+			"show_encoding": true,
+			"trim_trailing_white_space_on_save": true,
+			"update_check": false,
+			"word_wrap": false,
+			"tab_size": 4,
+			"translate_tabs_to_spaces": true,
+			"anaconda_linting": false
+		}
+	Refer: https://blog.csdn.net/lvonve/article/details/53931565
+	
+	3) SublimeCodeIntel --> Mouse bindings--Users:
+		[ { "button": "button1", "count": 1, "modifiers": ["ctrl"], "press_command": "drag_select", "command": "goto_definition" }]
+		---> ctrl+left(mouse), 自定义函数跳转
+		
+	4) key-bindings:
+		sublimeREPL配置文件config中python的 Main.sublime-menu 文档中的 cmd 指向的路径需要修改成相应的anaconda的python编译器路径
+		取消代码执行
+		快捷键设置在sublime中启动cmd窗口
+		[
+			{ "keys": ["ctrl+shift+c"], "command": "cancel_build" },
+			{
+				"keys": ["ctrl+shift+h"],
+				"caption": "SublimeREPL: Python",
+				"command": "run_existing_window_command", "args":
+				{
+					"id": "repl_python",
+					"file": "config/Python/Main.sublime-menu"
+				}
+			}
+		]
+		
+	5) 设置autopep8
+		... 'package setting' --> 'Autopep8' ---> 'Setting-user':
+		{
+			"max-line-length": 140,
+			"ignore":
+			[
+				"E309","E501", "E402",/* "E121", "E123", "E126", "E226", "E24", "E704" "E501" */
+			],
+		}
+		
+		pep8规范既可以用 AutoPEP8插件设置和修复，也可以使用Anaconda插件设置和修复
+		使用pep8來format的話就用pep8的相應設置， 使用anaconda来format的话就使用的是anaconda中的设置
+		建议采用pep8插件设置，anaconda插件format
+
+	6) 设置自定义header
+		Preferences -> Browse Packages 进入SublimeText 插件安装目录，
+		然后依次进入File Header -> template -> header -> python.tmpl
+		增加： 
+		# ------------------------------------------------------------------------------
+		# Description:
+		# ------------------------------------------------------------------------------
+	
+	
+	
+	
+			
+				
+	
+			
+			
+	

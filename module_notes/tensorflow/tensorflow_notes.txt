@@ -1,0 +1,161 @@
+1、Tensorflow中 所有变量会被自动加入到GraphKeys.VARIABLES这个集合中。
+通过tf.global_variables()函数可以拿到当前计算图上的所有变量。
+2、当构建机器学习模型时，比如神经网络，可以通过变量声明函数中的trainable参数来区分需要优化的参数和其他参数。
+如果声明变量时参数trainable为True，那么这个变量将会被加入到GraphKeys.TRAINABLE_VARIABLES集合。
+在 TensorFlow 中可以通过tf.trainable_variables函数得到所有需要优化的参数。TensorFlow 中提供的神经网络优化算法会将GraphKeys.TRAINABLE_ VARIABLES 集合中的变量作为默认的优化对象。
+-3、Tensorflow中的变量在构建后，它的类型就不能再改变了。
+-4、维度再程序运行中时有可能改变，但是需要通过设置参数validata_shape=False来实现。
+-5、tf.assign(ref,value,validate_shape=,use_locking=,name=)函数：通过将 "value" 赋给 "ref" 来更新 "ref"
+
+查询tensorflow版本：tf.__version__
+查询tensorflow安装路径：tf.__path__
+
+tensorflow实现神经网络的前向传播算法：
+a= tf.nn .relu (tf.matmul(x, wl) + biasesl)
+y = tf.nn.relu(tf.matmul(a, w2) + biases2)
+
+交叉熵：
+	H(p,q) = - np.sum(p(x)*logq(x))
+	作为神经网络分类问题的损失函数时，p为真实值，q为预测值
+	cross_entropy = -tf.reduce_mean(y_ * tf.log(tf.clip_by_value(y,1e-10,1.0)))
+	y_：正确结果
+	y: 预测结果
+
+交叉熵通常与softmax回归一起使用，tensorflow进行了统一封装;
+tf.nn.softmax_cross_entropy_with_logits(labels=y_,logits=y)
+	y_:给定的正确结果
+	y:神经网络的输出结果
+return:softmax回归之后的交叉熵
+
+均方误差(MSE, mean squared error)：
+	MSE(y,y`) = np.power(np.sum(yi-yi`),2) / n
+	yi: 一个batch中第i个数据都正确答案
+	yi`:神经网络给出的预测值
+	对于回归问题,MSE是最常用的损失函数：
+	mse = tf.reduce_mean(tf.square(y_ - y))
+	y_: 正确结果
+	y: 预测结果
+
+tf.clip_by_value()：
+	作用：将张量中数值限制在一个范围之内，可以避免某些运算错误（比如 logO 是无效的）
+	tf.clip_by_value(v,a,b)
+	参数：（1）v：input数据（2）a、b是对数据的限制。
+	当v小于a时，输出a；
+	当v大于a小于b时，输出原值；
+	当v大于b时，输出b；
+
+tf.reduce_mean(input_tensor, axis=None, keep_dims=False, name=None,reduction_indices=None)：
+作用：沿着张量不同的数轴进行计算平均值
+参数：input_tensor: 被计算的张量，确保为数字类型。
+      axis: 方向数轴，如果没有指明，默认是所有数轴都减小为1。
+      keep_dims: 如果定义true, 则保留维数，但数量个数为0
+      name: 操作过程的名称。
+      reduction_indices: 为了旧函数兼容的数轴。
+return:降低维数的平均值。
+
+tf.convert_to_tensor(value, dtype=None, name=None, preferred_dtype=None)：
+    Converts the given `value` to a `Tensor`.
+
+tf.where(condition,value_true,value_false):
+	condition为真，返回value_true,反之返回value_false
+
+tf.greater(v1,v2):
+	比较张量v1和v2的大小，并返回结果
+
+tf.argmax(input, axis=None, name=None, dimension=None, output_type=tf.int64)：
+	input: a 'tensor'
+	Returns the index with the largest value across axes of a tensor
+
+tf.equal(x,y,name=None):
+    Returns the truth value of (x == y) element-wise.
+
+tf.cast(x, dtype, name=None):
+    Casts a tensor to a new type.
+
+tf.train.exponetial_decay():
+	参数：(learning_rate, global_step, decay_steps, decay_rate, staircase=False, name=None)
+	原理：decayed_learning_rate = learning_rate * decay_rate ^ (global_step / decay_steps)
+	learning_rate：初始学习率
+	global_step：
+	decay_steps:衰减速度
+		通常代表了完整的使用一遍训练数据所需要的迭代轮数。
+		这个迭代轮数也就是总训练样本数除以每 batch 中的训练样本数 这种设置的常用场景是每完整地过完一遍训练数据，学习率就减小一次。
+	decay_rate:衰减系数
+	staircase:True:阶梯衰减； False:连续衰减
+
+tf.contrib.layers.l2_regularizer(lambda)(weight):
+	lambda:正则化项的权重  loss = J(theta) + lambda * R(w)
+	w：需要计算正则化损失的参数
+	return: 返回一个函数，这个函数可以计算给定参数的L2正则化项的值
+	eg: weights = tf.constant([[1.2,-2.2],[-3.0,4.1]])
+		sess.run(tf.contrib.layers.l2_regularizer(0.5)(weights)
+
+tf.contrib.layers.l1_regularizer(lambda)(weight):
+	return: 返回一个函数，这个函数可以计算给定参数的L1正则化项的值
+
+tf.add_to_collection(name,value) / tf.Graph.add_to_collection(self, name, value):
+	name:The key for the collection, 集合的名字
+	value:The value to add to the collection，要加入这个集合的内容
+
+tf.placeholder(dtype[,shape,name])
+说明：占位符是一个对象，它的值只能在稍后指定，要指定占位符的值，可以使用一个feed字典（feed_dict变量）	   来传入	
+	dtype: The type of elements in the tensor to be feed
+    shape: The shape of the tensor to be feed (optional). 
+		   If the shape is not specified, you can feed a tensor of any shape.
+    name:  A name for the operation (optional).
+	eg:
+		x = tf.placeholder(tf.int64,name="x")
+		print(sess.run(2 * x,feed_dict={x:3}))
+		sess.close()
+
+创建变量：
+	tf.Variable() & tf.get_variable()
+	Tips: tf.Variable()每次都在创建新对象，对于get_variable()来说，对于已经创建的变量对象，就把那个对象返回，如果没有创建变量对象的话，就创建一个新的。
+        --> tf.get_variable(“vname”)方法，在创建变量时，如果这个变量vname已经存在，直接使用这个变量，如果不存在，则重新创建；
+        --> tf.Variable()在创建变量时，一律创建新的变量，如果这个变量已存在，则后缀会增加0、1、2等数字编号予以区别。
+    命名域 (name scope)，通过tf.name_scope 或 tf.op_scope创建；
+    变量域 (variable scope)，通过tf.variable_scope 或 tf.variable_op_scope创建；
+        这两种作用域，对于使用tf.Variable()方式创建的变量，具有相同的效果，都会在变量名称前面，加上域名称。
+        对于通过tf.get_variable()方式创建的变量，只有variable_scope名称会加到变量名称前面，而name_scope不会作为前缀。
+
+
+tf.truncated_normal(shape, mean=0.0, stddev=1.0, dtype=tf.float32, seed=None, name=None):
+    Outputs random values from a truncated normal distribution.
+    The generated values follow a normal distribution with specified mean and
+    standard deviation, except that values whose magnitude is more than 2 standard
+    deviations from the mean are dropped and re-picked.
+
+tf.assign(ref, value, validate_shape=None, use_locking=None, name=None)
+	作用：更新ref值为value
+    Update 'ref' by assigning 'value' to it.
+    This operation outputs a Tensor that holds the new value of 'ref' after
+    the value has been assigned. This makes it easier to chain operations
+    that need to use the reset value.
+    Args:
+      ref: A mutable `Tensor`.
+        Should be from a `Variable` node. May be uninitialized.
+      value: A `Tensor`. Must have the same type as `ref`.
+        The value to be assigned to the variable.
+      validate_shape: An optional `bool`. Defaults to `True`.
+        If true, the operation will validate that the shape
+        of 'value' matches the shape of the Tensor being assigned to.  If false,
+        'ref' will take on the shape of 'value'.
+      use_locking: An optional `bool`. Defaults to `True`.
+        If True, the assignment will be protected by a lock;
+        otherwise the behavior is undefined, but may exhibit less contention.
+      name: A name for the operation (optional).
+
+    Returns:
+      A `Tensor` that will hold the new value of 'ref' after
+        the assignment has completed.
+
+
+
+
+
+
+
+
+
+
+

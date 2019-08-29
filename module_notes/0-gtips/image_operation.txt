@@ -1,0 +1,65 @@
+1、image <---> array
+Method_1: PIL module
+	image --> array:
+		from PIL import Image
+		img = Image.open('C:/Users/klaus/images_upload/cat_upload.png')
+			or other read image method such as imageio.imread() /  
+		imgArray = np.array(img)
+		
+	array --> image:
+		newArray = arr.reshape((pix,pix,chanel))
+		img = Image.fromarray(newArray)
+	
+	if to plot image with array_style:
+		use plt.imshow() or plt.matshow()
+			plt.imshow():
+				imshow(X,...): array_like, shape (n, m) or (n, m, 3) or (n, m, 4). an array or a PIL image
+			plt.matshow():
+				matshow(A, fignum=None, **kwargs):  array-like(M, N): The matrix to be displayed.
+Method_2: imageio module
+	image --> array:	
+		import imageio
+		imgAaary = imageio.imread('C:/Users/klaus/images_upload/cat_upload.png'))
+		imgAaary.shape: (64,64,3)
+		
+Method_3: matplotlib module (notice the difference with imageio.imread)
+	image --> array:
+		import matplotlib.image as mpimg
+		image1 = mpimg.imread('C:/Users/klaus/images_upload/cat_upload.png'))     #read the image
+		plt.imshow(image1)                                                        #show
+		image1.shape: (12288,1)
+		iamge1.reshape((64,64,3))
+	
+			
+2、image resize:
+		# read the image:
+			IMG = Image.open('C:/Users/klaus/images_upload/cat_upload.png')  IMG OBJECT
+		# transfer IMG to array
+			src_imgarr = np.array(IMG)         # shape: (2106, 3152, 4)  ARRAY OBJECT
+		# resize the image:
+			IMG_resize = IMG.resize((64,64))   # Image.open().resize() -->  size:(64,64) IMG OBJECT
+		# transfer the resized image to array
+			IMGarr = np.array(IMG_resize)      # shape:(64, 64, 4)  ARRAY OBJECT
+		# adjust the chanel to 3 from 4
+			IMGarr = IMGarr[:,:,:-1]		   # shape:(64, 64, 3)  ARRAY OBJECT 
+	
+-> Tips:
+path unicode error: 'C:\Users\junkk\OneDrive\Homework_DL\C4W1\image\2.png'   (wrong input style)
+			--->	r'C:\Users\junkk\OneDrive\Homework_DL\C4W1\image\2.png' 
+					return: 'C:\\Users\\junkk\\OneDrive\\Homework_DL\\C4W1\\image\\2.png'  (right input style)
+	imgpath = r'C:\Users\junkk\OneDrive\Homework_DL\C4W1\image\2.png'
+	img = Image.open(imgpath)    # type: 'PngImageFile' object
+
+
+-> OS module:
+	obtain current path: 
+		In: os.getcwd()
+		Out[40]: 'C:\\Users\\junkk\\OneDrive\\Homework_DL\\C4W1'
+		
+	obtain father path of current path:
+		In: os.path.dirname(os.getcwd())
+		Out[47]: 'C:\\Users\\junkk\\OneDrive\\Homework_DL'
+	
+	obtain filename or last part of path:
+		In: os.path.basename(os.getcwd())
+		Out[48]: 'C4W1'
