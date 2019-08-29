@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# defined ignored files or dirs 
+DS/
+.DS/
+ML/
+.ML/
