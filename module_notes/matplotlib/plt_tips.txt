@@ -1,0 +1,236 @@
+﻿pyplot基础图表函数表示
+函数					说明
+plt.plot(x,y,fmt,…)	绘制一个坐标图
+plt.boxplot(data,notch,position)	绘制一个箱形图
+plt.bar(left,height,width,bottom)	绘制一个条形图
+plt.barh(width,bottom,left,height)	绘制一个横向条形图
+plt.polar(theta, r)	绘制极坐标图
+plt.pie(data, explode)	绘制饼图
+plt.psd(x,NFFT=256,pad_to,Fs)	绘制功率谱密度图
+plt.specgram(x,NFFT=256,pad_to,F)	绘制谱图
+plt.cohere(x,y,NFFT=256,Fs)	绘制X‐Y的相关性函数
+plt.scatter(x,y)	绘制散点图，其中，x和y长度相同
+plt.step(x,y,where)	绘制步阶图
+plt.hist(x,bins,normed)	绘制直方图
+plt.contour(X,Y,Z,N)	绘制等值图
+plt.vlines()	绘制垂直图
+plt.stem(x,y,linefmt,markerfmt)	绘制柴火图
+plt.plot_date()  绘制数据日期
+
+1、plt.imshow() vs plt.matshow():
+	plt.imshow():
+		imshow(X, cmap=None, norm=None, aspect=None, interpolation=None, alpha=None, vmin=None, vmax=None, origin=None, extent=None, shape=None, filternorm=1, filterrad=4.0, imlim=None, resample=None, url=None, hold=None, data=None, **kwargs)
+		Display an image on the axes.
+		
+		Parameters
+		----------
+		X : array_like, shape (n, m) or (n, m, 3) or (n, m, 4)
+			Display the image in `X` to current axes.  `X` may be an array or a PIL image. 
+			If `X` is an array, it can have the following shapes and types:
+		
+			- MxN -- values to be mapped (float or int)
+			- MxNx3 -- RGB (float or uint8)
+			- MxNx4 -- RGBA (float or uint8)
+		
+			MxN arrays are mapped to colors based on the `norm` (mapping
+			scalar to scalar) and the `cmap` (mapping the normed scalar to
+			a color).
+		
+	plt.matshow():
+		matshow(A, fignum=None, **kwargs)
+		Display an array as a matrix in a new figure window.
+		
+		The origin is set at the upper left hand corner and rows (first dimension of the array) are displayed horizontally.  
+		The aspect ratio of the figure window is that of the array, unless this would make an excessively short or narrow figure.
+		Tick labels for the xaxis are placed on top.
+		
+		Parameters
+    ----------
+		A : array-like(M, N): The matrix to be displayed.
+			
+			
+
+2、plot the dynamic cost curve: curve updated with increasing of iterations dynamically:
+refer:C: \Users\klaus\OneDrive\Homework_DL\C2W3\tf_BP_NN_test_with_reg_minibatch.py
+
+	# plot the dynamic cost curve: update every 5 epoches (epoch % 5 == 0)
+	fig = plt.figure()
+	ax = fig.add_subplot(1,1,1)
+	plt.ylabel('cost')
+	plt.xlabel('iterations (per tens)')
+	plt.legend(loc='best')
+	plt.ion()
+	plt.show()
+	# plot the updating curve with increasing of iterations    
+	try:
+		ax.lines.remove(lines[0])  # remove the first line in the figure
+	except Exception:
+		pass
+	lines = ax.plot(np.squeeze(costs),label=str(np.round(learning_rate,5)))
+    plt.pause(0.1)                 # pause for 0.1 minute after plot one curve
+	
+	
+3、子图方式1：
+===>  plt.subplots(nrows= , ncols= , ...)
+subplots(nrows=1, ncols=1, sharex=False, sharey=False, squeeze=True, subplot_kw=None, gridspec_kw=None, **fig_kw)
+    Create a figure and a set of subplots
+
+    This utility wrapper makes it convenient to create common layouts of
+    subplots, including the enclosing figure object, in a single call.
+
+    Parameters
+    ----------
+    nrows, ncols : int, optional, default: 1
+        Number of rows/columns of the subplot grid.
+
+    sharex, sharey : bool or {'none', 'all', 'row', 'col'}, default: False
+        Controls sharing of properties among x (`sharex`) or y (`sharey`)
+        axes:
+            - True or 'all': x- or y-axis will be shared among all
+              subplots.
+            - False or 'none': each subplot x- or y-axis will be
+              independent.
+            - 'row': each subplot row will share an x- or y-axis.
+            - 'col': each subplot column will share an x- or y-axis.
+        When subplots have a shared x-axis along a column, only the x tick
+        labels of the bottom subplot are visible.  Similarly, when subplots
+        have a shared y-axis along a row, only the y tick labels of the first
+        column subplot are visible.
+		....
+		
+	Returns
+    -------
+    fig : :class:`matplotlib.figure.Figure` object
+    ax : Axes object or array of Axes objects.
+        ax can be either a single :class:`matplotlib.axes.Axes` object or an
+        array of Axes objects if more than one subplot was created.  The
+        dimensions of the resulting array can be controlled with the squeeze
+        keyword, see above.
+		
+	Examples
+    --------
+	Creates four polar axes, and accesses them through the returned array
+    >>> fig, axes = plt.subplots(2, 2, subplot_kw=dict(polar=True))
+    >>> axes[0, 0].plot(x, y)
+    >>> axes[1, 1].scatter(x, y)
+	Share a X axis with each column of subplots
+    >>> plt.subplots(2, 2, sharex='col')
+	
+	eg.
+	fig, ax = plt.subplots(nrows=2, ncols=2)
+	for i in range(2):
+		for j in range(2):
+			k = i * 2 + j
+			ax[i, j].plot(x[k], y[k])
+			ax[i, j].xlim(xlim[k])
+			ax[i, j].ylim(ylim[k])
+			ax[i, j].xlabel('Frequency/Hz')
+			ax[i, j].ylabel('Amplitude/mg')
+	fig.save('bearing_spectrum.jpg')
+	plt.close()
+	
+	
+	子图方式2：
+===> plt.figure().add_subplot(2,2,1)   
+codes:
+	fig = plt.figure()
+	ax1 = fig.add_subplot(2,2,1)
+	ax2 = fig.add_subplot(2,2,2)
+	ax4 = fig.add_subplot(2,2,4)
+	ax3 = fig.add_subplot(2,2,3)
+	ax1.plot(x, y)
+	ax2.scatter(x, y)
+	...
+
+4. 动态更新窗口中的图
+Notes:
+    plt.cla() # 清除axes，即当前 figure 中的活动的axes，但其他axes保持不变。
+    plt.clf() # 清除当前 figure 的所有axes，但是不关闭这个 window，所以能继续复用于其他的 plot。
+    plt.close() # 关闭 window，如果没有指定，则指当前 window。
+
+code:
+------------------------------
+# plt.figure()
+plt.figure(facecolor='#eafff5')
+ax = plt.subplot(111)
+plt.ion()
+for i in range(350):
+    ''' clear the current axes in the begining of for loop '''
+    plt.cla()
+    ''' plt.cla() is important '''
+    ax.set_title('-- {} --'.format(i))
+    # plt.ylim((0, 15))
+    ax.set_ylim((0, ylims[i]))
+    ax.set_xlim((50, 90))
+    try:
+        ax.lines.remove(lines[0])
+        # ax.lines.remove(lines[1])
+    except Exception:
+        pass
+    lines = ax.plot(x, y[i])
+    # add a threhold value line with a fixed y
+    lines.append(ax.hlines(ylims[i] * 0.85, 50, 90, linestyles='dashed', linewidth=1, colors='r'))
+    plt.pause(0.2)
+	
+
+5. ax.set_xlable / plt.set_ylabel  设置坐标轴标签的位置
+--->for xlabel: position=(m, None)   m in [0,1]
+	for ylabel: position=(None, n)	 n in [0,1]
+	eg:
+		ax.set_xlabel('Hz', position=(0.2, None))         x轴0.2比例处
+		ax.set_ylabel('Amplitude', position=(None, 0.4))  y轴0.4比例处
+		
+		
+6. plt中文乱码问题（推荐方法1）
+	方法一：
+		plt.rcParams['font.sans-serif'] = ['SimHei']      # 用来正常显示中文标签
+		会出现坐标轴的刻度负数显示出现异常
+	方法二：
+		-->下载可以显示中文的字体如simsun.ttc放在系统字体文件夹中 
+		--> code
+			from matplotlib.font_manager import FontProperties      # solve chinese font problem
+			font_set = FontProperties(fname=r"c:\windows\fonts\simsun.ttc", size=12)
+			...
+			ax.set_xlabel('频率/Hz', position=(0.2, None), fontproperties=font_set)         x轴0.2比例处
+
+7. 设置/调整子图默认间距
+	调整整体和子图空白与间距：
+		plt.tight_layout()                           #调整整体空白
+		plt.subplots_adjust(wspace=0.2, hspace=0.4)  #调整子图间距
+	针对 fig, axs = plt.subplots()用法中的子图：
+		fig, axs = plt.subplots(nrows=2, ncols=2, constrained_layout=True)
+		constrained_layout=True automatically adjusts, otherwise labels overlap the axes.
+	保存时删除图片空白部分：
+		plt.savefig(savefig_path, bbox_inches='tight', pad_inches=0, dpi=300)  
+			# bbox_inches='tight'：紧凑图片
+			# pad_inches=0: bbox_inches存在时，设为0，消除所有周围空白
+		或者：plt.figure()或plt.subplots()中，设置 constrained_layout=True
+	设置figure距离画布上下左右的距离以及子图之间的距离：
+	plt.subplots_adjust(left=0.05, right=0.95, bottom=0.05, top=0.95, wspace=0, hspace=0.4)
+
+8. plt.legend()中的loc属性：
+	===============   =============
+	Location String   Location Code
+	===============   =============
+	'best'            0
+	'upper right'     1
+	'upper left'      2
+	'lower left'      3
+	'lower right'     4
+	'right'           5
+	'center left'     6
+	'center right'    7
+	'lower center'    8
+	'upper center'    9
+	'center'          10
+	===============   =============
+	
+9.  plt.bar()  : 竖着画柱形图
+	plt.barh() : 横着画柱形图
+	
+10. 去掉坐标轴的刻度线
+	fig，ax = plt.figure()
+	ax.tick_params(bottom='off', top='off', left='off', right='off')
+
+	
+	

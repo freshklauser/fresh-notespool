@@ -1,0 +1,98 @@
+独热编码
+编码表：
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+
+
+Method1(不建议采用): 
+	a = np.array([[1, 2, 4, 2, 3, 3, 2, 0]])
+	ohe_a = np.eye(np.unique(a).shape[0])[a.reshape(-1)].T
+		==> np.unique(a):shape=(k,)
+	该方法缺点是a的元素一定要是从0开始的连续整数range(0,n)
+		若a中不包含零，或者数字不连续，都会报错
+	eg1：
+		a = np.array([[1, 2, 4, 2, 3, 3, 2, 1,0]])
+		b = np.eye(np.unique(a).shape[0])[a.reshape(-1)].T
+		b.shape
+		Out[63]: (5, 9)
+		b
+		Out[64]: 
+		array([[0., 0., 0., 0., 0., 0., 0., 0., 1.],
+			   [1., 0., 0., 0., 0., 0., 0., 1., 0.],
+			   [0., 1., 0., 1., 0., 0., 1., 0., 0.],
+			   [0., 0., 0., 0., 1., 1., 0., 0., 0.],
+			   [0., 0., 1., 0., 0., 0., 0., 0., 0.]])
+			   
+Method2(建议采用):
+	a = np.array([[1, 2, 7,0, 2, 3, 3, 2, 1]])
+	b = np.eye(np.max(a)+1)[a.reshape(-1)].T
+	该方法a可以不用连续，可以不用从0开始
+	b.astype(int)
+	Out[88]: 
+	array([[0, 0, 0, 1, 0, 0, 0, 0, 0],
+		   [1, 0, 0, 0, 0, 0, 0, 0, 1],
+		   [0, 1, 0, 0, 1, 0, 0, 1, 0],
+		   [0, 0, 0, 0, 0, 1, 1, 0, 0],
+		   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+		   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+		   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+		   [0, 0, 1, 0, 0, 0, 0, 0, 0]])
+		   
+Method3(可以采用):
+def one_hot_matrix(labels, C):
+    """
+    Creates a matrix where the i-th row corresponds to the ith class number and the jth column
+                     corresponds to the jth training example. So if example j had a label i. Then entry (i,j) will be 1. 
+					 
+    Arguments:
+    labels -- vector containing the labels or ndarray with shape (1,m)
+    C -- number of classes, the depth of the one hot dimension
+
+    Returns: 
+    one_hot -- one hot matrix
+    """
+
+    ### START CODE HERE ###
+
+    # Create a tf.constant equal to C (depth), name it 'C'. (approx. 1 line)
+    C = tf.constant(value = C, name = "C")
+
+    # Use tf.one_hot, be careful with the axis (approx. 1 line)
+    one_hot_matrix = tf.one_hot(labels, C, axis = 0)
+
+    # Create the session (approx. 1 line)
+    sess = tf.Session()
+
+    # Run the session (approx. 1 line)
+    one_hot = sess.run(one_hot_matrix)
+
+    # Close the session (approx. 1 line). See method 1 above.
+    sess.close()
+
+    ### END CODE HERE ###
+
+    return one_hot
+	
+    ===》
+	a = np.array([[1, 2, 7,0, 2, 3, 3, 2, 1]])
+	b = np.squeeze(one_hot_matrix(a,np.max(a)+1))
+	b.astype(int)
+	Out[114]: 
+	array([[0, 0, 0, 1, 0, 0, 0, 0, 0],
+		   [1, 0, 0, 0, 0, 0, 0, 0, 1],
+		   [0, 1, 0, 0, 1, 0, 0, 1, 0],
+		   [0, 0, 0, 0, 0, 1, 1, 0, 0],
+		   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+		   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+		   [0, 0, 0, 0, 0, 0, 0, 0, 0],
+		   [0, 0, 1, 0, 0, 0, 0, 0, 0]])

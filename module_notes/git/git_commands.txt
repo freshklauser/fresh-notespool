@@ -1,0 +1,268 @@
+
+版本控制：
+集中式：
+	集中式版本控制系统，版本库是集中存放在中央服务器的，而干活的时候，用的都是自
+己的电脑，所以要先从中央服务器取得最新的版本，然后开始干 活，干完活了，再把自己
+的活推送给中央服务器。中央服务器就好比是一个图书馆，你要改一本书，必须先从图书馆
+借出来，然后回到家自己改，改完了，再放回图书馆。
+	缺点：必须联网才能工作
+
+分布式：没有“中央服务器”，每个人的电脑上都是一个完整的版本库。
+
+git
+版本库（仓库）：储存代码文件等的地方
+本地仓库：本机仓库
+远程仓库：充当‘中央服务器’，用于不同节点之间进行代码交换的地方
+克隆：复制
+分支branch：不同分支做不一样的事情，用于协同开发
+标签：用于标注版本信息的‘指针’指向某一个commit位置
+
+git
+远程仓库存储：github, coding, gitlab
+远程协同式分布处理
+
+sudo apt-get install git
+
+使用:
+1. 新建空目录用于创建仓库
+   mkdir gitdemo
+2. 打开空目录
+   cd gitdemo
+3. 使用git初始化空仓库，将空目录变为空仓库
+   git init
+   删除仓库:删除仓库文件夹下隐藏的.git文件夹即可(删除.git文件夹后 仓库就成为单纯的文件夹)
+   1）找到目录下的.git: ls -a
+   2）删除.git : rm -rf .git  (前面不加 git, 直接' rm -rf .git ')
+4. 查看空仓库
+   ls-ah
+5. 创建文件/代码文件
+   abc.txt
+
+6. 添加文件到git仓库,并未入库 
+   git add abc.txt		# 添加文件
+   添加多个文件： git add abc.txt def.txt  ---文件名之间用空格 
+   批量添加所有文件：git add .
+   
+   修改文件名abc.txt --> abcd.txt
+   git add abcd.txt
+   git rm abc.txt
+   git commit -m 'abc.txt-->abcd.txt'
+
+****没有任何提示表示没有问题******
+7. 使用git将文件提交到仓库中
+   git commit -m 'add abc.txt'	# 添加更新的注释内容， 第一次执行该代码会报错，who you are , run （需要配置账户信息）
+   	git config --global user.email "you@example.com"	# e-mail
+	git config --global user.name "Your Name"		# name
+8. 查看当前仓库的状态
+   git status
+   查看修改的文件的修改内容
+   git diff abc.txt
+   通过查看日志文件，获取提交记录
+   git log
+*******************
+commit bfa4ffb572bb04aba9134b8caaeadab8fe642c82
+Author: tarena <tarena@tedu>
+Date:   Fri Aug 10 10:10:09 2018 +0800
+
+    abc.txt
+
+commit ce73de948601e6075637897882e004e3dfd0a5fa
+Author: tarena <tarena@tedu>
+Date:   Fri Aug 10 10:04:30 2018 +0800
+
+    add abc.txt
+
+9. 返回上一个版本 
+   git reset --hard HEAD^（git log的显示结果中 commit后面的字符串截取从首字符开始的一段长度即可）
+		>>> git reset --hard c7a27d2
+   git reset --hard 版本号(tag指定)
+		>>> git reset --hard version-1
+
+
+10 删除仓库中文件
+   git rm def.txt
+
+
+Github:
+账号：KlausLyu
+README.md 说明文档
+Clone or download 下载
+
+Repository 仓库
+
+git日常同步操作：
+先有本地仓库，后有远程仓库
+获取远程仓库，与本地仓库之间建立链接关系
+    git remote add '远程仓库名' 远程仓库地址  
+    git remote add origin https://github.com/KlausLyu/gitdemo.git
+'远程仓库名'系统默认的是 origin, 也可以自定义, 建议使用默认的origin, 不会忘
+自定义：
+git remote add klausgit https://github.com/KlausLyu/klausgit.git
+tarena@tedu:~/klausgit$ git remote -v
+klausgit  https://github.com/KlausLyu/klausgit.git (fetch)
+klausgit  https://github.com/KlausLyu/klausgit.git (push)
+默认：
+git remote add origin https://github.com/KlausLyu/gitdemo.git
+tarena@tedu:~/klausgit$ cd ../gitdemo
+tarena@tedu:~/gitdemo$ git remote -v
+origin  https://github.com/KlausLyu/gitdemo.git (fetch)
+origin  https://github.com/KlausLyu/gitdemo.git (push)
+
+
+使用SSH进行上传提交更新时需要公钥
+    生成获取pubkey:
+       ssh-keygen -t rsa -b 4096 -C 'youremail'
+    生成的pubkey默认位置：/home/tarena/.ssh目录下
+    打开id_rsa.pub  复制内容在github中setting中SSH and GPG keys中添加SSH keys 
+    添加内容为复制的内容
+        （报错，sign_and_send_pubkey:... 解决方法 运行 ssh-add）
+
+从远程仓库同步到本地仓库    (上班前)
+    git pull origin master
+从本地仓库提交同步代码到远程仓库（下班前）
+    git push origin master
+
+
+
+先创建远程仓库，再有本地仓库
+克隆远程仓库到本地目录下
+    git clone https://github.com/TryGhost/Ghost.git
+自动生成对应的本地仓库，本地仓库与远程仓库相对应
+
+
+分支：
+创建分支：git branch 分支名   --> git branch dev
+查看分支：git branch 
+          列出分支，并且标注当前所属分支
+切换分支：git checkout 分支名  --> git checkout dev
+          会提示：已切换到dev分支
+创建新分支并切换到该分支：
+          git checkout -b abc
+      ==  （git branch abc; git checkout abc）
+合并分支，将其他分支合并到当前分支
+          git merge 其他分支名称
+两个分支中文件名重复且修改内容不一致怎么办？
+          冲突提示：...冲突(内容)...
+    解决方案：
+          查看冲突：git diff 文件名称
+          冲突内容“
+              <<<<<<<<<<HEADgt
+                  当前分支修改的内容
+              ==========
+                  其他分支修改的内容
+              >>>>>>>>>>其他分支名称
+          手动修改要保存的内容
+          git add 文件名称
+          git commit -m ''
+          got merger 其他分支名称
+
+删除分支，删除不需要的分支：
+          git branch -d 要删除分支的名称
+
+
+标签：
+显示所有标签：
+	git tag
+创建标签：
+    git tag 标签名
+    默认标签是打在最新提交的commit上的(commit之後 push之前)
+查看标签：
+    git show 标签名
+对已操作过的commit进行添加标签：
+    git tag -a 标签名称 -m '标签注释' commit的id
+默认情况下，git push 并不会把tag推送到远程服务器，需要显示命令才能推送： git push --tags (or   git push origin --tags)
+
+
+commit的id方法：
+    git log --pretty=oneline      # 完整显示commit的id
+    git log --prett=oneline --abbrev-commit    # id的简写
+
+
+git reflog:显示当前分支执行过的所有命令
+
+1、推送标签：
+推送所有标签
+git push origin --tags
+
+推送指定版本的标签
+git push origin <版本号>
+git push origin 标签名  
+
+2、删除本地标签：
+git tag -d 标签名  
+
+3、删除远程标签：
+git push origin :refs/tags/标签名  
+例：git push origin :refs/tags/V3.0.1-Release 
+
+4、其他本地操作
+
+打标签 ：git tag -a V3.0.1-Release  -m "Tagging version 3.0.1-Release "  
+删除本地仓库标签 ：git tag -d V3.0.1-Release   
+列出标签：git tag 
+
+
+    如何设置每次pull时不需要输入用户名和密码
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------
+usage: git [--version] [--help] [-C <path>] [-c name=value]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           <command> [<args>]
+
+这些是各种场合常见的 Git 命令：
+
+开始一个工作区（参见：git help tutorial）
+   clone      克隆一个仓库到一个新目录
+   init       创建一个空的 Git 仓库或重新初始化一个已存在的仓库
+
+在当前变更上工作（参见：git help everyday）
+   add        添加文件内容至索引
+   mv         移动或重命名一个文件、目录或符号链接
+   reset      重置当前 HEAD 到指定状态
+   rm         从工作区和索引中删除文件
+
+检查历史和状态（参见：git help revisions）
+   bisect     通过二分查找定位引入 bug 的提交
+   grep       输出和模式匹配的行
+   log        显示提交日志
+   show       显示各种类型的对象
+   status     显示工作区状态
+
+扩展、标记和调校您的历史记录
+   branch     列出、创建或删除分支
+   checkout   切换分支或恢复工作区文件
+   commit     记录变更到仓库
+   diff       显示提交之间、提交和工作区之间等的差异
+   merge      合并两个或更多开发历史
+   rebase     本地提交转移至更新后的上游分支中
+   tag        创建、列出、删除或校验一个 GPG 签名的标签对象
+
+协同（参见：git help workflows）
+   fetch      从另外一个仓库下载对象和引用
+   pull       获取并整合另外的仓库或一个本地分支
+   push       更新远程引用和相关的对象
+
+命令 'git help -a' 和 'git help -g' 显示可用的子命令和一些概念帮助。
+查看 'git help <命令>' 或 'git help <概念>' 以获取给定子命令或概念的
+帮助。

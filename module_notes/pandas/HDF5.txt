@@ -1,0 +1,143 @@
+导入：
+	from pandas.io.pytables import HDFStore
+	
+1. class HDFStore(pandas.core.base.StringMixin)
+ |  dict-like IO interface for storing “pandas objects” in PyTables
+ |  either Fixed or Table format.
+ 
+	 Parameters
+	 |  ----------
+	 |  path : string
+	 |      File path to HDF5 file
+	 |  mode : {'a', 'w', 'r', 'r+'}, default 'a'
+	 |
+	 |      ``'r'``
+	 |          Read-only; no data can be modified.
+	 |      ``'w'``
+	 |          Write; a new file is created (an existing file with the same
+	 |          name would be deleted).
+	 |      ``'a'``
+	 |          Append; an existing file is opened for reading and writing,
+	 |          and if the file does not exist it is created.
+	 |      ``'r+'``
+	 |          It is similar to ``'a'``, but the file must already exist.
+	 |  complevel : int, 0-9, default None
+	 |          Specifies a compression level for data.
+	 |          A value of 0 disables compression.
+	 |  complib : {'zlib', 'lzo', 'bzip2', 'blosc'}, default 'zlib'
+	 |          Specifies the compression library to be used.
+	 |          As of v0.20.2 these additional compressors for Blosc are supported
+	 |          (default if no compressor specified: 'blosc:blosclz'):
+	 |          {'blosc:blosclz', 'blosc:lz4', 'blosc:lz4hc', 'blosc:snappy',
+	 |           'blosc:zlib', 'blosc:zstd'}.
+	 |          Specifying a compression library which is not available issues
+	 |          a ValueError.
+	 |  fletcher32 : bool, default False
+	 |          If applying compression use the fletcher32 checksum
+	 
+	  Examples
+	 |  --------
+	 |  >>> from pandas import DataFrame
+	 |  >>> from numpy.random import randn
+	 |  >>> bar = DataFrame(randn(10, 4))
+	 |  >>> store = HDFStore('test.h5')
+	 |  >>> store['foo'] = bar   # write to HDF5
+	 |  >>> bar = store['foo']   # retrieve or use 'bar = store.select('foo')'
+	 |  >>> store.close()
+	 
+2. codes
+	In [37]: store.info()
+	Out[37]: "<class 'pandas.io.pytables.HDFStore'>\nFile path: test.h5\n/a            frame        	   	 
+			  (shape->[10,4])\n/b            frame        (shape->[3,4]) "
+			  
+	In [39]: store.get_node('a')
+	Out[39]:
+		/a (Group) ''
+		children := ['axis0' (Array), 'axis1' (Array), 'block0_values' (Array), 'block0_items' (Array)]
+		
+	In [40]: store.items
+	Out[40]:
+	<bound method HDFStore.items of <class 'pandas.io.pytables.HDFStore'>
+	File path: test.h5>
+	
+	In [41]: store.items()      # a generator for iteration
+	Out[41]: <generator object HDFStore.items at 0x0000020E4C1A37D8>
+
+	In [42]: for i in store.items():
+		...:     print(i)
+		...:
+	('/a', /a (Group) ''
+	  children := ['axis0' (Array), 'axis1' (Array), 'block0_values' (Array), 'block0_items' (Array)])
+	('/b', /b (Group) ''
+	  children := ['axis0' (Array), 'axis1' (Array), 'block0_values' (Array), 'block0_items' (Array)])
+
+	In [43]: store.get('b')
+	Out[43]:
+	   0  1   2   3
+	0  0  1   2   3
+	1  4  5   6   7
+	2  8  9  10  11
+	
+	In [45]: c = pd.DataFrame([45,56])
+	In [46]: store.put('key_c',c)
+	In [47]: store.keys()
+	Out[47]: ['/a', '/b', '/key_c']
+	
+3. method to retrieve data from HDFStore
+	In [49]: store.select('a')
+	Out[49]:
+			  0         1         2         3
+	0 -0.463052 -1.103575 -0.164294 -0.868421
+	1 -0.716877  1.000166 -0.568785 -1.236017
+	2  1.007215 -0.513771  0.494208 -1.855666
+	3  0.093206 -1.267130  1.176039 -0.761101
+	4 -0.633337 -1.279830 -1.737863 -0.511146
+	5 -0.160534 -2.670689 -1.788415 -0.378243
+	6 -0.790911 -0.144906 -0.908775 -0.052616
+	7 -0.499307  0.108016  0.526721  0.612267
+	8 -0.786865 -1.372608  0.302826 -0.099254
+	9 -0.250280  0.530829  1.203214 -0.531524
+
+	In [50]: store.get('a')
+	Out[50]:
+			  0         1         2         3
+	0 -0.463052 -1.103575 -0.164294 -0.868421
+	1 -0.716877  1.000166 -0.568785 -1.236017
+	2  1.007215 -0.513771  0.494208 -1.855666
+	3  0.093206 -1.267130  1.176039 -0.761101
+	4 -0.633337 -1.279830 -1.737863 -0.511146
+	5 -0.160534 -2.670689 -1.788415 -0.378243
+	6 -0.790911 -0.144906 -0.908775 -0.052616
+	7 -0.499307  0.108016  0.526721  0.612267
+	8 -0.786865 -1.372608  0.302826 -0.099254
+	9 -0.250280  0.530829  1.203214 -0.531524
+	
+	In [51]: store['a']
+	Out[51]:
+			  0         1         2         3
+	0 -0.463052 -1.103575 -0.164294 -0.868421
+	1 -0.716877  1.000166 -0.568785 -1.236017
+	2  1.007215 -0.513771  0.494208 -1.855666
+	3  0.093206 -1.267130  1.176039 -0.761101
+	4 -0.633337 -1.279830 -1.737863 -0.511146
+	5 -0.160534 -2.670689 -1.788415 -0.378243
+	6 -0.790911 -0.144906 -0.908775 -0.052616
+	7 -0.499307  0.108016  0.526721  0.612267
+	8 -0.786865 -1.372608  0.302826 -0.099254
+	9 -0.250280  0.530829  1.203214 -0.531524
+	
+4. iteration for store
+In [54]: for content in store.items():
+    ...:     print(type(content))
+    ...:     print(content)
+    ...:
+	<class 'tuple'>
+	('/a', /a (Group) ''
+	  children := ['axis0' (Array), 'axis1' (Array), 'block0_values' (Array), 'block0_items' (Array)])
+	<class 'tuple'>
+	('/b', /b (Group) ''
+	  children := ['axis0' (Array), 'axis1' (Array), 'block0_values' (Array), 'block0_items' (Array)])
+	<class 'tuple'>
+	('/key_c', /key_c (Group) ''
+	  children := ['axis0' (Array), 'axis1' (Array), 'block0_values' (Array), 'block0_items' (Array)])
+	  

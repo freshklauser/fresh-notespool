@@ -1,0 +1,102 @@
+1、保存和载入模型网络结构 & 保存和载入模型参数
+保存和载入完整模型（2中有介绍）： 
+	model.save('model_keras_DigtalRecog_Generate.h5')
+	model_new = load_model('model_keras_DigtalRecog_Generate.h5')
+	
+保存和载入模型权重： 
+	model.save_weights('model_weight_keras_DigtalRecog_Generate.h5')
+	model_new_weights = load_weights(model_weight_keras_DigtalRecog_Generate.h5)
+
+--> model.summary() == model1.summary() --> True
+	
+保存和重构模型网络结构（仅包含网络结构，不包含权值）：
+	1) --> 保存为json字符串：
+	json_string = model.to_json()
+	   --> 从json字符串中重构模型网络结构
+	from keras.models import model_from_json
+	model_new = model_from_json(json_string)
+
+	2) --> 保存为YAML字符串(类似model.to_json())
+	yaml_string = model.to_yaml()
+	   --> 从yaml字符串中重构模型
+	from keras.models import model_from_yaml
+	model_new = model_from_yaml(yaml_string)
+
+在重构网络后载入已有模型的权重：
+	1) --> 获取已有模型权重
+	model.get_weights()
+	   --> 在重构的模型网络结构中载入已有模型的权重
+	model_new.set_weights(model.get_weights())
+	   --> 获取重构后的模型权重
+	model_new.get_weights()
+	
+--> model_new.get_weights()[-1] == model_new.get_weights()[-1] : [True,...True]
+
+模型概览：
+	model.summary()
+
+--> model.summary() == model_new.summary() : True
+
+
+
+2、保存和载入.h5格式的model: ---> "model.save()" & "load_model()"
+	model.save(filepath, overwrite=True, include_optimizer=True) method of keras.engine.sequential.Sequential instance
+		--> Saves the model to a single HDF5 file.
+		The savefile includes:
+			- The model architecture, allowing to re-instantiate the model.
+			- The model weights.
+			- The state of the optimizer, allowing to resume training
+				exactly where you left off.
+		This allows you to save the entirety of the state of a model in a single file.
+		Saved models can be reinstantiated via `keras.models.load_model`.
+		
+		The model returned by `load_model`is a compiled model ready to be used (unless the saved model
+		was never compiled in the first place).
+		
+		# Arguments
+			filepath: String, path to the file to save the weights to.
+			overwrite: Whether to silently overwrite any existing file at the
+				target location, or provide the user with a manual prompt.
+			include_optimizer: If True, save optimizer's state together.
+		
+	--> Example
+		``` -----------------------------------------------------------------
+		from keras.models import load_model
+		model.save('my_model.h5')  # creates a HDF5 file 'my_model.h5'
+		del model  # deletes the existing model
+		
+		# returns a compiled model
+		# identical to the previous one
+		model = load_model('my_model.h5')
+		``` ---------------------------------------------------------------
+
+
+3、模型节点信息获取：
+	# 节点信息提取
+	config = model.get_config()  # 把model中的信息，solver.prototxt和train.prototxt信息提取出来
+	model = Model.from_config(config)  # 还回去
+	# or, for Sequential:
+	model = Sequential.from_config(config) # 重构一个新的Model模型，用去其他训练，fine-tuning比较好用
+
+4、model.compile(): 编译模型
+	help(models.Sequential.compile):
+	compile(self, optimizer, loss=None, metrics=None, loss_weights=None, sample_weight_mode=None, 
+			weighted_metrics=None, target_tensors=None, **kwargs)
+
+5、callbacks: 回调函数  #########
+	keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, verbose=0, mode='auto', 
+								  min_delta=0.0001, cooldown=0, min_lr=0)	
+--> Reduce learning rate when a metric has stopped improving
+
+	reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,patience=5, min_lr=0.001)
+	model.fit(X_train, Y_train, callbacks=[reduce_lr])
+	
+	Arguments:
+		monitor  : quantity to be monitored.
+		factor   : factor by which the learning rate will be reduced. new_lr = lr * factor
+		patience : number of epochs with no improvement after which learning rate will be reduced.
+		verbose  : int. 0: quiet, 1: update messages.
+		mode     : one of {auto, min, max}. In min mode, lr will be reduced when the quantity monitored has stopped 	 	decreasing; in max mode it will be reduced when the quantity monitored has stopped increasing; in auto mode, the direction is automatically inferred from the name of the monitored quantity.
+		min_delta: threshold for measuring the new optimum, to only focus on significant changes.
+		cooldown : number of epochs to wait before resuming normal operation after lr has been reduced.
+		min_lr   : lower bound on the learning rate.

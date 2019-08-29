@@ -1,0 +1,49 @@
+1、特征值和特征向量
+numpy:eigvals,eigvectors = np.linalg.eig(A)
+	import numpy as np
+	A = np.array([[1,2,3],
+				 [4,5,6],
+				 [7,8,9]])
+	# 计算特征值
+	print(np.linalg.eigvals(A))
+	# 同时计算特征值和特征向量
+	eigvals,eigvectors = np.linalg.eig(A)
+	print(eigvals)
+	print(eigvectors)
+	
+scipy: eigvals,eigvectors = sp.linalg.eig(A)
+	import numpy as np
+	import scipy as sp
+	A = np.array([[1,2,3],
+				 [4,5,6],
+				 [7,8,9]])
+	# 计算特征值
+	print(sp.linalg.eigvals(A))
+	# 同时计算特征值和特征向量
+	eigvals,eigvectors = sp.linalg.eig(A)
+	print(eigvals)
+	print(eigvectors)
+
+
+2、奇异值分解
+numpy:U,s,V = np.linalg.svd(A)
+	import numpy as np
+	A = np.array([[1,2,3,4],
+				[5,6,7,8],
+				[9,10,11,12]])
+	# 返回三个矩阵
+	S,V,D = np.linalg.svd(A)
+
+
+scipy:U,s,V = scipy.linalg.svd(A)
+	import numpy as np
+	from scipy import linalg
+	A = np.array([[1,2,3,4],
+				[5,6,7,8],
+				[9,10,11,12]])
+	# 返回奇异值
+	print(linalg.svdvals(A))
+	# 返回三个矩阵
+	S,V,D = np.linalg.svd(A)
+	print(linalg.svd(A))
+

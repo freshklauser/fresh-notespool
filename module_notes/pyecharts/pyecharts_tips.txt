@@ -1,0 +1,3 @@
+pip install pyecharts
+pip install snapshot-selenium
+# 需下载chromedriver.exe并拷贝至anaconda3根目录
