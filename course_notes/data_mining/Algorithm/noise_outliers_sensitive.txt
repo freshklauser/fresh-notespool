@@ -1,0 +1,11 @@
+Sensitive to noisy data and outliers:
+	all regulation algorithm
+	K-Means of cluster algorithm
+	
+Non-sensitive:
+	RandomForest
+	bagging: 《Data Mining》P175	
+	SVM
+	cluster of Density Based Methods
+		--DBSCAN, 
+	

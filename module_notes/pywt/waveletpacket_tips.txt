@@ -1,0 +1,57 @@
+1.小波包分解
+	实际上是把信号通过一组滤波器组合(低通或高通)后,到达底端的树结点。
+	设定0表示低通滤波,1表示高通滤波,则各滤波器组合可由一个二进制数表示,
+	称该二进制数为实际路径。
+	例如,实际路径101表示信号经过一次高通滤波器,一次低通滤波器,最后又经
+	过一次高通滤波器,该二进制数对应的十进制数就是分解终端树结点的频带序号,
+	因此实际路径又称频带路径。
+	与频带路径相对应,把结点序号的二进制数称作结点路径或理想路径
+
+1. 由高通滤波器得到的频段,进行下一阶段滤波时高低频段要发生位置互换
+	--> 'natural sequency' differs with 'freq sequency'
+	转换算法：
+		对结点序号进行二进制转换得到结点分解路径(一个二进制数),从左
+		至右对该路径的每位二进制数与其左侧所有位数进行 异 或 运 算,
+		得 到 频 带 分 解 路 径 (一 个 新 的 二 进 制数),对新的二进制
+		数进行十进制转换,即可得到频带序号。
+		
+2. WaveletPacket 重构
+	>>> x = [1, 2, 3, 4, 5, 6, 7, 8]
+	>>> wp = pywt.WaveletPacket(data=x, wavelet='db1', mode='symmetric')
+	Now create a new Wavelet Packet and set its nodes with some data.
+	>>> new_wp = pywt.WaveletPacket(data=None, wavelet='db1', mode='symmetric')
+	>>> new_wp['aa'] = wp['aa'].data
+	For convenience, Node.data gets automatically extracted from the Node object:
+	>>> new_wp['d'] = wp['d']
+	And reconstruct the data from the aa, ad and d packets.
+	>>> print(new_wp.reconstruct(update=False))
+	[ 1.  2.  3.  4.  5.  6.  7.  8.]
+	If the update param in the reconstruct method is set to False, the node’s data will not be updated.
+	>>> print(new_wp.data)
+	None
+	>>> print(new_wp.reconstruct(update=True))
+	[ 1.  2.  3.  4.  5.  6.  7.  8.]
+	>>> print(new_wp.data)
+	[ 1.  2.  3.  4.  5.  6.  7.  8.]
+	
+	# Set some coeffs of specified freq band to zero to reconstruct
+	In [65]: x = [1, 2, 3, 4, 5, 6, 7, 8]
+	In [66]: wp = pywt.WaveletPacket(data=x, wavelet='db1', mode='symmetric', maxlevel=2)
+	In [67]: new_wp = pywt.WaveletPacket(data=None, wavelet='db1', mode='symmetric')
+	In [68]: new_wp['aa'] = wp['aa']
+	In [69]: new_wp['d'] = np.zeros_like(wp['d'].data)
+	In [70]: new_wp['ad'] = np.zeros_like(wp['ad'].data)
+	In [71]: new_wp.reconstruct(update=True)
+	Out[71]: array([2.5, 2.5, 2.5, 2.5, 6.5, 6.5, 6.5, 6.5])
+	In [73]: new_wp.data
+	Out[73]: array([2.5, 2.5, 2.5, 2.5, 6.5, 6.5, 6.5, 6.5])
+	# 
+	In [74]: xx = new_wp.data
+	In [75]: wpp = pywt.WaveletPacket(data=xx, wavelet='db1', mode='symmetric', maxlevel=2)
+	In [76]: wpp['aa'].data
+	Out[76]: array([ 5., 13.])
+	In [77]: wpp['d'].data
+	Out[77]: array([0., 0., 0., 0.])
+	In [78]: wpp['ad'].data
+	Out[78]: array([0., 0.])
+	

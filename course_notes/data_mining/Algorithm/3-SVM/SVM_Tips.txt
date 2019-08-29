@@ -1,0 +1,29 @@
+Refer: 'https://blog.csdn.net/ice_martin/article/details/75670115#72-非线性分类svm'
+1. 获取模型选取的支持向量：
+	support_ :一个数组，形状为[n_SV]，支持向量的下标。
+	support_vectors_ :一个数组，形状为[n_SV,n_features]，支持向量。
+	n_support_ :一个数组，形状为[n_class]，每一个分类的支持向量个数。
+	dual_coef_ : 一个数组，形状为[n_class-1,n_SV]。对偶问题中，在分类决策函数中每一个支持向量的系数。
+	coef_ :一个数组，形状为[n_class-1,n_features]。原始问题中，每个特征的系数。只有在linear kernel中有效。
+	intercept_:一个数组，形状为[n_class*(n_class-1)/2]。决策函数中的常数项。
+	eg: 
+	In [52]: model.fit(data,y)
+	Out[52]:
+	SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+	  decision_function_shape='ovr', degree=3, gamma='auto_deprecated',
+	  kernel='linear', max_iter=-1, probability=False, random_state=None,
+	  shrinking=True, tol=0.001, verbose=False)
+
+	In [53]: model.kernel
+	Out[53]: 'linear'
+
+	In [54]: model.support_vectors_
+	Out[54]:
+	array([[5. , 4. ],
+		   [2. , 1.5]])
+		   
+	In [56]: model.support_
+	Out[56]: array([3, 6])
+	
+	In [58]: model.n_support_
+	Out[58]: array([1, 1])

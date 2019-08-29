@@ -1,0 +1,123 @@
+1、help_infomation:
+cosine_similarity(X, Y=None, dense_output=True)
+    Compute cosine similarity between samples in X and Y.
+    
+    Cosine similarity, or the cosine kernel, computes similarity as the
+    normalized dot product of X and Y:
+ 
+        K(X, Y) = <X, Y> / (||X||*||Y||)
+    
+    On L2-normalized data, this function is equivalent to linear_kernel.
+    
+    Read more in the :ref:`User Guide <cosine_similarity>`.
+    
+    Parameters
+    ----------
+    X : ndarray or sparse array, shape: (n_samples_X, n_features) 
+        Input data.
+    # 注意：(n_samples_X, n_features)，行样本，列特征。如果Y=None, 则默认是计算不同行样本之间的余弦相似度
+			即最后的结果shape是 (n_samples_X, n_samples_X)
+	# 如果需要计算不同特征间的余弦相似度，需要将X转置为(n_features, n_features),结果shape则为(n_features, n_features)
+	
+    Y : ndarray or sparse array, shape: (n_samples_Y, n_features)	# 特征数与X相同，都是 n_features
+        Input data. If ``None``, the output will be the pairwise
+        similarities between all samples in ``X``.
+    
+    dense_output : boolean (optional), default True
+        Whether to return dense output even when the input is sparse. If
+        ``False``, the output is sparse if both input arrays are sparse.
+    
+        .. versionadded:: 0.17
+           parameter ``dense_output`` for dense output.
+    
+    Returns
+    -------
+    kernel matrix : array
+        An array with shape (n_samples_X, n_samples_Y). ---> X和Y的样本之间的余弦相似度(前提是n_features_X==n_features_Y)
+
+		
+
+2、code
+Method1:
+	from sklearn.metrics.pairwise import pairwise_distances
+	pairwise_distances(a,metric="cosine")
+
+pairwise_distances(X, Y=None, metric='euclidean', n_jobs=1, **kwds)
+    Compute the distance matrix from a vector array X and optional Y.
+    
+    This method takes either a vector array or a distance matrix, and returns
+    a distance matrix. If the input is a vector array, the distances are
+    computed. If the input is a distances matrix, it is returned instead.
+    
+    This method provides a safe way to take a distance matrix as input, while
+    preserving compatibility with many other algorithms that take a vector
+    array.
+    
+    If Y is given (default is None), then the returned matrix is the pairwise
+    distance between the arrays from both X and Y.
+    
+    Valid values for metric are:
+    
+    - From scikit-learn: ['cityblock', 'cosine', 'euclidean', 'l1', 'l2',
+      'manhattan']. These metrics support sparse matrix inputs.
+    
+    - From scipy.spatial.distance: ['braycurtis', 'canberra', 'chebyshev',
+      'correlation', 'dice', 'hamming', 'jaccard', 'kulsinski', 'mahalanobis',
+      'matching', 'minkowski', 'rogerstanimoto', 'russellrao', 'seuclidean',
+      'sokalmichener', 'sokalsneath', 'sqeuclidean', 'yule']
+      See the documentation for scipy.spatial.distance for details on these
+      metrics. These metrics do not support sparse matrix inputs.
+    
+    Note that in the case of 'cityblock', 'cosine' and 'euclidean' (which are
+    valid scipy.spatial.distance metrics), the scikit-learn implementation
+    will be used, which is faster and has support for sparse matrices (except
+    for 'cityblock'). For a verbose description of the metrics from
+    scikit-learn, see the __doc__ of the sklearn.pairwise.distance_metrics
+    function.
+    
+    Read more in the :ref:`User Guide <metrics>`.
+    
+    Parameters
+    ----------
+    X : array [n_samples_a, n_samples_a] if metric == "precomputed", or,              [n_samples_a, n_features] otherwise
+        Array of pairwise distances between samples, or a feature array.
+    
+    Y : array [n_samples_b, n_features], optional
+        An optional second feature array. Only allowed if metric != "precomputed".
+    
+    metric : string, or callable
+        The metric to use when calculating distance between instances in a
+        feature array. If metric is a string, it must be one of the options
+        allowed by scipy.spatial.distance.pdist for its metric parameter, or
+        a metric listed in pairwise.PAIRWISE_DISTANCE_FUNCTIONS.
+        If metric is "precomputed", X is assumed to be a distance matrix.
+        Alternatively, if metric is a callable function, it is called on each
+        pair of instances (rows) and the resulting value recorded. The callable
+        should take two arrays from X as input and return a value indicating
+        the distance between them.
+    
+    n_jobs : int
+        The number of jobs to use for the computation. This works by breaking
+        down the pairwise matrix into n_jobs even slices and computing them in
+        parallel.
+    
+        If -1 all CPUs are used. If 1 is given, no parallel computing code is
+        used at all, which is useful for debugging. For n_jobs below -1,
+        (n_cpus + 1 + n_jobs) are used. Thus for n_jobs = -2, all CPUs but one
+        are used.
+    
+    **kwds : optional keyword parameters
+        Any further parameters are passed directly to the distance function.
+        If using a scipy.spatial.distance metric, the parameters are still
+        metric dependent. See the scipy docs for usage examples.
+    
+    Returns
+    -------
+    D : array [n_samples_a, n_samples_a] or [n_samples_a, n_samples_b]
+        A distance matrix D such that D_{i, j} is the distance between the
+        ith and jth vectors of the given matrix X, if Y is None.
+        If Y is not None, then D_{i, j} is the distance between the ith array
+        from X and the jth array from Y.
+	# 注意：若Y=None，X.shape=[n_samples_X, n_features], 則結果是X不同样本间的举例[n_samples_X, n_samples_X]
+			若Y！=Non, 则Y的shape应该是[n_samples_Y, n_features], 结果是[n_samples_X, n_samples_Y]
+

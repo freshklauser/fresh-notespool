@@ -1,0 +1,44 @@
+针对numpy设置全局浮点数精度：
+	np.set_printoptions(precision=3)
+
+
+推荐方法（针对pandas数据类型）：
+	formater = "{0:.06f}".format
+	X_arr = np.array(info_X.applymap(formater), dtype=float)	# info_X 为pandas数据类型
+
+python内置函数round(number, ndigit=None):
+	ndigit=None, 返回整型（四舍五入）
+numpy.round()
+
+
+保留两位小数，四舍五入
+方法一: 使用字符串格式化
+	>>> a = 12.345
+	>>> print("%.2f" % a)
+	12.35
+	>>>
+
+方法二: 使用round内置函数
+	>>> a = 12.345
+	>>> round(a, 2)            
+	12.35
+
+方法三: 使用decimal模块
+	>>> from decimal import Decimal
+	>>> a = 12.345
+	>>> Decimal(a).quantize(Decimal("0.00"))
+	Decimal('12.35')
+
+
+仅保留两位小数，无需四舍五入
+方法一: 使用序列中切片
+	>>> a = 12.345
+	>>> str(a).split('.')[0] + '.' + str(a).split('.')[1][:2]
+	'12.34'
+
+方法二: 使用re模块
+	>>> import re
+	>>> a = 12.345
+	>>> re.findall(r"\d{1,}?\.\d{2}", str(a))
+	['12.34'
+--------------------- 

@@ -1,0 +1,203 @@
+﻿1、np.squeeze(a, axis=None):
+    Remove single-dimensional entries from the shape of an array.
+	eg：
+	x = np.array([[[0], [1], [2]]])
+	x.shape  						---> (1, 3, 1)
+	np.squeeze(x).shape 			---> (3,)
+    np.squeeze(x, axis=0).shape		---> (3, 1)
+	
+2、isinstance(a,type_):
+	judge if the type of a is type_
+	eg:
+		a = []
+		isinstance(a, list)    # list, tuple, int, float ......
+		Out[93]: True
+3、a.reshape(-1):
+arr.reshape(-1):
+	a = np.array([1,2,4,3,2,1]).reshape((2,3))  # (2,3)
+	a.reshape(-1).shape
+	Out[17]: (6,)               # (2,3) --> (6,)
+	
+3、np.loadtxt(fname, dtype=<class 'float'>, comments='#', delimiter=None, converters=None, skiprows=0, usecols=None, unpack=False, ndmin=0)：
+	fname要读取的文件、文件名、或生成器。
+	dtype数据类型，默认float。
+	comments注释。
+	delimiter分隔符，默认是空格。
+	skiprows跳过前几行读取，默认是0，必须是int整型。
+	usecols：要读取哪些列，0是第一列。例如，usecols = （1,4,5）将提取第2，第5和第6列。默认读取所有列。
+	unpack如果为True，将分列读取。
+	
+4、np.random.normal(...):method of mtrand.RandomState instance
+	np.random.normal(loc=0.0, scale=1.0, size=None)
+	Parameters
+		----------
+		loc : float or array_like of floats
+			Mean ("centre") of the distribution.
+		scale : float or array_like of floats
+			Standard deviation (spread or "width") of the distribution.
+		size : int or tuple of ints, optional
+			Output shape.  If the given shape is, e.g., ``(m, n, k)``, then
+			``m * n * k`` samples are drawn.  If size is ``None`` (default),
+			a single value is returned if ``loc`` and ``scale`` are both scalars.
+			Otherwise, ``np.broadcast(loc, scale).size`` samples are drawn.
+    Returns
+    -------
+    out : ndarray or scalar
+        Drawn samples from the parameterized normal distribution.
+
+
+5、np.angle(z, deg=0)
+    Return the angle of the complex argument.(复数的角度，可用于FFT求相位)
+    Parameters
+    ----------
+		z : array_like
+			A complex number or sequence of complex numbers.
+		deg : bool, optional
+			Return angle in degrees(角度) if True, radians(弧度) if False (default).
+    Returns
+    -------
+		angle : ndarray or scalar
+			The counterclockwise angle from the positive real axis on
+			the complex plane, with dtype as numpy.float64.
+
+6、np.cov(x,y): 计算x和y的协方差矩阵
+   np.var(x): 计算x的方差
+   np.corrcoef(x,y):计算x和y的相关系数矩阵
+		corrcoef(x, y=None, rowvar=True, bias=<no value>, ddof=<no value>)
+			rowvar=True: 将行作为变量(即特征)，相当于 一行一特征，一列一样本
+			rowvar=False: 针对一行一样本，一列一特征
+		corrcoef计算的相关系数矩阵是针对特征之间的相关性
+		
+7、线性代数模块（np.linalg）
+	1）矩阵的逆：inv()
+	在线性代数中，矩阵A与其逆矩阵A^-1的乘积是一个单位矩阵
+	注意：np.linalg.inv()求矩阵的逆矩阵前提：矩阵必须是方阵
+
+	2）解线性方程组：solve()
+	   A*X=B	
+	   np.linalg.solve(A,B)
+	   
+	3）特征值和特征向量：eig
+		对于n阶方阵A，如果存在数a和非零n维向量x,使得Ax = ax,则称a是矩阵A的一个特征值，x是属于特征值a的特征向量
+		   eigvals, eigvecs = np.linalg.eig(A)
+		   egivals = np.linalg.eigvals(A)
+
+	4）奇异值分解：svd()
+		对于一个满足特定条件的矩阵M，可以被分解为三个矩阵的乘积，M=USV, 其中U和V都是正交矩阵，即U*U^T=I, V*V^T=I,S矩阵除了主对角线以外的元素均为0，主对角线上的元素被称为M的奇异值
+		   U,S,V = numpy.linalg.svd(M)	S只返回主对角线上的元素即奇异值
+
+	5）广义逆矩阵：pinv()
+	   np.linalg.pinv()    (m,n) --> (n,m)
+	   
+	6）行列式：det  (方阵才有行列式)
+	   numpy.linalg.det(方阵) --> 行列式的值，标量
+		a b c  = a(ei-fh)-b(di-fg)+c(dh-ge)
+		d e f
+		g h i
+
+8、逆序切片
+	data[:-N:-1] == data[::-1][:N-1]
+	eg.
+		In [104]: x
+		Out[104]: array([23, 53, 12,  4, 90, 26, 64,  1])
+
+		In [105]: x[::-1]
+		Out[105]: array([ 1, 64, 26, 90,  4, 12, 53, 23])
+
+		In [106]: x[:-5:-1]
+		Out[106]: array([ 1, 64, 26, 90])
+
+		In [107]: x[::-1][:4]
+		Out[107]: array([ 1, 64, 26, 90])
+		
+9. 打乱数组顺序
+	arr_new = np.random.permutation(arr): 生成新的arr_new,不改变原有数组arr， 返回新数组
+	np.random.shuffle(arr)：直接在原来的数组上进行操作，改变原来数组的顺序，无返回值
+
+10. 生成随机高斯分布数据
+	np.random.normal(loc=0.0, scale=1.0, size=None):
+		loc: 均值
+		scale：标准差
+		size: 形状shape
+		Draw random samples from a normal (Gaussian) distribution.
+		Parameters
+			----------
+			loc : float or array_like of floats
+				Mean ("centre") of the distribution.
+			scale : float or array_like of floats
+				Standard deviation (spread or "width") of the distribution.
+			size : int or tuple of ints, optional
+				Output shape.  If the given shape is, e.g., ``(m, n, k)``, then
+				``m * n * k`` samples are drawn.  If size is ``None`` (default),
+				a single value is returned if ``loc`` and ``scale`` are both scalars.
+				Otherwise, ``np.broadcast(loc, scale).size`` samples are drawn.
+		Returns
+			-------
+			out : ndarray or scalar
+				Drawn samples from the parameterized normal distribution.
+
+11. np.random.choice(a, size=None, replace=True, p=None)
+	Parameters
+    -----------
+    a : 1-D array-like or int
+        If an ndarray, a random sample is generated from its elements.
+        If an int, the random sample is generated as if a were np.arange(a)
+    size : int or tuple of ints, optional
+        Output shape.  If the given shape is, e.g., ``(m, n, k)``, then
+        ``m * n * k`` samples are drawn.  Default is None, in which case a
+        single value is returned.
+    replace : boolean, optional
+        Whether the sample is with or without replacement
+    p : 1-D array-like, optional
+        The probabilities associated with each entry in a.
+        If not given the sample assumes a uniform distribution over all
+        entries in a.
+	若指定p(p和a的长度一样，比如a为物品清单，p为a对应的每一种物品的数量)，根据p对应的probabilities来从a中随机选取物品
+	 >>> np.random.choice(5, 3, replace=False, p=[0.1, 0, 0.3, 0.6, 0]) # size=3
+		array([2, 3, 0])  
+
+	若指定size=.., p=.., 则a和p的same必须一致，且p的和需要=1
+	若指定p=.., 则a和p的same必须一致，且p的和需要=1
+	若size和p不显示使用 size= 和p=，如.choice(10, 20, [2,30,4])
+		>>> np.random.choice(10, 20, [0.1, 0.2, 0.4, 0.1, 0.2])
+		array([8, 6, 1, 7, 3, 7, 4, 6, 2, 4, 0, 8, 4, 1, 1, 9, 8, 8, 4, 4])
+		
+		>>> np.random.choice(10, size=20, p=[0.1, 0.2, 0.4, 0.1, 0.2])
+		Traceback (most recent call last):
+		  File "<stdin>", line 1, in <module>
+		  File "mtrand.pyx", line 1142, in mtrand.RandomState.choice
+		ValueError: a and p must have same size
+		
+		>>> np.random.choice(10, 20, p=[0.1, 0.2, 0.4, 0.1, 0.2])
+		Traceback (most recent call last):
+		  File "<stdin>", line 1, in <module>
+		  File "mtrand.pyx", line 1142, in mtrand.RandomState.choice
+		ValueError: a and p must have same size
+		
+		>>> np.random.choice(5, 20, p=[0.1, 0.2, 0.4, 0.1, 0.2])
+		array([1, 2, 1, 4, 4, 2, 2, 2, 2, 2, 2, 0, 3, 4, 1, 2, 0, 2, 2, 1], dtype=int64)
+			  
+		>>> np.random.choice(5, 20, p=[0.1, 0.2, 0.4, 0.1, 0.1])
+		Traceback (most recent call last):
+		  File "<stdin>", line 1, in <module>
+		  File "mtrand.pyx", line 1146, in mtrand.RandomState.choice
+		ValueError: probabilities do not sum to 1
+		
+		>>> np.random.choice(5, 20, [1, 0.2, 0.4, 1, 0.1])
+		array([0, 1, 0, 0, 1, 3, 0, 3, 3, 2, 4, 4, 3, 2, 3, 4, 3, 2, 0, 1])
+		
+12. ndarray转化为列表和字符串
+	ndarr.tostring(): 
+		Construct Python bytes containing the raw data bytes in the array.
+	ndarr.tolist():
+		Return the array as a (possibly nested) list.
+		
+		>>> a = np.arange(4)
+		>>> a
+		array([0, 1, 2, 3])
+		>>> a.tostring()
+		b'\x00\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x03\x00\x00\x00'
+		>>> a.tolist()
+		[0, 1, 2, 3]
+		
+13. 

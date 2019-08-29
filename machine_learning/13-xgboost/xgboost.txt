@@ -1,0 +1,25 @@
+code of xgboost for feature extraction:
+
+from xgboost import XGBClassifier, plot_importance
+# plot_importance: 根据特征重要性排序画图的函数
+
+model = XGBClassifier()
+model.fit(x_train, y_train)
+
+# 绘图
+plot_importance(model)
+plt.show()
+
+# extract the feature
+xgb_feature_filtered = SelectFromModel(model, prefit=True)
+# reduce dimension for train and test dataset
+x_train_xgb = xgb_feature_filtered.tranform(x_train_org)
+x_test_xgb = xgb_feature_filtered.tranform(x_test_org)
+
+x_train, x_val, y_train, y_val = train_test_split(x_test_xgb, test_size=0.2, random_state=3)
+
+model = ...
+model.fit(x_train, y_train)
+
+...
+model.predict(x_test_xgb)
