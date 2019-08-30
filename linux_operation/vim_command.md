@@ -55,7 +55,6 @@ vim是我最喜欢的编辑器，也是linux下第二强大的编辑器。 虽�
   - :set browsedir=current -- 用当前工作目录；
 - :Sex -- 水平分割一个窗口，浏览文件系统；
 - :Vex -- 垂直分割一个窗口，浏览文件系统；
-- 
 
 # [4. 光标的移动](https://www.cnblogs.com/jiqingwu/archive/2012/06/14/vim_notes.html#id63)
 
