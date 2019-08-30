@@ -1,0 +1,2 @@
+»»¹úÄÚÔ´:
+pip install <requests> -i http://pypi.douban.com/simple --trusted-host=pypi.douban.com

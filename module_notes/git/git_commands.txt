@@ -202,7 +202,23 @@ git push origin :refs/tags/标签名  
 列出标签：git tag 
 
 
+<<<<<<< HEAD
     如何设置每次pull时不需要输入用户名和密码
+=======
+
+
+---------------------------------------------
+git rebase -i HEAD~5   # 查看最開始的5條comment
+会出现comment rebase相关的界面
+其中
+fixup / f: 可以将更改为fixup或f的comment合并到之前comment中，且不在log中显示fixup对应的comment内容
+edit / e: 编辑comment
+squash / s:  合并comment且在log中显示s对应的comment内容
+git rebase --continue
+git rebase --abort # 放弃合并
+
+
+>>>>>>> nspc
 
 
 
