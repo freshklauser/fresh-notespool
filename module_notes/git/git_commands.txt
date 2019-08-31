@@ -144,6 +144,9 @@ process:
 创建新分支并切换到该分支：
           git checkout -b abc
       ==  （git branch abc; git checkout abc）
+新分支推送到远程仓库:
+		git push origin <new_branch>
+
 合并分支，将其他分支合并到当前分支
           git merge 其他分支名称
 两个分支中文件名重复且修改内容不一致怎么办？
