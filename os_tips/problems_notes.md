@@ -122,6 +122,25 @@ sz testfile.py				   # 执行时会弹窗让你选择文件保存的路径
 
 - 鼠标拖动终端的窗口，就会产生一个^C中断:  将WIN上运行的各种词典关闭屏幕取词
 
+### 8. VM与Hyper不兼容 (windows)
+
+开启hype-v后VMware Workstation无法启动系统 [`refer here`](https://blog.csdn.net/qq_36761831/article/details/81175736)
+
+```text
+解决方法：
+步骤一：禁用Device Guard或Credential Guard：
+禁用用于启用Credential Guard的组策略设置。
+在主机操作系统上，右键单击“开始” > “运行”，键入gpedit.msc，然后单击“ 确定”。本地组策略编辑器打开。
+转至本地计算机策略 > 计算机配置 > 管理模板>系统 >Device Guard（或者是： 设备防护） > 启用基于虚拟化的安全性。
+选择已禁用。
+转到“ 控制面板” >“ 卸载程序” >“ 打开或关闭Windows功能”以关闭Hyper-V。
+选择不重启。
+
+步骤二：通过命令关闭Hyper-V（控制面板关闭Hyper-V起不到决定性作用，要彻底关闭Hyper-V） 
+        以管理员身份运行Windows Powershell (管理员)（Windows键+X）
+        运行下面命令并重启电脑：bcdedit /set hypervisorlaunchtype off
+```
+
 
 
 ## CentOS
