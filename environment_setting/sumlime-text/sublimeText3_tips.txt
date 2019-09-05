@@ -114,7 +114,8 @@ sublime text3 安装步骤：
 		
 		pep8规范既可以用 AutoPEP8插件设置和修复，也可以使用Anaconda插件设置和修复
 		使用pep8來format的話就用pep8的相應設置， 使用anaconda来format的话就使用的是anaconda中的设置
-		建议采用pep8插件设置，anaconda插件format
+		建议采用anaconda插件设置，pep8设置ignore之后Format无反应
+		anaconda中auto_format的快捷键： alt+ctrl+r
 
 	6) 设置自定义header
 		Preferences -> Browse Packages 进入SublimeText 插件安装目录，
