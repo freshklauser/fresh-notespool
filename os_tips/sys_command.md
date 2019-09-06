@@ -1,3 +1,26 @@
+- 保存终端内容到本地文件
+
+  ```
+  script  <localfilename> 			# 开始记录终端内容
+  ......
+  exit							  # 结束记录
+  # 或者直接在command后面加  >> <filename> 将command执行后的内容保存到本地文件中
+  ```
+
+  ```
+  保存terminal命令及输出内容到local file:
+  1) 保存输入命令： 
+  	"history | tee history.txt" 在terminal中输出命令的output的同时，将output保存在history.txt文件中；
+  	"history > history.txt"  覆盖
+  	"history >> history.txt" 追加整个history命令编译内容
+  2）保存命令编译后的输出内容：
+  	"whereis python | tee output.txt"  覆盖模式
+  	"whereis python | tee -a output.txt" (-a表示追加模式)将命令的输出保存在output.txt中
+  	"ps -ef | grep python >> output.txt"不在terminal中显示，直接将结果重定向到output.txt文件中
+  ```
+
+  
+
 1、命令：touch [文件]（创建文件）
 
 2、命令：mkdir -p 目标文件递归创建文件夹（如：mkdir -p /usr/local/d1/d2/d3）
