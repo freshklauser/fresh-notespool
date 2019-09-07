@@ -1,0 +1,15 @@
+1、windows环境下基于 asp .netcore 2.2 创建 webapi
+2、发布webapi
+3、将发布的webapi部署到windows下的虚拟机ubuntu系统的docker centos或ubuntu 镜像下
+4、通过创建的docker镜像中的容器运行webapi，实现docker容器中运行的api与windows环境的数据传输
+
+步骤：
+1、创建windows下的webapi
+2、发布webapi
+3、ubuntu下拉取netcore的docker镜像
+		docker pull  microsoft/dotnet:2.2-sdk
+		docker pull  microsoft/dotnet:2.2-aspnetcore-runtime
+		docker image ls
+	
+	创建dotnet镜像下的容器
+	

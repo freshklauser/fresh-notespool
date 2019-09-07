@@ -56,6 +56,9 @@ cat /etc/group			# 查看所有用户组
 
 ### 4. `ssh`远程连接服务器
 
+由于xshell远程连接ubuntu是通过ssh协议的，所以，需要给ubuntu安装ssh服务器：
+输入 sudo apt-get install openssh-server安装远程ssh服务(若没有ssh,首先要执行sudo apt-get install ssh)
+
 ```
 sudo ps -e | grep ssh			# 查看ssh是否启动，有sshd说明已经启动
 sudo service ssh start 			# 启动ssh服务
