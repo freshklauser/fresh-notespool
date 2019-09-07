@@ -1,0 +1,9 @@
+1、cmd界面，F7 可查看历史命令，选中后 enter即可执行对应命令行命令
+2、将历史命令保存在本地文件中：
+	doskey /history >> <local_file_abspath>		
+	其中：
+		>> 重新启动cmd窗口后，新窗口的history追加在原文件中
+		>  重新启动cmd窗口后，新窗口的history覆盖原文件
+	可以每次保存history时在文件后加上日期，会自动重新新建
+	
+3、 ctrl + c： 终止命令

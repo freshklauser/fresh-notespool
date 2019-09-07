@@ -1,17 +1,17 @@
 sublime text3 安装步骤：
 
 1. sublime text3 可用license:
-	ZYNGA INC.
-	50 User License
-	EA7E-811825
-	927BA117 84C9300F 4A0CCBC4 34A56B44
-	985E4562 59F2B63B CCCFF92F 0E646B83
-	0FD6487D 1507AE29 9CC4F9F5 0A6F32E3
-	0343D868 C18E2CD5 27641A71 25475648
-	309705B3 E468DDC4 1B766A18 7952D28C
-	E627DDBA 960A2153 69A2D98A C87C0607
-	45DC6049 8C04EC29 D18DFA40 442C680B
-	1342224D 44D90641 33A3B9F2 46AADB8F
+ZYNGA INC.
+50 User License
+EA7E-811825
+927BA117 84C9300F 4A0CCBC4 34A56B44
+985E4562 59F2B63B CCCFF92F 0E646B83
+0FD6487D 1507AE29 9CC4F9F5 0A6F32E3
+0343D868 C18E2CD5 27641A71 25475648
+309705B3 E468DDC4 1B766A18 7952D28C
+E627DDBA 960A2153 69A2D98A C87C0607
+45DC6049 8C04EC29 D18DFA40 442C680B
+1342224D 44D90641 33A3B9F2 46AADB8F
 	
 2. 关闭自动更新提示：
 	“Perference” --> "Settings" --> {}中加 "update_check": false,
@@ -37,6 +37,7 @@ sublime text3 安装步骤：
 	Theme-Nexus
 	sublimeREPL
 	Git
+	ConvertToUTF8   # 打开中文文档不出现乱码
 	
 
 5. 参数配置：
@@ -106,7 +107,7 @@ sublime text3 安装步骤：
 		... 'package setting' --> 'Autopep8' ---> 'Setting-user':
 		{
 			"max-line-length": 140,
-			"ignore":
+			"ignore":				/* ignore在Anaconda里设置起作用好像  */
 			[
 				"E309","E501", "E402",/* "E121", "E123", "E126", "E226", "E24", "E704" "E501" */
 			],
@@ -123,6 +124,18 @@ sublime text3 安装步骤：
 		# ------------------------------------------------------------------------------
 		# Description:
 		# ------------------------------------------------------------------------------
+		
+	7) 新版会出现编译后中文乱码问题：
+		解决方法：自定义编译文件 Tools -> Build System -> New Build System:  python3.sublime-build，
+		{
+			"cmd":["C:\\Users\\Wang\\Anaconda3\\python.exe", "-u", "$file"],		/* 注意：路径根据自己的python安装路径而定  */
+			"path":"C:\\Users\\Wang\\Anaconda3\\python.exe",   /* 注意：路径根据自己的python安装路径而定  */
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"selector": "source.python",
+			"encoding": "utf-8" ,
+			"env": {"PYTHONIOENCODING": "utf8"}    /*通过这句，使编码一致，都是utf8*/
+		}
+		配置好后，选择 python3 作为 Build System
 	
 	
 	

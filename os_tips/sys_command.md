@@ -1,9 +1,70 @@
+- 保存终端内容到本地文件
+
+  ```
+  script  <localfilename> 			# 开始记录终端内容
+  ......
+  exit							  # 结束记录
+  # 或者直接在command后面加  >> <filename> 将command执行后的内容保存到本地文件中
+  ```
+
+  ```
+  保存terminal命令及输出内容到local file:
+  1) 保存输入命令： 
+  	"history | tee history.txt" 在terminal中输出命令的output的同时，将output保存在history.txt文件中；
+  	"history > history.txt"  覆盖
+  	"history >> history.txt" 追加整个history命令编译内容
+  2）保存命令编译后的输出内容：
+  	"whereis python | tee output.txt"  覆盖模式
+  	"whereis python | tee -a output.txt" (-a表示追加模式)将命令的输出保存在output.txt中
+  	"ps -ef | grep python >> output.txt"不在terminal中显示，直接将结果重定向到output.txt文件中
+  ```
+
+- curl
+
+  ```
+  在Linux中curl是一个利用URL规则在命令行下工作的文件传输工具，可以说是一款很强大的http命令行工具。它支持文件的上传和下载，是综合传输工具，但按传统，习惯称url为下载工具。
+  语法：curl [option] [url]
+              -A/--user-agent <string>              设置用户代理发送给服务器
+              -b/--cookie <name=string/file>    cookie字符串或文件读取位置
+              -c/--cookie-jar <file>                    操作结束后把cookie写入到这个文件中
+              -C/--continue-at <offset>            断点续转
+              -D/--dump-header <file>              把header信息写入到该文件中
+              -e/--referer                                  来源网址
+              -f/--fail                                          连接失败时不显示http错误
+              -o/--output                                  把输出写到该文件中
+              -O/--remote-name                      把输出写到该文件中，保留远程文件的文件名
+              -r/--range <range>                      检索来自HTTP/1.1或FTP服务器字节范围
+              -s/--silent                                    静音模式。不输出任何东西
+              -T/--upload-file <file>                  上传文件
+              -u/--user <user[:password]>      设置服务器的用户和密码
+              -w/--write-out [format]                什么输出完成后
+              -x/--proxy <host[:port]>              在给定的端口上使用HTTP代理
+              -#/--progress-bar                        进度条显示当前的传送状态	
+  eg.
+  	curl -o linux.html http://www.linux.com
+  	curl -o dodo1.jpg http:www.linux.com/dodo1.JPG
+  ```
+
+  
+
 1、命令：touch [文件]（创建文件）
 
 2、命令：mkdir -p 目标文件递归创建文件夹（如：mkdir -p /usr/local/d1/d2/d3）
 
 - 删除文件夹： `rm -rf 目录名字`
+
 - 创建多级目录： `mkdir -p dir1/dir2/dir3/...`
+
+  ```
+  -m, --mode=模式   设定权限<模式> (类似 chmod)，而不是 rwxrwxrwx 减 umask
+  -p, --parents     需要时创建上层目录，如目录早已存在则不当作错误
+  -v, --verbose     每次创建新目录都显示信息
+  -Z, --context=CONTEXT (SELinux) set security context to CONTEXT
+  --help     显示此帮助信息并退出
+  --version  输出版本信息并退出
+  ```
+
+  
 
 3、命令：rm [文件]（删除）；
 

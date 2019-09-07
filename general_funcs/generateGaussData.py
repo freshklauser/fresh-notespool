@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: Klaus
 # @Date:   2019-06-16 21:56:39
-# @Last Modified by:   F1684324
-# @Last Modified time: 2019-07-04 11:31:11
+# @Last Modified by:   KlausLyu
+# @Last Modified time: 2019-09-03 11:36:30
 
 '''[Generate Gaussian distribution data]
 
@@ -48,9 +48,10 @@ data = np.vstack([data1, data2, data3, data4])
 # df = pd.DataFrame(data)
 # df.to_csv()
 
-
+print(data.shape)
 # plot
 plt.figure()
+# plt.plot([1,2,3], [11,22,33])
 # plt.scatter(data1[:, 0], data1[:, 1], s=5, c='r')
 # plt.scatter(data2[:, 0], data2[:, 1], s=5, c='g')
 # plt.scatter(data3[:, 0], data3[:, 1], s=5, c='b')
