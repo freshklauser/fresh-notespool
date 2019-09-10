@@ -1,4 +1,6 @@
+本文内容
 
+[TOC]
 
 
 
@@ -168,7 +170,66 @@ docker run -it -p 8080:5000 klaus/docker-webapi
 
 
 
+# ASP.NET Core开发-Docker部署运行
 
+## 演示案例：demo
+
+### demo创建和ubuntu测试
+
+- `windows`系统下用`vs`或`dotnet`命令创建`webapi`的`demo`，创建好后，在`Program.cs`中添加`UseUrls("http://*:5000")`（ubuntu中能够使用ip访问的关键）, 代码如下：
+
+  ```
+  using System;
+  using System.Collections.Generic;
+  using Microsoft.AspNetCore;
+  using Microsoft.AspNetCore.Hosting;
+  
+  namespace demoApi
+  {
+      public class Program
+      {
+          public static void Main(string[] args)
+          {
+              CreateWebHostBuilder(args).Build().Run();
+          }
+  
+          public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+              WebHost.CreateDefaultBuilder(args)
+                  .UseUrls("http://*:5000")
+                  .UseStartup<Startup>();
+      }
+  }
+  ```
+
+- `cmd`到项目根目录，`dotnet restore`（可忽略），再发布`dotnet publish`, 发布的文件夹路径默认为`~\bin\Debug\netcoreapp2.2\publish`
+
+  `dotnet restore` 是一个隐式的命令，需要还原的时候会自动执行 `dotnet restore` 命令。下面的命令执行时都会隐式调用还原。
+
+  - `new`
+  - `run`
+  - `build`
+  - `publish`
+  - `pack`
+  - `test`
+
+- `xshell`连接虚拟机的`ubuntu`系统，使用`rz`命令将`publish` 文件夹内容复制到`Ubuntu`系统中
+
+- 测试`ubuntu`中发布的`.dll`是否可以运行
+
+  ```
+  cd webapi/publish/		# publish的文件所在路径
+  dotnet demoApi.dll 		# 启动demo
+  >>> Hosting environment: Production
+      Content root path: /home/klaus/webapi/publish
+      Now listening on: http://[::]:5000
+      Application started. Press Ctrl+C to shut down.
+  curl http://192.168.1.85:5000/api/values		# 192.168.1.85为虚拟机的ip,不是windows的ip
+  >>> ["value1","value2"]	# 说明接口调用正常
+  ```
+
+### ubuntu中docker镜像创建
+
+[refer](<https://www.cnblogs.com/linezero/p/docker.html>)  见收藏夹 docker的前两个
 
 
 
