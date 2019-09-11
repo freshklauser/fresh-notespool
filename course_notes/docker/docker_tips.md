@@ -2,9 +2,7 @@
 
 [TOC]
 
-
-
-### Docker的基本组成
+# 一、Docker基础
 
 - Docker Client 客户端
 - Docker Daemon 守护进程
@@ -12,20 +10,96 @@
 - Docker Container 容器
 - Docker Registry 仓库: docker镜像的中央存储仓库（pull / push）
 
+## Docker安装(ubuntu)
+
+[`refer1: Get Docker Engine - Community for Ubuntu`](<https://docs.docker.com/install/linux/docker-ce/ubuntu/>)
+[`refer2:Docker快速安装以及换镜像源`](<https://www.jianshu.com/p/34d3b4568059>)
+
+- 方法1：
+
 ```
-sudo apt install containerd
-sudo apt-get install docker.io		# 版本低 ，不建议
+# 推荐ubuntu系统安装docker方式  具体参考refer1的官方文档
+# 1. 如果存在旧版本docker，先按此方法卸载
+sudo apt-get remove docker docker-engine docker.io containerd runc
+# 2. Install using the repository
+sudo apt-get update
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+# 3. Add Docker’s official GPG key：确认所下载软件包的合法性，需添加软件源的`GPG`密匙
+# 官方：curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -	# 中科大源的密匙
+# 4. 向 source.list 中添加 Docker 软件源
+# 官方：第二行用 "deb [arch=amd64] https://download.docker.com/linux/ubuntu \  替换
+sudo add-apt-repository \
+    "deb [arch=amd64] https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable"
+        # 忘了下面两行代码是什么情况下执行的		
+        # whereis curl		# 有则不需要案子curl, 无 则 sudo apt-get install -y curl
+        # curl -SSL https://get.docker.com/ | sudo sh
+# 5. 安装 Docker CE： 更新 apt 软件包缓存，并安装 docker-ce
+sudo apt-get update
+sudo apt-get install docker-ce
+# 6. 测试 Docker 是否安装正确
+docker run hello-world
+```
 
-whereis curl		# 有则不需要案子curl, 无 则 sudo apt-get install -y curl
-curl -SSL https://get.docker.com/ | sudo sh
+- 方法2：
 
+```
+在测试或开发环境中 Docker 官方为了简化安装流程，提供了一套便捷的安装脚本，Ubuntu 系统上可以使用这套脚本安装：
+curl -fsSL get.docker.com -o get-docker.sh
+sudo sh get-docker.sh --mirror Aliyun
+执行这个命令后，脚本就会自动的将一切准备工作做好，并且把 Docker CE 的 Edge 版本安装在系统中。
+```
+
+## 镜像加速
+
+- 官方镜像加速：http://www.docker-cn.com/registry-mirror
+
+- 国内镜像加速：
+
+  中科大镜像：https://docker.mirrors.ustc.edu.cn
+  `Azure`中国镜像： https://dockerhub.azk8s.cn
+  七牛加速器：https://reg-mirror.qiniu.com
+  `daocloud`镜像：https://get.daocloud.io/daotools/set_mirror
+
+## docker换镜像源
+
+配置方法：
+	新版的 Docker 使用` /etc/docker/daemon.json（Linux）`` 或者 %programdata%\docker\config\daemon.json（Windows） `来配置` Daemon`。
+	请在该配置文件中加入下列代码（没有该文件的话，请先建一个）：
+	`{"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]}`
+亦即：$~ sudo vim /etc/docker/daemon.json  写入：
+
+```
+sudo vim /etc/docker/daemon.json
+# 写入以下内容，然后重启docker服务即可 （中科大的源镜像）
+{"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]}
+```
+
+## 启动Docker CE
+
+```
+# 方法1安装好后貌似不需要这两步，方法2没试过
+sudo systemctl enable docker
+sudo systemctl start docker
+```
+
+## 建立 docker 用户组
+
+```
+# 添加用户组
 sudo groupadd docker 				# 添加docker名字的用户组
 sudo gpasswd -a klaus docker		 # 将klaus用户添加到 docker 用户组
 sudo service docker restart			# 重启docker服务，然后注销用户即可使用非root用户
 ```
 
-command:
-	ctrl + p, q: 退出容器且保持后台运行
+## 启动和关闭docker命令	
 
 ```
 # docker启动命令,docker重启命令,docker关闭命令
@@ -37,13 +111,23 @@ command:
 关闭docker  systemctl stop docker
 ```
 
+## 日常docker命令
+
+### 创建镜像
+
+1、从仓库拉取创建镜像
+
 ```
 # 创建镜像（从仓库拉取）
 docker pull python:3.6	
 # 拉取aspnetcore的sdk和runtime环境
 docker pull  microsoft/dotnet:2.2-sdk
 docker pull  microsoft/dotnet:2.2-aspnetcore-runtime
+```
 
+2、利用`Dockerfile`文件创建镜像
+
+```
 # 创建本地镜像(利用Dockerfile文件创建)
 docker build -t <image_name>[:<image_tag>] .  
 !!!  命令行最后的dot "." 一定不能少 , 表示在当前文件夹中查找dockerfile !!!
@@ -52,7 +136,22 @@ docker build -t <image_name>[:<image_tag>] .
 	eg.:
 		docker build -t runoob/ubuntu:v1 . 
 		docker build -f /path/to/a/Dockerfile .
-		
+```
+
+### 删除镜像
+
+```
+# 删除镜像
+docker rmi <image_id or tag>
+# 删除虚悬镜像
+docker rmi [-f] $(docker images -f "dangling=true" -q)   # [-f] 可选，强制删除
+# 批量清理临时镜像文件
+docker image prune -a -f  # 也可以
+```
+
+### 镜像下创建容器及容器相关操作
+
+```
 # 在镜像下创建容器（新建并启动container）：docker run 之后生成container
 docker run -i:   # 以交互模式运行容器，通常与 -t 同时使用；
 		  -t: 	# 为容器重新分配一个伪输入终端，通常与 -i 同时使用
@@ -68,6 +167,7 @@ docker run -it --name anaconda3 continuumio/anaconda3
 # 退出后重新进入容器，并进入anaconda3环境bash环境
 docker start anaconda3
 docker exec -it anaconda3 /bin/bash
+# 退出容器且保持后台运行： ctrl + p, q
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 # 重新启动一个已停止的容器
@@ -109,15 +209,28 @@ docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
 docker rm <container_id or tag>
 # 清理所有处于终止状态的容器
 docker container prune
-
-# 删除虚悬镜像
-docker rmi [-f] $(docker images -f "dangling=true" -q)   # [-f] 可选，强制删除
-# 批量清理临时镜像文件
-docker image prune -a -f  # 也可以
-
 ```
 
-`windows环境下 webapi`部署到 `虚拟机的ubuntu系统的docker中`：
+## 创建Dockerfile文件
+
+[`refer: 中文官方文档--Dockerfile介绍 `](<http://www.dockerinfo.net/dockerfile%e4%bb%8b%e7%bb%8d>)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 二、windows环境下 webapi部署到 虚拟机的ubuntu系统的docker中
+
 [`refer here`](https://www.cnblogs.com/daxnet/p/5782019.html)
 
 1) 将ASP.NET Core Web API应用程序编译成Docker Image
@@ -164,13 +277,7 @@ docker run -it -p 8080:5000 klaus/docker-webapi
 - -p 8080:5000参数表示需要将Docker Container的5000端口映射到主机环境的8080端口，也就是客户端可以直接通过8080端口访问我们的应用程序
    - daxnet/docker-webapi参数指定了需要运行的Docker Image。此处采用默认的latest标签
 
-
-
-
-
-
-
-# ASP.NET Core开发-Docker部署运行
+# 三、ASP.NET Core开发-Docker部署运行
 
 ## 演示案例：demo
 
@@ -229,9 +336,74 @@ docker run -it -p 8080:5000 klaus/docker-webapi
 
 ### ubuntu中docker镜像创建
 
-[refer](<https://www.cnblogs.com/linezero/p/docker.html>)  见收藏夹 docker的前两个
+[`refer1: `ASP.NET Core开发-Docker部署运行`](https://www.cnblogs.com/linezero/p/docker.html)
+[`refer2: docker 部署 webapi 示例`](<https://blog.csdn.net/u014690615/article/details/83590412>)
 
+- 终端进入`publish`文件夹，创建Dockerfile文件，内容如下：
 
+  ```
+  # 基于microsoft/dotnet:latest构建Docker Image
+  FROM microsoft/dotnet:latest
+   
+  # 进入docker中的/usr/local/src目录
+  RUN cd /usr/local/src
+   
+  # 创建DockerWebAPI目录
+  RUN mkdir DockerWebAPI
+   
+  # 设置工作路径
+  WORKDIR /usr/local/src/DockerWebAPI
+   
+  # 将当前文件夹下的所有文件全部复制到工作目录
+  COPY *.* ./
+   
+  # 向外界暴露5000端口
+  EXPOSE 5000
+   
+  # 执行dotnet xxxx.dll命令
+  CMD ["dotnet", "demoApi.dll"]
+  ```
 
+- 通过`Dockerfile`文件创建镜像：在`Dockerfile`所在当前目录, 终端命令如下：
 
+  ```
+  docker build -t dockerapi/demo .    # 最后的 " . "不能忽略,且repository name must be lowercase
+  ```
+
+- 在镜像下创建容器，命名为`apidemo`, 端口映射为: `51113:5000`
+
+  ```
+  docker run -it -p 51113:5000 --name apidemo dockerapi/demo
+  >>> 
+  warn: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[35]
+        No XML encryptor configured. Key {86157ad5-e0ee-488a-89a5-320bf4edb7f3} may be persisted to storage in unencrypted form.
+  Hosting environment: Production
+  Content root path: /usr/local/src/DockerWebAPI
+  Now listening on: http://[::]:5000
+  Application started. Press Ctrl+C to shut down.
+  ```
+
+- 测试api 结果如下，api调用成功， 然后`ctrl+C`退出
+
+  ```
+  curl http://192.168.1.85:51113/api/values
+  >>> ["value1","value2"]
+  ```
+
+- 重新开启api容器： `docker container start <container_name or tag>`
+
+  ```
+  docker container start apidome		# 开启已经停止的api容器
+  >>> apidemo
+  curl http://192.168.1.85:51113/api/values	# 连接接口
+  >>> ["value1","value2"]
+  ```
+
+- 关闭运行状态中的api容器
+
+  ```
+  docker container stop apidemo 
+  ```
+
+  
 

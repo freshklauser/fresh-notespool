@@ -565,13 +565,85 @@ IIS Express设计是为了避免需要管理员权限就能完成大部分操作
 
 ## ubuntu系统中安装docker
 
+-  `windows`系统中创建`webapi`， 并在`Program.cs`中添加`UseUrls("http://*:5555")`(docker中端口映射 宿主主机：docker容器 -- 51113:5555)
 
+  ```
+  using System;
+  using System.Collections.Generic;
+  using Microsoft.AspNetCore;
+  using Microsoft.AspNetCore.Hosting;
+  
+  namespace demoApi
+  {
+      public class Program
+      {
+          public static void Main(string[] args)
+          {
+              CreateWebHostBuilder(args).Build().Run();
+          }
+  
+          public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+              WebHost.CreateDefaultBuilder(args)
+                  .UseUrls("http://*:5555")
+                  .UseStartup<Startup>();
+      }
+  }
+  ```
 
+- 参照`《docker_tips.md》中<演示案例：demo>:` 进行`ubuntu`系统中的`.dll`测试
 
+- ubuntu中docker镜像创建
 
+  进入相应的文件根目录，创建`Dockerfile`文件，内容如下：
 
+  ```
+  # 基于microsoft/dotnet:latest构建Docker Image
+  FROM microsoft/dotnet:latest
+   
+  # 进入docker中的/usr/local/src目录
+  RUN cd /usr/local/src
+   
+  # 创建DockerWebAPI目录
+  RUN mkdir DockerTgWebAPI
+   
+  # 设置工作路径
+  WORKDIR /usr/local/src/DockerTgWebAPI
+   
+  # 将当前文件夹下的所有文件全部复制到工作目录
+  COPY *.* ./
+   
+  # 向外界暴露5000端口
+  EXPOSE 5000
+   
+  # 执行dotnet xxxx.dll命令
+  CMD ["dotnet", "dockerdataflowApi.dll"]
+  ```
 
+- 创建镜像
 
+  ```
+  docker build -t dockerapi/tgdataflow .  			# 创建镜像
+  ```
+
+<div align=center><img src='./img/12.png' width=50%></div>
+
+- 创建容器并启动接口
+
+  ```
+  docker run -it -p 51113:5555 --name apitg dockerapi/tgdataflow
+  ```
+
+  <div align=center><img src='./img/12-1.png' width=90%> </div>
+
+- 测试接口
+
+  ```
+  curl http://192.168.1.85:51113/api/values
+  ```
+
+  <div align=center><img src='./img/12-2.png' width=80%> </div>
+
+  
 
 
 
