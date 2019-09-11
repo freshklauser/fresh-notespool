@@ -627,7 +627,7 @@ IIS Express设计是为了避免需要管理员权限就能完成大部分操作
 
 <div align=center><img src='./img/12.png' width=50%></div>
 
-- 创建容器并启动接口
+- 创建容器并启动接口（宿主主机的51113端口映射到容器的5555接口）
 
   ```
   docker run -it -p 51113:5555 --name apitg dockerapi/tgdataflow
@@ -643,7 +643,10 @@ IIS Express设计是为了避免需要管理员权限就能完成大部分操作
 
   <div align=center><img src='./img/12-2.png' width=80%> </div>
 
-  
+- docker中开启了`apitg`容器后，如果不主动停止，则会一直处于开启状态，同一个网段内其他主机可以访问接口。
+  可以通过命令`docker ps` 查看正在运行中的容器
+
+  <div align=center><img src='./img/12-3.png' width=90%> </div>
 
 
 
