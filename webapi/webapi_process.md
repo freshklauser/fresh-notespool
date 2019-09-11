@@ -563,9 +563,9 @@ IIS Express设计是为了避免需要管理员权限就能完成大部分操作
 
 - `windows`系统开发的`webapi`通过`Docker`部署到`ubuntu/CentOS`系统, 本文部署在`ubuntu`系统的`docker`下
 
-## ubuntu系统中安装docker
+## ubuntu系统docker中部署webapi
 
--  `windows`系统中创建`webapi`， 并在`Program.cs`中添加`UseUrls("http://*:5555")`(docker中端口映射 宿主主机：docker容器 -- 51113:5555)
+- `windows`系统中创建`webapi`， 并在`Program.cs`中添加`UseUrls("http://*:5555")`(docker中端口映射 宿主主机：docker容器 -- 51113:5555)
 
   ```
   using System;
@@ -619,6 +619,11 @@ IIS Express设计是为了避免需要管理员权限就能完成大部分操作
   CMD ["dotnet", "dockerdataflowApi.dll"]
   ```
 
+  <font color=coral>注意</font>：
+
+  - 上述模板依赖于 `microsoft/dotnet`镜像，若单独安装，命令为:<font color=coral> `docker pull microsoft/dotnet`</font>
+  - **可以先不安装**，<font color=coral>`docker build`的时候会自动安装`Dockerfile`中`FROM`后的镜像</font>（该镜像未提前安装的情况下）。有了`Docker dotnet`镜像，无需再额外折腾`dotnet sdk`的安装，镜像自带。
+
 - 创建镜像
 
   ```
@@ -648,13 +653,21 @@ IIS Express设计是为了避免需要管理员权限就能完成大部分操作
 
   <div align=center><img src='./img/12-3.png' width=90%> </div>
 
+## Docker镜像迁移
 
+将Docker 放置到其他机器运行很简单，直接保存镜像，然后复制镜像到其他机器，然后使用docker 命令load 既可。
 
+```
+docker save dockerapi/tgdataflow > tgdataflow.tar 	# 将镜像保存为tar压缩文件
+```
 
+将`tgdataflow.tar`复制到其他机器中，然后加载命令：
 
+```
+docker load < tgdataflow.tar
+```
 
-
-
+然后就可以使用`docker run` 运行程序了，无需关心程序需要哪些依赖。
 
 
 
