@@ -45,7 +45,19 @@
   	curl -o dodo1.jpg http:www.linux.com/dodo1.JPG
   ```
 
+- ubuntu清楚terminal的历史记录
+
+  ```#
+  $ history -c		# 清楚历史记录(16.04版本再次打开terminal时还有有历史记录)
   
+  # 彻底清楚历史记录(删掉 .bash_history文件)
+  $ rm -rf ~/.bash_history
+  $ history -c
+  ```
+
+  
+
+- 
 
 1、命令：touch [文件]（创建文件）
 
