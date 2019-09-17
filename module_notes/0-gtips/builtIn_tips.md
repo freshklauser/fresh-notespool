@@ -19,7 +19,7 @@
 {'a': {}, 'b': {}, 'c': {}, 'd': {}, 'f': {}, 'e': {}, 'g': {}}
 ```
 
-### 2. 字典排序（按`key`和按`value`排序）
+### 2. 字典排序（按`key`和按`value`排序） -- sorted 实现多级排序
 
 `sorted(iterable, /, *, key=None, reverse=False)`
 
@@ -54,8 +54,64 @@
   Out[14]: [('e', 74), ('b', 54), ('a', 21), ('c', 5), ('f', 3), ('d', 0)]
   ```
 
+- <font color=tomato>`sorted by value of a dict:`</font>  (<font color=tomato>`key=itemgetter(1)`</font>)
 
-### 3. <font color=coral>赋值、浅拷贝、深拷贝</font>(`interesting!!`)
+  ```
+  # 对字典排序
+  >>> d = {'data1':3, 'data2':1, 'data3':2, 'data4':4}  
+  >>> sorted(d.iteritems(), key=itemgetter(1), reverse=True)   # 按dict的value进行排序
+  [('data4', 4), ('data1', 3), ('data3', 2), ('data2', 1)]  
+  ```
+
+  `operator`模块提供的`itemgetter`数用于获取对象的哪些维的数据，参数为一些序号（即需要获取的数据在对象中的序号）
+
+  ```
+  a = [1,2,3] 
+  b=operator.itemgetter(1)      //定义函数b，获取对象的第1个域的值> b(a) 
+  2 
+  b=operator.itemgetter(1,0)   //定义函数b，获取对象的第1个域和第0个的值
+  b(a) 
+  (2, 1) 
+  
+  # itemgetter实现多级排序
+  >>> students = [('john', 'A', 15), ('jane', 'B', 12), ('dave', 'B', 10),]  
+  >>> sorted(students, key=itemgetter(1,2))      				# sort by grade then by age  
+  [('john', 'A', 15), ('dave', 'B', 10), ('jane', 'B', 12)]  
+  ```
+
+### 3. dict基本属性
+
+```
+In [20]: u
+Out[20]:
+{'u1': {'a': [1, 342, 22, 13, 4], 'b': [112, 32, 4, 5]},
+ 'u2': {'c': [1, 2, 3]}}
+ 
+In [21]: u['u1'].items()
+Out[21]: dict_items([('a', [1, 342, 22, 13, 4]), ('b', [112, 32, 4, 5])])
+
+In [22]: u['u1']
+Out[22]: {'a': [1, 342, 22, 13, 4], 'b': [112, 32, 4, 5]}
+
+In [23]: u['u1'].keys()
+Out[23]: dict_keys(['a', 'b'])
+
+In [24]: u['u1'].values()
+Out[24]: dict_values([[1, 342, 22, 13, 4], [112, 32, 4, 5]])
+
+In [25]: max(u['u1'].values())			# value为列表时返回的结果 why ???
+Out[25]: [112, 32, 4, 5]
+
+In [28]: su ={'u1':{'a':12, 'b':112, 'c':32}, 'u2':{'c':4}}
+In [29]: su['u1'].values()
+Out[29]: dict_values([12, 112, 32])
+In [30]: max(su['u1'].values())
+Out[30]: 112
+```
+
+
+
+### 4. <font color=coral>赋值、浅拷贝、深拷贝</font>(`interesting!!`)
 
 [`图示 refer`](https://blog.csdn.net/A123333333333/article/details/83046502)
 
