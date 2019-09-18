@@ -287,12 +287,13 @@ def timmer(func):
 - `codec.open()`与`open()`的区别
   `codecs`是Python中标准库的内容，而`codecs.open`和内置函数open（）的不同在于，open函数无法打开一份由不同编码组成的同一份文件，而`codecs.open`如文档所说，始终以二进制模式打开，故打开就是Unicode格式，所以，codecs.open能打开由不同编码格式组成的文件
 
-- <font color=coral>BUT</font>, 建议不同编码格式组成的文件读写有问题时，直接采用 rb 模式 open，再通过字符串截取
+- <font color=coral>BUT</font>, 建议不同编码格式组成的文件读写有问题时，直接采用 rb 模式 open，获得 byte类型，再通过字符串截取
 
   参考 推荐系统代码中的读取
 
   ```
-  
+  for line in open(self.bookmark_path, 'rb').readlines()[1:]:
+  	line = str(line.strip())[2:-1].split(r'\t')    
   ```
 
   
