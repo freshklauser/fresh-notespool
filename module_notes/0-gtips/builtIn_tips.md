@@ -206,8 +206,11 @@ Out[30]: 112
 
 2. `a.append(..)`和`a.extend(..)`的区别
 
+   - `append:` object 整体作为一个元素加入到 a 中, **增加的元素个数为 1**
+   - `extend:` object中的元素逐一作为单个元素加入到 a 中, **增加的元素个数为 `len(object)`**
+
    ```
-   >>> append(...) method of builtins.list instance
+   >>> append(...) method of builtins.list instance 
        L.append(object) -> None -- append object to end
    >>> extend(...) method of builtins.list instance
        L.extend(iterable) -> None -- extend list by appending elements from the ite
@@ -273,7 +276,26 @@ def timmer(func):
     return wrapper
 ```
 
+## 七、文件读写
 
+### 1. codec.open(...)
+
+- **`codecs.open(filename, mode='r', encoding=None, errors='strict', buffering=1)`**
+  1) *底层编码文件始终以二进制模式打开。读取和写入时不会自动转换'\n'。mode参数可以是内置open()函数可接受的任何二进制模式；'b'会自动添加*
+  2) *encoding指定要用于该文件的编码。任何对字节进行编码和解码的编码都是允许的，并且文件方法支持的数据类型取决于所使用的编解码器*
+
+- `codec.open()`与`open()`的区别
+  `codecs`是Python中标准库的内容，而`codecs.open`和内置函数open（）的不同在于，open函数无法打开一份由不同编码组成的同一份文件，而`codecs.open`如文档所说，始终以二进制模式打开，故打开就是Unicode格式，所以，codecs.open能打开由不同编码格式组成的文件
+
+- <font color=coral>BUT</font>, 建议不同编码格式组成的文件读写有问题时，直接采用 rb 模式 open，再通过字符串截取
+
+  参考 推荐系统代码中的读取
+
+  ```
+  
+  ```
+
+  
 
 ## 常见错误或警告及解决方法
 
