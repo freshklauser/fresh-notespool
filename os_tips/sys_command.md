@@ -1,3 +1,7 @@
+- ubuntu安装软件常用位置：
+
+  `/usr/lib/`    `/opt/`
+  
 - 保存终端内容到本地文件
 
   ```
@@ -55,9 +59,41 @@
   $ history -c
   ```
 
-  
+- ubuntu安装 notepadqq (替换notepad++)
 
-- 
+  ```
+  # 安装
+  snap install --classic notepad11
+  sudo apt-get update
+  # 卸载
+  sudo apt-get remove notepadqq
+  sudo add-apt-repository --remove ppa:notepadqq-team/notepadqq
+  ```
+
+- ubuntu建立程序的软连接实现terminal终端启动：建立执行文件到/usr/local/bin的软连接
+
+  ```
+  # 建立sublimetext的软连接，terminal通过subl 启动
+  ln -s /opt/sublime_text/sublime_text /usr/local/bin/subl
+  # 调用
+  subl <filename>
+  ```
+
+- ubuntu下 notepadqq 和 sublimetext都无法输入中文
+
+  refer for sublimetext: https://blog.csdn.net/weixin_41762173/article/details/79379131
+
+  ```
+  待解决
+  ```
+
+- `xshell`与ubuntu传输文件：lrzsz
+
+  https://cloud.tencent.com/developer/article/1182215
+
+  rz　命令无法传输空文件
+
+- adf
 
 1、命令：touch [文件]（创建文件）
 

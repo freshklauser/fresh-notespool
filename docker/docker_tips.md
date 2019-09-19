@@ -45,7 +45,48 @@ sudo add-apt-repository \
 sudo apt-get update
 sudo apt-get install docker-ce
 # 6. 测试 Docker 是否安装正确
-docker run hello-world
+docker run hello-world		# 无权限则加　sudo
+```
+
+- docker无权限，如何赋予管理员权限，避免每次使用sudo [`refer`](https://blog.csdn.net/u013948858/article/details/78429954)
+
+```
+cat /etc/group | grep docker # 查找 docker 组，确认其是否存在
+>>> docker:x:999:			 # docker组已存在  
+
+groups # 列出自己的用户组，确认自己在不在 docker 组中
+>>> klaus adm cdrom sudo dip plugdev lpadmin sambashare
+
+# 如果 docker 组不存在，则添加之：（已存在，可省略）
+sudo groupadd docker
+>>> groupadd：“docker”组已存在
+
+# 将当前用户 klaus 添加到 docker 组
+sudo gpasswd -a klasu docker
+>>> 正在将用户“klaus”加入到“docker”组中
+
+# 检查用户是否加入
+cat /etc/group | grep docker
+>>> docker:x:999:klaus		# klaus加入到了docker组中，此时直接docker 仍是无权限
+
+# 重启服务，以便让 klaus　的权限生效
+sudo service docker restart
+
+# 如果提示如下错误：
+    Server:
+    ERROR: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.40/info: dial unix /var/run/docker.sock: connect: permission denied
+    errors pretty printing info
+  则修改 /var/run/docker.sock 权限
+sudo chmod a+rw /var/run/docker.sock
+docker info
+>>> ......  # ok
+
+# ------- 以下为另一个人的解决方法，尝试了下不起作用 ------------
+# 切换一下用户组（刷新缓存）
+newgrp - docker;
+newgrp - `groups ${USER} | cut -d' ' -f1`; # TODO：必须逐行执行，不知道为什么，批量执行时第二条不会生效
+# 或者，注销并重新登录
+pkill X
 ```
 
 - 方法2：
@@ -215,7 +256,42 @@ docker container prune
 
 [`refer: 中文官方文档--Dockerfile介绍 `](<http://www.dockerinfo.net/dockerfile%e4%bb%8b%e7%bb%8d>)
 
+## Docker 网络设置、Docker 容器数据卷
 
+### 数据卷
+
+数据卷 是一个可供一个或多个容器使用的特殊目录，它绕过 UFS，可以提供很多有用的特性：
+
+- 数据卷 可以在容器之间共享和重用;
+- 对 数据卷 的修改会立马生效
+- 对 数据卷 的更新，不会影响镜像
+- <font color=coral>数据卷 默认会一直存在，即使容器被删除</font>
+
+注意：数据卷 的使用，类似于 Linux 下对目录或文件进行 mount，镜像中的被指定为挂载点的目录中的文件会隐藏掉，能显示看的是挂载的 数据卷。
+
+### 常用命令
+
+```
+# 创建一个数据卷
+docker volume create my-vol
+# 查看所有的 数据卷
+docker volume ls
+# 查看指定 数据卷 的信息
+docker volume inspect my-vol
+>>>
+    [
+        {
+            "CreatedAt": "2019-09-19T01:19:02-07:00",
+            "Driver": "local",
+            "Labels": {},
+            "Mountpoint": "/var/lib/docker/volumes/my-vol/_data", # 挂载点
+            "Name": "my-vol",
+            "Options": {},
+            "Scope": "local"
+        }
+    ]
+# 启用一个挂在数据卷的容器
+```
 
 
 
