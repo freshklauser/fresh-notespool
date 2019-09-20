@@ -481,6 +481,92 @@ ping <ip1>
 
 #### 3）配置DNS
 
+暂略
+
+## 5、docker项目
+
+### 1. [compose](https://yeasy.gitbooks.io/docker_practice/content/compose/introduction.html) 
+
+#### 1）安装  二进制包
+
+```
+# sudo无 /etc/local/bin/的权限
+$ sudo su root
+$ curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+$ chmod +x /usr/local/bin/docker-compose
+
+$ `ctrl+D`退出root账户
+$ docker-compose -v
+docker-compose version 1.24.1, build 4667896b
+```
+
+### 2. Django
+
+#### 1）Dockerfile 文件创建
+
+```
+FROM python:3
+ENV PYTHONUNBUFFERED 1
+RUN mkdir /code
+WORKDIR /code
+COPY requirements.txt /code/
+RUN pip install -r requirements.txt
+COPY . /code/
+```
+
+​		其中， `pip install -r requirements.txt`中的`-r`表示 `Install from the given requirements file.`
+
+#### 2）requirements.txt文件指定python选择的依赖包、
+
+```
+Django>=2.0,<3.0
+psycopg2>=2.7,<3.0
+```
+
+#### 3）docker-compose.yml 文件创建 
+
+ [`docker-compose.yml`](https://yeasy.gitbooks.io/docker_practice/content/compose/compose_file.html#links)文件将把所有的东西关联起来。它描述了应用的构成（一个 web 服务和一个数据库）、使用的 Docker 镜像、镜像之间的连接、挂载到容器的卷，以及服务开放的端口。
+
+```
+version: "3"
+services:
+
+  db:
+    image: postgres
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    links:
+      - db
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
