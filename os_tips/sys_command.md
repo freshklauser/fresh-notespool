@@ -1,3 +1,24 @@
+- 切换账户到 root:  `sudo su root`
+
+  `sudo`权限不足，如何修改sudo权限  [`refer here: linux sudo 技巧`](https://linux.cn/article-9559-1.html)
+  
+  ```
+  $ sudo su root
+  $ cd /etc/
+  $ vim sudoers	---> 只读文件，该方法证明不行，只能切换到root后执行命令
+  >>> # User privilege specification 下提升klaus用户的权限
+  增加： klaus ALL=(ALL:ALL) ALL
+              第一个 ALL 指示允许从任何终端、机器访问 sudo
+              第二个 (ALL:ALL) 指示 sudo 命令被允许以任何用户身份执行
+              第三个 ALL 表示所有命令都可以作为 root 执行
+  ```
+  
+  
+  
+- ubuntu安装软件常用位置：
+
+  `/usr/lib/`    `/opt/`
+  
 - 保存终端内容到本地文件
 
   ```
@@ -55,9 +76,84 @@
   $ history -c
   ```
 
+- ubuntu安装 notepadqq (替换notepad++)
+
+  ```
+  # 安装
+  snap install --classic notepad11
+  sudo apt-get update
+  # 卸载
+  sudo apt-get remove notepadqq
+  sudo add-apt-repository --remove ppa:notepadqq-team/notepadqq
+  ```
+
+- ubuntu建立程序的软连接实现terminal终端启动：建立执行文件到/usr/local/bin的软连接
+
+  ```
+  # 建立sublimetext的软连接，terminal通过subl 启动
+  ln -s /opt/sublime_text/sublime_text /usr/local/bin/subl
+  # 调用
+  subl <filename>
+  ```
+
+- Typora 安装好后不需要建立软连接，可以直接在terminal中使用 `typora <filename>` 打开文件
+
+- google浏览器启动命令： `google-chrome`
+
+- ubuntu下 notepadqq 和 sublimetext都无法输入中文
+
+  refer for sublimetext: https://blog.csdn.net/weixin_41762173/article/details/79379131
+
+  ```
+  待解决
+  ```
+
+- `xshell`与ubuntu传输文件：lrzsz
+
+  https://cloud.tencent.com/developer/article/1182215
+
+  rz　命令无法传输空文件
+
+- `df -h` 命令 
+
+  用法：df [选项]... [文件]...
+  	`Show information about the file system on which each FILE resides,
+  or all file systems by default.`
+
+  ```
+  klaus@ubuntu:~$ df -h
+  文件系统        容量  已用  可用 已用% 挂载点
+  udev            956M     0  956M    0% /dev
+  tmpfs           197M   12M  186M    6% /run
+  /dev/sda1        29G   15G   13G   53% /
+  tmpfs           985M  153M  833M   16% /dev/shm
+  tmpfs           5.0M  4.0K  5.0M    1% /run/lock
+  tmpfs           985M     0  985M    0% /sys/fs/cgroup
+  vmhgfs-fuse     783G   15G  768G    2% /mnt/hgfs
+  tmpfs           197M   84K  197M    1% /run/user/1000
+  /dev/loop0       89M   89M     0  100% /snap/core/7396
+  /dev/loop1      145M  145M     0  100% /snap/notepadqq/855
+  ```
+
   
 
-- 
+- ```
+  klaus@ubuntu:~$ df -h
+  文件系统        容量  已用  可用 已用% 挂载点
+  udev            956M     0  956M    0% /dev
+  tmpfs           197M   12M  186M    6% /run
+  /dev/sda1        29G   15G   13G   53% /
+  tmpfs           985M  153M  833M   16% /dev/shm
+  tmpfs           5.0M  4.0K  5.0M    1% /run/lock
+  tmpfs           985M     0  985M    0% /sys/fs/cgroup
+  vmhgfs-fuse     783G   15G  768G    2% /mnt/hgfs
+  tmpfs           197M   84K  197M    1% /run/user/1000
+  /dev/loop0       89M   89M     0  100% /snap/core/7396
+  /dev/loop1      145M  145M     0  100% /snap/notepadqq/855
+  
+  ```
+
+  
 
 1、命令：touch [文件]（创建文件）
 
@@ -110,14 +206,46 @@
 - 软连接特点：权限是所有人都可以访问，并且软连接文件指向源文件，软链接就像windows系统中的快捷方式一样
 - 硬链接特点：类似copy，和源文件是同步更新数据，硬链接不能跨文件系统分区，软链接可以
 
-12、命令：chmod 改变文件或目录的权限；
+12、命令：chmod 改变文件或目录的权限； [<font color=coral>'Linux文件属性和更改文件权限'</font>](https://blog.csdn.net/zsx157326/article/details/78665960)
+
+​		为方便更改文件的权限，Linux使用数字代替rwx，具体规则为：<font color=limegreen>r等于4，w等于2，x等于1，-等于0</font>。例如，rwxrwx---用数字表示就是770，其具体算法为：rwx=4+2+1=7，rwx=4+2+1=7，—=0+0+0=7
 
 - A：chmod【{ugo}{+-=}】【文件或目录】
+
 - B：chmod 【mode=421】【文件目录】（4代表r——读，2代表w——写、创建、删除，1代表x——进入该目录）
+
+  ```
+  >>> drwxr-xr-x. 6 1001 1001   4096 11月 11 08:36 auto
+  第1位 'd' ：用来描述该文件的类型。d:文件是目录; -:普通文件; l:链接文件（link file）
+  >>> rwxr-xr-x : 
+  	文件类型后面9位，每3个为一组，均为rwx这3个参数的组合。r代表可读，w代表可写，x代表可执行。前3位为所有者（user）的权限，中间3位为所属组（group）的权限，最后3位为其他非本群组用户（others）的权限
+  
+  第2列：表示该文件占用的节点（inode），如果是目录，那这个数值与该目录下子目录数量有关。
+  第3列：表示该文件的所有者
+  第4列：表示该文件的所属者
+  第5列：表示该文件的大小
+  第6列、第7列和第8列：表示该文件最后一次被修改的时间（time），依次为月份、日期以及时间。
+  第9列：表示文件名。
+  ```
+
+
 
 13、命令：su -userName （切换用户）
 
 14、命令：chown（改变文件的所有者）；chown userName 文件名
+
+- 语法:
+
+  ```
+  chown [-R] 账户名 文件名
+  chown [-R] 账户名:组名 文件名 
+  
+  # 例子
+  chown -R user1:testgroup dir3
+  # 把dir3目录以及该目录下的文件都修改成所有者user1,所属组为testgroup
+  ```
+
+- `-R`选项只适用于目录，作用是级联更改，即不仅更改当前目录，连目录里的目录或者文件也全部更改
 
 15、命令：chgrp（改变文件的所有组）；chgrp groupName 文件名
 

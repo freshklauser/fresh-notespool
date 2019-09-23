@@ -10,7 +10,9 @@
 - Docker Container 容器
 - Docker Registry 仓库: docker镜像的中央存储仓库（pull / push）
 
-## Docker安装(ubuntu)
+## 1、Docker安装(ubuntu)和启动
+
+### 1. Docker安装
 
 [`refer1: Get Docker Engine - Community for Ubuntu`](<https://docs.docker.com/install/linux/docker-ce/ubuntu/>)
 [`refer2:Docker快速安装以及换镜像源`](<https://www.jianshu.com/p/34d3b4568059>)
@@ -45,7 +47,48 @@ sudo add-apt-repository \
 sudo apt-get update
 sudo apt-get install docker-ce
 # 6. 测试 Docker 是否安装正确
-docker run hello-world
+docker run hello-world		# 无权限则加　sudo
+```
+
+- docker无权限，如何赋予管理员权限，避免每次使用sudo [`refer`](https://blog.csdn.net/u013948858/article/details/78429954)
+
+```
+cat /etc/group | grep docker # 查找 docker 组，确认其是否存在
+>>> docker:x:999:			 # docker组已存在  
+
+groups # 列出自己的用户组，确认自己在不在 docker 组中
+>>> klaus adm cdrom sudo dip plugdev lpadmin sambashare
+
+# 如果 docker 组不存在，则添加之：（已存在，可省略）
+sudo groupadd docker
+>>> groupadd：“docker”组已存在
+
+# 将当前用户 klaus 添加到 docker 组
+sudo gpasswd -a klasu docker
+>>> 正在将用户“klaus”加入到“docker”组中
+
+# 检查用户是否加入
+cat /etc/group | grep docker
+>>> docker:x:999:klaus		# klaus加入到了docker组中，此时直接docker 仍是无权限
+
+# 重启服务，以便让 klaus　的权限生效
+sudo service docker restart
+
+# 如果提示如下错误：
+    Server:
+    ERROR: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.40/info: dial unix /var/run/docker.sock: connect: permission denied
+    errors pretty printing info
+  则修改 /var/run/docker.sock 权限
+sudo chmod a+rw /var/run/docker.sock
+docker info
+>>> ......  # ok
+
+# ------- 以下为另一个人的解决方法，尝试了下不起作用 ------------
+# 切换一下用户组（刷新缓存）
+newgrp - docker;
+newgrp - `groups ${USER} | cut -d' ' -f1`; # TODO：必须逐行执行，不知道为什么，批量执行时第二条不会生效
+# 或者，注销并重新登录
+pkill X
 ```
 
 - 方法2：
@@ -57,7 +100,7 @@ sudo sh get-docker.sh --mirror Aliyun
 执行这个命令后，脚本就会自动的将一切准备工作做好，并且把 Docker CE 的 Edge 版本安装在系统中。
 ```
 
-## 镜像加速
+### 2. 镜像加速
 
 - 官方镜像加速：http://www.docker-cn.com/registry-mirror
 
@@ -68,7 +111,7 @@ sudo sh get-docker.sh --mirror Aliyun
   七牛加速器：https://reg-mirror.qiniu.com
   `daocloud`镜像：https://get.daocloud.io/daotools/set_mirror
 
-## docker换镜像源
+### 3. docker换镜像源
 
 配置方法：
 	新版的 Docker 使用` /etc/docker/daemon.json（Linux）`` 或者 %programdata%\docker\config\daemon.json（Windows） `来配置` Daemon`。
@@ -82,7 +125,7 @@ sudo vim /etc/docker/daemon.json
 {"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]}
 ```
 
-## 启动Docker CE
+### 4. 启动Docker CE
 
 ```
 # 方法1安装好后貌似不需要这两步，方法2没试过
@@ -90,7 +133,7 @@ sudo systemctl enable docker
 sudo systemctl start docker
 ```
 
-## 建立 docker 用户组
+### 5. 建立 docker 用户组
 
 ```
 # 添加用户组
@@ -99,7 +142,7 @@ sudo gpasswd -a klaus docker		 # 将klaus用户添加到 docker 用户组
 sudo service docker restart			# 重启docker服务，然后注销用户即可使用非root用户
 ```
 
-## 启动和关闭docker命令	
+### 6. 启动和关闭docker命令	
 
 ```
 # docker启动命令,docker重启命令,docker关闭命令
@@ -111,9 +154,9 @@ sudo service docker restart			# 重启docker服务，然后注销用户即可使
 关闭docker  systemctl stop docker
 ```
 
-## 日常docker命令
+## 2、日常docker命令
 
-### 创建镜像
+### 1. 创建镜像
 
 1、从仓库拉取创建镜像
 
@@ -138,7 +181,7 @@ docker build -t <image_name>[:<image_tag>] .
 		docker build -f /path/to/a/Dockerfile .
 ```
 
-### 删除镜像
+### 2. 删除镜像
 
 ```
 # 删除镜像
@@ -149,7 +192,7 @@ docker rmi [-f] $(docker images -f "dangling=true" -q)   # [-f] 可选，强制�
 docker image prune -a -f  # 也可以
 ```
 
-### 镜像下创建容器及容器相关操作
+### 3. 镜像下创建容器及容器相关操作
 
 ```
 # 在镜像下创建容器（新建并启动container）：docker run 之后生成container
@@ -160,15 +203,15 @@ docker run -i:   # 以交互模式运行容器，通常与 -t 同时使用；
 		  -P:	# （大写）随机端口映射，容器内部端口随机映射到主机的高端口 
 		  --name="nginx-lb": 为容器指定一个名称
 		  --volume , -v: 绑定一个卷 -v host_dir:container_dir
+		  --rm  # Automatically remove the container when it exits(容器存在的话自动删除原容器再重新创建，即覆盖)
 docker run -d -p 2222:22 --name base csphere/centos:7.1
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # 交互模式在continuumio/anaconda3镜像下创建容器(命名：ananconda3)并进入容器
 docker run -it --name anaconda3 continuumio/anaconda3
 # 退出后重新进入容器，并进入anaconda3环境bash环境
 docker start anaconda3
 docker exec -it anaconda3 /bin/bash
 # 退出容器且保持后台运行： ctrl + p, q
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 
 # 重新启动一个已停止的容器
 docker container start <container ID or NAMES>
@@ -178,6 +221,7 @@ docker container stop <container ID or NAMES>
 docker container restart <container ID or NAMES>
 
 # 查看容器
+docker container ls  # 查看正在运行的容器  docker ps 
 docker ps [OPTIONS]
     -a :显示所有的容器，包括未运行的。
     -f :根据条件过滤显示的内容。
@@ -207,18 +251,319 @@ docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
 		
 # 删除容器
 docker rm <container_id or tag>
+# 删除容器同时删除挂载的数据卷
+docker rm -v docker rm <container_id or tag>
 # 清理所有处于终止状态的容器
 docker container prune
 ```
 
-## 创建Dockerfile文件
+## 3、创建Dockerfile文件
 
 [`refer: 中文官方文档--Dockerfile介绍 `](<http://www.dockerinfo.net/dockerfile%e4%bb%8b%e7%bb%8d>)
 
+
 <div align=center><img src='./img/dockerfile.png'></div>
-
-
 <div align=center><img src='./img/dockerfile1.png'></div>
+
+## 4、Docker 容器数据卷
+
+### 1. 数据卷
+
+数据卷 是一个可供一个或多个容器使用的特殊目录，它绕过 UFS，可以提供很多有用的特性：
+
+- 数据卷 可以在容器之间共享和重用;
+- 对 数据卷 的修改会立马生效
+- 对 数据卷 的更新，不会影响镜像
+- <font color=coral>数据卷 默认会一直存在，即使容器被删除</font>
+
+注意：数据卷 的使用，类似于 Linux 下对目录或文件进行 mount，镜像中的被指定为挂载点的目录中的文件会隐藏掉，能显示看的是挂载的 数据卷。
+
+### 2. 常用命令
+
+####  1）创建和查询数据卷
+
+```
+# 创建一个数据卷
+docker volume create my-vol
+# 查看所有的 数据卷
+docker volume ls
+# 查看指定 数据卷 的信息
+docker volume inspect my-vol
+>>>
+    [
+        {
+            "CreatedAt": "2019-09-19T01:19:02-07:00",
+            "Driver": "local",
+            "Labels": {},
+            "Mountpoint": "/var/lib/docker/volumes/my-vol/_data", # 挂载点
+            "Name": "my-vol",
+            "Options": {},
+            "Scope": "local"
+        }
+    ]
+```
+
+#### 2）启动挂载带有数据卷的容器
+在用 docker run 命令的时候，使用 --mount 标记来将 数据卷 挂载到容器里。在一次 docker run 中可以挂载多个 数据卷。
+
+```
+$ docker run -d -p 8080:8080 \
+    --name web \
+    --mount source=my-vol,target=/webapp \
+    training/webapp \
+    python app.py
+>>> 数据卷信息里面的"Mounts"的  "Type":"volumn"
+    
+# 也可直接挂载在主机的目录下，如下：
+$ docker run -d -p 8080:8080 \
+    --name web \
+    --mount type=bind,source=my-vol,target=/webapp \
+    training/webapp \
+    python app.py
+>>> 数据卷信息里面的"Mounts"的  "Type":"bind"
+```
+
+#### 3）删除数据卷
+
+```
+# 删除数据卷
+docker volume rm my-vol
+# 清理无主的数据卷
+docker volume prune
+```
+
+​		数据卷 是被设计用来**持久化数据**的，它的生命周期**独立于容器**，**Docker 不会在容器被删除后自动删除 数据卷，并且也不存在垃圾回收这样的机制来处理没有任何容器引用的 数据卷**。如果需要在删除容器的同时移除数据卷。可以在删除容器的时候使用 docker rm -v 这个命令。
+
+## 4、Docker 网络配置
+
+### 1. 外部访问容器
+
+#### 1) 端口映射及说明
+
+启动容器时，使用 -P 或 -p 参数来制定端口映射
+
+（1）`-P:`随机映射一个 `49000~49900` 的端口到内部容器开放的网络端口
+
+（2）`-p:`手动指定主机端口映射容器端口 ， 在一个指定端口上只可以绑定一个容器，可以多次使用`-p`来绑定多个端口
+	支持的格式有` ip:hostPort:containerPort | ip::containerPort | hostPort:containerPort`
+
+```
+$ docker run -d \
+    -p 5000:5000 \
+    -p 3000:80 \
+    training/webapp \
+    python app.py
+```
+
+- **映射所有接口地址**
+
+使用<font color=coral> `hostPort:containerPort `</font>格式本地的 5000 端口映射到容器的 5000 端口，可以执行
+
+```
+docker run -d -p 5000:5000 training/webapp python app.py
+```
+
+此时默认会绑定本地所有接口上的所有地址
+
+- **映射到指定地址的任意端口**
+
+使用 <font color=coral> `ip::containerPort `</font>绑定 localhost 的任意端口到容器的 5000 端口，本地主机会自动分配一个端口。
+
+```
+docker run -d -p 127.0.0.1::5000 training/webapp python app.py
+# 使用 udp 标记来指定 udp 端口
+docker run -d -p 127.0.0.1:5000:5000/udp training/webapp python app.py
+```
+
+- **映射到指定地址的指定端口**
+
+可以使用<font color=coral>` ip:hostPort:containerPort`</font> 格式指定映射使用一个特定地址
+
+```
+docker run -d -p 192.168.1.152:5000:5000 training/webapp python app.py
+```
+
+#### 2）查看容器端口信息及端口映射配置
+
+```
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                              NAMES
+a2693e99c896        training/webapp     "python app.py"     35 minutes ago      Up 35 minutes       5000/tcp, 0.0.0.0:8080->8080/tcp   web
+```
+
+```
+$ docker logs -f -t web
+2019-09-19T08:53:15.617440593Z  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+
+# docker logs --help:
+Options:
+      --details        Show extra details provided to logs
+  -f, --follow         Follow log output
+      --since string   Show logs since timestamp (e.g. 2013-01-02T13:23:37) or relative (e.g. 42m for 42 minutes)
+      --tail string    Number of lines to show from the end of the logs (default "all")
+      
+  -t, --timestamps     Show timestamps
+      --until string   Show logs before a timestamp (e.g. 2013-01-02T13:23:37) or relative (e.g. 42m for 42 minutes)
+```
+
+```
+$ docker port web
+8080/tcp -> 0.0.0.0:8080
+```
+
+### 2. 容器互联
+
+#### 1）新建网络 及 docker network 命令
+
+```
+$ docker network create -d bridge my-net    
+c85934fbfefafdf59df269696db88bfb71ac5dfd37c2104321153f6d7d6f2224
+```
+
+​	其中，参数 `-d` 指定 `Docker`网络类型，有 bridge(常用)  overlay。其中 overlay 网络类型用于 Swarm mode
+
+- `docker network` 命令
+
+  ```
+  $ docker network
+  
+  Manage network
+  Commands:
+    connect     Connect a container to a network
+    create      Create a network
+    disconnect  Disconnect a container from a network
+    inspect     Display detailed information on one or more networks
+    ls          List networks
+    prune       Remove all unused networks
+    rm          Remove one or more networks
+  ```
+
+#### 2）连接容器
+
+创建镜像： `docker pull busybox`
+
+1. terminal 1中运行一个容器如下，并连接到新建的 my-net 网络:
+
+```
+$ docker run -it --rm --name busybox1 --network my-net busybox
+/ # ifconfig
+/ # ...... ip1 address ......
+/ # 
+```
+
+2. terminal 2中运行一个容器如下，并连接到新建的 my-net 网络:
+
+```
+$ docker run -it --rm --name busybox2 --network my-net busybox
+/ # ifconfig
+/ # ...... ip2 address ......
+/ # 
+```
+
+3. terminal 3中 查看运行中的container, 两个容器都在运行中
+
+```
+$ docker container ls
+CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS              PORTS               NAMES
+67bd42758cf4        busybox             "sh"                52 seconds ago       Up 51 seconds                           busybox2
+9c10317c7246        busybox             "sh"                About a minute ago   Up About a minute                       busybox1
+```
+
+4. 测试容器 `busybox1`和 `busybox2`是否建立互联关系
+
+   方式：ping 对方容器的ip （均能 ping 通，说明 busybox1 容器和 busybox2 容器建立了互联关系）
+
+```
+# terminal 1中：
+ping <ip2>
+# terminal 2中
+ping <ip1>
+```
+
+多个容器互联，可以采用 `docker compose` ：[`refer here`](https://yeasy.gitbooks.io/docker_practice/content/compose/)
+
+#### 3）配置DNS
+
+暂略
+
+## 5、docker项目
+
+### 1. [compose](https://yeasy.gitbooks.io/docker_practice/content/compose/introduction.html) 
+
+#### 1）安装  二进制包
+
+```
+# sudo无 /etc/local/bin/的权限
+$ sudo su root
+$ curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+$ chmod +x /usr/local/bin/docker-compose
+
+$ `ctrl+D`退出root账户
+$ docker-compose -v
+docker-compose version 1.24.1, build 4667896b
+```
+
+### 2. Django
+
+#### 1）Dockerfile 文件创建
+
+```
+FROM python:3
+ENV PYTHONUNBUFFERED 1
+RUN mkdir /code
+WORKDIR /code
+COPY requirements.txt /code/
+RUN pip install -r requirements.txt
+COPY . /code/
+```
+
+​		其中， `pip install -r requirements.txt`中的`-r`表示 `Install from the given requirements file.`
+
+#### 2）requirements.txt文件指定python选择的依赖包、
+
+```
+Django>=2.0,<3.0
+psycopg2>=2.7,<3.0
+```
+
+#### 3）docker-compose.yml 文件创建 
+
+ [`docker-compose.yml`](https://yeasy.gitbooks.io/docker_practice/content/compose/compose_file.html#links)文件将把所有的东西关联起来。它描述了应用的构成（一个 web 服务和一个数据库）、使用的 Docker 镜像、镜像之间的连接、挂载到容器的卷，以及服务开放的端口。
+
+```
+version: "3"
+services:
+
+  db:
+    image: postgres
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    links:
+      - db
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

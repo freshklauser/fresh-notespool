@@ -19,7 +19,7 @@
 {'a': {}, 'b': {}, 'c': {}, 'd': {}, 'f': {}, 'e': {}, 'g': {}}
 ```
 
-### 2. 字典排序（按`key`和按`value`排序）
+### 2. 字典排序（按`key`和按`value`排序） -- sorted 实现多级排序
 
 `sorted(iterable, /, *, key=None, reverse=False)`
 
@@ -54,8 +54,64 @@
   Out[14]: [('e', 74), ('b', 54), ('a', 21), ('c', 5), ('f', 3), ('d', 0)]
   ```
 
+- <font color=tomato>`sorted by value of a dict:`</font>  (<font color=tomato>`key=itemgetter(1)`</font>)
 
-### 3. <font color=coral>赋值、浅拷贝、深拷贝</font>(`interesting!!`)
+  ```
+  # 对字典排序
+  >>> d = {'data1':3, 'data2':1, 'data3':2, 'data4':4}  
+  >>> sorted(d.iteritems(), key=itemgetter(1), reverse=True)   # 按dict的value进行排序
+  [('data4', 4), ('data1', 3), ('data3', 2), ('data2', 1)]  
+  ```
+
+  `operator`模块提供的`itemgetter`数用于获取对象的哪些维的数据，参数为一些序号（即需要获取的数据在对象中的序号）
+
+  ```
+  a = [1,2,3] 
+  b=operator.itemgetter(1)      //定义函数b，获取对象的第1个域的值> b(a) 
+  2 
+  b=operator.itemgetter(1,0)   //定义函数b，获取对象的第1个域和第0个的值
+  b(a) 
+  (2, 1) 
+  
+  # itemgetter实现多级排序
+  >>> students = [('john', 'A', 15), ('jane', 'B', 12), ('dave', 'B', 10),]  
+  >>> sorted(students, key=itemgetter(1,2))      				# sort by grade then by age  
+  [('john', 'A', 15), ('dave', 'B', 10), ('jane', 'B', 12)]  
+  ```
+
+### 3. dict基本属性
+
+```
+In [20]: u
+Out[20]:
+{'u1': {'a': [1, 342, 22, 13, 4], 'b': [112, 32, 4, 5]},
+ 'u2': {'c': [1, 2, 3]}}
+ 
+In [21]: u['u1'].items()
+Out[21]: dict_items([('a', [1, 342, 22, 13, 4]), ('b', [112, 32, 4, 5])])
+
+In [22]: u['u1']
+Out[22]: {'a': [1, 342, 22, 13, 4], 'b': [112, 32, 4, 5]}
+
+In [23]: u['u1'].keys()
+Out[23]: dict_keys(['a', 'b'])
+
+In [24]: u['u1'].values()
+Out[24]: dict_values([[1, 342, 22, 13, 4], [112, 32, 4, 5]])
+
+In [25]: max(u['u1'].values())			# value为列表时返回的结果 why ???
+Out[25]: [112, 32, 4, 5]
+
+In [28]: su ={'u1':{'a':12, 'b':112, 'c':32}, 'u2':{'c':4}}
+In [29]: su['u1'].values()
+Out[29]: dict_values([12, 112, 32])
+In [30]: max(su['u1'].values())
+Out[30]: 112
+```
+
+
+
+### 4. <font color=coral>赋值、浅拷贝、深拷贝</font>(`interesting!!`)
 
 [`图示 refer`](https://blog.csdn.net/A123333333333/article/details/83046502)
 
@@ -150,8 +206,11 @@
 
 2. `a.append(..)`和`a.extend(..)`的区别
 
+   - `append:` object 整体作为一个元素加入到 a 中, **增加的元素个数为 1**
+   - `extend:` object中的元素逐一作为单个元素加入到 a 中, **增加的元素个数为 `len(object)`**
+
    ```
-   >>> append(...) method of builtins.list instance
+   >>> append(...) method of builtins.list instance 
        L.append(object) -> None -- append object to end
    >>> extend(...) method of builtins.list instance
        L.extend(iterable) -> None -- extend list by appending elements from the ite
@@ -217,7 +276,27 @@ def timmer(func):
     return wrapper
 ```
 
+## 七、文件读写
 
+### 1. codec.open(...)
+
+- **`codecs.open(filename, mode='r', encoding=None, errors='strict', buffering=1)`**
+  1) *底层编码文件始终以二进制模式打开。读取和写入时不会自动转换'\n'。mode参数可以是内置open()函数可接受的任何二进制模式；'b'会自动添加*
+  2) *encoding指定要用于该文件的编码。任何对字节进行编码和解码的编码都是允许的，并且文件方法支持的数据类型取决于所使用的编解码器*
+
+- `codec.open()`与`open()`的区别
+  `codecs`是Python中标准库的内容，而`codecs.open`和内置函数open（）的不同在于，open函数无法打开一份由不同编码组成的同一份文件，而`codecs.open`如文档所说，始终以二进制模式打开，故打开就是Unicode格式，所以，codecs.open能打开由不同编码格式组成的文件
+
+- <font color=coral>BUT</font>, 建议不同编码格式组成的文件读写有问题时，直接采用 rb 模式 open，获得 byte类型，再通过字符串截取
+
+  参考 推荐系统代码中的读取
+
+  ```
+  for line in open(self.bookmark_path, 'rb').readlines()[1:]:
+  	line = str(line.strip())[2:-1].split(r'\t')    
+  ```
+
+  
 
 ## 常见错误或警告及解决方法
 
