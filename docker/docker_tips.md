@@ -205,14 +205,13 @@ docker run -i:   # 以交互模式运行容器，通常与 -t 同时使用；
 		  --volume , -v: 绑定一个卷 -v host_dir:container_dir
 		  --rm  # Automatically remove the container when it exits(容器存在的话自动删除原容器再重新创建，即覆盖)
 docker run -d -p 2222:22 --name base csphere/centos:7.1
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # 交互模式在continuumio/anaconda3镜像下创建容器(命名：ananconda3)并进入容器
 docker run -it --name anaconda3 continuumio/anaconda3
 # 退出后重新进入容器，并进入anaconda3环境bash环境
 docker start anaconda3
 docker exec -it anaconda3 /bin/bash
 # 退出容器且保持后台运行： ctrl + p, q
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 
 # 重新启动一个已停止的容器
 docker container start <container ID or NAMES>
@@ -261,6 +260,10 @@ docker container prune
 ## 3、创建Dockerfile文件
 
 [`refer: 中文官方文档--Dockerfile介绍 `](<http://www.dockerinfo.net/dockerfile%e4%bb%8b%e7%bb%8d>)
+
+
+<div align=center><img src='./img/dockerfile.png'></div>
+<div align=center><img src='./img/dockerfile1.png'></div>
 
 ## 4、Docker 容器数据卷
 
@@ -544,6 +547,7 @@ services:
     links:
       - db
 ```
+
 
 
 
