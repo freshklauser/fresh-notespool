@@ -215,9 +215,10 @@ docker container prune
 
 [`refer: 中文官方文档--Dockerfile介绍 `](<http://www.dockerinfo.net/dockerfile%e4%bb%8b%e7%bb%8d>)
 
+<div align=center><img src='./img/dockerfile.png'></div>
 
 
-
+<div align=center><img src='./img/dockerfile1.png'></div>
 
 
 
