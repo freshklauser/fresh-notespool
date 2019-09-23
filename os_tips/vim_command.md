@@ -10,6 +10,8 @@ vim是我最喜欢的编辑器，也是linux下第二强大的编辑器。 虽�
 - 插入模式：可以输入文本，在正常模式下，按 i、a、o 等都可以进入插入模式。
 - 可视模式：正常模式下按v可以进入可视模式， 在可视模式下，移动光标可以选择文本。按V进入可视行模式， 总是整行整行的选中。ctrl+v进入可视块模式。
 - 替换模式：正常模式下，按R进入。
+若鼠标右键不能复制，而是进入了可视模式，则可进入vim <file>后，在命令行输入 `:set mouse=""`禁用鼠标模式即可 [refer:VIM学习笔记 鼠标(Mouse)](https://zhuanlan.zhihu.com/p/38477934)
+
 
 # [2. 启动Vim](https://www.cnblogs.com/jiqingwu/archive/2012/06/14/vim_notes.html#id61)
 
