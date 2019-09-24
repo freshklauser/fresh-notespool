@@ -48,6 +48,9 @@ sudo apt-get update
 sudo apt-get install docker-ce
 # 6. 测试 Docker 是否安装正确
 docker run hello-world		# 无权限则加　sudo
+
+# 卸载
+sudo apt-get remove docker-ce
 ```
 
 - docker无权限，如何赋予管理员权限，避免每次使用sudo [`refer`](https://blog.csdn.net/u013948858/article/details/78429954)
@@ -261,9 +264,18 @@ docker container prune
 
 [`refer: 中文官方文档--Dockerfile介绍 `](<http://www.dockerinfo.net/dockerfile%e4%bb%8b%e7%bb%8d>)
 
+<div align=center><img src='./img/dockerfile.png' width=80%></div>
+<div align=center><img src='./img/dockerfile1.png' width=80%></div>
 
-<div align=center><img src='./img/dockerfile.png'></div>
-<div align=center><img src='./img/dockerfile1.png'></div>
+- **docker的层级结构**
+
+<div align=center><img src='./img/layers.png' width=80%></div>
+
+其中，`Image Layers`层的 `source code`不能修改，如果想不改变该层的内容的基础上，创建区别于`source code`的`container`如改变`Image Layers`中的`app.py`创建不同的python依赖包，可以直接在`Container Layer`层重新建立并修改`app.py`来建立容器；除此之外，就只能通过重新`build`  `Image Layers`层来实现。如下：
+
+<div align=center><img src='./img/layers1.png' width=80%></div>
+
+
 
 ## 4、Docker 容器数据卷
 
@@ -488,6 +500,8 @@ ping <ip1>
 
 ## 5、docker项目
 
+笔记参考目录 <font color=coral>`./docker_couse/Docker 系列基础教程(五).html`</font>
+
 ### 1. [compose](https://yeasy.gitbooks.io/docker_practice/content/compose/introduction.html) 
 
 #### 1）安装  二进制包
@@ -501,6 +515,14 @@ $ chmod +x /usr/local/bin/docker-compose
 $ `ctrl+D`退出root账户
 $ docker-compose -v
 docker-compose version 1.24.1, build 4667896b
+```
+
+#### 3）卸载
+
+二进制安装的只需要删除二进制文件即可
+
+```
+$ sudo rm /usr/local/bin/docker-compose
 ```
 
 ### 2. Django

@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 9.0.4 (457911)"/><meta name="created" content="2018-08-18 08:17:33 +0000"/><meta name="source" content="maxiang"/><meta name="source-application" content="maxiang"/><meta name="updated" content="2018-12-31 12:07:56 +0000"/><meta name="content-class" content="maxiang"/><title>Docker 系列基础教程(五)</title></head><body lang="v2" style="color: #2c3f51; font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif; line-height: 1.6; background: none;"><del style="position:relative;display:block;z-index:10;"><a style="position: absolute;color: #FFF;text-decoration: none;font-size: 12px;height: 25px;border-radius: 0;margin-top: -20px;right: 15px;background: rgba(0, 0, 0, 0);border-left: 10px solid #BB3A34;border-right: 10px solid #BB3A34;border-bottom: 5px solid rgba(0, 0, 0, 0);width: 0;text-indent:-100000px;" href="http://maxiang.info/#/?provider=evernote&amp;guid=ede70b8f-921a-4114-8034-ac1f9b59f2c3&amp;notebook=Docker">Edit</a></del><div style="color: #2c3f51; font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif; line-height: 1.6;">
+                        
+                    
+
+<div style="line-height: 1.6;"><div style="line-height: 1.6;"><div style="line-height: 1.6;">
+<ul style="margin-top: 0; padding-left: 2em; margin-bottom: 15px; list-style-type: none; line-height: 1.6;">
+<li style="line-height: 1.6;"><ul style="margin-top: 0; padding-left: 2em; margin-bottom: 15px; list-style-type: none; line-height: 1.6;">
+<li style="line-height: 1.6;"><ul style="margin-top: 0; padding-left: 2em; margin-bottom: 15px; list-style-type: none; line-height: 1.6;">
+<li style="line-height: 1.6;"><a href="#docker-系列基础教程五" style="background: transparent; color: #1980e6; text-decoration: none;">Docker 系列基础教程(五)</a><ul style="margin-top: 0; padding-left: 2em; margin-bottom: 15px; list-style-type: none; line-height: 1.6;">
+<li style="line-height: 1.6;"><a href="#docker-compose-是什么" style="background: transparent; color: #1980e6; text-decoration: none;">Docker Compose 是什么</a></li>
+<li style="line-height: 1.6;"><a href="#docker-compose-安装" style="background: transparent; color: #1980e6; text-decoration: none;">Docker Compose 安装</a><ul style="margin-top: 0; padding-left: 2em; margin-bottom: 15px; list-style-type: none; line-height: 1.6;">
+<li style="line-height: 1.6;"><a href="#安装epl-软件源" style="background: transparent; color: #1980e6; text-decoration: none;">安装epl 软件源</a></li>
+<li style="line-height: 1.6;"><a href="#安装python-pip" style="background: transparent; color: #1980e6; text-decoration: none;">安装python-pip</a></li>
+<li style="line-height: 1.6;"><a href="#安装docker-compose" style="background: transparent; color: #1980e6; text-decoration: none;">安装Docker Compose</a></li>
+<li style="line-height: 1.6;"><a href="#查看docker-compose-版本" style="background: transparent; color: #1980e6; text-decoration: none;">查看Docker Compose 版本</a></li>
+</ul>
+</li>
+<li style="line-height: 1.6;"><a href="#docker-compose-项目构建" style="background: transparent; color: #1980e6; text-decoration: none;">Docker Compose 项目构建</a><ul style="margin-top: 0; padding-left: 2em; margin-bottom: 15px; list-style-type: none; line-height: 1.6;">
+<li style="line-height: 1.6;"><a href="#编写-wordpress-docker-compose-file-文件" style="background: transparent; color: #1980e6; text-decoration: none;">编写 wordpress docker compose file 文件</a><ul style="margin-top: 0; padding-left: 2em; margin-bottom: 15px; list-style-type: none; line-height: 1.6;">
+<li style="line-height: 1.6;"><a href="#新建wordpress-文件夹并切换进入wordpress文件夹" style="background: transparent; color: #1980e6; text-decoration: none;">新建wordpress 文件夹，并切换进入wordpress文件夹</a></li>
+<li style="line-height: 1.6;"><a href="#新建wordpress-docker-compose-file-文件" style="background: transparent; color: #1980e6; text-decoration: none;">新建wordpress docker compose file 文件</a></li>
+</ul>
+</li>
+<li style="line-height: 1.6;"><a href="#docker-compose-file-字段解析" style="background: transparent; color: #1980e6; text-decoration: none;">Docker compose file 字段解析</a></li>
+<li style="line-height: 1.6;"><a href="#启动wordpress-docker-compose-项目构建" style="background: transparent; color: #1980e6; text-decoration: none;">启动wordpress docker compose 项目构建</a></li>
+<li style="line-height: 1.6;"><a href="#构成成功后的wordpress" style="background: transparent; color: #1980e6; text-decoration: none;">构成成功后的wordpress</a></li>
+<li style="line-height: 1.6;"><a href="#wordpress-安装成功后的界面" style="background: transparent; color: #1980e6; text-decoration: none;">wordpress 安装成功后的界面</a></li>
+</ul>
+</li>
+<li style="line-height: 1.6;"><a href="#docker-compose-命令使用" style="background: transparent; color: #1980e6; text-decoration: none;">Docker compose 命令使用</a><ul style="margin-top: 0; padding-left: 2em; margin-bottom: 15px; list-style-type: none; line-height: 1.6;">
+<li style="line-height: 1.6;"><a href="#查看compose-文件含有的镜像" style="background: transparent; color: #1980e6; text-decoration: none;">查看compose 文件含有的镜像</a></li>
+<li style="line-height: 1.6;"><a href="#列出项目中所有的容器" style="background: transparent; color: #1980e6; text-decoration: none;">列出项目中所有的容器</a></li>
+<li style="line-height: 1.6;"><a href="#停止项目中正在运行的容器" style="background: transparent; color: #1980e6; text-decoration: none;">停止项目中正在运行的容器</a></li>
+<li style="line-height: 1.6;"><a href="#删除项目中所有停止的容器" style="background: transparent; color: #1980e6; text-decoration: none;">删除项目中所有停止的容器</a></li>
+<li style="line-height: 1.6;"><a href="#构建项目镜像并启动" style="background: transparent; color: #1980e6; text-decoration: none;">构建项目镜像并启动</a></li>
+<li style="line-height: 1.6;"><a href="#启动compose-项目中的容器" style="background: transparent; color: #1980e6; text-decoration: none;">启动compose 项目中的容器</a></li>
+<li style="line-height: 1.6;"><a href="#指定项目中容器的启动数量" style="background: transparent; color: #1980e6; text-decoration: none;">指定项目中容器的启动数量</a></li>
+<li style="line-height: 1.6;"><a href="#查看项目中服务对应绑定的端口号" style="background: transparent; color: #1980e6; text-decoration: none;">查看项目中服务对应绑定的端口号</a></li>
+<li style="line-height: 1.6;"><a href="#查看项目中服务的日志信息" style="background: transparent; color: #1980e6; text-decoration: none;">查看项目中服务的日志信息</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+<h3 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 21px; margin-bottom: 10.5px; font-size: 27.2px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="docker-系列基础教程五" style="background: transparent; color: #1980e6; text-decoration: none;"/>Docker 系列基础教程(五)</h3>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;"/><p style="margin: 0 0 1.1em; color: rgba(44,63,81,0.3); line-height: 1.6;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: .9em; background-color: #f9f2f4; white-space: normal; padding: 2px 5px; border-radius: 0; color: #fff; background: rgba(44,63,81,0.3); margin-right: 6px;">Docker</code> </p><p style="margin: 0 0 1.1em; line-height: 1.6;"/>
+
+
+
+<h4 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 20px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="docker-compose-是什么" style="background: transparent; color: #1980e6; text-decoration: none;"/>Docker Compose 是什么</h4>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;">docker compose 通过docker-compose.yml是将多个服务（即容器）构建成一个项目，来完成某个需求。</p>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;">Compose 的默认管理对象是项目，通过子命令对项目中的一组容器进行便捷地生命周期管理。</p>
+
+
+
+<h4 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 20px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="docker-compose-安装" style="background: transparent; color: #1980e6; text-decoration: none;"/>Docker Compose 安装</h4>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="安装epl-软件源" style="background: transparent; color: #1980e6; text-decoration: none;"/>安装epl 软件源</h5>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"> yum <span style="display: inline; line-height: 1.6; color: #333; font-weight: bold; background-color: transparent;">install</span> -y epel-<span style="display: inline; line-height: 1.6; color: #333; font-weight: bold; background-color: transparent;">release</span>
+</div></code></pre>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="安装python-pip" style="background: transparent; color: #1980e6; text-decoration: none;"/>安装python-pip</h5>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">yum <span style="display: inline; line-height: 1.6; color: #333; font-weight: bold; background-color: transparent;">install</span> -y python-pip
+</div></code></pre>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="安装docker-compose" style="background: transparent; color: #1980e6; text-decoration: none;"/>安装Docker Compose</h5>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">pip <span style="display: inline; line-height: 1.6; color: #333; font-weight: bold; background-color: transparent;">install</span> docker-compose
+</div></code></pre>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="查看docker-compose-版本" style="background: transparent; color: #1980e6; text-decoration: none;"/>查看Docker Compose 版本</h5>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">docker-compose <span style="display: inline; line-height: 1.6; color: #0086b3; background-color: transparent;">version</span>
+</div></code></pre>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">root<span style="display: inline; line-height: 1.6; color: #333; font-weight: bold; background-color: transparent;">@MiWiFi</span>-R3-srv ~]# docker-compose <span style="display: inline; line-height: 1.6; color: #333; font-weight: bold; background-color: transparent;">version</span>                                     
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">docker-compose <span style="display: inline; line-height: 1.6; color: #333; font-weight: bold; background-color: transparent;">version</span> <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">1.22</span>.0, build f46880f
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">docker-py <span style="display: inline; line-height: 1.6; color: #333; font-weight: bold; background-color: transparent;">version</span>: <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">3.5</span>.0
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">CPython <span style="display: inline; line-height: 1.6; color: #333; font-weight: bold; background-color: transparent;">version</span>: <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">2.7</span>.5
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">OpenSSL <span style="display: inline; line-height: 1.6; color: #333; font-weight: bold; background-color: transparent;">version</span>: OpenSSL <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">1.0</span>.2k-fips  <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">26</span> Jan <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">2017</span>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">[root<span style="display: inline; line-height: 1.6; color: #333; font-weight: bold; background-color: transparent;">@MiWiFi</span>-R3-srv ~]# 
+</div></code></pre>
+
+
+
+<h4 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 20px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="docker-compose-项目构建" style="background: transparent; color: #1980e6; text-decoration: none;"/>Docker Compose 项目构建</h4>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;"><strong style="font-weight: bold; line-height: 1.6;">通过Docker compose file 构建 wordpress 应用</strong></p>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="编写-wordpress-docker-compose-file-文件" style="background: transparent; color: #1980e6; text-decoration: none;"/>编写 wordpress docker compose file 文件</h5>
+
+
+
+<h6 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 13.6px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="新建wordpress-文件夹并切换进入wordpress文件夹" style="background: transparent; color: #1980e6; text-decoration: none;"/>新建wordpress 文件夹，并切换进入wordpress文件夹</h6>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">[root<span style="display: inline; line-height: 1.6; color: #990073; background-color: transparent;">@localhost</span> ~]<span style="display: inline; line-height: 1.6; color: #999; font-weight: bold; background-color: transparent;"># mkdir wordpress</span>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">[root<span style="display: inline; line-height: 1.6; color: #990073; background-color: transparent;">@localhost</span> ~]<span style="display: inline; line-height: 1.6; color: #999; font-weight: bold; background-color: transparent;"># cd wordpress/</span>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">[root<span style="display: inline; line-height: 1.6; color: #990073; background-color: transparent;">@localhost</span> wordpress]<span style="display: inline; line-height: 1.6; color: #999; font-weight: bold; background-color: transparent;"># ll</span>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">总用量 <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">0</span>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">[root<span style="display: inline; line-height: 1.6; color: #990073; background-color: transparent;">@localhost</span> wordpress]<span style="display: inline; line-height: 1.6; color: #999; font-weight: bold; background-color: transparent;"># pwd</span>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">/root/wordpress
+</div></code></pre>
+
+
+
+<h6 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 13.6px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="新建wordpress-docker-compose-file-文件" style="background: transparent; color: #1980e6; text-decoration: none;"/>新建wordpress docker compose file 文件</h6>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;">文件名:docker-compose.yml</p>
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">version</span>: <span style="display: inline; line-height: 1.6; color: #d14; background-color: transparent;">"3"</span>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">services</span>:
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><div style="line-height: 1.6;"/>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">   <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">db</span>:
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">     <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">image</span>: <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">mysql</span>:latest
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">     <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">volumes</span>:
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">       - <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">db_data</span>:/var/lib/mysql
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">     <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">restart</span>: always
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">     <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">environment</span>:
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">       <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">MYSQL_ROOT_PASSWORD</span>: somewordpress
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">       <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">MYSQL_DATABASE</span>: wordpress
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">       <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">MYSQL_USER</span>: wordpress
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">       <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">MYSQL_PASSWORD</span>: wordpress
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><div style="line-height: 1.6;"/>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">   <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">wordpress</span>:
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">     <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">depends_on</span>:
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">       - db
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">     <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">image</span>: <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">wordpress</span>:latest
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">     <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">ports</span>:
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">       - <span style="display: inline; line-height: 1.6; color: #d14; background-color: transparent;">"80:80"</span>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">     <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">restart</span>: always
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">     <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">environment</span>:
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">       <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">WORDPRESS_DB_HOST</span>: <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">db</span>:<span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">3306</span>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">       <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">WORDPRESS_DB_USER</span>: wordpress
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">       <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">WORDPRESS_DB_PASSWORD</span>: wordpress
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><div style="line-height: 1.6;"/>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">volumes</span>:
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">    <span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">db_data</span>:
+</div></code></pre>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="docker-compose-file-字段解析" style="background: transparent; color: #1980e6; text-decoration: none;"/>Docker compose file 字段解析</h5>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;">version：声明构建项目的版本号</p>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;">services：声明此项目有几个服务（容器）构成</p>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;">db、wordpress: 服务名称</p>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;">image: 镜像名称（默认来自于docker官方镜像仓库）</p>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;"><a href="https://hub.docker.com/_/mysql/" target="_blank" style="background: transparent; color: #1980e6; text-decoration: none;">mysql image 官方地址</a></p>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;"><a href="https://hub.docker.com/_/wordpress/" target="_blank" style="background: transparent; color: #1980e6; text-decoration: none;">wordpress image 官方地址</a></p>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;">volumes: 挂载主机目录到此服务中并给此目录命名 <br/>
+               使用命名卷必须先在首层docker file 文件中声明</p>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;">restart： 服务异常后的重启方式</p>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;">environment： 需要添加什么变量根据官方镜像说明添加</p>
+
+
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;"><img src="Docker%20%E7%B3%BB%E5%88%97%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B(%E4%BA%94).resources/http%3A__oez1g2mok.bkt.clouddn.com_WX20180819-142733@2x.png" height="1318" width="1632"/></p>
+
+
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;"><img src="Docker%20%E7%B3%BB%E5%88%97%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B(%E4%BA%94).resources/http%3A__oez1g2mok.bkt.clouddn.com_WX20180819-142655@2x.png" height="1448" width="1622"/></p>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;">ports: 主机端口和服务端口的映射关系</p>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="启动wordpress-docker-compose-项目构建" style="background: transparent; color: #1980e6; text-decoration: none;"/>启动wordpress docker compose 项目构建</h5>
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">docker-compose up <span style="display: inline; line-height: 1.6; background-color: transparent;">-d</span> 
+</div></code></pre>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="构成成功后的wordpress" style="background: transparent; color: #1980e6; text-decoration: none;"/>构成成功后的wordpress</h5>
+
+
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;"><img src="Docker%20%E7%B3%BB%E5%88%97%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B(%E4%BA%94).resources/http%3A__oez1g2mok.bkt.clouddn.com_WX20180819-130447@2x.png" height="1486" width="1506"/></p>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="wordpress-安装成功后的界面" style="background: transparent; color: #1980e6; text-decoration: none;"/>wordpress 安装成功后的界面</h5>
+
+
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;"><img src="Docker%20%E7%B3%BB%E5%88%97%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B(%E4%BA%94).resources/http%3A__oez1g2mok.bkt.clouddn.com_QQ20180819-145419@2x.png" height="1152" width="1506"/></p>
+
+
+
+<h4 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 20px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="docker-compose-命令使用" style="background: transparent; color: #1980e6; text-decoration: none;"/>Docker compose 命令使用</h4>
+
+<p style="margin: 0 0 1.1em; line-height: 1.6;"><strong style="font-weight: bold; line-height: 1.6;">Docker compose 指令必须在含有docker-compose.yml或者 docker-compose.yaml的目录执行</strong></p>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="查看compose-文件含有的镜像" style="background: transparent; color: #1980e6; text-decoration: none;"/>查看compose 文件含有的镜像</h5>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">docker-compose images</span> 
+</div></code></pre>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">[root@localhost wordpress]# docker-compose images 
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #900; font-weight: bold; background-color: transparent;">      Container         Repository    Tag       Image Id      Size </span>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #900; font-weight: bold; background-color: transparent;">-------------------------------------------------------------------</span>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">wordpress<span style="display: inline; line-height: 1.6; font-style: italic; background-color: transparent;">_db_</span>1          mysql        latest   29e0ae3b69b9   462 MB
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">wordpress<span style="display: inline; line-height: 1.6; font-style: italic; background-color: transparent;">_wordpress_</span>1   wordpress    latest   e2c4085bbc2b   389 MB
+</div></code></pre>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="列出项目中所有的容器" style="background: transparent; color: #1980e6; text-decoration: none;"/>列出项目中所有的容器</h5>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">docker-compose ps</span>
+</div></code></pre>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">[root@localhost wordpress]# docker-compose ps
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #900; font-weight: bold; background-color: transparent;">        Name                       Command               State          Ports       </span>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #900; font-weight: bold; background-color: transparent;">------------------------------------------------------------------------------------</span>
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">wordpress<span style="display: inline; line-height: 1.6; font-style: italic; background-color: transparent;">_db_</span>1          docker-entrypoint.sh mysqld      Up      3306/tcp, 33060/tcp
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">wordpress<span style="display: inline; line-height: 1.6; font-style: italic; background-color: transparent;">_wordpress_</span>1   docker-entrypoint.sh apach ...   Up      0.0.0.0:80-&gt;80/tcp 
+</div></code></pre>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="停止项目中正在运行的容器" style="background: transparent; color: #1980e6; text-decoration: none;"/>停止项目中正在运行的容器</h5>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">docker-compose <span style="display: inline; line-height: 1.6; color: #0086b3; background-color: transparent;">stop</span>
+</div></code></pre>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">[root@localhost wordpress]# docker-compose stop
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #900; font-weight: bold; background-color: transparent;">Stopping</span></span> wordpress_wordpress_1 ... done
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #900; font-weight: bold; background-color: transparent;">Stopping</span></span> wordpress_db_1        ... done
+</div></code></pre>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="删除项目中所有停止的容器" style="background: transparent; color: #1980e6; text-decoration: none;"/>删除项目中所有停止的容器</h5>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">docker-compose rm</span>
+</div></code></pre>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">[root@localhost wordpress]# docker-compose rm
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">Going to remove wordpress_wordpress_1, wordpress_db_1
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">Are you sure? [yN] y
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #900; font-weight: bold; background-color: transparent;">Removing</span></span> wordpress_wordpress_1 ... done
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #900; font-weight: bold; background-color: transparent;">Removing</span></span> wordpress_db_1        ... done
+</div></code></pre>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="构建项目镜像并启动" style="background: transparent; color: #1980e6; text-decoration: none;"/>构建项目镜像并启动</h5>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">docker-compose up <span style="display: inline; line-height: 1.6; background-color: transparent;">-d</span>
+</div></code></pre>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">[root@localhost wordpress]# docker-compose up -d
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #900; font-weight: bold; background-color: transparent;">Creating</span></span> wordpress_db_1 ... done
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #900; font-weight: bold; background-color: transparent;">Creating</span></span> wordpress_wordpress_1 ... done
+</div></code></pre>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="启动compose-项目中的容器" style="background: transparent; color: #1980e6; text-decoration: none;"/>启动compose 项目中的容器</h5>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">docker-compose <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">start</span>
+</div></code></pre>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">[root@localhost wordpress]# docker-compose start
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #900; font-weight: bold; background-color: transparent;">Starting</span></span> db        ... done
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #900; font-weight: bold; background-color: transparent;">Starting</span></span> wordpress ... done
+</div></code></pre>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="指定项目中容器的启动数量" style="background: transparent; color: #1980e6; text-decoration: none;"/>指定项目中容器的启动数量</h5>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">docker-compose scale wordpress=<span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">3</span> db=<span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">2</span>
+</div></code></pre>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">[root@localhost wordpress]# docker-compose scale wordpress=3 db=2
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #990073; background-color: transparent;">WARNING: </span>The scale command is deprecated. Use the up command with the --scale flag instead.
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">Creating wordpress<span style="display: inline; line-height: 1.6; font-style: italic; background-color: transparent;">_db_</span>1 ... done
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">Creating wordpress<span style="display: inline; line-height: 1.6; font-style: italic; background-color: transparent;">_db_</span>2 ... done
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">Creating wordpress<span style="display: inline; line-height: 1.6; font-style: italic; background-color: transparent;">_wordpress_</span>1 ... done
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">Creating wordpress<span style="display: inline; line-height: 1.6; font-style: italic; background-color: transparent;">_wordpress_</span>2 ... done
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">Creating wordpress<span style="display: inline; line-height: 1.6; font-style: italic; background-color: transparent;">_wordpress_</span>3 ... done
+</div></code></pre>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="查看项目中服务对应绑定的端口号" style="background: transparent; color: #1980e6; text-decoration: none;"/>查看项目中服务对应绑定的端口号</h5>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; color: #900; font-weight: bold; background-color: transparent;">docker</span>-compose <span style="display: inline; line-height: 1.6; color: #333; font-weight: bold; background-color: transparent;">port</span> wordpress 80
+</div></code></pre>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;"><span style="display: inline; line-height: 1.6; background-color: transparent;">[root@localhost wordpress]</span># <span style="display: inline; line-height: 1.6; color: #333; font-weight: bold; background-color: transparent;">docker-compose</span> <span style="display: inline; line-height: 1.6; color: #333; font-weight: bold; background-color: transparent;">port</span> <span style="display: inline; line-height: 1.6; color: #333; font-weight: bold; background-color: transparent;">wordpress</span> 80
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">0<span style="display: inline; line-height: 1.6; background-color: transparent;">.0</span><span style="display: inline; line-height: 1.6; background-color: transparent;">.0</span><span style="display: inline; line-height: 1.6; background-color: transparent;">.0</span><span style="display: inline; line-height: 1.6; background-color: transparent;">:80</span>
+</div></code></pre>
+
+
+
+<h5 style="font-family: inherit; font-weight: bold; color: inherit; margin-top: 10.5px; margin-bottom: 10.5px; font-size: 16px; margin: 1.2em 0 .6em 0; text-align: start; line-height: 1.6;"><a name="查看项目中服务的日志信息" style="background: transparent; color: #1980e6; text-decoration: none;"/>查看项目中服务的日志信息</h5>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">docker-compose logs <span style="display: inline; line-height: 1.6; background-color: transparent;">-f</span> wordpress
+</div></code></pre>
+
+
+
+<pre style="font-family: 'Source Code Pro',Consolas,monospace; white-space: pre-wrap; display: block; font-size: .9em; word-wrap: break-word; color: #333; background-color: rgba(102,128,153,0.05); text-align: start; padding: 0; margin: 0 0 1.1em; line-height: 1.6; border: 0; border-radius: 5px; word-break: break-all;"><code style="font-family: 'Source Code Pro',Consolas,monospace; font-size: inherit; background-color: transparent; white-space: pre-wrap; border-radius: 0; color: #333; display: block; overflow-x: auto; background: #f8f8f8; padding: 1.3em 2em;"><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">[<span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">root@localhost</span> wordpress]# docker-compose logs -f wordpress
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">Attaching to wordpress_wordpress_1
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">wordpress_1  | WordPress not found in /var/www/html - copying now...
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">wordpress_1  | Complete! WordPress has been successfully copied to /var/www/html
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">wordpress_1  | AH00558: apache2: Could not reliably determine the server<span style="display: inline; line-height: 1.6; color: #990073; background-color: transparent;">'s</span> fully qualified domain name, using <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">172.20</span>.0.3. Set the <span style="display: inline; line-height: 1.6; color: #990073; background-color: transparent;">'ServerName</span>' directive globally to suppress this message
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">wordpress_1  | AH00558: apache2: Could not reliably determine the server<span style="display: inline; line-height: 1.6; color: #990073; background-color: transparent;">'s</span> fully qualified domain name, using <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">172.20</span>.0.3. Set the <span style="display: inline; line-height: 1.6; color: #990073; background-color: transparent;">'ServerName</span>' directive globally to suppress this message
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">wordpress_1  | [<span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">Sun</span> Aug <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">19</span> <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">07</span>:13:26.743777 <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">2018</span>] [<span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">mpm_prefork:notice</span>] [<span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">pid</span> <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">1</span>] AH00163: Apache/2.4.25 (<span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">Debian</span>) PHP/7.2.8 configured -- resuming normal operations
+</div><div style="min-height: 1.5em; color: inherit; line-height: 1.6; background-color: transparent;">wordpress_1  | [<span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">Sun</span> Aug <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">19</span> <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">07</span>:13:26.743842 <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">2018</span>] [<span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">core:notice</span>] [<span style="display: inline; line-height: 1.6; color: #000080; font-weight: normal; background-color: transparent;">pid</span> <span style="display: inline; line-height: 1.6; color: #008080; background-color: transparent;">1</span>] AH00094: Command line: <span style="display: inline; line-height: 1.6; color: #990073; background-color: transparent;">'apache2</span> -D FOREGROUND'
+</div></code></pre></div><center style="display:none !important;visibility:collapse !important;height:0 !important;white-space:nowrap;width:100%;overflow:hidden">---%0Alayout%3A%20post%0Atitle%3A%20Docker%20%u7CFB%u5217%u57FA%u7840%u6559%u7A0B%28%u4E94%29%0Adescription%3A%20Docker%20%u7CFB%u5217%u57FA%u7840%u6559%u7A0B%u4E4BDocker%20%u5B9E%u64CD%uFF0C%u5305%u62ECDocker%20Compose%u7684%u5B89%u88C5%u3001%u57FA%u7840%u4F7F%u7528%u3001Docker%20Compose%20%u6784%u5EFA%u9879%u76EE%0Adate%3A%202018-08-18%2008%3A35%3A38%20+08%3A00%0Atags%3A%20Docker%20Compose%20%u5B89%u88C5%u3001%20%u57FA%u7840%u4F7F%u7528%u3001Compose%20%u6784%u5EFA%u9879%u76EE%0Acategories%3A%20Docker%0A---%0A%5BTOC%5D%0A%23%23%23%20Docker%20%u7CFB%u5217%u57FA%u7840%u6559%u7A0B%28%u4E94%29%0A%0A@%28Docker%29%0A%0A%23%23%23%23%20Docker%20Compose%20%u662F%u4EC0%u4E48%0Adocker%20compose%20%u901A%u8FC7docker-compose.yml%u662F%u5C06%u591A%u4E2A%u670D%u52A1%uFF08%u5373%u5BB9%u5668%uFF09%u6784%u5EFA%u6210%u4E00%u4E2A%u9879%u76EE%uFF0C%u6765%u5B8C%u6210%u67D0%u4E2A%u9700%u6C42%u3002%0A%0ACompose%20%u7684%u9ED8%u8BA4%u7BA1%u7406%u5BF9%u8C61%u662F%u9879%u76EE%uFF0C%u901A%u8FC7%u5B50%u547D%u4EE4%u5BF9%u9879%u76EE%u4E2D%u7684%u4E00%u7EC4%u5BB9%u5668%u8FDB%u884C%u4FBF%u6377%u5730%u751F%u547D%u5468%u671F%u7BA1%u7406%u3002%0A%23%23%23%23%20Docker%20Compose%20%u5B89%u88C5%0A%23%23%23%23%23%20%u5B89%u88C5epl%20%u8F6F%u4EF6%u6E90%0A%0A%60%60%60%0A%20yum%20install%20-y%20epel-release%0A%60%60%60%0A%23%23%23%23%23%20%u5B89%u88C5python-pip%0A%0A%60%60%60%0Ayum%20install%20-y%20python-pip%0A%60%60%60%0A%23%23%23%23%23%20%u5B89%u88C5Docker%20Compose%0A%20%0A%0A%60%60%60%0Apip%20install%20docker-compose%0A%60%60%60%0A%0A%23%23%23%23%23%20%u67E5%u770BDocker%20Compose%20%u7248%u672C%0A%0A%60%60%60%0Adocker-compose%20version%0A%60%60%60%0A%0A%60%60%60%0Aroot@MiWiFi-R3-srv%20%7E%5D%23%20docker-compose%20version%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0Adocker-compose%20version%201.22.0%2C%20build%20f46880f%0Adocker-py%20version%3A%203.5.0%0ACPython%20version%3A%202.7.5%0AOpenSSL%20version%3A%20OpenSSL%201.0.2k-fips%20%2026%20Jan%202017%0A%5Broot@MiWiFi-R3-srv%20%7E%5D%23%20%0A%60%60%60%0A%0A%23%23%23%23%20Docker%20Compose%20%u9879%u76EE%u6784%u5EFA%0A%20**%u901A%u8FC7Docker%20compose%20file%20%u6784%u5EFA%20wordpress%20%u5E94%u7528**%0A%20%0A%23%23%23%23%23%20%u7F16%u5199%20wordpress%20docker%20compose%20file%20%u6587%u4EF6%0A%23%23%23%23%23%23%20%u65B0%u5EFAwordpress%20%u6587%u4EF6%u5939%uFF0C%u5E76%u5207%u6362%u8FDB%u5165wordpress%u6587%u4EF6%u5939%0A%0A%60%60%60%0A%5Broot@localhost%20%7E%5D%23%20mkdir%20wordpress%0A%5Broot@localhost%20%7E%5D%23%20cd%20wordpress/%0A%5Broot@localhost%20wordpress%5D%23%20ll%0A%u603B%u7528%u91CF%200%0A%5Broot@localhost%20wordpress%5D%23%20pwd%0A/root/wordpress%0A%60%60%60%0A%23%23%23%23%23%23%20%u65B0%u5EFAwordpress%20docker%20compose%20file%20%u6587%u4EF6%0A%u6587%u4EF6%u540D%3Adocker-compose.yml%0A%60%60%60%0Aversion%3A%20%223%22%0Aservices%3A%0A%0A%20%20%20db%3A%0A%20%20%20%20%20image%3A%20mysql%3Alatest%0A%20%20%20%20%20volumes%3A%0A%20%20%20%20%20%20%20-%20db_data%3A/var/lib/mysql%0A%20%20%20%20%20restart%3A%20always%0A%20%20%20%20%20environment%3A%0A%20%20%20%20%20%20%20MYSQL_ROOT_PASSWORD%3A%20somewordpress%0A%20%20%20%20%20%20%20MYSQL_DATABASE%3A%20wordpress%0A%20%20%20%20%20%20%20MYSQL_USER%3A%20wordpress%0A%20%20%20%20%20%20%20MYSQL_PASSWORD%3A%20wordpress%0A%0A%20%20%20wordpress%3A%0A%20%20%20%20%20depends_on%3A%0A%20%20%20%20%20%20%20-%20db%0A%20%20%20%20%20image%3A%20wordpress%3Alatest%0A%20%20%20%20%20ports%3A%0A%20%20%20%20%20%20%20-%20%2280%3A80%22%0A%20%20%20%20%20restart%3A%20always%0A%20%20%20%20%20environment%3A%0A%20%20%20%20%20%20%20WORDPRESS_DB_HOST%3A%20db%3A3306%0A%20%20%20%20%20%20%20WORDPRESS_DB_USER%3A%20wordpress%0A%20%20%20%20%20%20%20WORDPRESS_DB_PASSWORD%3A%20wordpress%0A%20%20%20%20%20%20%20%0Avolumes%3A%0A%20%20%20%20db_data%3A%0A%60%60%60%0A%0A%23%23%23%23%23%20Docker%20compose%20file%20%u5B57%u6BB5%u89E3%u6790%0A%0Aversion%uFF1A%u58F0%u660E%u6784%u5EFA%u9879%u76EE%u7684%u7248%u672C%u53F7%0A%0Aservices%uFF1A%u58F0%u660E%u6B64%u9879%u76EE%u6709%u51E0%u4E2A%u670D%u52A1%uFF08%u5BB9%u5668%uFF09%u6784%u6210%0A%0Adb%u3001wordpress%3A%20%u670D%u52A1%u540D%u79F0%0A%0Aimage%3A%20%u955C%u50CF%u540D%u79F0%uFF08%u9ED8%u8BA4%u6765%u81EA%u4E8Edocker%u5B98%u65B9%u955C%u50CF%u4ED3%u5E93%uFF09%0A%0A%5Bmysql%20image%20%u5B98%u65B9%u5730%u5740%5D%28https%3A//hub.docker.com/_/mysql/%29%0A%0A%5Bwordpress%20image%20%u5B98%u65B9%u5730%u5740%5D%28https%3A//hub.docker.com/_/wordpress/%29%0A%0Avolumes%3A%20%u6302%u8F7D%u4E3B%u673A%u76EE%u5F55%u5230%u6B64%u670D%u52A1%u4E2D%u5E76%u7ED9%u6B64%u76EE%u5F55%u547D%u540D%0A%09%09%09%20%20%20%u4F7F%u7528%u547D%u540D%u5377%u5FC5%u987B%u5148%u5728%u9996%u5C42docker%20file%20%u6587%u4EF6%u4E2D%u58F0%u660E%0A%09%09%09%20%20%20%0Arestart%uFF1A%20%u670D%u52A1%u5F02%u5E38%u540E%u7684%u91CD%u542F%u65B9%u5F0F%0A%0Aenvironment%uFF1A%20%u9700%u8981%u6DFB%u52A0%u4EC0%u4E48%u53D8%u91CF%u6839%u636E%u5B98%u65B9%u955C%u50CF%u8BF4%u660E%u6DFB%u52A0%0A%0A%21%5Bmysql%20%u73AF%u5883%u53D8%u91CF%u53C2%u8003%uFF1A%5D%28http%3A//oez1g2mok.bkt.clouddn.com/WX20180819-142733@2x.png%29%0A%0A%21%5Bwordpress%20%u73AF%u5883%u53D8%u91CF%u53C2%u8003%5D%28http%3A//oez1g2mok.bkt.clouddn.com/WX20180819-142655@2x.png%29%0A%0Aports%3A%20%u4E3B%u673A%u7AEF%u53E3%u548C%u670D%u52A1%u7AEF%u53E3%u7684%u6620%u5C04%u5173%u7CFB%0A%23%23%23%23%23%20%u542F%u52A8wordpress%20docker%20compose%20%u9879%u76EE%u6784%u5EFA%0A%0A%20%20%20%20docker-compose%20up%20-d%20%0A%0A%23%23%23%23%23%20%u6784%u6210%u6210%u529F%u540E%u7684wordpress%20%0A%0A%21%5Bwordpress%20%u6784%u5EFA%u6210%u529F%u540E%u8BBF%u95EE%u9875%u9762%u6548%u679C%u56FE%5D%28http%3A//oez1g2mok.bkt.clouddn.com/WX20180819-130447@2x.png%29%0A%0A%23%23%23%23%23%20wordpress%20%u5B89%u88C5%u6210%u529F%u540E%u7684%u754C%u9762%0A%21%5Bwordpress%5D%28http%3A//oez1g2mok.bkt.clouddn.com/QQ20180819-145419@2x.png%29%0A%0A%23%23%23%23%20Docker%20compose%20%u547D%u4EE4%u4F7F%u7528%0A%0A**Docker%20compose%20%u6307%u4EE4%u5FC5%u987B%u5728%u542B%u6709docker-compose.yml%u6216%u8005%20docker-compose.yaml%u7684%u76EE%u5F55%u6267%u884C**%0A%23%23%23%23%23%20%u67E5%u770Bcompose%20%u6587%u4EF6%u542B%u6709%u7684%u955C%u50CF%0A%0A%60%60%60%0Adocker-compose%20images%20%0A%60%60%60%0A%0A%60%60%60%0A%5Broot@localhost%20wordpress%5D%23%20docker-compose%20images%20%0A%20%20%20%20%20%20Container%20%20%20%20%20%20%20%20%20Repository%20%20%20%20Tag%20%20%20%20%20%20%20Image%20Id%20%20%20%20%20%20Size%20%0A-------------------------------------------------------------------%0Awordpress_db_1%20%20%20%20%20%20%20%20%20%20mysql%20%20%20%20%20%20%20%20latest%20%20%2029e0ae3b69b9%20%20%20462%20MB%0Awordpress_wordpress_1%20%20%20wordpress%20%20%20%20latest%20%20%20e2c4085bbc2b%20%20%20389%20MB%0A%60%60%60%0A%23%23%23%23%23%20%u5217%u51FA%u9879%u76EE%u4E2D%u6240%u6709%u7684%u5BB9%u5668%0A%0A%60%60%60%0Adocker-compose%20ps%0A%60%60%60%0A%0A%60%60%60%0A%5Broot@localhost%20wordpress%5D%23%20docker-compose%20ps%0A%20%20%20%20%20%20%20%20Name%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Command%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20State%20%20%20%20%20%20%20%20%20%20Ports%20%20%20%20%20%20%20%0A------------------------------------------------------------------------------------%0Awordpress_db_1%20%20%20%20%20%20%20%20%20%20docker-entrypoint.sh%20mysqld%20%20%20%20%20%20Up%20%20%20%20%20%203306/tcp%2C%2033060/tcp%0Awordpress_wordpress_1%20%20%20docker-entrypoint.sh%20apach%20...%20%20%20Up%20%20%20%20%20%200.0.0.0%3A80-%3E80/tcp%20%0A%60%60%60%0A%0A%23%23%23%23%23%20%u505C%u6B62%u9879%u76EE%u4E2D%u6B63%u5728%u8FD0%u884C%u7684%u5BB9%u5668%0A%0A%60%60%60%0Adocker-compose%20stop%0A%60%60%60%0A%0A%60%60%60%0A%5Broot@localhost%20wordpress%5D%23%20docker-compose%20stop%0AStopping%20wordpress_wordpress_1%20...%20done%0AStopping%20wordpress_db_1%20%20%20%20%20%20%20%20...%20done%0A%60%60%60%0A%23%23%23%23%23%20%u5220%u9664%u9879%u76EE%u4E2D%u6240%u6709%u505C%u6B62%u7684%u5BB9%u5668%0A%0A%60%60%60%0Adocker-compose%20rm%0A%60%60%60%0A%0A%60%60%60%0A%5Broot@localhost%20wordpress%5D%23%20docker-compose%20rm%0AGoing%20to%20remove%20wordpress_wordpress_1%2C%20wordpress_db_1%0AAre%20you%20sure%3F%20%5ByN%5D%20y%0ARemoving%20wordpress_wordpress_1%20...%20done%0ARemoving%20wordpress_db_1%20%20%20%20%20%20%20%20...%20done%0A%60%60%60%0A%23%23%23%23%23%20%u6784%u5EFA%u9879%u76EE%u955C%u50CF%u5E76%u542F%u52A8%0A%0A%60%60%60%0Adocker-compose%20up%20-d%0A%60%60%60%0A%0A%60%60%60%0A%5Broot@localhost%20wordpress%5D%23%20docker-compose%20up%20-d%0ACreating%20wordpress_db_1%20...%20done%0ACreating%20wordpress_wordpress_1%20...%20done%0A%60%60%60%0A%23%23%23%23%23%20%u542F%u52A8compose%20%u9879%u76EE%u4E2D%u7684%u5BB9%u5668%0A%0A%60%60%60%0Adocker-compose%20start%0A%60%60%60%0A%0A%60%60%60%0A%5Broot@localhost%20wordpress%5D%23%20docker-compose%20start%0AStarting%20db%20%20%20%20%20%20%20%20...%20done%0AStarting%20wordpress%20...%20done%0A%60%60%60%0A%23%23%23%23%23%20%u6307%u5B9A%u9879%u76EE%u4E2D%u5BB9%u5668%u7684%u542F%u52A8%u6570%u91CF%0A%0A%60%60%60%0Adocker-compose%20scale%20wordpress%3D3%20db%3D2%0A%60%60%60%0A%0A%60%60%60%0A%5Broot@localhost%20wordpress%5D%23%20docker-compose%20scale%20wordpress%3D3%20db%3D2%0AWARNING%3A%20The%20scale%20command%20is%20deprecated.%20Use%20the%20up%20command%20with%20the%20--scale%20flag%20instead.%0ACreating%20wordpress_db_1%20...%20done%0ACreating%20wordpress_db_2%20...%20done%0ACreating%20wordpress_wordpress_1%20...%20done%0ACreating%20wordpress_wordpress_2%20...%20done%0ACreating%20wordpress_wordpress_3%20...%20done%0A%60%60%60%0A%23%23%23%23%23%20%u67E5%u770B%u9879%u76EE%u4E2D%u670D%u52A1%u5BF9%u5E94%u7ED1%u5B9A%u7684%u7AEF%u53E3%u53F7%0A%0A%60%60%60%0Adocker-compose%20port%20wordpress%2080%0A%60%60%60%0A%0A%60%60%60%0A%5Broot@localhost%20wordpress%5D%23%20docker-compose%20port%20wordpress%2080%0A0.0.0.0%3A80%0A%60%60%60%0A%23%23%23%23%23%20%u67E5%u770B%u9879%u76EE%u4E2D%u670D%u52A1%u7684%u65E5%u5FD7%u4FE1%u606F%0A%20%0A%0A%60%60%60%0Adocker-compose%20logs%20-f%20wordpress%0A%60%60%60%0A%0A%60%60%60%0A%5Broot@localhost%20wordpress%5D%23%20docker-compose%20logs%20-f%20wordpress%0AAttaching%20to%20wordpress_wordpress_1%0Awordpress_1%20%20%7C%20WordPress%20not%20found%20in%20/var/www/html%20-%20copying%20now...%0Awordpress_1%20%20%7C%20Complete%21%20WordPress%20has%20been%20successfully%20copied%20to%20/var/www/html%0Awordpress_1%20%20%7C%20AH00558%3A%20apache2%3A%20Could%20not%20reliably%20determine%20the%20server%27s%20fully%20qualified%20domain%20name%2C%20using%20172.20.0.3.%20Set%20the%20%27ServerName%27%20directive%20globally%20to%20suppress%20this%20message%0Awordpress_1%20%20%7C%20AH00558%3A%20apache2%3A%20Could%20not%20reliably%20determine%20the%20server%27s%20fully%20qualified%20domain%20name%2C%20using%20172.20.0.3.%20Set%20the%20%27ServerName%27%20directive%20globally%20to%20suppress%20this%20message%0Awordpress_1%20%20%7C%20%5BSun%20Aug%2019%2007%3A13%3A26.743777%202018%5D%20%5Bmpm_prefork%3Anotice%5D%20%5Bpid%201%5D%20AH00163%3A%20Apache/2.4.25%20%28Debian%29%20PHP/7.2.8%20configured%20--%20resuming%20normal%20operations%0Awordpress_1%20%20%7C%20%5BSun%20Aug%2019%2007%3A13%3A26.743842%202018%5D%20%5Bcore%3Anotice%5D%20%5Bpid%201%5D%20AH00094%3A%20Command%20line%3A%20%27apache2%20-D%20FOREGROUND%27%0A%60%60%60%0A</center><br/></body></html>
