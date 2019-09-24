@@ -1,7 +1,7 @@
 - 切换账户到 root:  `sudo su root`
 
   `sudo`权限不足，如何修改sudo权限  [`refer here: linux sudo 技巧`](https://linux.cn/article-9559-1.html)
-  
+
   ```
   $ sudo su root
   $ cd /etc/
@@ -12,13 +12,13 @@
               第二个 (ALL:ALL) 指示 sudo 命令被允许以任何用户身份执行
               第三个 ALL 表示所有命令都可以作为 root 执行
   ```
+
   
-  
-  
+
 - ubuntu安装软件常用位置：
 
   `/usr/lib/`    `/opt/`
-  
+
 - 保存终端内容到本地文件
 
   ```
@@ -114,7 +114,7 @@
 
   rz　命令无法传输空文件
 
-- `df -h` 命令 
+- 查看內存占用情况 ：`df -h` 命令 
 
   用法：df [选项]... [文件]...
   	`Show information about the file system on which each FILE resides,
