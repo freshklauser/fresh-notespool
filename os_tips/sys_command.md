@@ -114,13 +114,18 @@
 
   rz　命令无法传输空文件
 
-- 查看內存占用情况 ：`df -h` 命令 
+- 查看內存占用情况 ：`df -h`   或 `free`
 
   用法：df [选项]... [文件]...
   	`Show information about the file system on which each FILE resides,
   or all file systems by default.`
 
   ```
+  klaus@ubuntu:~$ free
+                total        used        free      shared  buff/cache   available
+  Mem:        2017412     1132060      303860       53080      581492      555024
+  Swap:        998396      524032      474364
+  
   klaus@ubuntu:~$ df -h
   文件系统        容量  已用  可用 已用% 挂载点
   udev            956M     0  956M    0% /dev
@@ -133,24 +138,6 @@
   tmpfs           197M   84K  197M    1% /run/user/1000
   /dev/loop0       89M   89M     0  100% /snap/core/7396
   /dev/loop1      145M  145M     0  100% /snap/notepadqq/855
-  ```
-
-  
-
-- ```
-  klaus@ubuntu:~$ df -h
-  文件系统        容量  已用  可用 已用% 挂载点
-  udev            956M     0  956M    0% /dev
-  tmpfs           197M   12M  186M    6% /run
-  /dev/sda1        29G   15G   13G   53% /
-  tmpfs           985M  153M  833M   16% /dev/shm
-  tmpfs           5.0M  4.0K  5.0M    1% /run/lock
-  tmpfs           985M     0  985M    0% /sys/fs/cgroup
-  vmhgfs-fuse     783G   15G  768G    2% /mnt/hgfs
-  tmpfs           197M   84K  197M    1% /run/user/1000
-  /dev/loop0       89M   89M     0  100% /snap/core/7396
-  /dev/loop1      145M  145M     0  100% /snap/notepadqq/855
-  
   ```
 
   
