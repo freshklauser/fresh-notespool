@@ -12,7 +12,7 @@
 本文介绍使用 ASP.NET Core 构建及部署 Web API 的基础知识，包含：
 
 - 创建 Web API 项目。
-- 添加模型类和数据库上下文。
+- 添加模型类和数据库上下文。---> 基于 <font color=coral>`InmemoryDatabase`</font>
 - 添加控制器。
 - 添加 CRUD 方法。
 - 配置路由和 URL 路径。
@@ -495,7 +495,7 @@
 
 [`refer for IIS Express <IIS Express 总结>`](<https://www.cnblogs.com/xcsn/p/8232664.html>)
 
-## IIS Express和IIS
+## 1）IIS Express和IIS
 
 IIS Express源于IIS 7及以上，支持IIS的核心特性，但有一些关键区别。一个重要的区别是工作进程的管理.
 	在<font color=coral>IIS</font>，**Windows进程激活服务（Windows Process Activation Service【WAS】）**是<font color=coral>静默激活和停用的Web应用程序，用户没有直接控制</font>。
@@ -534,7 +534,7 @@ IIS Express启动一般情况下不需要管理员权限
 | 系统托盘                                  | None                                                         | Yes                                                          |
 | 内建的IIS 模块（验证、授权、压缩等功能）  | Yes                                                          | Yes                                                          |
 
-## IIS Express需要管理员权限的情况
+## 2）IIS Express需要管理员权限的情况
 
 IIS Express设计是为了避免需要管理员权限就能完成大部分操作的，但是个别情况下它会要需要管理员权限才能运行。这类的限制包括：
 
@@ -559,11 +559,11 @@ IIS Express设计是为了避免需要管理员权限就能完成大部分操作
 
 # 四、docker跨平台部署webapi
 
-## 系统环境
+## 1）系统环境
 
 - `windows`系统开发的`webapi`通过`Docker`部署到`ubuntu/CentOS`系统, 本文部署在`ubuntu`系统的`docker`下
 
-## ubuntu系统docker中部署webapi
+## 2）ubuntu系统docker中部署webapi
 
 - `windows`系统中创建`webapi`， 并在`Program.cs`中添加`UseUrls("http://*:5555")`(docker中端口映射 宿主主机：docker容器 -- 51113:5555)
 
@@ -653,7 +653,7 @@ IIS Express设计是为了避免需要管理员权限就能完成大部分操作
 
   <div align=center><img src='./img/12-3.png' width=90%> </div>
 
-## Docker镜像迁移
+## 3）Docker镜像迁移
 
 将Docker 放置到其他机器运行很简单，直接保存镜像，然后复制镜像到其他机器，然后使用docker 命令load 既可。
 
@@ -668,6 +668,16 @@ docker load < tgdataflow.tar
 ```
 
 然后就可以使用`docker run` 运行程序了，无需关心程序需要哪些依赖。
+
+
+
+# 五、基于 redis 存储的webapi
+
+## 1）redis 基础
+
+参考 `redis_notes.md`
+
+## 2）搭建基于redis存储的webapi
 
 
 

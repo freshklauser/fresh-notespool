@@ -1,0 +1,22 @@
+1、anaconda
+版本：anaconda3-5.2.0 (对应python3.6.5版本)
+	下载对应版本anaconda (.sh后缀)
+	安装： bash Anaconda3...sh
+	更新系统设置：source ~/.bashrc
+	ok
+	
+2、anaconda中安装tensorflow模块
+	conda create -n tf python=3.6		 # 创建python版本3.6的tensorflow虚拟环境
+	source deactivate tf   	 			 # 退出虚拟环境
+	source activate tf     	 			 # 激活虚拟环境，以便在虚拟环境中安装tensorflow
+	方式一：
+	conda install tensorflow  			 # 安装cpu版本的tensorflow
+	# 进入python环境下 导入tf模块，tf.__version__ 查询tf版本
+	conda uninstall tensorflow 			 # tf环境下卸载tensorflow库
+	# 删除虚拟环境
+	conda remove -n tf --all
+	
+	
+3、docker中安装tensorflow
+	docker search tensorflow			 # 查找tensorflow相关镜像源
+	docker pull tensorflow/tensorflow	 # 拉取tensorflow镜像
