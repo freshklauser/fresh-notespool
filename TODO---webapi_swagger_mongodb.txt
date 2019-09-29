@@ -1,0 +1,36 @@
+1、api demo 路径： E:\1_WebAPI\webapi_mongodb\BooksApi
+    启动 mongodb 方式：
+		1）mongod --dbpaht <data_dir_path_in_local_pc>
+		    data_dir_path_in_local_pc: 开发计算机上用于存储数据的目录
+		2）另开一个命令行界面，运行：
+			mongo
+			连接到默认测试数据库
+			show dbs    # 显示mongodb数据库列表
+	问题：
+	1）swagger内容如何修改，在程序代码的什么位置修改   >>>>> done
+		--> swaggerDoc中只能设置网页参数等一些内容
+		--> 具体的api方法以及响应说明等需要使用 XML 文件编辑，参考 swashbuckle入门
+		refer: https://blog.csdn.net/sD7O95O/article/details/80879005
+		refer:參考360瀏覽器收藏夾中的2個關於swagger的說明鏈接
+	2）mongodb 换成mysql如何换				>>>>> done 暫時忽略
+		mongodb的数据库本地路径：D:\BooksData_mgdb
+	3）日志 log  https://www.cnblogs.com/AprilBlank/p/11282345.html
+		未封装log  >>>> done
+		封装log  代码中定义和封装log同时出现时无效(booksControl中这种情况)，   >>>> done
+				 单独使用封装Log有效（valuesControl中这种情况）				   >>>> done
+		需进一步：
+			封装Log代码研究  not done
+		
+	4）异常捕获处理     not done
+		https://docs.microsoft.com/zh-cn/aspnet/core/web-api/handle-errors?view=aspnetcore-2.1
+		https://www.cnblogs.com/lonelyxmas/p/8062210.html
+		比如：数据库为启动，需要抛出异常
+		
+	
+	
+refer: 			https://docs.microsoft.com/zh-cn/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&tabs=visual-studio
+
+	
+
+2、todo: api demo with redis 实现内存存储（和数据库存储）
+api demo 路徑： 
