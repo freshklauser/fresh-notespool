@@ -80,7 +80,7 @@
 
   ```
   # 安装
-  snap install --classic notepad11
+  snap install --classic notepadqq
   sudo apt-get update
   # 卸载
   sudo apt-get remove notepadqq
