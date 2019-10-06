@@ -86,6 +86,12 @@
   sudo apt-get remove notepadqq
   sudo add-apt-repository --remove ppa:notepadqq-team/notepadqq
   ```
+  
+- ubuntu建立文件夹的软连接到桌面
+  sudo ln -sT [文件夹路径] [桌面文件夹路径]
+  例如：
+  sudo ln -sT /home/user_name/文件夹/ /home/user_name/Desktop/文件夹
+  sudo ln -sT /media/klaus/Mydata/Work/ /home/klaus/Desktop/hd2/link_hd2_Work
 
 - ubuntu建立程序的软连接实现terminal终端启动：建立执行文件到/usr/local/bin的软连接
 
@@ -96,17 +102,26 @@
   subl <filename>
   ```
 
-- Typora 安装好后不需要建立软连接，可以直接在terminal中使用 `typora <filename>` 打开文件
-
+- Typora 
+  安装（官网有说明）：
+	
+	```
+	# or run:
+	# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA300B7755AFCFAE
+	  wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
+	# add Typora's repository
+	  sudo add-apt-repository 'deb https://typora.io/linux ./'
+	  sudo apt-get update
+  # install typora
+  sudo apt-get install typora
+    安装好后不需要建立软连接，可以直接在terminal中使用 `typora <filename>` 打开文件
+  ```
+  
 - google浏览器启动命令： `google-chrome`
-
 - ubuntu下 notepadqq 和 sublimetext都无法输入中文
-
   refer for sublimetext: https://blog.csdn.net/weixin_41762173/article/details/79379131
 
-  ```
-  待解决
-  ```
+  <font color=coral>待解决</font>
 
 - `xshell`与ubuntu传输文件：lrzsz
 
@@ -431,7 +446,7 @@
 
 45、命令：ps -el | grep 【进程名】 （查看进程状态）
 
-- ps命令查看进程对于的id : `ps -ef | grep vim`
+- ps命令查看进程对应的id : `ps -ef | grep vim`
 - kill命令杀死进程： `kill -9 进程id`
 
 46、系统文件构成：
