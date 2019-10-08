@@ -18,6 +18,7 @@ E627DDBA 960A2153 69A2D98A C87C0607
 
 3. 安装package control:
 	Ctrl+"`"快捷键或者View-->Show Console菜单打开命令行，粘贴如下代码：
+	refer: https://packagecontrol.io/installation
 	code listed as follow:
 		import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
 	Enter运行code即可
@@ -108,25 +109,25 @@ E627DDBA 960A2153 69A2D98A C87C0607
 		{
 			"max-line-length": 140,
 			"ignore":				/* ignore在Anaconda里设置起作用好像  */
-			[
+			[	
 				"E309","E501", "E402",/* "E121", "E123", "E126", "E226", "E24", "E704" "E501" */
 			],
 		}
 		
-		pep8规范既可以用 AutoPEP8插件设置和修复，也可以使用Anaconda插件设置和修复
+		pep8规范既可以用 AutoPEP8插件设置和修复，也可以使用		Anaconda插件设置和修复
 		使用pep8來format的話就用pep8的相應設置， 使用anaconda来format的话就使用的是anaconda中的设置
-		建议采用anaconda插件设置，pep8设置ignore之后Format无反应
+		建议采用anaconda插件设	置，pep8设置ignore之后Format无反应
 		anaconda中auto_format的快捷键： alt+ctrl+r
 
 	6) 设置自定义header
-		Preferences -> Browse Packages 进入SublimeText 插件安装目录，
+		Preferences -> Browse Packages 进入	SublimeText 插件安装目录，
 		然后依次进入File Header -> template -> header -> python.tmpl
 		增加： 
 		# ------------------------------------------------------------------------------
 		# Description:
 		# ------------------------------------------------------------------------------
 		
-	7) 新版会出现编译后中文乱码问题：
+	7) 新版有可能会出现编译后中文乱码问题：
 		解决方法：自定义编译文件 Tools -> Build System -> New Build System:  python3.sublime-build，
 		{
 			"cmd":["C:\\Users\\Wang\\Anaconda3\\python.exe", "-u", "$file"],		/* 注意：路径根据自己的python安装路径而定  */
@@ -137,8 +138,13 @@ E627DDBA 960A2153 69A2D98A C87C0607
 			"env": {"PYTHONIOENCODING": "utf8"}    /*通过这句，使编码一致，都是utf8*/
 		}
 		配置好后，选择 python3 作为 Build System
-	
-	
+	8) 无法下载 package 问题
+		debug出现下列问题：
+		Package Control: Error downloading channel. URL error [Errno 101] Network is unreachable downloading https://packagecontrol.io/channel_v3.json.
+		解决方法（成功解决问题）：
+		Select “Package Control: Add Repository”, and paste in: http://sublime.wbond.net/repositories.json
+		Using plain http will not require a certificate, which seems to be the cause of the problem.
+
 
 	
 			

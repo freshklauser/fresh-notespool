@@ -80,12 +80,18 @@
 
   ```
   # 安装
-  snap install --classic notepad11
+  snap install --classic notepadqq
   sudo apt-get update
   # 卸载
   sudo apt-get remove notepadqq
   sudo add-apt-repository --remove ppa:notepadqq-team/notepadqq
   ```
+  
+- ubuntu建立文件夹的软连接到桌面
+  sudo ln -sT [文件夹路径] [桌面文件夹路径]
+  例如：
+  sudo ln -sT /home/user_name/文件夹/ /home/user_name/Desktop/文件夹
+  sudo ln -sT /media/klaus/Mydata/Work/ /home/klaus/Desktop/hd2/link_hd2_Work
 
 - ubuntu建立程序的软连接实现terminal终端启动：建立执行文件到/usr/local/bin的软连接
 
@@ -96,17 +102,26 @@
   subl <filename>
   ```
 
-- Typora 安装好后不需要建立软连接，可以直接在terminal中使用 `typora <filename>` 打开文件
-
+- Typora 
+  安装（官网有说明）：
+	
+	```
+	# or run:
+	# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA300B7755AFCFAE
+	  wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
+	# add Typora's repository
+	  sudo add-apt-repository 'deb https://typora.io/linux ./'
+	  sudo apt-get update
+  # install typora
+  sudo apt-get install typora
+    安装好后不需要建立软连接，可以直接在terminal中使用 `typora <filename>` 打开文件
+  ```
+  
 - google浏览器启动命令： `google-chrome`
-
 - ubuntu下 notepadqq 和 sublimetext都无法输入中文
-
   refer for sublimetext: https://blog.csdn.net/weixin_41762173/article/details/79379131
 
-  ```
-  待解决
-  ```
+  <font color=coral>待解决</font>
 
 - `xshell`与ubuntu传输文件：lrzsz
 
@@ -193,7 +208,7 @@
 - 软连接特点：权限是所有人都可以访问，并且软连接文件指向源文件，软链接就像windows系统中的快捷方式一样
 - 硬链接特点：类似copy，和源文件是同步更新数据，硬链接不能跨文件系统分区，软链接可以
 
-12、命令：chmod 改变文件或目录的权限； [<font color=coral>'Linux文件属性和更改文件权限'</font>](https://blog.csdn.net/zsx157326/article/details/78665960)
+12、<font color=coral>文件权限</font>命令：chmod 改变文件或目录的权限； [<font color=coral>'Linux文件属性和更改文件权限'</font>](https://blog.csdn.net/zsx157326/article/details/78665960)
 
 ​		为方便更改文件的权限，Linux使用数字代替rwx，具体规则为：<font color=limegreen>r等于4，w等于2，x等于1，-等于0</font>。例如，rwxrwx---用数字表示就是770，其具体算法为：rwx=4+2+1=7，rwx=4+2+1=7，—=0+0+0=7
 
@@ -205,7 +220,11 @@
   >>> drwxr-xr-x. 6 1001 1001   4096 11月 11 08:36 auto
   第1位 'd' ：用来描述该文件的类型。d:文件是目录; -:普通文件; l:链接文件（link file）
   >>> rwxr-xr-x : 
-  	文件类型后面9位，每3个为一组，均为rwx这3个参数的组合。r代表可读，w代表可写，x代表可执行。前3位为所有者（user）的权限，中间3位为所属组（group）的权限，最后3位为其他非本群组用户（others）的权限
+  	文件类型后面9位，每3个为一组，均为rwx这3个参数的组合。前3位为所有者（user）的权限，中间3位为所属组（group）的权限，最后3位为其他非本群组用户（others）的权限
+  	[ r ] 代表可读(read)
+      [ w ] 代表可写(write)
+      [ x ] 代表可执行(execute)
+      [ - ] 没有权限
   
   第2列：表示该文件占用的节点（inode），如果是目录，那这个数值与该目录下子目录数量有关。
   第3列：表示该文件的所有者
@@ -215,7 +234,29 @@
   第9列：表示文件名。
   ```
 
+- `ll: `:   不忽略 `.`开头的文件
 
+- `ls -l`：列出文件信息，包含权限，忽略 `.`开头的文件  (`ls -al:  -a不隐藏任何文件`)
+
+  ```
+  klaus@klaus-ThinkPad-T480:/media/klaus/Mydata$ ll
+  总用量 44
+  drwx------  8 klaus klaus  4096 10月  7 00:43 ./
+  drwxr-x---+ 3 root  root   4096 10月  7 15:23 ../
+  drwxrwxrwx  8 klaus klaus  4096 9月  30 09:25 Fang/
+  drwxrwxr-x  9 klaus klaus  4096 10月  7 15:17 Jun/
+  drwx------  2 root  root  16384 10月  1 16:46 lost+found/
+  drwxrwxr-x  6 klaus klaus  4096 10月  7 11:12 Repository/
+  drwx------  5 klaus klaus  4096 10月  6 11:36 .Trash-1000/
+  drwxrwxrwx  5 klaus klaus  4096 10月  7 11:08 Work/
+  klaus@klaus-ThinkPad-T480:/media/klaus/Mydata$ ls -l
+  总用量 32
+  drwxrwxrwx 8 klaus klaus  4096 9月  30 09:25 Fang
+  drwxrwxr-x 9 klaus klaus  4096 10月  7 15:17 Jun
+  drwx------ 2 root  root  16384 10月  1 16:46 lost+found
+  drwxrwxr-x 6 klaus klaus  4096 10月  7 11:12 Repository
+  drwxrwxrwx 5 klaus klaus  4096 10月  7 11:08 Work
+  ```
 
 13、命令：su -userName （切换用户）
 
@@ -296,6 +337,8 @@
 
     语法：unzip【解压缩的文件】；
     描述：进行解压缩，最后配置加-d表示文件解压后存放的路径；
+    # windows系统下的zip文件拷贝到ubuntu系统解压后会文件名乱码
+    unzip -O CP936 <zip_file>
 
 25、命令：ping
 
@@ -385,7 +428,7 @@
     删除用户组：groupdel【组名】
     形如：groupdel webs
     修改用户组：groupmod -n【新组名】【旧组名】
-    查看用户属于那些用户组：groups ul
+    查看用户属于那些用户组：groups klaus	# 若没有指定用户名 则默认当前用户
 
 40、用户管理命令：
 
@@ -431,7 +474,7 @@
 
 45、命令：ps -el | grep 【进程名】 （查看进程状态）
 
-- ps命令查看进程对于的id : `ps -ef | grep vim`
+- ps命令查看进程对应的id : `ps -ef | grep vim`
 - kill命令杀死进程： `kill -9 进程id`
 
 46、系统文件构成：
