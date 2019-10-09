@@ -1,0 +1,12 @@
+FROM python:3.6
+LABEL author="xxxx"
+LABEL purpose="collect data"
+
+
+ADD . /code
+WORKDIR /code
+RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+CMD ["python","spindle_predict.py"]
+
+# sudo docker build -t spindle_data_1:v1 .
+# sudo docker run -it spindle_data_1

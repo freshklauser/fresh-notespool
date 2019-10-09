@@ -1,0 +1,11 @@
+version: '3'
+services:
+  collect_python:
+    # stdin_open: true
+    # tty: true
+    build: .
+    image: spind_data:v1.0
+    restart: always
+    volumes:
+      - .:/app
+    command: ['python3','spindle_predict.py']
