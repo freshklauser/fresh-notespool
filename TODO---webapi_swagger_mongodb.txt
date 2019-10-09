@@ -1,8 +1,8 @@
 1、api demo 路径： E:\1_WebAPI\webapi_mongodb\BooksApi
     启动 mongodb 方式：
-		1）mongod --dbpaht <data_dir_path_in_local_pc>
+		1）mongod --dbpath <data_dir_path_in_local_pc>
 		    data_dir_path_in_local_pc: 开发计算机上用于存储数据的目录
-		2）另开一个命令行界面，运行：
+		2）另开一个命令行界面，运行：（开机后先试下mongo是否可以顺利进入数据库，可以的化则表明服务已开启）
 			mongo
 			连接到默认测试数据库
 			show dbs    # 显示mongodb数据库列表
@@ -14,19 +14,30 @@
 		refer:參考360瀏覽器收藏夾中的2個關於swagger的說明鏈接
 	2）mongodb 换成mysql如何换				>>>>> done 暫時忽略
 		mongodb的数据库本地路径：D:\BooksData_mgdb
+		开启制定数据库目录的mongodb服务:
+		mongod -dbpath D:\BooksData_mgdb
+		关闭mongodb服务： 
+		use admin   # 数据库中 进入admin账户才能关闭数据库
+		db.shutdownServer()   # 关闭数据库
+		
 	3）日志 log  https://www.cnblogs.com/AprilBlank/p/11282345.html
 		未封装log  >>>> done
 		封装log  代码中定义和封装log同时出现时无效(booksControl中这种情况)，   >>>> done
 				 单独使用封装Log有效（valuesControl中这种情况）				   >>>> done
 		需进一步：
-			封装Log代码研究  not done
+			封装Log代码研究  not done  
 		
 	4）异常捕获处理     not done
 		https://docs.microsoft.com/zh-cn/aspnet/core/web-api/handle-errors?view=aspnetcore-2.1
 		https://www.cnblogs.com/lonelyxmas/p/8062210.html
 		比如：数据库为启动，需要抛出异常
 		
-	
+		异常级别：
+		(0) id 不存在时为什么不返回log信息？？？
+		(1) 如何修改 OnException 来丰富 log
+			参考：https://www.cnblogs.com/landeanfen/p/5363846.html#_label0
+		(2) OnException 中 总是以 log.Error 错误级别输出 Exception 的，能否自动识别其他错误级别
+		
 	
 refer: 			https://docs.microsoft.com/zh-cn/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.1&tabs=visual-studio
 
