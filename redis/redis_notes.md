@@ -24,5 +24,6 @@ redis 127.0.0.1:6379> get testkey
 redis 127.0.0.1:6379>
 ```
 
-
+- 查看redis-server 版本： redis-server --version
+- 升級redis：
 

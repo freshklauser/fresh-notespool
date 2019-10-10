@@ -179,5 +179,36 @@
   
   ```
 
+- anaconda 安装 pyspark 
+
+  单独建立一个 spark 的虚拟环境会不会更合适？
+
+  ```
+  conda search pyspark  # 会显示所有版本pyspark及对应的python版本
+          klaus@ubuntu:~$ conda search pyspark
+          Loading channels: done
+          # Name                  Version           Build  Channel             
+          pyspark                   2.2.0          py27_0  pkgs/free           
+          pyspark                   2.2.0          py35_0  pkgs/free           
+          pyspark                   2.2.0          py36_0  pkgs/free           
+          pyspark                   2.3.0          py27_0  pkgs/main           
+          pyspark                   2.3.0          py35_0  pkgs/main           
+          pyspark                   2.3.0          py36_0  pkgs/main           
+          pyspark                   2.3.1          py27_1  pkgs/main           
+          pyspark                   2.3.1          py35_1  pkgs/main           
+          pyspark                   2.3.1          py36_1  pkgs/main           
+          pyspark                   2.3.1          py37_1  pkgs/main           
+          pyspark                   2.3.2          py27_0  pkgs/main           
+          pyspark                   2.3.2          py36_0  pkgs/main           
+          pyspark                   2.3.2          py37_0  pkgs/main           
+          pyspark                   2.4.0          py27_0  pkgs/main           
+          pyspark                   2.4.0          py36_0  pkgs/main           
+          pyspark                   2.4.0          py37_0  pkgs/main           
+          pyspark                   2.4.1            py_0  pkgs/main           
+          pyspark                   2.4.3            py_0  pkgs/main           
+          pyspark                   2.4.4            py_0  pkgs/main
+  conda install pyspark=2.3.2   # 对应默认安装的是 python-3.6.6
+  ```
+
   
 

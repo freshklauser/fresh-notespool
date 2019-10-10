@@ -39,6 +39,8 @@ E627DDBA 960A2153 69A2D98A C87C0607
 	sublimeREPL
 	Git
 	ConvertToUTF8   # 打开中文文档不出现乱码
+	SFTP  			# Mapping a local folder to a remote folder; Working off of a server
+					# 安裝后在 File 菜单栏下拉有 SFTP/FTP （具体怎么用 待续！！）
 	
 
 5. 参数配置：
