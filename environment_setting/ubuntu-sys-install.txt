@@ -1,0 +1,440 @@
+
+>>>>>>>>>>>>>>>>>>>>>> 20191004 operation in laptop for ubuntu system <<<<<<<<<<<<<<<<<<<<<<<<<
+
+1、dpkg  apt-get被锁等问题 （脚本在 /Jun/ 目录下, 执行 bash lock_problem.sh 即可）
+	sudo rm /var/lib/dpkg/lock
+	sudo rm /var/lib/apt/lists/lock
+	sudo rm /var/cache/apt/archives/lock
+	# 然后更新软件
+	sudo apt-get update
+	sudo apt-get upgrade
+
+
+2、更换国内软件源
+	# 备份一下
+	sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+	# 修改
+	sudo vi /etc/apt/sources.list
+	替换为以下内容：
+		# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
+		deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main restricted universe multiverse
+		# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main restricted universe multiverse
+		deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse
+		# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse
+		deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse
+		# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse
+		deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security main restricted universe multiverse
+		# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security main restricted universe multiverse
+	sudo apt-get update
+	sudo apt-get upgrade
+
+	更换源之后，更新软件列表：
+			>>> sudo apt-get updates
+	update更新软件列表后，可能需要更新相应的软件：
+			>>> sudo apt-get upgrade
+			这个命令，会把本地已安装的软件，与刚下载的软件列表里对应软件进行对比，如果发现已安装
+			的软件版本太低，就会提示你更新
+	update是更新软件列表，upgrade是更新软件
+
+3、deb包(Debian)安装
+	dpkg 是Debian Package的简写，是为Debian 专门开发的套件管理系统，方便软件的安装、更新及移除。所有源自Debian的Linux发行版都使用dpkg，例如Ubuntu、Knoppix 等。在安装许多deb文件时，我们都需要使用该命令。
+	常用的dpkg命令：
+	eg.
+	搜狗输入法 ：
+		>>> sudo dpkg -i sogoupinyin_2.1.0.0082_amd64.deb
+	若出现错误,输入以下命令修复：
+		>>> sudo apt-get install -f
+	参考：https://blog.csdn.net/leijieZhang/article/details/53707181
+
+4、卸载软件包
+	卸载apt-get 安装的软件: 
+		sudo apt-get remove <software_name>
+	卸载自己deb包安装的软件或者apt-get 安装的软件:
+		sudo dpkg -l   # 先通过该命令查找自己安装的软件的名字
+		sudo dpkg  -r <software_name>
+	自动清除残留配置文件:
+		sudo apt-get autoclean 
+		sudo apt-get autoremove
+	完全卸载:
+		sudo apt-get remove --purge name
+
+
+5、防火墙 (未完待续)
+	sudo ufw status  查看防火墙状态
+
+6、安装vim 
+	sudo apt-get install vim
+
+7、安装git  （未完待续  不能push）
+	sudo apt-get install git
+	# git 配置用户
+	git config --global user.name "sniky-lyu"
+	git config --global user.email "junkklv@outlook.com"
+	# 生成密匙
+	ssh-keygen -t rsa -b 4096 -C "junkklv@outlook.com"
+	# 将私匙加入到ssh-agent中
+	eval "$(ssh-agent -s)"
+	ssh-add ~/.ssh/id_rsa
+	# 将公匙加入到github账户中
+	...
+    问题：
+	ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+fatal: Could not read from remote repository.
+
+
+8、安装sublime text3 
+    方法1：（最后一步下载贼慢，容易失败）
+	refer: https://www.sublimetext.com/docs/3/linux_repositories.html
+	# Install the GPG key:
+	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+
+	# Ensure apt is set up to work with https sources:
+	sudo apt-get install apt-transport-https
+
+	# Select the channel to use:
+	# Stable
+	    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+	# Dev
+	    echo "deb https://download.sublimetext.com/ apt/dev/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+
+	# Update apt sources and install Sublime Text
+	sudo apt-get update
+	sudo apt-get install sublime-text   --->  这一步下载贼慢，经常下载失败
+
+
+    方法2：
+	#添加sublime text3的仓库
+	sudo add-apt-repository ppa:webupd8team/sublime-text-3
+	#更新软件库
+	sudo apt-get update
+	#安装sublime text3
+	sudo apt-get install sublime-text-installer
+	# terminal中启动 subl 命令即可，不用另外去设置软连接之类的
+	subl <filename.py>
+
+    方法3：下载 deb 包安装 （推荐）
+	
+	
+
+9、安装snap 及 snap方式安装 notepadqq (windows中的notepad++)
+	# snap的安装、卸载等常见操作 	
+	# refer: https://www.jianshu.com/p/4049b97151a1
+	# 安装
+	sudo apt-get install snapd
+	sudo apt-get install snapcraft
+
+   1) snap安装 Notepad-Plus-Plus (WINE)
+	# 安装
+	sudo snap install notepad-plus-plus
+	# 在如下状态会等很久
+	>>> Automatically connect eligible plugs and slots of snap "notepad-plus-plus"
+	# 运行
+	notepad-plus-plus
+	# 卸载
+	sudo snap remove notepad-plus-plus
+	# 如果第一次没有安装成功，又直接第二次安装，可能会报错如下：
+	>>> error: snap "notepadqq" has "install-snap" change in progress
+	# 解决方法：
+	snap changes	 # 查看安装过程中第几步出问题，对应又序号ID
+	sudo snap abort <ID>	# 即可再继续输入命令安装
+
+	# 常见命令
+	sudo snap list
+	sudo snap find <text to search>
+	sudo snap install <snap name>
+	sudo snap refresh <snap name>		# refresh all snap-installer without <snap name>
+	sudo snap revert <snap name>		# revert <snap name> to old version
+	sudo snap remove <snap name>
+
+>>>>>>>>>>>>>>>>>>>>>> ... snap 的store里面有很多软件可以看看 <<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+10、解压zip文件:  
+	# 安装解压软件
+	sudo apt-get install unzip
+	# 解压
+	unzip <filename.zip>
+	# 通过unzip行命令解压，指定字符集, 解决windows的zip压缩文件拷贝到ubuntu解压后文件名乱码问题
+	unzip -O CP936 xxx.zip
+	# 查看文件内容列表
+
+	加压/压缩rar文件:
+	sudo apt-get install rar
+	sudo apt-get install unrar
+	unrar l <rar_file>   # 列出文件内容
+	unrar x <rar_file>   # 解压rar文件到当前目录	
+
+11、安装迅雷 ---> 目前只是clone了源代码 (后续不用看了，使用deepin-wine安装完成且能正常使用)
+	# 安装必备软件包
+	sudo apt-get install git build-essential devscripts
+	# clone源代码:新建一个空目录，clone
+	git clone https://github.com/Xinkai/XwareDesktop.git
+	# 检查编译依赖项
+	cd XwareDesktop
+	dpkg-checkbuilddeps
+	# 如有缺失依赖项会报类错误例如缺少依赖项’aa、bb、ccc’，则复制缺失的依赖项执行
+	sudo apt-get install aa bb ccc
+	# 制作安装包
+	dpkg-buildpackage
+	# 如果报错dpkg-buildpackage: error: failed to sign .dsc and .changes file则执
+	sudo dpkg-buildpackage -uc -us
+	执行上述步骤后，在XwareDesktop的源代码目录的上级目录，你应该能找到名为xware-desktop_xxx.deb的安装包文件,安装
+	sudo dpkg -i <xware-desktop_xxx.deb>
+	# 启动注意事项：refer: https://blog.csdn.net/qq_26884501/article/details/80246875
+	......
+
+13、安装aria2 
+	# 火狐浏览器安装插件
+	https://addons.mozilla.org/zh-CN/firefox/addon/baidu-pan-exporter/
+	# 安装aria2
+	sudo apt-get install aria2
+	# 安装好后，进入百度云盘的下载链接，“导出下载”下拉选项中“文本导出”，复制 命令 至 terminal 
+	# terminal 中运行即可
+
+14、安装 deepin-wine (优先考虑refer2来安装)， 用来安装windows系统下可以装但ubuntu安装很麻烦的一些软件
+	refer1: https://github.com/wszqkzqk/deepin-wine-ubuntu
+	refer2: https://github.com/zq1997/deepin-wine   (解决了上一条refer中微信版本低不兼容的问题)
+	# 下载 deepin-wine
+	git clone https://github.com/wszqkzqk/deepin-wine-ubuntu.git
+	# 安装 deepin-wine(在下载的deepin-wine目录下)
+	sudo ./install.sh
+	>>>>>>>>>>>>>>> 安装软件 <<<<<<<<<<<<<<<<<<<<<
+	# refer中下载想要安装的软件，安装过程中最新版本软件安装失败，可下载旧版本安装（refer1中出现版本问题可使用refer2）
+	# 优先考虑refer2来安装（refer1使用的不是新版本deepin-wine，可能出现安装包兼容问题）
+	install in refer2: sudo apt-get install <installer_name>
+	应用 		包名
+	TIM 		deepin.com.qq.office
+	QQ 		deepin.com.qq.im
+	QQ轻聊版 	deepin.com.qq.im.light
+	微信 		deepin.com.wechat
+	百度网盘 	deepin.com.baidu.pan
+	迅雷极速版 	deepin.com.thunderspeed
+	WinRAR 		deepin.cn.com.winrar
+	...
+	klaus@klaus-ThinkPad-T480:~/Downloads$ sudo apt-get install dee
+	deepin.cn.360.yasuo                  deepin.com.wechat
+	deepin.cn.com.winrar                 deepin.com.weixin.work
+	deepin.com.95579.cjsc                deepin-fonts-wine
+	deepin.com.aaa-logo                  deepin-libwine
+	deepin.com.baidu.pan                 deepin.net.263.em
+	deepin.com.cmbchina                  deepin.net.cnki.cajviewer
+	deepin.com.foxmail                   deepin.org.7-zip
+	deepin.com.gtja.fuyi                 deepin.org.foobar2000
+	deepin.com.qq.b.crm                  deepin-wine
+	deepin.com.qq.b.eim                  deepin-wine32-preloader
+	deepin.com.qq.im                     deepin-wine-binfmt
+	deepin.com.qq.im.light               deepin-wine-helper
+	deepin.com.qq.office                 deepin-wine-plugin
+	deepin.com.qq.rtx2015                deepin-wine-uninstaller
+	deepin.com.taobao.aliclient.qianniu  dee-tools
+	deepin.com.taobao.wangwang           deets
+	deepin.com.thunderspeed   
+
+15、安装截图软件 deepin-scrot 
+	refer: https://blog.csdn.net/u010537398/article/details/84024247
+	# 百度 下载 deb包， cd 到目录下
+	sudo dpkg -i deepin-scrot_2.0-0deepin_all.deb
+	# 可能提示缺少python依赖
+	sudo apt-get install python-xlib
+	# 终端下启动
+	deepin-scrot
+	# 可能缺少 gtk module
+	sudo apt-get install python-gtk2 python-gtk2-dbg python-gtk2-dev python-gtk2-doc
+	deepin-scrot  --->  ok 
+	# 或者 系统设置--> 键盘--> 快捷键 中设置快捷键
+	name: screenshot   （随便取）
+	command: deepin-scrot  --> 设置快捷键 然后应用即可
+
+16、安装 Typora  
+	安装（官网有说明）：
+	# or run:
+	# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA300B7755AFCFAE
+	wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
+	# add Typora's repository
+	sudo add-apt-repository 'deb https://typora.io/linux ./'
+	sudo apt-get update		
+	# install typora
+	sudo apt-get install typora
+	安装好后不需要建立软连接，可以直接在terminal中使用 `typora <filename>` 打开文件
+
+17、软链接
+	硬盘2的软连接到硬盘1的 Desktop 
+	sudo ln -sT [文件夹路径] [桌面文件夹路径]
+	sudo ln -sT /media/klaus/Mydata/Work/ /home/klaus/Desktop/hd2/link_hd2_Work
+
+18、pdf阅读器 foxit
+	# 下载链接
+	https://www.foxitsoftware.com/pdf-reader/
+	# 解压 .gz
+	gzip -d 'FoxitReader.enu.setup.2.4.4.0911.x64.run.tar.gz'
+ 	# 解压 .tar
+	tar xvf FoxitReader.enu.setup.2.4.4.0911.x64.run.tar
+	--> 或者直接 tar 来解压 .tar.gz文件
+	# 安装
+	./FoxitReader.enu.setup.2.4.4.0911\(r057d814\).x64.run
+
+19、ubuntu开启xshell服务
+	# 安装openssh-server
+	sudo apt-get install openssh-server
+
+20、安装 wps-office (snap store 也有 wps-office 可以安装)
+	# deb包下载
+	http://mirrors.aliyun.com/deepin/pool/non-free/w/wps-office-2019/
+	# 安装
+	sudo apt-get install wps-office
+
+21、1）安装 anaconda
+	# 官网下载anaconda3-5.2.0的 .sh 文件 (该版本对应的python3.6.5)
+	<xxx.sh>: Anaconda3-5.2.0-Linux-x86_64.sh
+	# terminal cd 到 .sh 所在的目录 安装
+	bash Anaconda3-5.2.0-Linux-x86_64.sh 
+	# 检查环境变量 ~/.bashrc 配置文件，没有则添加 
+	# (安装过程中有一步会让你选择是否将anaconda加入到path中，选择是则不需要再手动添加)
+	sudo gedit ~/.bashrc
+	# 检查末尾是否已经添加 anaconda3 的变量，没有则添加	
+	export PATH="/home/klaus/anaconda3/bin:$PATH"	
+	# 更新配置文件使其立即生效
+	source ~/.bashrc
+	# 测试安装情况		--->  不要升级conda，会自动将python版本升级
+	conda --version	
+
+    2）使用 jupyter notebook
+	# terminal 中 输入 以下命令即可
+	jupyter-notebook
+
+    3）虚拟环境 tf 中 安装tensorflow
+	# 创建 tf 虚拟环境 (基于 python3.6，不显式指定的话会默认基于最新版的python安装，python3.7与tensorflow兼容有问题)
+	conda create -n tf python=3.6.5
+	# 激活环境 To activate this environment, use: (source新版本删除，用conda代替)
+	conda activate tf
+	# 退出虚拟环境 To deactivate an active environment, use:
+	conda deactivate
+	# 查看虚拟环境列表
+	conda env list
+	# 删除虚拟环境
+	conda env remove -n tf
+	# 在 tf 环境下安装tensorflow及其他module
+	conda install tensorflow     	# cup version   -- tensorflow 1.14
+	conda install tensorflow-gpu	# gpu version
+	# 若出现下列问题，则需要将numpy版本至 numpy=1.16.0, 下列命令即可
+		>>> FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+	conda install numpy=1.16.0
+	# 重装numpy后，tensorflow 不会报警告
+	
+22、查看磁盘和目录的使用情况
+	df -hl 查看磁盘剩余空间
+	df -h 查看每个根路径的分区大小
+	du -h [目录名] 返回该目录中每个文件的大小及目录总大小 （不加目录名则返回的是当前目录的情况）
+	du -sh [目录名] 返回该目录的总大小 
+	du -sm [文件夹] 返回该文件夹总M数
+
+23、安装 wps-office 
+	# 下载 deepin-wine 的 deb 软件包
+	website: http://mirrors.aliyun.com/deepin/pool/non-free/w/
+	# 或者参考 https://blog.csdn.net/qiai9932/article/details/80313154 中的安装方式
+	# cd 到所在目录
+	sudo dpkg -i wps-office-2019_11.1.0.8392_amd64.deb
+	# 可以直接terminal 中 输入 wps 运行
+    问题：缺少部分字体
+	refer: https://blog.csdn.net/qiai9932/article/details/80313154
+	# 下载字体包(refer中有链接)，创建目录
+	sudo mkdir /usr/share/fonts/wps-office
+	# 将下载的字体复制到创建的目录：
+	sudo cp -r wps_symbol_fonts.zip /usr/share/fonts/wps-office 
+	# 切换到/usr/share/fonts/wps-office目录解压字体包：
+	sudo unzip wps_symbol_fonts.zip
+	# 解压后删除字体包：
+	sudo rm -r wps_symbol_fonts.zip
+	# 再次打开就不会提示缺失字体包了！ 
+
+24、windows系统下zip压缩文件拷贝到ubuntu系统后解压 文件名乱码问题
+	# 通过unzip行命令解压，指定字符集
+	unzip -O CP936 xxx.zip
+	
+25、更改目录、文件的权限 （有几个加锁只读的目录，可以修改权限为读写）	
+	refer:https://www.runoob.com/linux/linux-user-manage.html
+	# 初始文件的权限
+	>>> klaus@klaus-ThinkPad-T480:~/Desktop/hd2/link_hd2_Jun$ ls -l
+		总用量 28
+		drwxr-xr-x 23 root  root  4096 10月  7 15:22 1_AIplan
+		drwxrwxr-x  7 klaus klaus 4096 10月  4 23:10 2_Course
+		drwxrwxr-x  5 klaus klaus 4096 10月  7 14:05 3_Installer
+		drwxrwxr-x  3 klaus klaus 4096 4月   4  2019 4_Hadoop
+		dr-xr-xr-x  8 klaus klaus 4096 9月   7 22:11 5_LabView
+		dr-xr-xr-x  8 klaus klaus 4096 9月  30 09:30 8_KlausInfo
+		drwxr-xr-x 16 root  root  4096 8月  17 23:45 9_MusicJay
+	# 修改文件的所有者
+	sudo chown -R klaus 1_AIplan/
+	# 修改权限
+	sudo chmod -R 775 8_KlausInfo/    # -R 级联目录
+	# 修改后的权限
+	>>> klaus@klaus-ThinkPad-T480:~/Desktop/hd2/link_hd2_Jun$ ls -l
+		总用量 28
+		drwxrwxr-x 23 klaus root  4096 10月  7 15:22 1_AIplan
+		drwxrwxr-x  7 klaus klaus 4096 10月  4 23:10 2_Course
+		drwxrwxr-x  5 klaus klaus 4096 10月  7 14:05 3_Installer
+		drwxrwxr-x  3 klaus klaus 4096 4月   4  2019 4_Hadoop
+		drwxrwxr-x  8 klaus klaus 4096 9月   7 22:11 5_LabView
+		drwxrwxr-x  8 klaus klaus 4096 9月  30 09:30 8_KlausInfo
+		drwxrwxr-x 16 klaus root  4096 8月  17 23:45 9_MusicJay
+
+26、使用 su root 认证失败问题 	
+	根本原因：root用户没有被创建。
+	# 输入如下命令，然后根据提示设置密码即可
+	sudo passwd root
+	# klaus 切换 root账户
+	su root
+	# 退出 root 账户
+	exit
+
+	
+27、配置sublime text3  --->   配置参数note中
+	
+
+28、terminal分屏：使用 terminator 实现  (不习惯用)
+	# 安装
+	sudo apt-get install terminator
+
+29、ubuntu自带的是国际版的firefox, 与下载的国内版的账号不能同步
+	# 卸载国际版firefox
+	sudo apt-get remove firefox
+	# 下载的压缩包解压
+	tar -xvf Firefox-latest-x86_64.tar.bz2 
+	# 解压后的 firefox 文件家 移动到 /opt目录下
+	 sudo mv firefox/ ~/opt/firefox/
+	# 创建 桌面图标 
+	cd  /usr/share/applications
+	sudo vim firefox.desktop
+	# 将下列内容复制进去，保存退出
+		[Desktop Entry]
+		Name=firefox
+		Name[zh_CN]=火狐浏览器
+		Comment=火狐浏览器
+		Exec=/opt/firefox/firefox
+		Icon=/opt/firefox/browser/chrome/icons/default/default128.png # 根据实际位置确定
+		Terminal=false
+		Type=Application
+		Categories=Application
+		Encoding=UTF-8
+		StartupNotify=true
+	# 设置 terminal 命令 firefox 启动浏览器
+	sudo ln -s /opt/firefox/firefox /usr/local/bin/firefox	
+	# terminal 终端输入 firefox, 启动浏览器
+	firefox
+
+30、主题美化
+	refer:https://blog.csdn.net/zyqblog/article/details/79312124
+	>>> sudo apt-get install unity-tweak-tool    # 安装unity-tweak-tool
+	refer:https://github.com/anmoljagetia/Flatabulous
+
+31、更改设备名
+	sudo gedit /etc/hostname   # 改成 messi
+	sudo gedit /etc/hosts	   # 127.0.1.1 后面的设备名改成 messi
+
+
+
+>>>>>>>>>>>> 图片、视频播放器、docker <<<<<<<<<<<<<<<<<<<<<<<<<<<<
+problem:
+	wps的字体确实问题  --> 未完待续
+	其他软件安装
+
+
