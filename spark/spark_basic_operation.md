@@ -4,6 +4,8 @@
 
 
 
+# 一、Spark 基础解析
+
 ## 1. Spark 基础
 
 ### 1.1 Spark概述
@@ -183,7 +185,7 @@
 
 在 Local 模式下， Driver 和 executor 合并为一体，同时包含 Driver和 Executor的功能
 
-### 2.2.4 数据流程
+#### 2.2.4 数据流程
 
 <div align=center><img src='./img/1-5.png' width=80%></div>
 
@@ -318,24 +320,297 @@ WordCount 案例分析数据流：
 
   浏览器输入：<font color=coral>`hadoop102:18080`</font>
 
-	#### 2.3.4 HA配置
+#### 2.3.4 HA配置 （高可用配置）
 
+- 1）zookeeper 安装和启动
 
+- 2）修改 spark-env.sh 文件，添加如下配置
 
-
-
-
-
-
-
-
-
-
+  <div align=center><img src='./img/1-10.png' width=70%></div>
 
 
 
 ### 2.4 Yarn 模式
 
+#### 2.4.1 概述
+
+​	Spark客户端直接连接Yarn，不需要额外构建Spark集群。有 <font color=coral>yarn-client</font> 和 <font color=coral>yarn-cluster</font> 两种模式，主要区别在于：<font color=coral>Driver 程序的运行节点</font>。
+
+<div align=center><img src='./img/1-11.png' width=80%></div>
+
+#### 2.4.2 安装使用
+
+- 1）修改 hadoop 配置文件 yarn-site.xml
+
+<div align=center><img src='./img/1-12.png' width=70%></div>
+
+- 2）修改 spark-env.sh, 添加如下配置
+
+  ```
+  YARN_CONF_DIR=..../hadoop-2.7.2/etc/hadoop		# .... 表示 hadoop-2.7.2的父级目录
+  ```
+
+#### 2.4.3 日志查看
+
+<div align=center><img src='./img/1-13.png' width=70%></div>
+
+### 2.5 几种模式对比
+
+<div align=center><img src='./img/1-14.png' width=70%></div>
+
+​	yarn 应用更普遍。yarn 安装的Spark主要用来提交jar包。
+
+## 3. 案例实操
+
+​	spark-shell 仅在测试和验证程序时使用较多，生产环境中通常在IDE中F写程序，然后打成 jar 包，提交到集群。最常见的是创建 Maven 项目，利用 Maven 来管理 jar 包的依赖。
+
+### 3.1 编写 WordCount 程序
+
+- 1）创建一个 Maver 项目 wordcount 并导入依赖
+
+  见 [课程](<https://www.youtube.com/watch?v=-6Lh-Lr_2KE&list=PLmOn9nNkQxJF-qlCCDx9WsdAe6x5hhH77&index=20>) 
+
+# 二、SparkCore
+
+## 1. RDD 概述
+
+​	Resilient Distributed Dataset (RDD)：弹性分布式数据集。代码中是一个抽象类，代表一个弹性的、不可变（hash）、可分区，里面的元素可并行计算的集合。
+
+### 1.1 RDD的属性
+
+- 一组分区（partition）,即数据集的基本组成单位
+- 一个计算每个分区的函数
+- RDD之间的依赖关系
+- 一个 partitioner -- 分区器（key-value RDDS才有），即RDD的分片函数
+- 一个列表，存储存取每个 partition 的优先位置 (preferred location)
+
+### 1.2 RDD特点
+
+​	RDD表示<font color=coral>只读</font>的分区数据集, 改动智能通过 RDD 的转换操作，由一个 RDD 得到一个新的 RDD。RDDs 之间存在依赖，执行是按照血缘关系延时计算的，如果学员关系较长，可通过持久化 RDD 来切断血缘关系。
+
+#### 1.2.1 弹性
+
+- 存储的弹性：内存与磁盘的自动切换
+- 容错的弹性：数据丢失可以自动恢复
+- 计算的弹性：计算出错重试机制（可重新调度任务4次）
+- 分片的弹性：可根据需要重新分片
+
+#### 1.2.2 分区
+
+#### 1.2.3 只读
+
+​	由一个 RDD 转换到另一个 RDD，可以通过丰富的操作算子实现（mapreduce中只有map和reduce）.
+两类操作算子：
+
+- *转换 ( transformations )* 从已经存在的数据集中创建一个新的数据集
+
+  在 Spark 中，所有的<font color=coral>转换(transformations)都是惰性(lazy)的</font>，它们不会马上计算它们的结果。相反的，它们仅仅记录转换操作是应用到哪些基础数据集(例如一个文件)上的。转换仅仅在这个时候计算：当动作(action) 需要一个结果返回给驱动程序的时候。
+
+- *动作 ( actions )* 在数据集上进行计算之后返回一个值到驱动程序
+
+#### 1.2.4 依赖
+
+​	窄依赖：父RDD ---> 子RDD （单向，一对一）
+​	宽依赖：父RDD ---> 子RDD （单向，一对多）
+
+#### 1.2.5 缓存
+
+​	RDD 被复用的时候建议做缓存
+
+#### 1.2.6 CheckPoint
+
+<div align=center><img src='./img/1-15.png' width=70%></div>
+
+
+
+## 2. RDD 编程
+
+### 2.1 编程模型
+
+<div align=center><img src='./img/1-16.png' width=70%></div>
+
+### 2.2 RDD的创建
+
+​	在 Spark 中创建 RDD 的方式有三种：从集合中创建RDD，从外部存储创建RDD，从其他RDD创建（转换）。
+
+#### 2.2.1 从集合中创建
+
+从集合中RDD， Spark 主要提供了两种函数： parallelize 和 makeRDD。
+
+- 1）使用 `parallelize()` 从集和创建
+
+  ```
+  scala> val rdd = sc.parallelize(Array(1,2,3,5,6))
+  rdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[1] at parallelize at <console>:24
+  scala> rdd.collect
+  res0: Array[Int] = Array(1, 2, 3, 5, 6)
+  scala> rdd.partitions.length	# 不指定的话 默认是 totalScores 
+  res9: Int = 2		
+  
+  scala> val ardd = sc.parallelize(Array(1,2,3,5,6,55,9,21),3) 	# 3：分片数
+  ardd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[6] at parallelize at <console>:24
+  scala> ardd.partitions.length
+  res8: Int = 3
+  ```
+
+  函数 `parallelize`定义源码：
+
+  ```
+  ... 
+  ```
+
+- 2）使用 `makeRDD` 从集合创建
+
+  ```
+  # makeRDD 源码2种方式中的一种是直接调用parallelize函数（另一种可以直接指定分配到的节点的hostname）
+  scala> val rdd1 = sc.makeRDD(Array(1,2,3,5,6))
+  rdd1: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[4] at makeRDD at <console>:24
+  
+  scala> rdd1.collect
+  res5: Array[Int] = Array(1, 2, 3, 5, 6)
+  # 常用的makeRDD就是直接调用parallelize函数创建，另一种不常用也不推荐
+  
+  scala> rdd1.partitions.length		# 分片数
+  res6: Int = 2
+  ```
+
+#### 2.2.2 由外部存储系统的数据集创建
+
+包括本地文件系统，还有hadoop支持的数据集。
+
+```
+val rdd2 = sc.textFile("hdfs://hadoop102:9000/RELEASE")
+```
+
+#### 2.2.3 从其他 RDD 创建
+
+详见 2.3节
+
+#### 2.2.4 sc可 调用的方法
+
+<div align=center><img src='./img/2-1.png' width=80%></div>
+
+### 2.3  RDD 的转换
+
+#### 2.3.1 Value 类型
+
+`RDD` 整体上分为 `Value` 类型和 `key-value` 类型
+
+##### 2.3.1.1 map(func) 案例
+
+- 1）作用：返回一个新的RDD，该RDD由每一个输入元素经过func函数转换后组成
+
+- 2）需求：创建一个数组的 RDD， 将所有元素 *2 形成新的 RDD
+
+  ```
+  scala> val rdd = sc.parallelize(Array(1,2,3,4))
+  rdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[0] at parallelize at <console>:24
+  
+  scala> rdd.collect
+  res0: Array[Int] = Array(1, 2, 3, 4)                                            
+  
+  scala> rdd.map(_*2).collect
+  res1: Array[Int] = Array(2, 4, 6, 8)
+  ```
+
+##### 2.3.1.2 mapPartitions(func)案例
+
+- 1）作用：类似map，但独立地在 RDD 的每一个分片上运行，因此在类型为 T 的 RDD 上运行时，func的函数类型必须是 Iterator[T] => Iterator[U] （map是 [T] => [U]）。假设有 N 个元素，有 M 个分区，那么 map 的函数将被调用 N 次，而 mapPartitions 被调用 M 次，一个函数一次处理所有分区。
+
+- 2）需求：创建一个数组的 RDD， 将所有元素 *2 形成新的 RDD
+
+  ```
+  scala> val rdd = sc.parallelize(Array(1,2,3,4))
+  scala> rdd.mapPartitions(x=>x.map(_*2)).collect  
+  res2: Array[Int] = Array(2, 4, 6, 8)
+  # mapPartitions属于 spark 的函数，x=>x.map(_*2)中的 map 属于 scala 语言中的函数
+  
+  # 将 元素连接起来 x=>Iterator(x.mkString("|")) 不能用 Iterator(_.mkString("|")) 简化
+  scala> rdd.mapPartitions(x=>Iterator(x.mkString("|"))).collect
+  res4: Array[String] = Array(1|2, 3|4)
+  ```
+
+  就近原则：
+
+  `x=>Iterator(x.mkString("|")) : Iterator(_.mkString("|"))`   
+
+  ​	scala运行时会将后者简化格式先转化为完整的格式，即 `expanded function ((x$1) => x$1.mkString("|"))`,由于遵循 就近原则（expand 时就近找最近邻的一个括号来扩展），则实际上 `Iterator(_.mkString("|"))`扩展后的结果并不是 `x=>Iterator(x.mkString("|"))`，而是如下结果：
+
+  `Iterator(_.mkString("|")) 扩展为： y=>Iterator(x=>x.mkString("|"))`，出现 类型丢失(x不仅没定义类型，也没输入)
+
+  因此，才有如下不一样的扩展情况：
+
+  - `rdd.map(x=>x*2)`  <font color=coral>`==`</font> `rdd.map(_*2)`
+
+  ```
+  scala> rdd.map(x=>x*2).collect
+  res7: Array[Int] = Array(2, 4, 6, 8)
+  scala> rdd.map(_*2).collect
+  res8: Array[Int] = Array(2, 4, 6, 8)
+  ```
+
+  - `rdd.mapPartitions(x=>Iterator(x.mkString("|")))` <font color=coral>`!=`</font>  `rdd.mapPartitions(Iterator(_.mkString("|")))`
+
+  ```
+  scala> rdd.mapPartitions(x=>Iterator(x.mkString("|"))).collect
+  res4: Array[String] = Array(1|2, 3|4)
+  scala> rdd.mapPartitions(Iterator(_.mkString("|"))).collect
+  <console>:26: error: missing parameter type for expanded function ((x$1) => x$1.mkString("|"))
+  Error occurred in an application involving default arguments.
+         rdd.mapPartitions(Iterator(_.mkString("|"))).collect
+  ```
+
+  又如：
+
+  ```
+  x=>(x+1)*2  ==  (_+1)*2   
+  ((_+1)*2)  扩展后是： y=>(x=>x+1)*2   # x 没定义，也没输入的引用
+  ```
+
+  ##### 2.3.1.3 mapPartitionsWithIndex(func) 案例
+
+  - 1）
+
+  - 2）需求：数组==》（分片号，数据）格式
+
+    ```
+    scala> val rdd1 = sc.parallelize(Array(1,2,3,4,5,6,7,8,9,10,11), 3)
+    scala> val rdd1withPartIndex = rdd1.mapPartitionsWithIndex((i,items)=>items.map(x=>(i,x)))
+    scala> rdd1withPartIndex.collect
+    res13: Array[(Int, Int)] = Array((0,1), (0,2), (0,3), (1,4), (1,5), (1,6), (1,7), (2,8), (2,9), (2,10), (2,11))
+    # 3个分片，转化后的新rdd格式为 （分片序号，数据）
+    # 11个数分3个分区，最后分区情况为 0:3个数据，1:4个数据，2:4个数据
+    ```
+
+  - 分区规则（源码如下）-- 分区规则是在 RDD 创建`parallelize`的时候规定好的,不是转换的时候确定的：
+
+    <div align=center><img src='./img/2-2.png' width=80%></div>
+
+    比如对于数据长度 11， 分区为3 的 rdd， 转换后的 （index, value）中 index 对应的 value 的数量计算如下：
+
+    ```
+    for i in index:
+    	start = int((i * length) / numslice)
+    	end = int(((i + 1 ) * length) / numslice)
+    # i = 0: start=int(0*11/3), end=int(1*11/3) --> [0,3]  3个数	# [start, end) 均为前闭后开
+    # i = 1: start=int(1*11/3), end=int(2*11/3) --> [3,7]  4个数
+    # i = 2: start=int(2*11/3), end=int(3*11/3) --> [7,11] 4个数
+    ```
+
+##### 2.3.1.4 map() 和 mapPartitions() 的区别
+
+- 1）map()： 每次处理一条数据
+
+- 2）mapPartitions()：每次处理一个分区的数据，这个分区的数据处理完后，原 RDD 中分区的数据才能释放，可能导致**OOM（内存溢出）**。
+
+- 开发指导：当内存空间较大时建议使用 mapPartitions()，以提高处理效率
+
+  mapPartitions 中的 map 是 scala 的map函数（操作scala集合）；map()中的 map 是 spark 的 map 函数（操作 RDD）,可以通过函数跳转查看 map 函数所在源码是属于scala还是spark的；建议采用mapPartitions()能提高效率是以为 <font color=coral>`scala`的`map`函数效率比`spark`的`map`函数效率高</font>。
+
+##### 2.3.1.5 flatMap(func) 案例
+
+- 1）作用：压平操作，类似 map，但是每一个输入元素可以被映射为0或多个输出元素（因此 func应该返回一个序列，而不是单一元素）
+- 2）需求：
 
 
 
@@ -380,8 +655,58 @@ WordCount 案例分析数据流：
 
 
 
-## 2. Spark Core
 
-## 3. Spark SQL
+## 3. 键值对 RDD 数据分区
 
-## 4. Spark Streaming
+
+
+## 4. 数据读取与保存
+
+
+
+## 5. RDD 编程进阶
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 5. Spark SQL
+
+
+
+## 6. Spark Streaming
+

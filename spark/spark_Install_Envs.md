@@ -16,6 +16,8 @@
 
 ### Java开发环境安装
 
+[`Windows下的java环境搭建`](http://www.runoob.com/java/java-environment-setup.html#win-install)
+
  - 确认ubuntu系统是否安装过java, 出现如下所示输出，则表明并未安装过java
 
    ```
@@ -31,7 +33,9 @@
    Try: sudo apt install <selected package>
    ```
 
-- ubuntu上安装java
+- ubuntu上安装java  
+
+  **以后可以下载 `.tar.gz`的bin包安装  （解压后重命名改短一些再解压安装）**
 
   [`refer: Ubuntu安装JDK详解`](https://blog.csdn.net/gatieme/article/details/52723931)
 
