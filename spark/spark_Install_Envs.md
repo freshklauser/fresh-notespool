@@ -16,6 +16,8 @@
 
 ### Java开发环境安装
 
+[`Windows下的java环境搭建`](http://www.runoob.com/java/java-environment-setup.html#win-install)
+
  - 确认ubuntu系统是否安装过java, 出现如下所示输出，则表明并未安装过java
 
    ```
@@ -31,7 +33,9 @@
    Try: sudo apt install <selected package>
    ```
 
-- ubuntu上安装java
+- ubuntu上安装java  
+
+  **以后可以下载 `.tar.gz`的bin包安装  （解压后重命名改短一些再解压安装）**
 
   [`refer: Ubuntu安装JDK详解`](https://blog.csdn.net/gatieme/article/details/52723931)
 
@@ -177,6 +181,37 @@
   SparkSession available as 'spark'.
   >>> 
   
+  ```
+
+- anaconda 安装 pyspark 
+
+  单独建立一个 spark 的虚拟环境会不会更合适？
+
+  ```
+  conda search pyspark  # 会显示所有版本pyspark及对应的python版本
+          klaus@ubuntu:~$ conda search pyspark
+          Loading channels: done
+          # Name                  Version           Build  Channel             
+          pyspark                   2.2.0          py27_0  pkgs/free           
+          pyspark                   2.2.0          py35_0  pkgs/free           
+          pyspark                   2.2.0          py36_0  pkgs/free           
+          pyspark                   2.3.0          py27_0  pkgs/main           
+          pyspark                   2.3.0          py35_0  pkgs/main           
+          pyspark                   2.3.0          py36_0  pkgs/main           
+          pyspark                   2.3.1          py27_1  pkgs/main           
+          pyspark                   2.3.1          py35_1  pkgs/main           
+          pyspark                   2.3.1          py36_1  pkgs/main           
+          pyspark                   2.3.1          py37_1  pkgs/main           
+          pyspark                   2.3.2          py27_0  pkgs/main           
+          pyspark                   2.3.2          py36_0  pkgs/main           
+          pyspark                   2.3.2          py37_0  pkgs/main           
+          pyspark                   2.4.0          py27_0  pkgs/main           
+          pyspark                   2.4.0          py36_0  pkgs/main           
+          pyspark                   2.4.0          py37_0  pkgs/main           
+          pyspark                   2.4.1            py_0  pkgs/main           
+          pyspark                   2.4.3            py_0  pkgs/main           
+          pyspark                   2.4.4            py_0  pkgs/main
+  conda install pyspark=2.3.2   # 对应默认安装的是 python-3.6.6
   ```
 
   
