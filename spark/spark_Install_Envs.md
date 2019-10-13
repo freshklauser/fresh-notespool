@@ -4,7 +4,7 @@
 
 
 
-## 1. spark安装及环境配置
+
 
 注：本文目前仅单机使用spark, 不适用于集群
 [`refer:Spark快速入门`](https://www.w3cschool.cn/spark/spark-quickstart.html)
@@ -14,7 +14,7 @@
 - linux系统环境(这里使用的是ubuntu系统)
 - Java开发环境JDK
 
-### Java开发环境安装
+## Java开发环境安装
 
 [`Windows下的java环境搭建`](http://www.runoob.com/java/java-environment-setup.html#win-install)
 
@@ -39,20 +39,54 @@
 
   [`refer: Ubuntu安装JDK详解`](https://blog.csdn.net/gatieme/article/details/52723931)
 
+  ```
+  # 如下链接下载 jdk 的 tar.gz 包
+  https://login.oracle.com/mysso/signon.jsp
+  # 新建java安装目录
+  sudo mkdir -p /usr/java/
+  # (JDK包所在目录下)将改名后的 jdk 包 移动到 /usr/java/ 目录下
+  sudo mv jdk1.8.xxx.tar.gz /usr/java/
+  # 解压 jdk 包
+  sudo tar zxvf jdk1.8.xxx.tar.gz
+  # 重新命名，短一点儿
+  sudo mv jdk1.8.xxx/ jdk18/
+  # 配置环境变量
+  sudo vim .bashrc
+  # 在末尾添加如下内容：
+  # added by jdk installer 20191012
+  JAVA_HOME=/usr/java/jdk18
+  JRE_HOME=$JAVA_HOME/jre
+  JAVA_BIN=$JAVA_HOME/bin
+  CLASSPATH=.;$JAVA_HOME/lib/dt.jar;$JAVA_HOME/lib/tools.jar;$JRE_HOME/lib
+  PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+  export JAVA_HOME JRE_HOME PATH CLASSPATH
+  
+  # 更新环境变量设置，使其立即生效
+  source ~/.bashrc
+  # 验证java安装是否成功
+  terminal >> java -version
+      klaus@Messi:~$ java -version
+      java version "1.8.0_221"
+      Java(TM) SE Runtime Environment (build 1.8.0_221-b11)
+    Java HotSpot(TM) 64-Bit Server VM (build 25.221-b11, mixed mode)
+  ```
+
+  
+  
   1) 安装jre:  
 
   ```
-  $ sudo apt-get install default-jre
+$ sudo apt-get install default-jre
   ```
-
+  
   2) 安装OpenJDK
 
   ```
-  $ sudo apt-get install default-jdk
+$ sudo apt-get install default-jdk
   ```
-
+  
   3) 设置java环境变量
-
+  
   ```
   # 1. 查看java版本
   $ java -version				# java version "1.8.0-222"
@@ -70,15 +104,67 @@
   $ source ~/.bashrc
   ```
 
-### 安装Spark
+
+
+## 安装 scala
+
+- 下载地址：https://www.scala-lang.org/download/2.11.12.html，下载 `scala-2.11.12.tgz`
+
+- 解压，重命名，移动到　`/usr/lib/scala/`
+
+- 添加系统变量
+
+  ```
+  sudo vim .bashrc
+  # 添加以下内容
+      export　SCALA_HOME=/usr/lib/scala
+      export PATH=$PATH:${SCALA_HOME}/bin
+  
+  klaus@Messi:~$ scala -version
+  Scala code runner version 2.11.12 -- Copyright 2002-2017, LAMP/EPFL
+  # 由于版本问题，scala　进入后会报错
+  [ERROR] Failed to construct terminal; falling back to unsupported
+  java.lang.NumberFormatException: For input string: "0x100"
+  ....
+  # 解决方法：更换scala版本为2.11.8, ok.
+  ```
+
+- 卸载：直接删除解压后的scala文件夹，注销掉　.bashrc　中的环境配置
+
+  
+
+## 安装 Intellij IDEA
+
+- [官网下载](https://www.jetbrains.com/idea/download/#section=linux) IDEA 安装包  `.tar.gz` 
+
+- 终端进入解压目录(这里设置在 `/opt/Intellij/`)下的 `bin 子目录` 下，然后在终端下运行启动命令：<font color=coral>`./idea.sh`</font>
+
+- 官方激活码：`idea.medeming.com`
+
+- 安装 scala 插件
+
+  本地下载好后从本地导入插件，下载插件地址：https://plugins.jetbrains.com/plugin/1347-scala/versions
+
+  下载与 Intellij IDEA 自带的插件版本一致的插件 .zip
+
+  IDEA 中选择从本地安装插件，选择下载的插件`scala-intellij-bin-2019.2.36.zip`，然后`restart IDEA`即可
+
+- 新建scala的`IDEA`项目的时候，`scala SDK`为空，需要 `Create --> Browse选择上一步安装scala中的最终安装目录`即可继续创建项目。
+
+
+
+## 安装Spark (注意版本问题，spark  scala   hadoop  java)
 
 - 下载Spark: http://spark.apache.org/downloads.html
+
+  `spark:2.4.4、scala: 2.11.12` <font color=coral>(建议换成 spark2.3.x-with-hadoop2.7, scala2.11.8)</font>
 
 - 在目标安装目录下解压缩该下载的`.tgz`压缩文件
 
   ```
   tar -zxvf spark-2.4.4-bin-hadoop2.7.tgz
-  sudo mv spark-2.4.4-bin-hadoop2.7 /usr/lib/			# 移动安装后的spark目录
+  sudo mv spark-2.4.4-bin-hadoop2.7 spark
+  sudo mv spark/ /usr/lib/spark/			# 移动安装后的spark目录
   ```
 
 - 添加spark的环境变量
@@ -88,7 +174,7 @@
   $ sudo vim ~/.bashrc      #　添加路径（在系统更目录下即可执行 spark-shell） 
           # adding bin path of spark to system path
   		 export SPARK_HOME=/usr/lib/spark-2.4.4-bin-hadoop2.7
-  		 export PATH=$PATH:${SPARK_HOME}/bin	
+  		 export PATH=${SPARK_HOME}/bin:$PATH
   # 执行source命令使配置更改立即生效
   $ source ~/.bashrc
   ```
