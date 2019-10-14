@@ -569,7 +569,7 @@ val rdd2 = sc.textFile("hdfs://hadoop102:9000/RELEASE")
 
   ##### 2.3.1.3 mapPartitionsWithIndex(func) 案例
 
-  - 1）
+  - 1）作用：
 
   - 2）需求：数组==》（分片号，数据）格式
 
@@ -610,7 +610,50 @@ val rdd2 = sc.textFile("hdfs://hadoop102:9000/RELEASE")
 ##### 2.3.1.5 flatMap(func) 案例
 
 - 1）作用：压平操作，类似 map，但是每一个输入元素可以被映射为0或多个输出元素（因此 func应该返回一个序列，而不是单一元素）
-- 2）需求：
+
+- 2）需求：元素flatten
+
+  ```
+  scala> val rdd = sc.textFile("words.txt").flatMap(_.split(" ")).collect
+  rdd: Array[string] = Array(hadoop spark, hive oozie scala)
+  
+  # content in words.txt
+      hadoop spark
+      hive oozie scala
+  ```
+
+##### 2.3.1.6 glom 案例
+
+- 1）作用：将每一个分区形成一个数组，形成新的 RDD 类型时 RDD[Array[T]]
+
+  `def glom(): org.apache.spark.rdd.RDD[Array[Int]]`
+
+  ```
+  scala> val rdd = sc.parallelize(Array(1,2,3,4,5,6,7,8,9,10,11), 3)
+  scala> rdd.glom.collect
+  res0: Array[Array[Int]] = Array(Array(1, 2, 3), Array(4, 5, 6, 7), Array(8, 9, 10, 11))
+  ```
+
+##### 2.3.1.7 groupBy() 案例
+
+- 1）作用：分组
+
+  `def groupBy[K](f: Int => K)(implicit kt: scala.reflect.ClassTag[K]): org.apache.spark.rdd.RDD[(K, Iterable[Int])]`
+
+  返回的RDD格式：<font color=coral> `(K, Iterable[Int])`</font>
+
+  按照奇偶数分组：
+
+  ```
+  scala> rdd.collect
+  res2: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+  
+  scala> rdd.groupBy(x=>x%2==0).collect		# x%2==0 Boolean类型
+  res3: Array[(Boolean, Iterable[Int])] = Array((false,CompactBuffer(1, 3, 5, 7, 9, 11)), (true,CompactBuffer(2, 4, 6, 8, 10)))
+  
+  scala> rdd.groupBy(x=>x%2).collect
+  res4: Array[(Int, Iterable[Int])] = Array((0,CompactBuffer(2, 4, 6, 8, 10)), (1,CompactBuffer(1, 3, 5, 7, 9, 11)))
+  ```
 
 
 
