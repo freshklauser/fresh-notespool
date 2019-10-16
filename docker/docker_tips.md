@@ -117,7 +117,7 @@ sudo sh get-docker.sh --mirror Aliyun
 ### 3. docker换镜像源
 
 配置方法：
-	新版的 Docker 使用` /etc/docker/daemon.json（Linux）`` 或者 %programdata%\docker\config\daemon.json（Windows） `来配置` Daemon`。
+	新版的 Docker 使用` /etc/docker/daemon.j:son（Linux）`` 或者 %programdata%\docker\config\daemon.json（Windows） `来配置` Daemon`。
 	请在该配置文件中加入下列代码（没有该文件的话，请先建一个）：
 	`{"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]}`
 亦即：$~ sudo vim /etc/docker/daemon.json  写入：
@@ -202,7 +202,7 @@ docker image prune -a -f  # 也可以
 docker run -i:   # 以交互模式运行容器，通常与 -t 同时使用；
 		  -t: 	# 为容器重新分配一个伪输入终端，通常与 -i 同时使用
 		  -d: 	# 后台运行容器，并返回容器ID
-		  -p: 	# （小写）指定端口映射，格式为：主机(宿主)端口:容器端口
+		  -p: 	# （小写）指定端口映	射，格式为：主机(宿主)端口:容器端口
 		  -P:	# （大写）随机端口映射，容器内部端口随机映射到主机的高端口 
 		  --name="nginx-lb": 为容器指定一个名称
 		  --volume , -v: 绑定一个卷 -v host_dir:container_dir
@@ -211,7 +211,7 @@ docker run -d -p 2222:22 --name base csphere/centos:7.1
 # 交互模式在continuumio/anaconda3镜像下创建容器(命名：ananconda3)并进入容器
 docker run -it --name anaconda3 continuumio/anaconda3
 # 退出后重新进入容器，并进入anaconda3环境bash环境
-docker start anaconda3
+docker start anaconda	3
 docker exec -it anaconda3 /bin/bash
 # 退出容器且保持后台运行： ctrl + p, q
 
@@ -266,15 +266,12 @@ docker container prune
 
 <div align=center><img src='./img/dockerfile.png' width=80%></div>
 <div align=center><img src='./img/dockerfile1.png' width=80%></div>
-
 - **docker的层级结构**
 
 <div align=center><img src='./img/layers.png' width=80%></div>
-
 其中，`Image Layers`层的 `source code`不能修改，如果想不改变该层的内容的基础上，创建区别于`source code`的`container`如改变`Image Layers`中的`app.py`创建不同的python依赖包，可以直接在`Container Layer`层重新建立并修改`app.py`来建立容器；除此之外，就只能通过重新`build`  `Image Layers`层来实现。如下：
 
 <div align=center><img src='./img/layers1.png' width=80%></div>
-
 
 
 ## 4、Docker 容器数据卷

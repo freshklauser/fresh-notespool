@@ -1,0 +1,151 @@
+1、使用 docker 部署 hadoop　集群
+	refer:https://www.cnblogs.com/linuxone/p/5574749.html
+
+
+2、hadoop集群 （3台虚拟机）
+
+	sudo /etc/group		
+
+	# 若文件中没有 root 用户组，则创建 root
+
+	sudo passwd root
+  
+	
+
+
+
+	...
+
+	设置免密登陆后：
+
+		sudo apt-get install ssh
+
+		ssh-keygen -t rsa
+
+		cd .ssh/
+
+		cat id_rsa.pub >> authorized_keys
+
+		ssh localhost 
+
+		# 不用后
+
+		exit
+
+		
+
+	若仍需要密码（可能是权限问题）,最终本机成功免密的权限如下（ssh localhost 登陆后不用时记得exit退出）：
+
+		# 用户权限
+
+		hadoop1@master:/home$ ls -l
+
+		total 4
+
+		drwxr-xr-x 19 hadoop1 hadoop1 4096 Oct 16 00:33 hadoop1
+
+
+
+		
+
+		drwx------  2 hadoop1 hadoop1 4096 Oct 16 00:34 .ssh     # （权限确保为700）
+
+		
+
+		hadoop1@master:~/.ssh$ ls -l
+
+		total 16
+
+		-rw-rw-r-- 1 hadoop1 hadoop1  396 Oct 16 00:34 authorized_keys
+
+		-rw------- 1 hadoop1 hadoop1 1675 Oct 16 00:33 id_rsa
+
+		-rw-r--r-- 1 hadoop1 hadoop1  396 Oct 16 00:33 id_rsa.pub
+
+		-rw-r--r-- 1 hadoop1 hadoop1  222 Oct 16 00:34 known_hosts
+
+	
+
+	# 每个节点新建文件夹存放 其他节点复制过来的pubkey 
+
+		# 将 master 节点的 pubkey 远程复制到 slave1 和 slave2 节点中
+
+		scp id_rsa.pub hadoop@slave1:/home/hadoop/pubkeys/keys_master/
+
+		scp id_rsa.pub hadoop@slave2:/home/hadoop/pubkeys/keys_master/
+
+		其他节点类似
+
+		# 将master节点的pubkey添加到 slave1 和 slave2 的 authorized_keys 中, 并修改权限为600
+
+		hadoop@slave1:~$ cat ~/pubkeys/keys_master/id_rsa.pub >> ~/.ssh/authorized_keys
+
+		hadoop@slave1:~$ chmod 600 authorized_keys 
+
+		hadoop@slave2:~$ cat ~/pubkeys/keys_master/id_rsa.pub >> ~/.ssh/authorized_keys
+
+		hadoop@slave2:~$ chmod 600 authorized_keys 
+
+		其他节点类似
+
+	
+
+	然后，在该权限和设置下，localhost本机可以免密，但是连接其他节点，Permission denied	
+
+	接下来，将各个节点的 /etc/ssh/sshd_conf 文件修改
+
+		RSAAuthentication yes
+
+		PubkeyAuthentication yes
+
+		AuthorizedKeysFile	%h/.ssh/authorized_keys
+
+	仍然无法实现不同节点间的免密连接
+
+	
+
+	继续，
+
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+gpasswd [option] GROUP  # 从GROUP中删除用户
+
+	eg.: gpasswd -a kk root # 将用户kk加入到root组中
+
+		 gpasswd -d kk root #         删除
+
+	Usage: gpasswd [option] GROUP
+
+	Options:
+
+	  -a, --add USER                add USER to GROUP
+
+	  -d, --delete USER             remove USER from GROUP
+
+	  -h, --help                    display this help message and exit
+
+	  -Q, --root CHROOT_DIR         directory to chroot into
+
+	  -r, --remove-password         remove the GROUP's password
+
+	  -R, --restrict                restrict access to GROUP to its members
+
+	  -M, --members USER,...        set the list of members of GROUP
+
+	  -A, --administrators ADMIN,...
+
+									set the list of administrators for GROUP
+
+									
+
+scp [可选参数] file_source file_target 
