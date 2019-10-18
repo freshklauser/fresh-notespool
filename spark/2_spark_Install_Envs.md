@@ -4,7 +4,13 @@
 
 
 
+版本：
 
+- `spark 2.3.4
+- `hadoop 2.7.3  (hadoop-2.7.3.tar.gz)`
+- `java1.8   `
+- `IDEA`
+- `scala 2.11.8`
 
 注：本文目前仅单机使用spark, 不适用于集群
 [`refer:Spark快速入门`](https://www.w3cschool.cn/spark/spark-quickstart.html)
@@ -71,22 +77,22 @@
     Java HotSpot(TM) 64-Bit Server VM (build 25.221-b11, mixed mode)
   ```
 
-  
-  
+- ubuntu其他安装方式（不推荐）
+
   1) 安装jre:  
 
   ```
-$ sudo apt-get install default-jre
+  $ sudo apt-get install default-jre
   ```
-  
+
   2) 安装OpenJDK
 
   ```
-$ sudo apt-get install default-jdk
+  $ sudo apt-get install default-jdk
   ```
-  
+
   3) 设置java环境变量
-  
+
   ```
   # 1. 查看java版本
   $ java -version				# java version "1.8.0-222"
@@ -110,14 +116,14 @@ $ sudo apt-get install default-jdk
 
 - 下载地址：https://www.scala-lang.org/download/2.11.12.html，下载 `scala-2.11.12.tgz`
 
-- 解压，重命名，移动到　`/usr/lib/scala/`
+- 解压，重命名，移动到　`/usr/local/scala/`
 
 - 添加系统变量
 
   ```
   sudo vim .bashrc
   # 添加以下内容
-      export　SCALA_HOME=/usr/lib/scala
+      export　SCALA_HOME=/usr/local/scala
       export PATH=$PATH:${SCALA_HOME}/bin
   
   klaus@Messi:~$ scala -version
@@ -141,6 +147,8 @@ $ sudo apt-get install default-jdk
 
 - 官方激活码：`idea.medeming.com`
 
+- 卸载：直接删除解压后的目录；　删除idea配置文件: 用户根目录下　ls -al, 以`.`开头的隐藏目录, 如`.Intellijxxxx`
+
 - 安装 scala 插件
 
   本地下载好后从本地导入插件，下载插件地址：https://plugins.jetbrains.com/plugin/1347-scala/versions
@@ -157,14 +165,14 @@ $ sudo apt-get install default-jdk
 
 - 下载Spark: http://spark.apache.org/downloads.html
 
-  `spark:2.4.4、scala: 2.11.12` <font color=coral>(建议换成 spark2.3.x-with-hadoop2.7, scala2.11.8)</font>
+  `spark:2.3.4、scala: 2.11.8 `<font color=coral>( spark2.3.x-with-hadoop2.7, scala2.11.8)</font>
 
 - 在目标安装目录下解压缩该下载的`.tgz`压缩文件
 
   ```
-  tar -zxvf spark-2.4.4-bin-hadoop2.7.tgz
-  sudo mv spark-2.4.4-bin-hadoop2.7 spark
-  sudo mv spark/ /usr/lib/spark/			# 移动安装后的spark目录
+  tar -zxvf spark-2.3.4-bin-hadoop2.7.tgz
+  sudo mv spark-2.3.4-bin-hadoop2.7 spark
+  sudo mv spark/ /usr/local/spark234/			# 移动安装后的spark目录
   ```
 
 - 添加spark的环境变量
@@ -173,7 +181,7 @@ $ sudo apt-get install default-jdk
   # 这里编辑的是 ~/.bashrc文件，也可以编辑~/.bash_profile或~/.profile文
   $ sudo vim ~/.bashrc      #　添加路径（在系统更目录下即可执行 spark-shell） 
           # adding bin path of spark to system path
-  		 export SPARK_HOME=/usr/lib/spark-2.4.4-bin-hadoop2.7
+  		 export SPARK_HOME=/usr/local/spark234
   		 export PATH=${SPARK_HOME}/bin:$PATH
   # 执行source命令使配置更改立即生效
   $ source ~/.bashrc

@@ -52,7 +52,6 @@
 按 Ctrl+F5 运行应用 或 下图红框选择`tgproApi`点击运行。 Visual Studio 启动浏览器并导航到 `https://localhost:<port>/api/values`，其中 `<port>` 是随机选择的端口号。
 
 <div align=left><img src='./img/1.png' width=80%>&nbsp&nbsp <img src='./img/1-1.png', width=80%></div>
-
 ## 添加模型类
 
 - 在“解决方案资源管理器” 中，右键单击项目。 选择“添加” > “新建文件夹” 。 将文件夹命名为“Models” 。
@@ -346,10 +345,9 @@
   ​      2) `API`连接必须先<font color=coral>启动`tgpro`项目</font>（部署到服务器后不用启动项目即可连接`API`） 
 
   <div align=center><img src='./img/4.png' width=80%>  <img src='./img/4-1.png' width=80%></div>
-
-  在浏览器中输入`http://192.168.1.17:5000/api/tgpro`, 内容如下图
-
-  <div align=center><img src='./img/4-2.png' width=80%></div>
+在浏览器中输入`http://192.168.1.17:5000/api/tgpro`, 内容如下图
+  
+<div align=center><img src='./img/4-2.png' width=80%></div>
 
 ## 2）设置IIS Express启动，且允许ip地址访问
 
@@ -357,11 +355,9 @@
 项目属性界面默认设置如下图：
 
 <div align=center><img src='./img/8.png' width=90%> </div>
-
 点击1处启动程序，运行结果如下图所示，启用了ssl，且只能用localhost访问，ip访问失败（IIS Express默认只支持localhost访问）：
 
 <div align=center><img src='./img/8-1.png' width=80%> </div>
-
 查看`~\.vs\dataflowApi\config`中对`applicationhost.config`中的`<site>`绑定信息，如下：
 
 ```
@@ -374,7 +370,6 @@
 更改3处localhost为ip地址如192.168.1.17，运行结果如下图，说明IIS Express设置ip访问不能仅仅在这里替换（注：此时若再替换回localhost，点击IIS Express启动程序，仍会出现下图错误，需重启程序后才能正常访问）：
 
 <div align=center><img src='./img/8-2.png' width=35%> </div>
-
 下面讨论如何设置IIS Express实现ip访问。`~\.vs\dataflowApi\config`中对`applicationhost.config`进行设置。
 	1）首先取消掉SSL, 只采用 http 访问，运行后访问端口就不再是上文途中的 `44302`(https对应端口), 而是`54325`(http对应端口)。对应地，`launchSettings.json`文件中的`sslport`更新为了`0："sslPort": 0`；`~\.vs\dataflowApi\config`中对`applicationhost.config`中的`<site>`绑定信息变更为如下所示：
 
@@ -396,34 +391,31 @@
 <div align=center><img src='./img/8-3.png' width=90%></div>
 
 
-
 ## 3）API发布及IIS服务器部署
 
 - IIS服务器部署后，网站一直处于静默启动状态，不需要每次启动程序运行(IIS Express需要每次以管理员身份启动程序)，若关闭网站，需在IIS管理器建立的站点主页关闭或重启。
 - `webapi`接口内容写好后，右键解决方案，调试界面的 `启用SSL`勾选掉，不采用https协议，http即可；
 
 <div align=center><img src='./img/10-1.png' width=80%></div>
-
 - 发布WebApi
 
   右键解决方案，选择 `发布`， 如图下图左，点击`发布`， 弹出图右界面，选择 `文件系统`， 目标位置为发布的地址，可以本地自行设置路径如`E:\publish`，点击`下一页`, 设置目标框架`netcoreapp2.2`， 目标运行时为`可移植`， 点击 `保存`，直接`发布`即可。
 
   <div align=center><img src='./img/7-9.png' width=45%> <img src='./img/7-10.png' width=45%></div>
-
-  或者，本地新建好待发布的路径，以`dotnet pulish ...`命令发布, 详细发布命令的参数及命令如下图所示：
-
-  - ` dotnet publish [选项] <PROJECT>`
-
-    - ` -o, --output <OUTPUT_DIR> `            要放置已发布项目的输出目录
+或者，本地新建好待发布的路径，以`dotnet pulish ...`命令发布, 详细发布命令的参数及命令如下图所示：
+  
+- ` dotnet publish [选项] <PROJECT>`
+  
+  - ` -o, --output <OUTPUT_DIR> `            要放置已发布项目的输出目录
     -  `-f, --framework <FRAMEWORK>`           要发布的目标框架。必须在项目文件中指定目标框架
     - `-c, --configuration <CONFIGURATION> `  要发布的配置。大多数项目的默认值是 "Debug"
-
-  - `command: `
-
-    `dotnet publish -o E:\publish -f netcoreapp2.2 -c Release D:\dataflowApi\dataflowApi.sln`
-
-  <div align=center><img src='./img/10-2.png' width=100%> </div>
-
+  
+- `command: `
+  
+  `dotnet publish -o E:\publish -f netcoreapp2.2 -c Release D:\dataflowApi\dataflowApi.sln`
+  
+<div align=center><img src='./img/10-2.png' width=100%> </div>
+  
 - IIS部署
 
   控制面板\系统和安全\管理工具  --> 双击`Internet Information Services (IIS)管理器`
@@ -437,11 +429,9 @@
   - 弹出界面，如下图，网站名称自拟，<font color=coral>物理路径选择 发布路径</font>, IP可以不填(以本机ip访问)，端口不适用默认端口，自己设置如`6666`； 
 
     <div align=center><img src='./img/7-3.png' width=50%></div>
-
-    (这一步可省略，但还是建议设置以获得对publish目录的访问权限) 点击 `测试设置` 如下图左图，`授权`最好设置获得对物理路径的访问权限, 设置如下图右图，设置特殊用户，弹出界面中设置PC的账户和密码，再回看`测试设置`是否具有访问权限， 设置ok后点击`确定`
-
-    <div align=center><img src='./img/7-4.png' width=50%><img src='./img/7-5.png' width=44%> </div>
-
+(这一步可省略，但还是建议设置以获得对publish目录的访问权限) 点击 `测试设置` 如下图左图，`授权`最好设置获得对物理路径的访问权限, 设置如下图右图，设置特殊用户，弹出界面中设置PC的账户和密码，再回看`测试设置`是否具有访问权限， 设置ok后点击`确定`
+    
+<div align=center><img src='./img/7-4.png' width=50%><img src='./img/7-5.png' width=44%> </div>
     设置好的站点如图所示
 
     <div align=center><img src='./img/7-6.png' width=70%></div>
@@ -631,7 +621,6 @@ IIS Express设计是为了避免需要管理员权限就能完成大部分操作
   ```
 
 <div align=center><img src='./img/12.png' width=50%></div>
-
 - 创建容器并启动接口（宿主主机的51113端口映射到容器的5555接口）
 
   ```
