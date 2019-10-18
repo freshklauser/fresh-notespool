@@ -536,6 +536,7 @@ hadoop namenode -format		# 这里的namenode就是namenode，不是master的主�
 ```
 
 2）启动 namenode, datanode, ResourceManager, NodeName节点 （`/hadoop/sbin`）
+    **<font color=coral>当docker的容器关闭后，再次重新启动时需要root权限重新确定映射关系  各节点：`vim /etc/hosts`</font>**
 
 - 全启动：`start-all.sh`   `stop-all.sh`
 - 模块启动：
@@ -654,8 +655,4 @@ slave1: starting nodemanager, logging to /usr/local/hadoop/logs/yarn-hadoop-node
   `namenode`的`webUI`界面中hdfs文件目录如下：
 
   <div align=center><img src='./img/hdp-3.png' width=100%></div><div align=center><img src='./img/hdp-4.png' width=100%></div><div align=center><img src='./img/hdp-5.png' width=100%></div>
-
-## 11. 问题
-
-由于ip设置的是docker内基于docker0的ip,可能无法实现其他客户端上的访问，需要一试
 

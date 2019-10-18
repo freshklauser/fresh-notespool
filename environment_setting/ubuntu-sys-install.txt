@@ -26,6 +26,24 @@ vim /etc/group  # 查看用户组
 	sudo apt-get update
 	sudo apt-get upgrade
 
+1.1 笔记本挂起或盒盖后无法唤醒
+	# 检查是否安装　laptop-mode-tools
+	dpkg -l | grep laptop-mode-tools
+	# 没，则安装　laptop-mode-tools　
+	sudo　apt-get install laptop-mode-tools
+	# 检查启动情况, 0:未启动，非0:启动
+	klaus@Messi:~$ cat /proc/sys/vm/laptop_mode 
+	>>> 2		# 表示已启动
+	
+	# 修改配置文件完全启用laptop_mode模式
+	/etc/default/acpi-support，更改 ENABLE_LAPTOP_MODE=true
+	若没有上述内容，在下述地方修改配置
+	sudo vim /etc/laptop-mode/laptop-mode.conf
+	修改如下变量全为１：
+	ENABLE_LAPTOP_MODE_ON_BATTERY=1		# 用电池
+	ENABLE_LAPTOP_MODE_ON_AC=1		# 用外接电源
+	ENABLE_LAPTOP_MODE_WHEN_LID_CLOSED=1	# 合上显示屏
+
 
 2、更换国内软件源
 	# 备份一下
@@ -463,7 +481,7 @@ fatal: Could not read from remote repository.
 	cancel uninstallation. [yes]: yes
 
 
->>>>>>>>>>>> 图片、视频播放器、docker <<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>> 图片、视频播放器 <<<<<<<<<<<<<<<<<<<<<<<<<<<<
 problem:
 	wps的字体确实问题  --> 未完待续
 	其他软件安装
