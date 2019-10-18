@@ -258,6 +258,17 @@ docker rm <container_id or tag>
 docker rm -v docker rm <container_id or tag>
 # 清理所有处于终止状态的容器
 docker container prune
+
+# docker容器与宿主机之间传输文件
+# See 'docker cp --help'.
+Usage:  docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
+	docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH
+Copy files/folders between a container and the local filesystem
+eg.:
+	# 宿主主机文件发送到docker容器中
+ 	sudo docker cp lock_problem.sh 1f1825ced322:/home/
+	# docker容器中文件发送到宿主主机中
+	sudo docker cp 1f1825ced322:/home/testfiletra.txt /home/Jun/
 ```
 
 ## 3、创建Dockerfile文件
@@ -272,7 +283,6 @@ docker container prune
 其中，`Image Layers`层的 `source code`不能修改，如果想不改变该层的内容的基础上，创建区别于`source code`的`container`如改变`Image Layers`中的`app.py`创建不同的python依赖包，可以直接在`Container Layer`层重新建立并修改`app.py`来建立容器；除此之外，就只能通过重新`build`  `Image Layers`层来实现。如下：
 
 <div align=center><img src='./img/layers1.png' width=80%></div>
-
 
 ## 4、Docker 容器数据卷
 
