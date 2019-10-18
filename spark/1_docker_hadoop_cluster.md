@@ -71,12 +71,17 @@ RUN yum install -y which sudo
 ## 5. 创建hadoop的节点 master slave1 slave2 容器
 
 ```
-docker run --name master --hostname master -d -p 51020:51020 -p 51113:51113 hadoop_cluster	# 小写　-p
+docker run --name master --hostname master -d -p 50070:50070 -p 8088:8088 hadoop_cluster	# 小写　-p
 
 docker run -d --hostname slave1 -P --name slave1 hadoop_cluster		# 大写　-P
 
 docker run -d --hostname slave2 -P --name slave2 hadoop_cluster		# 大写　-P
 ```
+
+<font color=coral>这里映射端口　:50070要与 hdfs-site.xml　中的　dfs.namenode.http-address 的端口一致</font>
+<font color=coral>这里映射端口　:8088 要与 yarn-site.xml　中的　yarn.resourcemanager.webapp.address 的端口一致</font>
+
+> 本文中保持了默认端口，实际创建docker容器时进行了更改，50070 ---> 51020, 8088 ---> 51113 (保存至本地镜像的tar包是修改后的配置)
 
 - 查看３个节点容器对应的ip
 
@@ -119,7 +124,7 @@ docker inspect <container_id or name>
   ```
 
   2）**root账户下**创建新用户并设置密码（也可以同时创建组）
-  	`useradd hadoop -p 123456 -d /home/hadoop -g hadoopgroup `
+  	`useradd hadoop -p 123456 -d /home/hadoop -g hadoopgroup `  # 密码别记错了，我好像设置的是 hadoop
   		`-p:设置密码; -d:设置账户所在目录; -g:设置账户所属的组`
 
   ```
@@ -383,6 +388,9 @@ export JAVA_HOME=/usr/local/jdk1.8
 </configuration>
 ```
 
+注意：<font color=coral>50070 是默认的 namenode 的端口，创建docker容器时，master的端口映射有两个(namenode和yarn RM的端口)，这两个容器端口必须与这里`hdfs-site.xml　和　yarn-site.xml`里的外部通信地址的端口对应。</font>
+		  <font color=coral>本文中我分别改成了 51020和51113，因此在这两个 xml　的配置文件中也要改成51020和51113。</font>
+
 - Configurations for NameNode:
 
 | Parameter                         | Value                                                        | Notes                                                        |
@@ -582,13 +590,72 @@ slave1: starting nodemanager, logging to /usr/local/hadoop/logs/yarn-hadoop-node
 700 NodeManager
 ```
 
-## 10. 测试启动情况
+## 10. 测试
 
-- 进入`dfs`的`namenode`的`webUI`界面 　`ip:port` --->  `172.17.0.2:50070`
+- 进入`dfs`的`namenode`的`webUI`界面 　`ip:port` --->  `172.17.0.2:50070`　（docker宿主机ip: 10.180.145.17）
+
+- 宿主机访问：　10.180.145.17:50070(映射docker端口的宿主机端口)  或　172.17.0.2:50070 (docker端口)
+
+- 非宿主机访问：10.180.145.17:50070(映射docker端口的宿主机端口)
 
   <div align=center><img src='./img/hdp-1.png' width=70%></div>
 
 - 进入 `hadoop`的`ResourceManager`的 webUI 监控地址 `ip:port` ---> `172.17.0.2:8088`
 
+- 宿主机访问：　10.180.145.17:8088`(映射docker端口的宿主机端口)  或　172.17.0.2:8088` (docker端口)
+
+- 非宿主机访问：10.180.145.17:8088`(映射docker端口的宿主机端口)
+
   <div align=center><img src='./img/hdp-2.png' width=100%></div>
+
+- 测试`hdfs`文件管理系统
+
+  ```
+  # 查看hdfs文件管理系统的根目录文件情况　　/ 表示根目录
+  hdfs dfs -ls /
+  # 上传当前目录的一个文件到hdfs的根目录
+  hdfs dfs -put ./README.txt /
+  >>> 
+  [hadoop@master hadoop]$ hdfs dfs -ls /				# 可以查看到上传的文件
+  Found 1 items
+  -rw-r--r--   2 hadoop supergroup       1366 2019-10-18 05:57 /README.txt
+  # 查看hdfs的文件内容
+  hdfs dfs -cat /README.txt
+  ```
+
+- 测试`yarn`
+
+  **集群运行计算的时候，数据一定要是　hdfs 文件系统里面的数据**
+
+  ```
+  # 通过yarn执行自带的wordcount来计算文件单词数
+  yarn jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.3.jar wordcount /README.txt /out/00
+  ＃　语法：yarn jar <jar_package> <main_class_in_jar_package> <target_object> <output>
+  
+  # 查看　yarn　执行命令后输出的结果所在目录
+  [hadoop@master hadoop]$ hdfs dfs -ls /out/00
+  Found 2 items
+  -rw-r--r--   2 hadoop supergroup          0 2019-10-18 06:09 /out/00/_SUCCESS
+  -rw-r--r--   2 hadoop supergroup       1306 2019-10-18 06:09 /out/00/part-r-00000
+  
+  # 查看运行结果的内容
+  [hadoop@master hadoop]$ hdfs dfs -cat /out/00/part-r-00000
+  >>>
+  ...
+  distribution	2
+  eligible	1
+  encryption	3
+  exception	1
+  export	1
+  following	1
+  ...
+  ```
+
+  `namenode`的`webUI`界面中hdfs文件目录如下：
+
+  <div align=center><img src='./img/hdp-3.png' width=100%></div><div align=center><img src='./img/hdp-4.png' width=100%></div><div align=center><img src='./img/hdp-5.png' width=100%></div>
+
+## 11. 问题
+
+由于ip设置的是docker内基于docker0的ip,可能无法实现其他客户端上的访问，需要一试
 

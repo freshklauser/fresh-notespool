@@ -271,6 +271,22 @@ eg.:
 	sudo docker cp 1f1825ced322:/home/testfiletra.txt /home/Jun/
 ```
 
+### 4. Docker镜像迁移
+
+将Docker 放置到其他机器运行很简单，直接保存镜像，然后复制镜像到其他机器，然后使用docker 命令load 既可。
+
+```
+docker save dockerapi/tgdataflow > tgdataflow.tar 	# 将镜像保存为tar压缩文件
+```
+
+将`tgdataflow.tar`复制到其他机器中，然后加载命令：
+
+```
+docker load < tgdataflow.tar
+```
+
+然后就可以使用`docker run` 运行程序了，无需关心程序需要哪些依赖。
+
 ## 3、创建Dockerfile文件
 
 [`refer: 中文官方文档--Dockerfile介绍 `](<http://www.dockerinfo.net/dockerfile%e4%bb%8b%e7%bb%8d>)
@@ -283,7 +299,6 @@ eg.:
 其中，`Image Layers`层的 `source code`不能修改，如果想不改变该层的内容的基础上，创建区别于`source code`的`container`如改变`Image Layers`中的`app.py`创建不同的python依赖包，可以直接在`Container Layer`层重新建立并修改`app.py`来建立容器；除此之外，就只能通过重新`build`  `Image Layers`层来实现。如下：
 
 <div align=center><img src='./img/layers1.png' width=80%></div>
-
 ## 4、Docker 容器数据卷
 
 ### 1. 数据卷
