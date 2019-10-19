@@ -364,11 +364,13 @@ WordCount 案例分析数据流：
 
 ​	spark-shell 仅在测试和验证程序时使用较多，生产环境中通常在IDE中F写程序，然后打成 jar 包，提交到集群。最常见的是创建 Maven 项目，利用 Maven 来管理 jar 包的依赖。
 
-### 3.1 编写 WordCount 程序
+### 3.1 编写 WordCount 程序 ( >>>>>>> 等环境配置好后再写 <<<<<<<<)
 
 - 1）创建一个 Maver 项目 wordcount 并导入依赖
 
   见 [课程](<https://www.youtube.com/watch?v=-6Lh-Lr_2KE&list=PLmOn9nNkQxJF-qlCCDx9WsdAe6x5hhH77&index=20>) 
+
+  课程 回顾 38-39之间
 
 # 二、SparkCore
 
@@ -391,15 +393,15 @@ WordCount 案例分析数据流：
 #### 1.2.1 弹性
 
 - 存储的弹性：内存与磁盘的自动切换
-- 容错的弹性：数据丢失可以自动恢复
-- 计算的弹性：计算出错重试机制（可重新调度任务4次）
+- 容错的弹性：数据丢失可以自动恢复   -----> Executor级别
+- 计算的弹性：计算出错重试机制（可重新调度任务4次） ---> drive级别
 - 分片的弹性：可根据需要重新分片
 
 #### 1.2.2 分区
 
 #### 1.2.3 只读
 
-​	由一个 RDD 转换到另一个 RDD，可以通过丰富的操作算子实现（mapreduce中只有map和reduce）.
+​	由一个 RDD 转换成另一个 RDD，可以通过丰富的操作算子实现（mapreduce中只有map和reduce）.
 两类操作算子：
 
 - *转换 ( transformations )* 从已经存在的数据集中创建一个新的数据集
@@ -412,6 +414,9 @@ WordCount 案例分析数据流：
 
 ​	窄依赖：父RDD ---> 子RDD （单向，一对一）
 ​	宽依赖：父RDD ---> 子RDD （单向，一对多）
+​	主要看父RDD是单线处还是多线出。
+
+<div align=center><img src='./img/2-3.png' width=70%></div>
 
 #### 1.2.5 缓存
 
@@ -435,7 +440,7 @@ WordCount 案例分析数据流：
 
 #### 2.2.1 从集合中创建
 
-从集合中RDD， Spark 主要提供了两种函数： parallelize 和 makeRDD。
+从集合中RDD， Spark 主要提供了两种函数： `parallelize` 和 `makeRDD`。
 
 - 1）使用 `parallelize()` 从集和创建
 
@@ -456,7 +461,14 @@ WordCount 案例分析数据流：
   函数 `parallelize`定义源码：
 
   ```
-  ... 
+  def parallelize[T: ClassTag](
+  	seq: Seq[T],
+  	numSlices: Int = defaultParallelism): RDD[T] = withScope {
+     assertNotStopped()
+     new ParallelCollectionRDD[T](this, seq, numSlices, Map[Int, Seq[String]]())
+  }
+  # numSlices: Int = defaultParallelism: 分区数最大值：核数
+  # 分区规则见 <2.3.1.3 mapPartitionsWithIndex(func) 案例>
   ```
 
 - 2）使用 `makeRDD` 从集合创建
@@ -494,11 +506,13 @@ val rdd2 = sc.textFile("hdfs://hadoop102:9000/RELEASE")
 
 #### 2.3.1 Value 类型
 
-`RDD` 整体上分为 `Value` 类型和 `key-value` 类型
+- `RDD` 整体上分为 `Value` 类型和 `key-value` 类型
+- `Value`：在创建 `Value`类型 `RDD`根据定义的分区规则进行分区 （详见 `2.3.1.3`节）
+  `key-value`：使用分区器 `partitioner`进行分区 （详见 ……）
 
 ##### 2.3.1.1 map(func) 案例
 
-- 1）作用：返回一个新的RDD，该RDD由每一个输入元素经过func函数转换后组成
+- 1）作用：映射，返回一个新的RDD，该RDD由每一个输入元素经过func函数转换后组成
 
 - 2）需求：创建一个数组的 RDD， 将所有元素 *2 形成新的 RDD
 
@@ -524,13 +538,17 @@ val rdd2 = sc.textFile("hdfs://hadoop102:9000/RELEASE")
   scala> rdd.mapPartitions(x=>x.map(_*2)).collect  
   res2: Array[Int] = Array(2, 4, 6, 8)
   # mapPartitions属于 spark 的函数，x=>x.map(_*2)中的 map 属于 scala 语言中的函数
-  
-  # 将 元素连接起来 x=>Iterator(x.mkString("|")) 不能用 Iterator(_.mkString("|")) 简化
+  ```
+
+- 3）创建一个 RDD， **使其一个分区的数据转变为一个 String**, 例如（Array(1,2,3,4),2）=> (1|2,3|4) 
+
+  ```
+  将 元素连接起来 x=>Iterator(x.mkString("|")) 不能用 Iterator(_.mkString("|")) 简化
   scala> rdd.mapPartitions(x=>Iterator(x.mkString("|"))).collect
   res4: Array[String] = Array(1|2, 3|4)
   ```
 
-  就近原则：
+- 4）就近原则：
 
   `x=>Iterator(x.mkString("|")) : Iterator(_.mkString("|"))`   
 
@@ -567,35 +585,35 @@ val rdd2 = sc.textFile("hdfs://hadoop102:9000/RELEASE")
   ((_+1)*2)  扩展后是： y=>(x=>x+1)*2   # x 没定义，也没输入的引用
   ```
 
-  ##### 2.3.1.3 mapPartitionsWithIndex(func) 案例
+##### 2.3.1.3 mapPartitionsWithIndex(func) 案例  ---> Value类型的分区索引确定规则
 
-  - 1）作用：
+- 1）作用：
 
-  - 2）需求：数组==》（分片号，数据）格式
+- 2）需求：数组==》（分片号，数据）格式
 
-    ```
-    scala> val rdd1 = sc.parallelize(Array(1,2,3,4,5,6,7,8,9,10,11), 3)
-    scala> val rdd1withPartIndex = rdd1.mapPartitionsWithIndex((i,items)=>items.map(x=>(i,x)))
-    scala> rdd1withPartIndex.collect
-    res13: Array[(Int, Int)] = Array((0,1), (0,2), (0,3), (1,4), (1,5), (1,6), (1,7), (2,8), (2,9), (2,10), (2,11))
-    # 3个分片，转化后的新rdd格式为 （分片序号，数据）
-    # 11个数分3个分区，最后分区情况为 0:3个数据，1:4个数据，2:4个数据
-    ```
+  ```
+  scala> val rdd1 = sc.parallelize(Array(1,2,3,4,5,6,7,8,9,10,11), 3)
+  scala> val rdd1withPartIndex = rdd1.mapPartitionsWithIndex((i,items)=>items.map(x=>(i,x)))
+  scala> rdd1withPartIndex.collect
+  res13: Array[(Int, Int)] = Array((0,1), (0,2), (0,3), (1,4), (1,5), (1,6), (1,7), (2,8), (2,9), (2,10), (2,11))
+  # 3个分片，转化后的新rdd格式为 （分片序号，数据）
+  # 11个数分3个分区，最后分区情况为 0:3个数据，1:4个数据，2:4个数据
+  ```
 
-  - 分区规则（源码如下）-- 分区规则是在 RDD 创建`parallelize`的时候规定好的,不是转换的时候确定的：
+- 分区规则（源码如下）-- 分区规则是在 RDD 创建`parallelize`的时候规定好的,不是转换的时候确定的：
 
-    <div align=center><img src='./img/2-2.png' width=80%></div>
+  <div align=center><img src='./img/2-2.png' width=80%></div>
 
-    比如对于数据长度 11， 分区为3 的 rdd， 转换后的 （index, value）中 index 对应的 value 的数量计算如下：
+  比如对于数据长度 11， 分区为3 的 rdd， 转换后的 （index, value）中 index 对应的 value 的数量计算如下：
 
-    ```
-    for i in index:
-    	start = int((i * length) / numslice)
-    	end = int(((i + 1 ) * length) / numslice)
-    # i = 0: start=int(0*11/3), end=int(1*11/3) --> [0,3]  3个数	# [start, end) 均为前闭后开
-    # i = 1: start=int(1*11/3), end=int(2*11/3) --> [3,7]  4个数
-    # i = 2: start=int(2*11/3), end=int(3*11/3) --> [7,11] 4个数
-    ```
+  ```
+  for i in index:
+  	start = int((i * length) / numslice)
+  	end = int(((i + 1 ) * length) / numslice)
+  # i = 0: start=int(0*11/3), end=int(1*11/3) --> [0,3]  3个数	# [start, end) 均为前闭后开
+  # i = 1: start=int(1*11/3), end=int(2*11/3) --> [3,7]  4个数
+  # i = 2: start=int(2*11/3), end=int(3*11/3) --> [7,11] 4个数
+  ```
 
 ##### 2.3.1.4 map() 和 mapPartitions() 的区别
 
@@ -605,7 +623,7 @@ val rdd2 = sc.textFile("hdfs://hadoop102:9000/RELEASE")
 
 - 开发指导：当内存空间较大时建议使用 mapPartitions()，以提高处理效率
 
-  mapPartitions 中的 map 是 scala 的map函数（操作scala集合）；map()中的 map 是 spark 的 map 函数（操作 RDD）,可以通过函数跳转查看 map 函数所在源码是属于scala还是spark的；建议采用mapPartitions()能提高效率是以为 <font color=coral>`scala`的`map`函数效率比`spark`的`map`函数效率高</font>。
+  mapPartitions 中的 map 是 scala 的map函数（操作scala集合）；map()中的 map 是 spark 的 map 函数（操作 RDD）,可以通过函数跳转查看 map 函数所在源码是属于scala还是spark的；建议采用mapPartitions()能提高效率是因为 <font color=coral>`scala`的`map`函数效率比`spark`的`map`函数效率高</font>。
 
 ##### 2.3.1.5 flatMap(func) 案例
 
@@ -634,7 +652,7 @@ val rdd2 = sc.textFile("hdfs://hadoop102:9000/RELEASE")
   res0: Array[Array[Int]] = Array(Array(1, 2, 3), Array(4, 5, 6, 7), Array(8, 9, 10, 11))
   ```
 
-##### 2.3.1.7 groupBy() 案例
+##### 2.3.1.7 groupBy(func) 案例
 
 - 1）作用：分组
 
@@ -654,6 +672,387 @@ val rdd2 = sc.textFile("hdfs://hadoop102:9000/RELEASE")
   scala> rdd.groupBy(x=>x%2).collect
   res4: Array[(Int, Iterable[Int])] = Array((0,CompactBuffer(2, 4, 6, 8, 10)), (1,CompactBuffer(1, 3, 5, 7, 9, 11)))
   ```
+
+##### 2.3.1.8 filter(func) 案例
+
+- 1）作用：筛选
+
+  ```
+  scala> val rdd=sc.parallelize(Array(1,2,3,5,6,8,15))
+  rdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[0] at parallelize at <console>:24
+  scala> rdd.filter(_%2==0).collect
+  res0: Array[Int] = Array(2, 6, 8)
+  
+  # 筛选出包含某个字符串的RDD     .contains(string)
+  scala> var src=sc.parallelize(Array("ftd","ig","skt","kt","4am","omg","omg_lionkk"))
+  scala> val filtered = src.filter(_.contains("omg"))
+  scala> filtered.collect
+  res3: Array[String] = Array(omg, omg_lionkk)
+  ```
+
+##### 2.3.1.9 sample(withReplacement, fraction, seed) 案例
+
+- 1）抽样
+  `sample(withReplacement, fraction, seed):`
+  	`withReplacement:是否放回`
+  	`fraction: expected size of sample as a fraction of this RDD's size`
+  		`(1)不放回抽样(伯努利分布)，每个样本被选中的概率, [0~1]；`
+  		`(2)有放回抽样(泊松分布),,每个元素被选中的次数 expected number of times each element is chosen, >=0`
+  	`seed:随机种子`
+
+  ```
+  scala> val rdd1 = sc.parallelize(1 to 10)
+  # 无放回抽样 -- 随机种子：这里选择 当前时间戳 作为seed
+  scala> rdd1.sample(false, 0.4, System.currentTimeMillis).collect
+  res19: Array[Int] = Array(1, 4, 7, 10)
+  scala> rdd1.sample(false, 0.4, System.currentTimeMillis).collect
+  res20: Array[Int] = Array(2, 3, 6, 8, 9)
+  scala> rdd1.sample(false, 0.4, System.currentTimeMillis).collect
+  res21: Array[Int] = Array(1, 4, 5, 8, 10)
+  # 有放回抽样 -- 随机种子：这里选择 当前时间戳 作为seed
+  scala> rdd1.sample(true, 2, 3).collect
+  res25: Array[Int] = Array(1, 4, 4, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 9, 9, 9, 9, 10, 10)
+  scala> rdd1.sample(true, 2, 1).collect
+  res26: Array[Int] = Array(1, 1, 1, 1, 2, 3, 3, 3, 3, 3, 4, 4, 5, 5, 6, 6, 6, 6, 7, 7, 9, 9, 10)
+  ```
+
+##### 2.3.1.10 distinc 案例
+
+- 1）作用：去重
+
+  ```
+  scala> rdd1.sample(true, 2, 5).collect
+  res28: Array[Int] = Array(1, 2, 3, 3, 3, 3, 4, 4, 5, 6, 6, 7, 8, 8, 8, 9)
+  scala> val rdd = sc.parallelize(res28)		# 还能有这种用法！！ res28是一个array
+  scala> rdd.collect
+  res32: Array[Int] = Array(1, 2, 3, 3, 3, 3, 4, 4, 5, 6, 6, 7, 8, 8, 8, 9)
+  scala> rdd.distinct.collect				   # 去重
+  res34: Array[Int] = Array(8, 1, 9, 2, 3, 4, 5, 6, 7)
+  ```
+
+##### 2.3.1.11 coalesce(numPartitions , shuffle=false) ， repartition(numPartitions) 案例  ---> 调整分区
+
+- `coalesce(numPartitions) :`**缩减分区数**，用于大数据集过滤后，提高小数据集的执行效率
+  `coalesce(numPartitions, shuffle=false)： `若 `shuffle=true`,等价于`repartition`
+
+- `repartition(numPartitions)：`根据分区数 重新通过网络**随机洗牌**所有数据，**调整分区**
+  `repartition(numPartitions)：` 调用`shuffle=true`的`coalesce`
+
+  ```
+  scala> val rdd = sc.parallelize(Array(1,2,3,4,5,6,7,8),4)
+  scala> rdd.partitions.length		# RDD的分区数量
+  res35: Int = 4
+  scala> rdd.mapPartitionsWithIndex((i,items)=>items.map((i, _))).collect
+  res36: Array[(Int, Int)] = Array((0,1), (0,2), (1,3), (1,4), (2,5), (2,6), (3,7), (3,8))
+  # 缩减分区 --->  窄依赖
+  scala> rdd.coalesce(2).mapPartitionsWithIndex((i,items)=>items.map((i, _))).collect
+  res38: Array[(Int, Int)] = Array((0,1), (0,2), (0,3), (0,4), (1,5), (1,6), (1,7), (1,8))
+  # 随机洗牌后重新调整分区 shuffle=true --> 宽依赖
+  scala> rdd.repartition(2).mapPartitionsWithIndex((i,items)=>items.map((i, _))).collect 
+  res39: Array[(Int, Int)] = Array((0,1), (0,4), (0,5), (0,7), (1,2), (1,3), (1,6), (1,8))
+  
+  # scala> rdd.coalesce(6).partitions.length
+  res46: Int = 4		# 窄依赖
+  scala> rdd.repartition(6).partitions.length
+  res47: Int = 6		# 宽依赖
+  ```
+
+- 区别：
+
+  1）coalesce 重新分区，可以选择是否进行shuffle 过程，有参数 shuffle 决定
+
+  2）repartition 实际上是调用进行了 shuffle=true 的 coalesce
+
+##### 2.3.1.12 sortBy(func,...) 案例
+
+- 作用：排序，默认升序
+
+  `sortBy(func:(T)=>k, ascending=true, numPartitions=this.partitions.length)`
+  	`func: 给定排序的依据，按照 f 的返回值结果作为依据来排序`
+
+  ```
+  # 按照元素自身大小排序
+  scala> val rdd = sc.parallelize(Array(5,1,3,7,2,6,9,4))
+  scala> rdd.sortBy(x=>x).collect
+  res52: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 9)
+  # # 按照 元素+10 大小排序
+  scala> rdd.sortBy(x=>x+10).collect
+  res53: Array[Int] = Array(1, 2, 3, 4, 5, 6, 7, 9)
+  
+  # 按照 数字元素的长度 排序
+  scala> var src=sc.parallelize(Array("ftds","igameing","skt","kt","4am","omg_hai","omg_lionkk"))
+  scala> src.sortBy(_.size).collect
+  res55: Array[String] = Array(kt, skt, 4am, ftds, omg_hai, igameing, omg_lionkk)
+  ```
+
+##### 2.3.1.13 pipe(command, [envVars]) 案例
+
+- 作用：管道，针对每个分区，都执行一个 shell 脚本，返回输出的 RDD
+
+  注意：<font color=coral>脚本需要放在 Worker 节点可以访问到的位置</font>
+
+  ```
+  # 创建 shell 脚本
+  vim pipe.sh
+          #!/bin/sh
+          echo "AA"
+          while read LINE; do
+              echo ">>>" ${LINE}
+          done
+  
+  scala> rdd.pipe("./pipe.sh").collect
+  res54: Array[string] = Array(AA, >>> word, >>> aaa, AA, >>> bbbbb, >>>> cc)
+  ```
+
+#### 2.3.2 双 Value 类型交互
+
+##### 2.3.2.1 union(otherDataset) 案例
+
+- 并集 
+
+- 注意：不同数据类型的 RDD 并集会报错 <font color=coral>`type mismatch`</font>
+
+  ```
+  scala> val src1 = sc.parallelize(Array("weiless","apt","fore"))
+  scala> val src = sc.parallelize(Array(ftds, igameing, skt, kt, 4am, omg_hai, omg_lionkk))
+  scala> src.union(src1).collect
+  res58: Array[String] = Array(ftds, igameing, skt, kt, 4am, omg_hai, omg_lionkk, weiless, apt, fore)
+  
+  # 不同类型RDD并集，会报错 type mismatch
+  scala> src1.union(rdd).collect
+  <console>:28: error: type mismatch;
+   found   : org.apache.spark.rdd.RDD[Int]
+   required: org.apache.spark.rdd.RDD[String]
+         src1.union(rdd).collect
+  ```
+
+##### 2.3.2.2 subtract(otherDataset) 案例
+
+- 差集
+
+  ```
+  scala> val rdd1 = sc.parallelize(1 to 4)
+  scala> val rdd2 = sc.parallelize(3 to 6)
+  scala> rdd1.subtract(rdd2).collect
+  res63: Array[Int] = Array(1, 2)
+  scala> rdd2.subtract(rdd1).collect
+  res64: Array[Int] = Array(5, 6)
+  
+  ```
+
+##### 2.3.2.3 intersection(otherDataset) 案例
+
+- 交集
+
+  ```
+  scala> rdd1.intersection(rdd2).collect
+  res65: Array[Int] = Array(3, 4)
+  ```
+
+##### 2.3.2.4 cartesian(otherDataset) 案例
+
+- 作用：计算两个 RDD 的笛卡尔积 （尽量避免使用）
+
+  假设集合A={a, b}，集合B={0, 1, 2}，则两个集合的**笛卡尔积**为{(a, 0), (a, 1), (a, 2), (b, 0), (b, 1), (b, 2)}。 类似的例子有，如果A表示某学校学生的集合，B表示该学校所有课程的集合，则A与B的**笛卡尔积**表示所有可能的选课情况。
+
+  ```
+  scala> rdd1.cartesian(rdd2).collect
+  res66: Array[(Int, Int)] = Array((1,3), (1,4), (1,5), (1,6), (2,3), (2,4), (2,5), (2,6), (3,3), (3,4), (3,5), (3,6), (4,3), (4,4), (4,5), (4,6))
+  ```
+
+##### 2.3.2.5 zip 拉链操作
+
+- 作用：zip函数用于将两个RDD组合成 `Key/Value`形式的RDD,这里默认两个RDD的**`partition`数量**以及**元素数量**都**相同**，否则会抛出异常
+
+- `rdd1.zip(rdd2) --> (key(rdd1), value(rdd2))`
+
+- 两个RDD: <font color=coral>分区数相同</font> 且 <font color=coral>同一个分区内的元素数量相同</font>
+
+  ```
+  scala> val players = sc.parallelize(Array("weiless","apt","fore"), 2)
+  scala> val killnum = sc.parallelize(Array(30,25,16), 2)
+  
+  scala> players.zip(killnum).collect			# 窄依赖
+  res0: Array[(String, Int)] = Array((weiless,30), (apt,25), (fore,16))
+  ```
+
+#### 2.3.3 Key-Value类型
+
+ ##### 2.3.3.1 partitionBy 案例   ---> 分区器简介
+
+- 1）作用：
+
+  对 pairRDD 进行分区操作，如果原有的 partitionRDD 和现有的 partitionRDD 是一致的话就不进行分区，否则会生产shuffleRDD ，即会产生 shuffle 过程
+
+  `Return a copy of the RDD partitioned using the specified partitioner(分区器)`
+
+- 2）与 `repartition`区别：
+
+  - `repartition` 不会改变分区器，只改变分区数
+  - `partitionBy ` 通过改变分区器且可传入分区数来改变分区数
+
+  比如，通过 `partitionBy ` 修改 RDD 的分区器为`HashPartitioner`同时修改分区数，再通过 `repartition`调整分区(该调整不会改变分区器，仍然是 `HashPartitioner`)
+
+- 3）<font color=coral>分区器</font>， 可参考[spark core之数据分区](spark core之数据分区) 和 [帮你快速理解 Spark 的分区器](<https://www.jianshu.com/p/764cf1c4e0b0>)：
+
+  `HashPartitioner (org.apache.spark)` ---> 默认的分区器，可能导致每个分区中数据量不均匀
+  `RangePartitioner (org.apache.spark)` ---> 尽量保证每个分区数据量均匀，将一定范围内数映射到某一个分区内
+  `PythonPartitioner  (org.apache.spark.api.python)`
+
+  - 分区器**`HashPartitioner`**分区执行原理：
+
+    **对于给定的key，计算其hashCode，再除以分区数取余，最后的值就是这个key所属的分区ID**
+
+  - 分器其 `RangePartitioner `：
+
+    分区与分区之间数据是有序的，但分区内的元素是不能保证顺序的。
+
+    分区执行原理：略
+
+- 2）需求：创建一个4个分区的RDD，再重新分区
+
+  ```
+  # 创建一个 RDD
+  scala> val rdd = sc.parallelize(Array((1,"aaa"),(2,"bbb"),(3,"ccc"),(4,"ddd")),4)
+  rdd: org.apache.spark.rdd.RDD[(Int, String)] = ParallelCollectionRDD[0] at parallelize at <console>:24
+  # 查看 RDD 的分区数
+  scala> rdd.partitions.length
+  res1: Int = 4
+  scala> rdd.partitions.size
+  res2: Int = 4
+  
+  # 对 RDD 重新分区 （通过partitionBy修改分区器以及分区数(分区器的参数)）
+  scala> rdd.partitionBy(new org.apache.spark.HashPartitioner(2)) # 没import包，用全类名new个分区器
+  res3: org.apache.spark.rdd.RDD[(Int, String)] = ShuffledRDD[2] at partitionBy at <console>:26
+  # 使用mapPartitionsWithIndex算子进行RDD转换
+  scala> val rdd1 = res3.mapPartitionsWithIndex((i,items)=>items.map((i,_)))
+  scala> rdd1.collect
+  res4: Array[(Int, (Int, String))] = Array((0,(2,bbb)), (0,(4,ddd)), (1,(1,aaa)), (1,(3,ccc)))
+  ```
+
+##### 2.3.3.2 reduceByKey(func, [numTasks]) 案例
+
+- 1）作用：reduce 聚合
+
+  注意: 算子中有 ByKey 的，一定会 shuffle。比如，不同分区相同的 key 对应的值进行累加，最后得到结果的 key-value(key已去重) 不可能同时再分布在不同分区
+
+- 源碼
+
+  ```
+  def reduceByKey(func: (V,V) => V): RDD[(K,V)] = .....
+  ```
+
+  `func: (V,V) => V`  ---> `RDD[(K,V)](V是 => 后的 V)`
+
+- 示例
+
+  ```
+  scala> val rdd = sc.parallelize(List(("female",1),("male",5),("female",5),("male",2)))
+  # 同一个 key 的元素的 value 累加 作为该 key 的新的 value
+  scala> rdd.reduceByKey((x,y)=>x+y).collect
+  res6: Array[(String, Int)] = Array((female,6), (male,7))
+  
+  scala> rdd.reduceByKey((x,y)=>x+y)
+  res9: org.apache.spark.rdd.RDD[(String, Int)] = ShuffledRDD[8] at reduceByKey at <console>:26
+  # 这里 ShuffledRDD， 说明该算子是有 shuffle 过程的
+  ```
+
+##### 2.3.3.3 groupBykey 案例
+
+- 1）作用：根据key分组聚合, 对每个key进行操作，但只生产一个 seq
+
+- 2）示例
+
+  ```
+  scala> rdd.groupByKey.collect
+  res7: Array[(String, Iterable[Int])] = Array((female,CompactBuffer(1, 5)), (male,CompactBuffer(5, 2)))
+  
+  scala> rdd.groupByKey
+  res10: org.apache.spark.rdd.RDD[(String, Iterable[Int])] = ShuffledRDD[9] at groupByKey at <console>:26
+  # 这里 ShuffledRDD， 说明该算子是有 shuffle 过程的
+  ```
+
+##### 2.3.3.4 reduceByKey 和 groupBykey  区别
+
+<div align=center><img src='./img/2-4.png' width=80%></div>
+
+​	常用建议 reduceByKey
+
+##### 2.3.3.5 aggregateByKey 案例
+
+- 1）定义
+
+  ```
+  def aggregateByKey[U](zeroValue: U)(seqOp: (U, V) ⇒ U, combOp: (U, U) ⇒ U)(implicit arg0: ClassTag[U]): RDD[(K, U)]
+  
+  Aggregate the values of each key, using given combine functions and a neutral "zero value". This function can return a different result type, U, than the type of the values in this RDD, V. Thus, we need one operation for merging a V into a U and one operation for merging two U's, as in scala.TraversableOnce. The former operation is used for merging values within a partition, and the latter is used for merging values between partitions. To avoid memory allocation, both of these functions are allowed to modify and return their first argument instead of creating a new U. 
+  ```
+
+  - `seqOp: (U, V)` ： 分区内的操作，`merging a V into a U`
+
+  - `combOp: (U, U)`：不同分区之间的操作  `merging two U's between partitions`
+
+     注意：<font color=coral>`combOp`一定是在 `seqOp`完全计算完之后才会开始执行</font>
+
+- 2）参数描述
+  （1）[**分区内**] zeroValue：给每一个分区中的每一个 key 一个初始值
+  （2）[**分区内**] seqOp：函数用于在每一个分区中用初始值逐步迭代 value
+  （3）[**分区间**] combOp：函数用于合并每个分区中的结果 
+
+- 3）需求：创建一个 pairRDD, 取出每一个分区相同 key 对应值的最大值，然后相加
+
+  ```
+  scala> val rdd = sc.parallelize(List(("a",3),("a",2),("c",4),("b",3),("c",6),("c",8)),2)
+  rdd: org.apache.spark.rdd.RDD[(String, Int)] = ParallelCollectionRDD[15] at parallelize at <console>:24
+  scala> rdd.collect
+  res23: Array[(String, Int)] = Array((a,3), (a,2), (c,4), (b,3), (c,6), (c,8))
+  >>>> 目标结果： (a,3), (b,3), (c,12)   # 2个分区
+  # 分区0：max(a):(a,3), max(c):(c,4)
+  # 分区1：max(a):max(b):(b,3), max(c):(c,8)
+  # 不同分区合并结果：(a,3), (b,3), (c,4+8)
+  ```
+
+  需求分析：
+
+  <div align=center><img src='./img/2-5.png' width=100%></div>
+
+  ```
+  # 语法：rdd.aggregateByKey(zerovalue)(seqop, comop)
+  scala> rdd.aggregateByKey(0)((u,v)=>Math.max(u,v),(u1,u2)=>u1+u2).collect
+  res24: Array[(String, Int)] = Array((b,3), (a,3), (c,12))
+  ```
+
+  结果中，b在分区0, a和c在分区1，是根据哈希分区得到（ key-value类型默认的分区器是 `HashPartitioner` ）。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
