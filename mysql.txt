@@ -1,0 +1,11 @@
+# 授予/收回 对所有以klaus_开头的名称的数据库的用户klaus权限。
+# 注意：数据库名是不是用引号''，而是 键盘左上角的 ``, 用户名是用引号
+# workbench中，Scheme Privileges 中 输入  klaus\_% 也可
+mysql> GRANT ALL PRIVILEGES ON `klaus\_%`.* TO 'klaus'@'%';
+Query OK, 0 rows affected (0.03 sec)
+mysql> REVOKE ALL PRIVILEGES ON `klaus\_%` .  * FROM 'grace'@'%';
+Query OK, 0 rows affected (0.01 sec)
+# 刷新权限
+FLUSH PRIVILEGES;
+
+# 如果設置 Administrative Roles中的权限，该权限优先级大于 Scheme Privileges 中的表的权限

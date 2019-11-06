@@ -131,7 +131,7 @@ sudo vim /etc/docker/daemon.json
 ### 4. 启动Docker CE
 
 ```
-# 方法1安装好后貌似不需要这两步，方法2没试过
+# 方法1安装好后貌似不需要这两步，方法2没试过  （centos系統中需要）
 sudo systemctl enable docker
 sudo systemctl start docker
 ```
@@ -211,7 +211,7 @@ docker run -d -p 2222:22 --name base csphere/centos:7.1
 # 交互模式在continuumio/anaconda3镜像下创建容器(命名：ananconda3)并进入容器
 docker run -it --name anaconda3 continuumio/anaconda3
 # 退出后重新进入容器，并进入anaconda3环境bash环境
-docker start anaconda	3
+docker start anaconda3
 docker exec -it anaconda3 /bin/bash
 # 退出容器且保持后台运行： ctrl + p, q
 
@@ -592,13 +592,106 @@ services:
       - db
 ```
 
+### 3. mysql
+
+docker创建数据库，并本地挂载
+
+```
+# 创建docker容器，挂载到本地 source宿主机中数据存储path, target容器中的数据储存path
+docker run -d \
+-e MYSQL_ROOT_PASSWORD=root \
+-p 3306:3306 \
+--mount type=bind,source=/opt/mysqldatastore/gracesql/,target=/var/lib/mysql/ \
+--name grace-mysql mysql
+
+# 容器内启动mysql
+docker exec -it mysql-test bash
+root@f04cf8aad026:/# mysql -uroot -p123456		# 容器内进入mysql
+mysql> SHOW VARIABLES LIKE 'datadir'			# 查看容器内 mysql 的数据存放位置
+        +---------------+-----------------+
+        | Variable_name | Value           |
+        +---------------+-----------------+
+        | datadir       | /var/lib/mysql/ |
+        +---------------+-----------------+
+        1 row in set (0.01 sec)
+```
+
+数据库操作：
+
+```
+1、以管理员身份登录mysql
+mysql -u root -p
+
+2、选择mysql数据库
+use mysql
+
+3、创建用户并设定密码
+create user 'testuser'@'localhost' identified by 'testpassword'
+
+4、使操作生效
+flush privileges
+
+5、为用户创建数据库
+create database testdb
+
+6、为用户赋予操作数据库testdb的所有权限
+--> GRANT privileges ON databasename.tablename TO 'username'@'host'
+    说明:
+    privileges：用户的操作权限，如SELECT，INSERT，UPDATE等，如果要授予所的权限则使用ALL
+    databasename：数据库名
+    tablename：表名，如果要授予该用户对所有数据库和表的相应操作权限则可用*表示，如*.*
+grant all privileges on testdb.* to test@localhost identified  by '1234'
+
+7、使操作生效
+flush privileges
+
+8、用新用户登录
+mysql -u test -p
+
+
+mysql> grant ALL ON *.* TO klaus;
+mysql> show grants for klaus;
+mysql> select host,user from mysql.user;
++-----------+------------------+
+| host      | user             |
++-----------+------------------+
+| %         | klaus            |
+| %         | root             |
+| localhost | mysql.infoschema |
+| localhost | mysql.session    |
+| localhost | mysql.sys        |
+| localhost | root             |
++-----------+------------------+
+6 rows in set (0.00 sec)
+```
+
+### 4 MongoDb
+
+```
+[centos@localhost ~]$ docker pull mongo
+
+[centos@localhost ~]$ docker run -d --name mongodb -p 27017:27017 -v /opt/mongodatastore/mongodb:/data/db mongo --auth
+27de52998cd6d776b68d663ae69ea1a3eec000b1b44ea8b188105294710a9c45
+
+[centos@localhost ~]$ docker exec -it mongodb mongo admin
+MongoDB shell version v4.2.1
+connecting to: mongodb://127.0.0.1:27017/admin?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("b0a7bc35-b54c-4f20-9d33-5fd94b46d417") }
+MongoDB server version: 4.2.1
+
+> db.createUser({user:"admin", pwd:"admin", roles:["userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase"]});
+Successfully added user: {
+	"user" : "admin",
+	"roles" : [
+		"userAdminAnyDatabase",
+		"dbAdminAnyDatabase",
+		"readWriteAnyDatabase"
+	]
+}
 
 
 
-
-
-
-
+```
 
 
 
