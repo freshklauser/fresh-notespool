@@ -323,6 +323,8 @@
     -v：显示所有过程
     -O：将文件解开到标准输出
     ...
+    
+    tar -tvf archive.tar         # List all files in archive.tar verbosely.
 
 描述：打包目录 生成的后缀名.tar.gz，或者进行解压，最后配置加-C表示文件解压后存放的路径
 
@@ -330,8 +332,25 @@
 
 23、命令：zip；
 
+<font color=coral>`unzip -O CP936 xxx.zip`</font>
+
     语法：zip 选项【-r】【压缩后文件名称】【源文件】；
     描述：zip的格式是windows和linux通用的格式，可以压缩文件和目录，压缩目录时需要选项-r；
+    
+    解压zip文件:  
+    	# 安装解压软件
+    	sudo apt-get install unzip
+    	# 解压
+    	unzip <filename.zip>
+    	# 通过unzip行命令解压，指定字符集, 解决windows的zip压缩文件拷贝到ubuntu解压后文件名乱码问题
+    	unzip -O CP936 xxx.zip
+    	# 查看文件内容列表
+    
+    	加压/压缩rar文件:
+    	sudo apt-get install rar
+    	sudo apt-get install unrar
+    	unrar l <rar_file>   # 列出文件内容
+    	unrar x <rar_file>   # 解压rar文件到当前目录	
 
 24、命令：unzip
 
