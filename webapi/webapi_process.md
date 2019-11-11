@@ -415,7 +415,7 @@
   `dotnet publish -o E:\publish -f netcoreapp2.2 -c Release D:\dataflowApi\dataflowApi.sln`
   
 <div align=center><img src='./img/10-2.png' width=100%> </div>
-  
+
 - IIS部署
 
   控制面板\系统和安全\管理工具  --> 双击`Internet Information Services (IIS)管理器`
@@ -433,7 +433,7 @@
     
 <div align=center><img src='./img/7-4.png' width=50%><img src='./img/7-5.png' width=44%> </div>
     设置好的站点如图所示
-
+    
     <div align=center><img src='./img/7-6.png' width=70%></div>
 
   - 点击 `应用程序池`， 如下图，选中新建的站点并点击基本设置，设置 `.NET CLR版本`为 <font color=coral>无托管代码</font>, 确定
@@ -605,7 +605,7 @@ IIS Express设计是为了避免需要管理员权限就能完成大部分操作
   # 向外界暴露5000端口
   EXPOSE 5000
    
-  # 执行dotnet xxxx.dll命令
+  # 执行dotnet xxxx.dll命令: xxxx.dll是webapi发布后生成的.dll文件
   CMD ["dotnet", "dockerdataflowApi.dll"]
   ```
 

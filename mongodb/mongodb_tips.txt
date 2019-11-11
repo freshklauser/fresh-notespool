@@ -1,0 +1,1 @@
+詳見docker_tips.md
