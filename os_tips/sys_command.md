@@ -345,6 +345,9 @@
     	# 通过unzip行命令解压，指定字符集, 解决windows的zip压缩文件拷贝到ubuntu解压后文件名乱码问题
     	unzip -O CP936 xxx.zip
     	# 查看文件内容列表
+    	
+    压缩zip文件：
+    	zip xxxx.zip xxxx
     
     	加压/压缩rar文件:
     	sudo apt-get install rar

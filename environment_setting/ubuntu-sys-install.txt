@@ -480,10 +480,21 @@ fatal: Could not read from remote repository.
 	keep your configuration files? You can also input 'quit' or 'q' to
 	cancel uninstallation. [yes]: yes
 
+33、terminal路径太长解决办法
+	if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
+	else
+		PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$'
+	fi
+	unset color_prompt force_color_prompt
 
->>>>>>>>>>>> 图片、视频播放器 <<<<<<<<<<<<<<<<<<<<<<<<<<<<
-problem:
-	wps的字体确实问题  --> 未完待续
-	其他软件安装
+	# If this is an xterm set the title to user@host:dir
+	case "$TERM" in
+	xterm*|rxvt*)
+		PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \W\a\]$PS1"
+		;;
+	*)
+	解决办法：上述第2/4/10中小写的 w　改成大写的 W ，然后source .bashrc即可，pwd可以查看当前路径
+
 
 
