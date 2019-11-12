@@ -131,7 +131,7 @@ sudo vim /etc/docker/daemon.json
 ### 4. 启动Docker CE
 
 ```
-# 方法1安装好后貌似不需要这两步，方法2没试过
+# 方法1安装好后貌似不需要这两步，方法2没试过  （centos系統中需要）
 sudo systemctl enable docker
 sudo systemctl start docker
 ```
@@ -211,7 +211,7 @@ docker run -d -p 2222:22 --name base csphere/centos:7.1
 # 交互模式在continuumio/anaconda3镜像下创建容器(命名：ananconda3)并进入容器
 docker run -it --name anaconda3 continuumio/anaconda3
 # 退出后重新进入容器，并进入anaconda3环境bash环境
-docker start anaconda	3
+docker start anaconda3
 docker exec -it anaconda3 /bin/bash
 # 退出容器且保持后台运行： ctrl + p, q
 
@@ -592,17 +592,214 @@ services:
       - db
 ```
 
+### 3. mysql
+
+#### 1）docker创建数据库，并本地挂载
+
+```
+# 创建docker容器，挂载到本地 source宿主机中数据存储path, target容器中的数据储存path
+docker run -d \
+-e MYSQL_ROOT_PASSWORD=root \
+-p 3306:3306 \
+--mount type=bind,source=/opt/mysqldatastore/gracesql/,target=/var/lib/mysql/ \
+--name grace-mysql mysql
+
+# 容器内启动mysql
+docker exec -it mysql-test bash
+root@f04cf8aad026:/# mysql -uroot -p123456		# 容器内进入mysql
+mysql> SHOW VARIABLES LIKE 'datadir'			# 查看容器内 mysql 的数据存放位置
+        +---------------+-----------------+
+        | Variable_name | Value           |
+        +---------------+-----------------+
+        | datadir       | /var/lib/mysql/ |
+        +---------------+-----------------+
+        1 row in set (0.01 sec)
+```
+
+#### 2）数据库操作：
+
+```
+1、以管理员身份登录mysql
+mysql -u root -p
+
+2、选择mysql数据库
+use mysql
+
+3、创建用户并设定密码
+create user 'testuser'@'localhost' identified by 'testpassword'
+
+4、使操作生效
+flush privileges
+
+5、为用户创建数据库
+create database testdb
+
+6、为用户赋予操作数据库testdb的所有权限
+--> GRANT privileges ON databasename.tablename TO 'username'@'host'
+    说明:
+    privileges：用户的操作权限，如SELECT，INSERT，UPDATE等，如果要授予所的权限则使用ALL
+    databasename：数据库名
+    tablename：表名，如果要授予该用户对所有数据库和表的相应操作权限则可用*表示，如*.*
+grant all privileges on testdb.* to test@localhost identified  by '1234'
+
+7、使操作生效
+flush privileges
+
+8、用新用户登录
+mysql -u test -p
+
+
+mysql> grant ALL ON *.* TO klaus;
+mysql> show grants for klaus;
+mysql> select host,user from mysql.user;
++-----------+------------------+
+| host      | user             |
++-----------+------------------+
+| %         | klaus            |
+| %         | root             |
+| localhost | mysql.infoschema |
+| localhost | mysql.session    |
+| localhost | mysql.sys        |
+| localhost | root             |
++-----------+------------------+
+6 rows in set (0.00 sec)
+```
+
+### 4 MongoDb
+
+#### 1）数据库操作
+
+- 启动服务和停止服务
+
+```
+# 启动服务
+mongod --dbpath  /home/u1/mongodb/data  [--logpath  /home/u1/mongodb/log/logs  --fork --auth]
+# 停止服务 ： 必须进入admin数据库后停止
+user admin
+db.shutdownServer()
+```
+
+ 	mongo服务启动必须要指定文件存放的目录dbpath,--fork以守护进程运行，如果带—fork参数则必须要指定—logpath即日志存放的位置（指定文件不是文件夹）
+
+- MongoDB 连接
+
+```
+# 标准 URI 连接语法：
+mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
+    mongodb:// 这是固定的格式，必须要指定。
+    username:password@ 可选项，如果设置，在连接数据库服务器之后，驱动都会尝试登陆这个数据库
+    host1 必须的指定至少一个host, host1 是这个URI唯一要填写的。它指定了要连接服务器的地址。如果要连接复制集，请指定多个主机地址。
+    portX 可选的指定端口，如果不填，默认为27017
+    /database 如果指定username:password@，连接并验证登陆指定数据库。若不指定，默认打开 test 数据库。
+    ?options 是连接选项。如果不使用/database，则前面需要加上/。所有连接选项都是键值对name=value，键值对之间通过&或;（分号）隔开	
+    
+# 使用用户名fred，密码foobar登录localhost的baz数据库。
+mongodb://fred:foobar@localhost:27017/baz
+```
 
 
 
+#### 2）远程身份认证
+
+- shell中：本地连接远程mongodb，一定要先切换到admin数据库，再使用身份认证
+
+```
+C:\Users\Wang> mongo 192.168.1.215:27017/
+...
+> use admin
+switched to db admin
+> db.auth("klaus","111111")
+1
+
+# 或者
+ C:\Users\Wang> mongo 192.168.1.215:27017/admin -u <account> -p <password>
+ 				     <ip>        <port> <admin数据库> <账号和密码,密码可隐式输入即enter后再输入>
+```
+
+- .net core webapi中"ConnectionString": "mongodb://localhost:27017", 参数设置格式
+
+```
+# 标准URL连接语法：
+mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
+# 如下
+
+```
 
 
 
+#### 3）设置宿主机ip访问(windows下没成功，linux下没试，docker中-p就行)
+
+- 安装mongodb后若智能使用`localhost`或者`127.0.0.1`登录，本地和远程均无法使用`宿主机ip`登录，则需设置`mongod.cfg`文件,如下：
+
+```
+# network interfaces
+net:
+  port: 27017
+  # =====================改这里===========================
+  bindIp: 0.0.0.0
+#processManagement:
+# =====================改这里===========================
+#security:
+security:
+	authorization: enabled
+```
+
+​	`windows`下试了没成功，docker中不需要这样设置，在创建容器时指定-p就可以.
+
+#### 4）docker创建mongodb的镜像和容器：pull方法
+
+```
+[centos@localhost ~]$ docker pull mongo
+
+[centos@localhost ~]$ docker run -d --name mongodb -p 27017:27017 -v /opt/mongodatastore/mongodb:/data/db mongo --auth
+27de52998cd6d776b68d663ae69ea1a3eec000b1b44ea8b188105294710a9c45
+
+[centos@localhost ~]$ docker exec -it mongodb mongo admin
+MongoDB shell version v4.2.1
+connecting to: mongodb://127.0.0.1:27017/admin?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("b0a7bc35-b54c-4f20-9d33-5fd94b46d417") }
+MongoDB server version: 4.2.1
+
+> db.createUser({user:"spindle", pwd:"spindle123456", roles:["userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase"]});
+Successfully added user: {
+	"user" : "admin",
+	"roles" : [
+		"userAdminAnyDatabase",
+		"dbAdminAnyDatabase",
+		"readWriteAnyDatabase"
+	]
+}
+
+```
 
 
 
+## 6 docker-compose.yml创建
+
+```
+sudo curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+
+$ sudo chmod +x /usr/local/bin/docker-compose
+```
+
+`Docker Compose` 是 Docker 官方编排（Orchestration）项目之一，负责快速的**部署分布式应用**
+
+```
+docker-compose up  启动服务
+docker-compose up -d  后台启动服务
+docker-compose down   卸载服务（容器也会被删除）
+docker-compose logs  当后台启动服务的时候，可以使用这种方式查看日志
+```
 
 
+
+## 7 Dockerfile 与 docker-compose.yml
+
+​	<font color=coral>Dockerfile 记录单个镜像的构建过程， docker-compse.yml 记录一个项目(project, 一般是多个镜像)的构建过程。</font>
+
+​	dockerfile的作用是从无到有的构建镜像。它包含安装运行所需的环境、程序代码等。这个创建过程就是使用 dockerfile 来完成的。Dockerfile - 为 docker build 命令准备的，用于建立一个独立的 image ，在 docker-compose 里也可以用来实时 build。
+​	docker-compose.yml 是为 docker-compose 准备的脚本，可以同时管理多个 container ，包括他们之间的关系、用官方 image 还是自己 build 、各种网络端口定义、储存空间定义等。
+​	docker-compose是编排容器的。例如，你有一个php镜像，一个mysql镜像，一个nginx镜像。如果没有docker-compose，那么每次启动的时候，你需要敲各个容器的启动参数，环境变量，容器命名，指定不同容器的链接参数等等一系列的操作，相当繁琐。而用了docker-composer之后，你就可以把这些命令一次性写在docker-composer.yml文件中，以后每次启动这一整个环境（含3个容器）的时候，你只要敲一个docker-composer up命令就ok了。
 
 
 
@@ -711,7 +908,7 @@ docker run -it -p 8080:5000 klaus/docker-webapi
 
 - `xshell`连接虚拟机的`ubuntu`系统，使用`rz`命令将`publish` 文件夹内容复制到`Ubuntu`系统中
 
-- 测试`ubuntu`中发布的`.dll`是否可以运行
+- 测试`ubuntu`中发布的`.dll`是否可以运行(前提：配置了 dotnet 环境)
 
   ```
   cd webapi/publish/		# publish的文件所在路径
