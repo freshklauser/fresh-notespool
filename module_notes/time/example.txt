@@ -1,0 +1,15 @@
+1. 当前时间
+>>> datetime.datetime.now()
+datetime.datetime(2019, 11, 22, 11, 42, 18, 690511)
+>>> datetime.datetime.today()
+datetime.datetime(2019, 11, 22, 11, 42, 23, 38215)
+
+>>> datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+'2019-11-22 11:54:00'
+>>> datetime.datetime.today().strftime('%Y-%m-%d')
+'2019-11-22'
+
+>>> time.ctime()
+'Fri Nov 22 11:42:42 2019'
+>>> datetime.datetime.now().ctime()
+'Fri Nov 22 11:52:06 2019'

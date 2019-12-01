@@ -86,7 +86,7 @@
   sudo apt-get remove notepadqq
   sudo add-apt-repository --remove ppa:notepadqq-team/notepadqq
   ```
-  
+
 - ubuntu建立文件夹的软连接到桌面
   sudo ln -sT [文件夹路径] [桌面文件夹路径]
   例如：
@@ -104,19 +104,19 @@
 
 - Typora 
   安装（官网有说明）：
-	
-	```
-	# or run:
-	# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA300B7755AFCFAE
-	  wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
-	# add Typora's repository
-	  sudo add-apt-repository 'deb https://typora.io/linux ./'
-	  sudo apt-get update
+
+  ```
+  # or run:
+  # sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA300B7755AFCFAE
+    wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
+  # add Typora's repository
+    sudo add-apt-repository 'deb https://typora.io/linux ./'
+    sudo apt-get update
   # install typora
   sudo apt-get install typora
     安装好后不需要建立软连接，可以直接在terminal中使用 `typora <filename>` 打开文件
   ```
-  
+
 - google浏览器启动命令： `google-chrome`
 - ubuntu下 notepadqq 和 sublimetext都无法输入中文
   refer for sublimetext: https://blog.csdn.net/weixin_41762173/article/details/79379131
@@ -305,7 +305,7 @@
 > 解包：`tar -xvf FileName.tar`
 > 打包：`tar -cvf FileName.tar DirName `  （注：tar是打包，不是压缩！）
 >
-> .tar.gz 和 .tgz
+> .tar.gz 和 .tgz 
 > 解压：<font color=coral>`tar -zxvf FileName.tar.gz`</font>
 > 压缩：<font color=coral>`tar -zcvf FileName.tar.gz DirName`</font>
 
@@ -322,6 +322,7 @@
     -j：支持bzip2解压文件
     -v：显示所有过程
     -O：将文件解开到标准输出
+    -C：<目的目录>或--directory=<目的目录> 切换到指定的目录 (可忽略)
     ...
     
     tar -tvf archive.tar         # List all files in archive.tar verbosely.
