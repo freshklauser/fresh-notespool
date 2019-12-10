@@ -1,0 +1,105 @@
+专案环境部署：
+
+# 保存镜像到本地
+docker save dockerapi/tgdataflow > tgdataflow.tar 	# 将镜像保存为tar压缩文
+docker save microsoft/dotnet > dotnet_with_java.tar
+
+# 复制镜像至新的节点
+[root@localhost tars_docker_for_api]# scp spindle_api.tar root@192.168.1.214:/home/centos/Documents/lyu/tars_docker_for_api
+[root@localhost tars_docker_for_api]# scp mongo.tar root@192.168.1.214:/home/centos/Documents/lyu/tars_docker_for_api
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> mongodb <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+# 1）加载镜像
+[centos@node4 tars_docker_for_api]$ docker load < mongo.tar
+[centos@node4 tars_docker_for_api]$ docker load < spindle_api.tar
+
+# 2）新建容器
+# 基于mongo镜像创建mongodb容器,挂载到宿主机下的/opt/mongodatastore/mongodb (是否需要目录存在？)
+docker run -d \
+	--name mongodb \
+	-p 27017:27017 \
+	-v /opt/mongodatastore/mongodb:/data/db \
+	mongo --auth
+
+# 3）进入容器mongodb中的admin数据库并新建用户
+[centos@localhost ~]$ docker exec -it mongodb mongo admin
+MongoDB shell version v4.2.1
+connecting to: mongodb://127.0.0.1:27017/admin?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("b0a7bc35-b54c-4f20-9d33-5fd94b46d417") }
+MongoDB server 
+version: 4.2.1
+
+> db.createUser({user:"spindle", pwd:"spindle123456", roles:["userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase"]});
+
+# 4）测试是否创建和配置用户成功 （window下远程连接）
+C:\Users\Wang>mongo 192.168.1.214:27017/admin
+> show dbs	
+> db.auth("spindle","spindle123456")
+1
+> show dbs
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+>
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> spindle-api <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+前提：dotnet镜像和容器创建
+
+windows`系统下用`vs`或`dotnet`命令创建`webapi`的`demo`，创建好后，在`Program.cs`中添加`UseUrls("http://*:5000")`（ubuntu中能够使用ip访问的关键）：
+public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseUrls("http://*:5000")
+                .UseStartup<Startup>();
+
+#>>>> 项目发布
+1）dotnet 镜像载入 和 容器创建
+dotnet load < dotnet_with_java.tar
+dotnet run -d --name dotnet-entry microsoft/dotnet
+2）api项目文件夹打包发送至服务器,再将文件夹发送至容器内 dotnet 对应的容器内
+sudo docker cp SpindleAPI 6b5ce10fc26a:/opt/lyu
+注：根据部署节点的ip更改 appsettings.json 中数据库的 URL:(mongdodb设置 mongodb://spindle:spindle123456@<host>:27017)
+（如果事先已知URL且固定，可直接在windows中publish后，将xxx.dll所在的publish目录发送至节点进行docker部署即可）
+3）进入容器部署 publish 
+docker exec -it dotnet-entry bash
+# 容器内发布
+> root@6b5ce10fc26a:/opt/lyu/SpindleAPI# dotnet restore
+  Restore completed in 69.63 ms for /opt/lyu/SpindleAPI/SpindleAPI.csproj.
+> root@6b5ce10fc26a:/opt/lyu/SpindleAPI# dotnet publish
+Microsoft (R) Build Engine version 16.2.32702+c4012a063 for .NET Core
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Restore completed in 67.69 ms for /opt/lyu/SpindleAPI/SpindleAPI.csproj.
+  SpindleAPI -> /opt/lyu/SpindleAPI/bin/Debug/netcoreapp2.2/SpindleAPI.dll
+  SpindleAPI -> /opt/lyu/SpindleAPI/bin/Debug/netcoreapp2.2/publish/
+# 发送 publish 文件夹至 宿主机
+[centos@node4 apideploy]$ sudo docker cp 6b5ce10fc26a:/opt/lyu/SpindleAPI/bin/Debug/netcoreapp2.2/publish ./
+
+#>>>> 项目docker部署
+1）服务器终端进入`publish`文件夹，创建`Dockerfile`文件 （配置 `ASP .NET CORE WebAPI `所需的`dotnet`环境），内容如下：
+    # 基于microsoft/dotnet:latest构建Docker Image
+    FROM microsoft/dotnet:latest
+
+    # 进入docker中的/usr/local/src目录
+    RUN cd /usr/local/src
+
+    # 创建DockerWebAPI目录
+    RUN mkdir DockerWebAPI
+
+    # 设置工作路径（容器内的路径）
+    WORKDIR /usr/local/src/DockerWebAPI
+
+    # 将当前文件夹下的所有文件全部复制到工作目录
+    COPY *.* ./
+
+    # 向外界暴露5000端口
+    EXPOSE 5000
+
+    # 执行dotnet xxxx.dll命令
+    CMD ["dotnet", "SpindleAPI.dll"]
+2）通过`Dockerfile`文件创建镜像：在`Dockerfile`所在当前目录：
+docker build -t dockerapi/spindle:v1 .
+3）在镜像下创建容器，命名为`xxxx`, 端口映射为: `5000:5000`
+docker run -d -p 5000:5000 --name spindle_api_v1 dockerapi/spindle:v1
+4）启动容器（如果没启动的话）
+docker start spindle_api_v1

@@ -2,7 +2,7 @@
 # @Author: KlausLyu
 # @Date:   2019-11-21 18:59:40
 # @Last Modified by:   KlausLyu
-# @Last Modified time: 2019-11-22 09:57:32
+# @Last Modified time: 2019-12-04 14:48:09
 
 '''
 redis参数
@@ -13,6 +13,9 @@ REDIS_PORT = 6379
 REDIS_DB_TEST = 15
 REDIS_PASSWORD = 'spindle123456'
 
-REDIS_CHANNELS = ['192.168.1.1', '192.168.1.2', '192.168.1.3', '192.168.1.5']
-REDIS_TOPICS = ['group1', 'exitflag']
+REDIS_CHANNELS = ['192.168.1.1', 'collection-status', 'unbalance-step','nullchannel']
+REDIS_TOPICS = ['group1']
+
+# STEP_INDEX: 步骤序号，如果前端传入的序号为-1，则停止获取采集数据
+STEP_INDEX = [1,2,3,4]
 

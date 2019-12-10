@@ -18,31 +18,39 @@ def redisPublish(channel, msg):
 
     if channel not in REDIS_CHANNELS:
         
-        redis_client.publish(channel, 'exitflag')
-        print('No channel found for channel {}'.format(channel))
-
+        redis_client.publish(REDIS_CHANNELS[-1], 'channel:"{}" is not found.'.format(channel))
+        print('No channel found for channel:"{}"'.format(channel))
+        print('Default target channels: {}'.format(REDIS_CHANNELS[:-1]))
     a = redis_client.publish(channel, msg)
-    print(a)
-    if msg == 'exitflag':
+    print("a:", a)
+    if msg == -1:
         print("停止发布")
 
 
 if __name__ == '__main__':
     import numpy as np
     import time
-    used = []
-    for i in range(10):
-        i += 1
-        channel = np.random.choice(REDIS_CHANNELS, 1, p=[0.1,0.3,0.4,0.2])[0]
-        if channel not in used:
-            used.append(channel)
-            msg = np.random.choice(REDIS_TOPICS, p=[0.9, 0.1])
-            if msg == 'exitflag':
-                break
-            redisPublish(channel, msg)
-        print('i --> ', i, ' :', channel, msg)
-        time.sleep(1)
-    
-    redisPublish(channel, 'exitflag')
+#    used = []
+#    for i in range(10):
+#        i += 1
+#        channel = np.random.choice(REDIS_CHANNELS, 1, p=[0.1,0.3,0.4,0.2])[0]
+#        if channel not in used:
+#            used.append(channel)
+#            msg = np.random.choice(REDIS_TOPICS, p=[0.9, 0.1])
+#            if msg == 'exitflag':
+#                break
+#            redisPublish(channel, msg)
+#        print('i --> ', i, ' :', channel, msg)
+#        time.sleep(10)
+#    
+#    redisPublish(channel, 'exitflag')
         
 #    print(channel)
+    
+    cnt = 5
+    while cnt:
+        channel = input()
+        msg = input()
+        redisPublish(channel, msg)
+        cnt -= 1
+        
