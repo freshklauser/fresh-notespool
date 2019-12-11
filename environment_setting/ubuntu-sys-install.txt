@@ -495,6 +495,16 @@ fatal: Could not read from remote repository.
 		;;
 	*)
 	解决办法：上述第2/4/10中小写的 w　改成大写的 W ，然后source .bashrc即可，pwd可以查看当前路径
+	
+34、安装视频播放器 vlc
+	sudo apt-get install vlc
+	安装 smplayer
+	sudo apt-get install smplayer
 
+35、安装docky　桌面美化
+	sudo apt-get install docky
+	
+	
+	
 
 
