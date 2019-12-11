@@ -18,10 +18,10 @@ def redisPublish():
     countFlag = 5
     while countFlag:
         chn = input("channel: ")
-        if chn not in REDIS_CHANNEL_LIST:
+        if chn not in REDIS_CHANNELS:
             countFlag -= 1
             if countFlag == 0:
-                redis_client.publish(REDIS_CHANNEL_0, 'over')
+                redis_client.publish(REDIS_CHANNELS[0], 'over')
             print('No channel found for channel {}'.format(chn))
             continue
         msg = input("publish: ")

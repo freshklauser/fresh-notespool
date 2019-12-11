@@ -67,7 +67,7 @@ sudo groupadd docker
 >>> groupadd：“docker”组已存在
 
 # 将当前用户 klaus 添加到 docker 组
-sudo gpasswd -a klasu docker
+sudo gpasswd -a klaus docker
 >>> 正在将用户“klaus”加入到“docker”组中
 
 # 检查用户是否加入
@@ -283,6 +283,8 @@ docker save dockerapi/tgdataflow > tgdataflow.tar 	# 将镜像保存为tar压缩
 
 ```
 docker load < tgdataflow.tar
+
+# 若有挂载，先新建挂载目录
 ```
 
 然后就可以使用`docker run` 运行程序了，无需关心程序需要哪些依赖。
@@ -672,11 +674,33 @@ mysql> select host,user from mysql.user;
 - 启动服务和停止服务
 
 ```
-# 启动服务
+# 启动服务  本地服務
 mongod --dbpath  /home/u1/mongodb/data  [--logpath  /home/u1/mongodb/log/logs  --fork --auth]
 # 停止服务 ： 必须进入admin数据库后停止
 user admin
 db.shutdownServer()
+
+# 连接远程mongodb
+> mongo 192.168.1.215:27017/admin -u <account> -p <password> # 授权登录并进入admin数据库
+
+use admin
+db.auth("spindle","spindle123456")
+
+> use runoob
+switched to db runoob
+> db.createCollection("runoob")     # 先创建集合，类似数据库中的表
+> show tables
+runoob
+>show collections
+mycol
+system.indexes
+runoob
+>db.runoob.find().pretty()
+...
+> db.runoob.drop()
+true
+> db.dropDatabase()
+
 ```
 
  	mongo服务启动必须要指定文件存放的目录dbpath,--fork以守护进程运行，如果带—fork参数则必须要指定—logpath即日志存放的位置（指定文件不是文件夹）
@@ -710,6 +734,8 @@ C:\Users\Wang> mongo 192.168.1.215:27017/
 switched to db admin
 > db.auth("klaus","111111")
 1
+> show dbs
+...
 
 # 或者
  C:\Users\Wang> mongo 192.168.1.215:27017/admin -u <account> -p <password>
@@ -729,7 +755,7 @@ mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][
 
 #### 3）设置宿主机ip访问(windows下没成功，linux下没试，docker中-p就行)
 
-- 安装mongodb后若智能使用`localhost`或者`127.0.0.1`登录，本地和远程均无法使用`宿主机ip`登录，则需设置`mongod.cfg`文件,如下：
+- 安装mongodb后若只能使用`localhost`或者`127.0.0.1`登录，本地和远程均无法使用`宿主机ip`登录，则需设置`mongod.cfg`文件,如下：
 
 ```
 # network interfaces
