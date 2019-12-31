@@ -600,16 +600,12 @@ services:
 
 ```
 # 创建docker容器，挂载到本地 source宿主机中数据存储path, target容器中的数据储存path
-docker run -d \
--e MYSQL_ROOT_PASSWORD=root \
--p 3306:3306 \
---mount type=bind,source=/opt/mysqldatastore/gracesql/,target=/var/lib/mysql/ \
---name grace-mysql mysql
+docker run -d -e MYSQL_ROOT_PASSWORD=spindle123456 -p 3306:3306 --mount type=bind,source=/opt/mysql/data/db,target=/var/lib/mysql/ --name mysql_v1 mysql
 
 # 容器内启动mysql
-docker exec -it mysql-test bash
-root@f04cf8aad026:/# mysql -uroot -p123456		# 容器内进入mysql
-mysql> SHOW VARIABLES LIKE 'datadir'			# 查看容器内 mysql 的数据存放位置
+docker exec -it mysql_v1 bash
+root@f04cf8aad026:/# mysql -uroot -pspindle123456		# 容器内进入mysql
+mysql> SHOW VARIABLES LIKE 'datadir'				   # 查看容器内 mysql 的数据存放位置
         +---------------+-----------------+
         | Variable_name | Value           |
         +---------------+-----------------+

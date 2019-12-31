@@ -1,0 +1,20 @@
+# 具体库见requirement.txt，有新的库需要安装直接在里面添加
+
+安装步骤：
+1. 创建conda虚拟环境
+conda create --name py36 python=3.6.8
+2. 激活环境
+conda activate py36
+3. 在py36虚拟环境下安装spyder
+conda install spyder
+4. 在py36虚拟环境下批量安装python库
+pip install -r requirement.txt
+
+# numpy==1.17.4与tensorflow=1.12.0会有冲突，卸载后安装numpy=1.16.4
+
+# python库的导出和批量安装与卸载
+pip freeze 	# 显示已经安装的包名及其版本
+pip freeze > requirement.txt  # 将已经安装的包名及其版本写入txt文件
+pip install -r requirement.txt	# pip 批量安装包/库
+pip uninstall -r requirement.txt	# 批量卸载包
+
