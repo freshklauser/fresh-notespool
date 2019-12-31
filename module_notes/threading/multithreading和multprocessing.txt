@@ -1,0 +1,2 @@
+multthread：多线程，由于存在GIL，python的多线程并不是并行计算，而是多个线程切换计算，每一次只会计算一个线程；
+multprocessing: 多进程，依靠多核实现并行计算

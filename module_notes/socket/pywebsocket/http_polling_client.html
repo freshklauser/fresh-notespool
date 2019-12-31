@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮询</title>
+</head>
+<body>
+<div style="text-align: center">
+    <h3>轮询（polling）</h3>
+    <p>在下方，将通过轮询的方式向后台请求获取当前时间。</p>
+    <p id="current-time">当前时间</p>
+</div>
+</body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+    $(function () {
+        let $currentTimeDiv = $('#current-time');
+        setInterval(function () {
+            let url = 'http://localhost:9000/get_current_time/'
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'jsonp',
+                jsonp: 'callback',
+                jsonpCallback: 'success_jsonp',
+                contentType: 'application/json',
+                success: function (result) {
+                    if (result.code !== 200) {
+                        console.log('Server Error')
+                    } else {
+                        $currentTimeDiv.html(result.data.current_time);
+                    }
+                }
+            });
+        }, 1000);
+    });
+</script>
+</html>

@@ -15,7 +15,7 @@ def run():
 thread_list = []
 
 for i in range(3):
-    t = threading.Thread(target=run,)
+    t = threading.Thread(target=run)
     thread_list.append(t)
     t.setDaemon(True)   # 把子线程设置为守护线程，必须在start()之前设置
 
