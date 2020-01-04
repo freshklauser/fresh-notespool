@@ -370,6 +370,24 @@ docker volume prune
 
 ​		数据卷 是被设计用来**持久化数据**的，它的生命周期**独立于容器**，**Docker 不会在容器被删除后自动删除 数据卷，并且也不存在垃圾回收这样的机制来处理没有任何容器引用的 数据卷**。如果需要在删除容器的同时移除数据卷。可以在删除容器的时候使用 docker rm -v 这个命令。
 
+### 3. 修改容器挂载
+
+- 方式一：修改配置文件（需停止docker服务）
+
+  ```
+  # 1、停止docker服务 （关键，修改之前必须停止docker服务）
+  systemctl stop docker.service
+  # 2、修改配置文件中的目录位置，然后保存退出
+  vim /var/lib/docker/containers/container-ID/config.v2.json
+    # 内容如下：
+   "MountPoints":{"/home":{"Source":"/docker","Destination":"/home","RW":true,"Name":"","Driver":"","Type":"bind","Propagation":"rprivate","Spec":{"Type":"bind","Source":"//docker/","Target":"/home"}}}
+  
+  ```
+
+  
+
+
+
 ## 4、Docker 网络配置
 
 ### 1. 外部访问容器
