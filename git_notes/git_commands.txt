@@ -77,6 +77,10 @@ Date:   Fri Aug 10 10:04:30 2018 +0800
 		>>> git reset --hard c7a27d2
    git reset --hard 版本号(tag指定)
 		>>> git reset --hard version-1
+	
+   git reset --MIXED HEAD~1 　　撤销上一次的提交（内容不变，提交状态 --> 未提交状态）
+   git reset --HARD HEAD 	　　撤销所有未提交的文件的内容修改（内容改变，修改部分的内容被撤销回到修改前内容，未提交状态 --> 未提交状态）
+   git reset --HARD version-4 回退到 tag 标注的版本号对应的版本
 
 
 10 删除仓库中文件
