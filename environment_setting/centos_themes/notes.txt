@@ -1,0 +1,39 @@
+1. centos安装图形化界面  refer: https://www.jianshu.com/p/94d9135edb91
+先通过安装最小化命令行模式，通过yum进行安装图形界面模式。
+Step1：安装并开启CentOS7，登录root用户
+Step2：配置网络网卡，确保与外网保持联通
+	命令 cd /etc/sysconfig/network-scripts/进入network-scripts目录下，找到文件ifcfg-ens33(具体名字可能因系统不同而各异，如eth0、eth33...)，对该文件进行配置网卡信息
+	可配置dhcp或statics(statics需自己设置ip等信息)；
+	配置后重新加载网络配置文件，使得刚才的配置生效，操作命令：service network restart；
+Step3：获取并安装图形界面GNOME的程序包
+	以命令 yum groupinstall "GNOME Desktop" "Graphical Administration Tools" 获取并安装CentOS默认的图形界面GNOME程序包；
+	若安装期间出现错误，比如提示某个目录下的包文件 xxx.noarch 冲突，则使用命令 yum -y remove xxx.noarch 移除该冲突文件后，再以命令 yum groupinstall "GNOME Desktop" "Graphical Administration Tools" 安装GNOME图形模块；
+	过程中，会有提示类似"... is ok?(Y/N)"，直接选择Y，回车。然后就是Waiting。。。一直到提示"Completed!"，表示已经安装GNOME程序包完成；
+Step4：修改CentOS默认启动模式为图形化模式
+	以命令 systemctl get-default 可查看当前默认的模式为multi-user.target，即命令行模式；
+	需要以命令 systemctl set-default graphical.target 修改为图形界面模式；
+	再次以命令 systemctl get-default 即可查看当前修改后的默认模式为graphical.target，即图形界面模式；
+	# 修改模式命令(两种模式情况)：
+	systemctl set-default graphical.target  # 将默认模式修改为图形界面模式
+	systemctl set-default multi-user.target # 将默认模式修改为命令行模式
+Step5：重启CentOS7
+	以命令 reboot 重启CentOS系统，Waiting。。。此时，已切换进入到GUI图形界面模式
+	
+	
+2. 主题美化
+	theme  icons 等下载地址：https://www.gnome-look.org
+1)选择合适的theme 或 icons 下载到本地
+	mytheme 和 myicons见图片
+	themes下载后解压位置：/usr/share/themes
+	icons下载后解压位置：/usr/share/icons
+2)终端输入 gnome-tweaks 进入界面设置,Extensions --> User themes 点击开启
+3)退出gnome-tweaks, 重启桌面 Alt+F12 即可 
+4)修改terminal的字体颜色(PS1命令更改)：
+	vim .bashrc
+	# 添加一行内容如下，保存退出
+	PS1="\[\e[37;40m\][\[\e[32;40m\]\u\[\e[37;40m\]@\h \[\e[36;40m\]\W\[\e[0m\]]\\$ "
+	# 更新配置文件
+	source .bashrc
+
+
+
