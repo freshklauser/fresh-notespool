@@ -14,10 +14,21 @@ def convert_path(path):
     return path.replace(r'\/'.replace(os.sep, ''), os.sep)
 
 
+def win_2_linux(path):
+    return path.replace("\\", '/')
+
+
 if __name__ == '__main__':
-    path1 = r'C:\Program Files\Common Files'
-    path2 = 'C:/Users/packRecomSystem/utility'
+    path1 = r'C:\Users\Administrator\AppData\Roaming\Sublime Text 3\Logs'
+    # path2 = 'C:/Users/packRecomSystem/utility'
     path1_new = convert_path(path1)
-    path2_new = convert_path(path2)
-    print(path1_new, path2_new, sep='\n')
-    print(os.listdir(path1_new))
+    # path2_new = convert_path(path2)
+    print(path1_new)
+    # print(path1_new, path2_new, sep='\n')
+    # print(os.listdir(path1_new))
+    a = 'stddd'
+    # print(help(a.replace))
+    # print(os.sep)
+    # print(r'hell\op'.replace('\\', 'roll'))
+
+    print('linux path:', win_2_linux(path1))

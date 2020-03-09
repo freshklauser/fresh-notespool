@@ -1,100 +1,200 @@
-sublime text3 安装步骤：
+建议改用中文官网的资源http://www.sublimetext.cn/
+离线安装参考：https://www.jianshu.com/p/879271e8a0f6
 
+sublime text3 version 3143 安装步骤：
+>>>>>>>>>>>>>>>>> version 3143 不要使用新版本<<<<<<<<<<<<<<<<<<<<<<,
 1. sublime text3 可用license:
-ZYNGA INC.
-50 User License
-EA7E-811825
-927BA117 84C9300F 4A0CCBC4 34A56B44
-985E4562 59F2B63B CCCFF92F 0E646B83
-0FD6487D 1507AE29 9CC4F9F5 0A6F32E3
-0343D868 C18E2CD5 27641A71 25475648
-309705B3 E468DDC4 1B766A18 7952D28C
-E627DDBA 960A2153 69A2D98A C87C0607
-45DC6049 8C04EC29 D18DFA40 442C680B
-1342224D 44D90641 33A3B9F2 46AADB8F
-	
+----- BEGIN LICENSE -----
+Member J2TeaM
+Single User License
+EA7E-1011316
+D7DA350E 1B8B0760 972F8B60 F3E64036
+B9B4E234 F356F38F 0AD1E3B7 0E9C5FAD
+FA0A2ABE 25F65BD8 D51458E5 3923CE80
+87428428 79079A01 AA69F319 A1AF29A4
+A684C2DC 0B1583D4 19CBD290 217618CD
+5653E0A0 BACE3948 BB2EE45E 422D2C87
+DD9AF44B 99C49590 D2DBDEE1 75860FD2
+8C8BB2AD B2ECE5A4 EFC08AF2 25A9B864
+------ END LICENSE ------​
+
 2. 关闭自动更新提示：
 	“Perference” --> "Settings" --> {}中加 "update_check": false,
 
-3. 安装package control:
+3. 安装package control(在线安装):
 	Ctrl+"`"快捷键或者View-->Show Console菜单打开命令行，粘贴如下代码：
 	refer: https://packagecontrol.io/installation
 	code listed as follow:
-		import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
+		import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
+
+
 	Enter运行code即可
 	在“C:\Users\Wang\AppData\Roaming\Sublime Text 3\Packages\User”或
 	菜单栏“Preferences-->Browse Packages”下可以看到package
-	
+
+3. 安装package control(离线安装):
+	通过 https://sublime.wbond.net/Package%20Control.sublime-package
+	下载packageControl文件
+	下载完成后，打开sublime text3，选择菜单Preferences->Browse Packages， 打开安装目录，
+	此时会进入到一个叫做Packages的目录下，点击进入上一层目录Sublime Text3，
+	在此目录下有一个文件夹叫做Installed Packages，把刚才下载的文件放到这里就可以了。
+	然后重启sublime text3，观察Preferences菜单最下边是否有Package Settings 和Package Control两个选项，如果有，则代表安装成功了。
+	此时使用快捷键Ctrl+Shift+P，输入install，选择install package，接下来从里面搜索插件的名字即可。
+
+	---> 需要注意的一点是，如果联网失败：
+	可以转到对应的GiiHub地址：https://github.com/wbond/package_control，下载package control包，解压并命名为
+	Package Control，将其复制到Preferences->Browse Packages， 打开的安装目录里面即可,重启。
+
+	如果使用Package Control：install package，发现报错:There are no packages avaliable....,应该是网站被墙的缘故:
+	解决方法：
+		Preferences > Package Settings > Package Control > Settings - User
+		添加如下内容：
+	{
+		......
+		"channels":
+		[
+			"https://erhan.in/channel_v3.json"
+		],
+
+		"installed_packages":
+		[
+			"Package Control"
+		]
+	}
+
+
 4. 安装插件列表(ctrl+shift+p-->进入install package)：
+	（离线插件地址：https://packagecontrol.io/）
 	AutoPEP8
 	AutoFileName
 	FileHeader
-	SublimeLinter
-	Color Highlighter
+	SublimeLinter(没安装)
+	Color Highlighter(没安装)
 	Anaconda
+		离线下载plugin：https://packagecontrol.io/packages/Anaconda
+		注意该网址下的插件功能的Troubleshooting
+		1) Auto-complete drop-down shows up incorrectly.
+		SublimeCodeIntel interferes with anaconda's auto-completion.
+		Work-around: Consider disabling SublimeCodeIntel for Python views or disabling/removing it completely when using anaconda.
+		2) Auto-complete for import behaves badly.
+		Sublime Text 3's default Python package cancels the auto-completion when some words are detected (for example def or class). This list of words includes import.
+		Work-around: Create a new Python directory in your Packages directory and copy the contents of the file Completion Rules.tmPreferences there with the same name. Delete your Sublime Text Cache file Cache/Python/Completion Rules.tmPreferences.cache.
 	SideBarEnhancements
-	SublimeCodeIntel
+	SublimeCodeIntel(没安装)
+		refer： https://packagecontrol.io/packages/SublimeCodeIntel
+		Before installing SublimeCodeIntel, you must ensure that CodeIntel is installed on your system. To install CodeIntel, do the following:
+		Install Python and pip (Python 3 requires pip3).
+		Install CodeIntel by typing the following in a terminal:
+		# For Python 2
+	    [sudo] pip install --upgrade --pre CodeIntel
+	    # For Python 3
+	    [sudo] pip3 install --upgrade --pre CodeIntel
+		Note: SublimeCodeIntel requires CodeIntel 2.0 or later.
+		离线下载plugin:
+			git clone git://github.com/SublimeCodeIntel/SublimeCodeIntel.git
+			解压后放在  Preferences -> Browse Packages 打开的目录即可
 	Theme-Soda
 	Theme-Nexus
 	sublimeREPL
-	Git
+	Git(没安装)
 	ConvertToUTF8   # 打开中文文档不出现乱码
-	SFTP  			# Mapping a local folder to a remote folder; Working off of a server
+	SFTP (没安装) 	# Mapping a local folder to a remote folder; Working off of a server
 					# 安裝后在 File 菜单栏下拉有 SFTP/FTP （具体怎么用 待续！！）
-	
 
-5. 参数配置：
-	1) Anaconda：
-		Anaconda参数设置：
-		Setting_Default:
-			1) 改变解释器路径：
-				preference>package settings>anaconda>settings default:
-						*/
-						"python_interpreter": "C:/Users/Wang/Anaconda3/python",
 
-			2) 其他参数设置：
-				*/
-				"anaconda_linter_mark_style": "stippled_underline",
-		Settings--User:
-			{
-				"auto_formatting": true,		# 保存时自动format成设置过的pep8规范
-				"swallow_startup_errors": true,
-			}
 
-	2) Settings--User:
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
+推荐：
+--> anaconda在PC上安装好后创建虚拟环境，在虚拟环境下安装package；
+--> 将虚拟环境下的python的路径添加到环境变量中：
+		C:\Users\Administrator\Anaconda3\envs\py36;
+		C:\Users\Administrator\Anaconda3\envs\py36\Scripts;
+		C:\Users\Administrator\Anaconda3\envs\py36\Library\bin;
+--> sublime text3中不需要在anaconda插件中设置interpreter,也不需要在BuildSystem中指定，会默认采用系统环境变量中的interpreter
+----------------------------------------------------------------------------------------------------------------------------
+1.Goto Definition:
+	将鼠标悬停在符号上，就可以以跳转到其定义的文件。光标位于符号上时，通过快捷键 F12 同样可以实现跳转，或使用 Goto Symbol in Project 功能，通过快捷键 Ctrl+Shift+R 跳转到项目任意symbol的定义。
+
+	通过重复使用快捷键 Ctrl+D 选择多个相同关键词，选择完成即可同时编辑所有关键词
+
+2.Goto Anything 快速跳转到文件和函数:
+	使用 Ctrl+P 来打开Goto Anything 菜单, 输入xcc来选择这个文件 xla_compilation_cache.cc, 输入@ 切换到函数选择模式, 输入 :c 选择 XlaCompilationCache::C编译 方法.
+QuickGotoAnything
+====================
+	Sublime Text Plugin to quick scroll to function/variable or quick open file, It use selected word. Works in ST2 and ST3.
+
+3.anaconda:
+	anaconda配置后已经有自动补全和智能提示了，暂时不考虑安装sublimeCodeIntel(与anaconda有冲突)
+	1) settings--user:
 		{
-			"bold_folder_labels": true,
-			"font_size": 12,
-			"highlight_line": true,
-			"ignored_packages":
+			"swallow_startup_errors": true,
+			"anaconda_linter_mark_style": "stippled_underline",
+
+			// keypress触发参数自动填充， Tab: insert required parameters
+			"parameters_completion_on_keypress": true,		/* Tab: insert required parameters*/
+
+			// 禁用掉Sublime Text原生的自动补全
+			"suppress_word_completions": true,
+			"suppress_explicit_completions": true,
+			// 自动填充函数参数，如果选择自动完成列表中的选项，则会根据调用函数的定义，自动填充函数必须的参数
+			"complete_parameters": false,
+			"complete_all_parameters": false,
+
+			// 识别代码中的语法错误，代码建议，格式建议等
+			"anaconda_linter_phantoms": true,
+
+			"pep8_max_line_length": 140,
+			"pep8_ignore":
 			[
-				"Vintage"
+				"E309"
 			],
-			"rulers":
+			"autoformat_ignore":
 			[
-				80
+				"E309"
 			],
-			"save_on_focus_lost": true,
-			"show_encoding": true,
-			"trim_trailing_white_space_on_save": true,
-			"update_check": false,
-			"word_wrap": false,
-			"tab_size": 4,
-			"translate_tabs_to_spaces": true,
-			"anaconda_linting": false
 		}
-	Refer: https://blog.csdn.net/lvonve/article/details/53931565
-	
-	3) SublimeCodeIntel --> Mouse bindings--Users:
-		[ { "button": "button1", "count": 1, "modifiers": ["ctrl"], "press_command": "drag_select", "command": "goto_definition" }]
-		---> ctrl+left(mouse), 自定义函数跳转
-		
-	4) key-bindings:
-		sublimeREPL配置文件config中python的 Main.sublime-menu 文档中的 cmd 指向的路径需要修改成相应的anaconda的python编译器路径
-		取消代码执行
-		快捷键设置在sublime中启动cmd窗口
-		[
+
+	2) py36.BuildSystem(可以直接 《推荐》中的设置) :
+		{
+			"cmd":["C:\\Users\\Administrator\\Anaconda3\\envs\\py36\\python.exe", "-u", "$file"],  /* python.exe路径  */
+			"path":"C:\\Users\\Administrator\\Anaconda3\\envs\\py36\\python.exe",     /* python.exe路径  */
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"selector": "source.python",
+			"encoding": "utf-8" ,
+			"env": {"PYTHONIOENCODING": "utf8"},    /*通过这句，使编码一致，都是utf8*/
+		}
+	该设置可解决编译后有可能出现的中文乱码问题
+
+4.AutoPEP8:
+	{
+		"max-line-length": 140,
+
+		// For debug purporse only.
+		"debug": true,
+		"logfile": "C:/Users/Administrator/AppData/Roaming/Sublime Text 3/Logs/st3.log", /* File to store debug messages.*/
+	}
+	---> 推荐使用anaconda的autopep8，快捷键 ctrl+alt+r
+
+5.AutoFileName
+6.FileHeader:
+	设置自定义header:
+	Preferences -> Browse Packages 进入	SublimeText 插件安装目录，然后依次进入File Header -> template -> header -> python.tmpl 	增加需要设置的header内容：
+		XXXXXXX
+7.SideBarEnhancements
+8.ConvertToUTF8
+9.sublimeREPL:
+	sublimeREPL配置文件config中python的 Main.sublime-menu 文档中的 cmd 指向的路径需要修改成相应的anaconda的python编译器路径
+	以下为 在 Preferences --> key-bindings 中设置的快捷方式：
+	Preferences --> key-bindings:
+
+		[	// 取消代码执行
 			{ "keys": ["ctrl+shift+c"], "command": "cancel_build" },
+
+			// 在sublime中启动cmd窗口 (除了keys之外的参数详情在config-->python-->Default.sublime-commands中有)
 			{
 				"keys": ["ctrl+shift+h"],
 				"caption": "SublimeREPL: Python",
@@ -104,54 +204,104 @@ E627DDBA 960A2153 69A2D98A C87C0607
 					"file": "config/Python/Main.sublime-menu"
 				}
 			}
+
+			// 通过sublimeREPL运行当前python文件，会在新弹窗中显示运行结果
+		    {
+		    	"keys": ["ctrl+shift+j"],
+		        "caption": "SublimeREPL: Python - RUN current file",
+		        "command": "run_existing_window_command", "args":
+		        {
+		            "id": "repl_python_run",
+		            "file": "config/Python/Main.sublime-menu"
+		        }
+		    },
+
+			// 也可以设置其他的运行方式，比如 python_virtualenv_repl
 		]
-		
-	5) 设置autopep8
-		... 'package setting' --> 'Autopep8' ---> 'Setting-user':
+
+
+10.Settings--User:
+	{
+		"anaconda_linting": true,		// 错误代码提醒
+		"bold_folder_labels": true,
+		"color_scheme": "Packages/Pylinter/MonokaiPylinter.tmTheme",
+		"font_size": 11.5,
+		"highlight_line": true,
+		"ignored_packages":
+		[
+			"Vintage"
+		],
+		"rulers":
+		[
+			80
+		],
+		"save_on_focus_lost": true,
+		"show_encoding": true,
+		"spell_check": false,
+		"tab_size": 4,
+		"theme": "Nexus.sublime-theme",
+		"translate_tabs_to_spaces": true,
+		"trim_trailing_white_space_on_save": true,
+		"update_check": false,
+		"word_wrap": false,
+		"draw_minimap_border": true,	// 右侧缩略图边框
+	}
+
+11.DocBlockr_Python: ---> 注释插件 FOR_PYTHON
+  (输入三引号,Enter后自动生成注释; 若不自动生产，按住ctrl+enter)
+	1. Open a python file (syntax must be currently set to python)
+	2. Open a double quoted docstring (""") at one of the following places:
+		- Top of the file 		 	---> 文件开头的注释
+		- Beginning of a class	 	---> 类的注释
+		- Beginning of a function	---> 函数的注释
+	3. Press [enter] to trigger the autocomplete
+	If you don't want to trigger the parser on a docstring, simply hold down [ctrl]/[cmd] and press [enter]
+
+12.Pylinter:Color Theme 插件
+
+13.Terminal
+	默认快捷键：ctrl+shift+T 呼出当前文件路径的控制台
+
+----------------------------------------------------------------------------------------------------------------------------
+NOTES:
+(1)无法下载 package 问题
+	debug出现下列问题：
+	Package Control: Error downloading channel. URL error [Errno 101] Network is unreachable downloading https://packagecontrol.io/channel_v3.json.
+	解决方法（成功解决问题）：
+	Select “Package Control: Add Repository”, and paste in: http://sublime.wbond.net/repositories.json
+	Using plain http will not require a certificate, which seems to be the cause of the problem.
+(2)如果有安装SublimeCodeIntel,可设置函数跳转：Goto Definition也可以
+	SublimeCodeIntel --> Mouse bindings--Users:
+		[ { "button": "button1", "count": 1, "modifiers": ["ctrl"], "press_command": "drag_select", "command": "goto_definition" }]
+		---> ctrl+left(mouse), 自定义函数跳转
+(3) project设置编译器参数：
+	(1)User Settings中设置interpreter,省事儿，不用每次将folder加入到projectInterpreter中；
+	   另外，单独创建BuildSystem，详情见7)
+	(2)anaconda的python编译器设置：refer: http://damnwidget.github.io/anaconda/anaconda_settings/
+	设置project范围的interpreter(Global Settings和User Settings属于全局范围)，Project Configuration属于局部范围的编译器设置，可以在不同Project中切换来满足不同代码规则要求的编译器设置
+	--> 自定义的py36虚拟环境下的python编译器相关设置：
+	文件名：xxxx.sublime_project
 		{
-			"max-line-length": 140,
-			"ignore":				/* ignore在Anaconda里设置起作用好像  */
-			[	
-				"E309","E501", "E402",/* "E121", "E123", "E126", "E226", "E24", "E704" "E501" */
+			"build_systems":
+			[
+				{
+					"name": "py36",
+					"selector": "source.python",
+					"cmd": "C:/Users/Administrator/Anaconda3/envs/py36/python.exe -u \"$file\"",
+					"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+					"encoding": "utf-8",
+					"env": {"PYTHONIOENCODING": "utf8"},   /*通过这句，使编码一致，都是utf8*/
+				}
 			],
+			"folders":
+			[
+				{
+					"follow_symlinks": true,
+					"path": "."
+				}
+			],
+			"settings":
+			{
+				"python_interpreter": "C:/Users/Administrator/Anaconda3/envs/py36/python.exe"
+			}
 		}
-		
-		pep8规范既可以用 AutoPEP8插件设置和修复，也可以使用		Anaconda插件设置和修复
-		使用pep8來format的話就用pep8的相應設置， 使用anaconda来format的话就使用的是anaconda中的设置
-		建议采用anaconda插件设	置，pep8设置ignore之后Format无反应
-		anaconda中auto_format的快捷键： alt+ctrl+r
-
-	6) 设置自定义header
-		Preferences -> Browse Packages 进入	SublimeText 插件安装目录，
-		然后依次进入File Header -> template -> header -> python.tmpl
-		增加： 
-		# ------------------------------------------------------------------------------
-		# Description:
-		# ------------------------------------------------------------------------------
-		
-	7) 新版有可能会出现编译后中文乱码问题：
-		解决方法：自定义编译文件 Tools -> Build System -> New Build System:  python3.sublime-build，
-		{
-			"cmd":["C:\\Users\\Wang\\Anaconda3\\python.exe", "-u", "$file"],		/* 注意：路径根据自己的python安装路径而定  */
-			"path":"C:\\Users\\Wang\\Anaconda3\\python.exe",   /* 注意：路径根据自己的python安装路径而定  */
-			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
-			"selector": "source.python",
-			"encoding": "utf-8" ,
-			"env": {"PYTHONIOENCODING": "utf8"}    /*通过这句，使编码一致，都是utf8*/
-		}
-		配置好后，选择 python3 作为 Build System
-	8) 无法下载 package 问题
-		debug出现下列问题：
-		Package Control: Error downloading channel. URL error [Errno 101] Network is unreachable downloading https://packagecontrol.io/channel_v3.json.
-		解决方法（成功解决问题）：
-		Select “Package Control: Add Repository”, and paste in: http://sublime.wbond.net/repositories.json
-		Using plain http will not require a certificate, which seems to be the cause of the problem.
-
-
-	
-			
-				
-	
-			
-			
-	

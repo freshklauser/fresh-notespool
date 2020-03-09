@@ -1,1 +1,53 @@
-詳見docker_tips.md
+<-- 留意 reference cards 中操作符的使用 --!>
+1.向username为tangseng的文档中，添加一个hobby:{movies:["A Chinese Odyssey","King of comedy"]}
+	db.users.update({username:"tangseng"},{$set:{hobby:{movies:["A Chinese Odyssey","King of comedy"]}}})
+2.查询喜欢电影hero的文档
+	//MongoDB支持直接通过内嵌文档的属性进行查询，如果要查询内嵌文档则可以通过.的形式来匹配
+	//如果要通过内嵌文档来对文档进行查询，此时属性名必须使用引号 
+	db.users.find({'hobby.movies':"hero"});
+3.向tangseng中添加一个新的电影Interstellar
+	//$push 用于向数组中添加一个新的元素
+	//$addToSet 向数组中添加一个新元素 ， 如果数组中已经存在了该元素，则不会添加
+	db.users.update({username:"tangseng"},{$push:{"hobby.movies":"Interstellar"}});
+	db.users.update({username:"tangseng"},{$addToSet:{"hobby.movies":"Interstellar"}});
+	
+<-- 翻页skip，前n limit, 排序sort --!>
+4.查看numbers集合中的第11条到20条数据
+	/*
+		分页 每页显示10条
+			1-10     0
+			11-20    10
+			21-30    20
+			。。。
+			skip((页码-1) * 每页显示的条数).limit(每页显示的条数);
+		skip()用于跳过指定数量的数据    
+		MongoDB会自动调整skip和limit的位置,优先 skip(),其次limit
+	*/
+	db.numbers.find().skip(10).limit(10);
+	db.numbers.find().skip(20).limit(10);	// 查看numbers集合中的第21条到30条数据
+	db.numbers.find().limit(10).skip(10);
+5.
+	//查询文档时，默认情况是按照_id的值进行排列（升序）
+	//sort()可以用来指定文档的排序的规则,sort()需要传递一个对象来指定排序规则 1表示升序 -1表示降序
+	db.emp.find({}).sort({sal:1,empno:-1});
+	
+	/*
+		当sort,skip,limit一起使用时，无论其位置变化，总是 sort -> skip -> limit；
+		问题：如何实现 skip -> sort -> limit 或其他顺序执行？
+		解答：aggregate
+			aggregate有管道流的性质，$skip,$limit,$sort执行顺序跟位置一致。
+	*/
+	// 管道：执行顺序 match -> limit -> skip -> sort (管道中的组件也可以放在一个数组中)
+	db.memos.aggregate(
+						{ $match: { status: 'P' } },
+						{ $limit:5},
+						{ $skip:2},
+						{ $sort: { age : -1 } }
+					  )
+
+	
+	//在查询时，可以在第二个参数的位置来设置查询结果的 投影
+	db.emp.find(
+				{},
+				{ename:1 , _id:0 , sal:1}	// 第二个参数，指定结果中显示的字段(_id:0 不显示_id)
+				);
