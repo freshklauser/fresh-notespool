@@ -81,7 +81,7 @@ sudo service docker restart
     Server:
     ERROR: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.40/info: dial unix /var/run/docker.sock: connect: permission denied
     errors pretty printing info
-  则修改 /var/run/docker.sock 权限
+ ---> 则修改 /var/run/docker.sock 权限
 sudo chmod a+rw /var/run/docker.sock
 docker info
 >>> ......  # ok
