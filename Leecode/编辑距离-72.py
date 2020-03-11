@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: KlausLyu
 # @Date:   2020-03-10 15:53:28
-# @Last Modified by:   KlausLyu
-# @Last Modified time: 2020-03-10 17:20:11
+# @Last Modified by:   klaus
+# @Last Modified time: 2020-03-11 09:18:06
 
 '''{description}
 给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。
@@ -31,6 +31,10 @@ dp[i][j]: word1的前i个字符与word2的前j个字符之间的最短编辑距�
 - 第一个单词的前i-1位变成第二个单词的前j-1位，然后替换最后一个字符，如果最后一个字符相同，
   即第一个单词的第i位和第二个单词的第j位相同的话，就不用替换了（d[i-1][j-1]），
   反之，如果不同就替换最后一位（d[i-1][j-1]+1）
+
+dp[i-1][j-1]  dp[i-1][j]  <---->  替换/跳过  删除
+dp[i][j-1]    dp[i][j]    <---->     插入
+
 '''
 
 
