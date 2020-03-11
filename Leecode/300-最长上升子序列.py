@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: KlausLyu
 # @Date:   2020-03-11 16:50:24
-# @Last Modified by:   KlausLyu
-# @Last Modified time: 2020-03-11 16:59:24
+# @Last Modified by:   sniky-lyu
+# @Last Modified time: 2020-03-11 19:24:09
 
 '''{description}
 给定一个无序的整数数组，找到其中最长上升子序列的长度。
@@ -15,7 +15,8 @@
 
 class Solution:
     def lengthOfLIS(self, nums):
-        if not nums: return 0
+        if not nums:
+            return 0
 
         n = len(nums)
 
@@ -29,6 +30,6 @@ class Solution:
 
 
 if __name__ == '__main__':
-    nums = [10,9,2,5,3,7,101,18]
+    nums = [10, 9, 2, 5, 3, 7, 101, 18]
     res = Solution().lengthOfLIS(nums)
     print(res)
