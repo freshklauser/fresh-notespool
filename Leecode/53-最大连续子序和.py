@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: sniky-lyu
 # @Date:   2020-03-05 18:13:38
-# @Last Modified by:   sniky-lyu
-# @Last Modified time: 2020-03-05 22:56:07
+# @Last Modified by:   KlausLyu
+# @Last Modified time: 2020-03-10 09:12:43
 
 
 class Solution:
@@ -40,3 +40,9 @@ if __name__ == '__main__':
     y = [4, 5, 6]
     c = product(x, y)
     print(list(c))
+
+    import math
+    a = float("-inf")       # 负无穷
+    b = float("inf")        # 正无穷
+    print(math.isinf(a))    # math.isinf(x)  判断x是否是正无穷或负无穷
+    print(math.isinf(b))
