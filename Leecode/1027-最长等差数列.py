@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: sniky-lyu
 # @Date:   2020-03-01 17:04:13
-# @Last Modified by:   KlausLyu
-# @Last Modified time: 2020-03-11 10:56:23
+# @Last Modified by:   klaus
+# @Last Modified time: 2020-03-12 08:47:49
 
 # 2 <= A.length <= 2000
 # 0 <= A[i] <= 10000
@@ -91,6 +91,9 @@ if __name__ == '__main__':
     output = Solution().longestArithSeqLength(A)
     print(output)
 
+    from collections import defaultdict
+
+    a = [1,2,3,1,3,5,7,6,8,6]
 
 # original:
 # class Solution2:
