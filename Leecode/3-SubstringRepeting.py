@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: sniky-lyu
 # @Date:   2020-02-26 23:02:06
-# @Last Modified by:   sniky-lyu
-# @Last Modified time: 2020-03-05 22:55:44
+# @Last Modified by:   klaus
+# @Last Modified time: 2020-03-12 10:34:16
 
 '''无重复字符的最长子串'''
 
@@ -26,6 +26,9 @@ class Solution1:
 
 
 class Solution2:
+    ''' 双指针:left, right
+    指针每移动一次都需要更新当前最大长度
+    '''
     def lengthOfLongestSubstring(self, s):
         maxLength = 0
         start = 0
@@ -33,7 +36,7 @@ class Solution2:
         for cursor in range(len(s)):
             if s[cursor] in strings_map:
                 # 更新start为map中重复字符的下一个字符的索引
-                start = max(strings_map[s[cursor]] + 1, start)
+                start = max(strings_map[s[cursor]] + 1, start)      # **** 注意要与start取max
             # 更新maxLength
             maxLength = max(cursor - start + 1, maxLength)
             # 更新cursor对应的字符最新map映射
