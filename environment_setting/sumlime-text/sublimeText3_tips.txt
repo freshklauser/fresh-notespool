@@ -1,6 +1,11 @@
 建议改用中文官网的资源http://www.sublimetext.cn/
 离线安装参考：https://www.jianshu.com/p/879271e8a0f6
 
+完全卸载：
+	1. 卸载
+	2. 清除package包对应文件夹：默认为 C:\Users\{User}\AppData\Roaming\Sublime Text 3
+	3. 清除个人设置等文件夹
+
 sublime text3 version 3143 安装步骤：
 >>>>>>>>>>>>>>>>> version 3143 不要使用新版本<<<<<<<<<<<<<<<<<<<<<<,
 1. sublime text3 可用license:
