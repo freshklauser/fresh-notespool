@@ -19,13 +19,13 @@ import matplotlib.pyplot as plt
 class DigitEncoder():
     def fit_transform(self, y):
         return y.astype(int)
-    
+
     def transform(self, y):
         return y.astype(int)
-    
+
     def inverse_transform(self, y):
         return y.astype(str)
-    
+
 data = []
 with open('event.txt', 'r') as f:
     for line in f.readlines():
