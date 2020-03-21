@@ -1,0 +1,25 @@
+
+1. 变量		
+	_xxx，单下划线开头的变量
+		标明是一个受保护(protected)的变量，原则上不允许直接访问，但外部类还是可以访问到这个变量。这只是程序员之间的一个约定，用于警告说明这是一个私有变量，外部类不要去访问它。
+	__xxx，双下划线开头的
+		表示的是私有类型(private)的变量。只能是允许这个类本身进行访问了, 连子类也不可以,用于命名一个类属性（类变量），调用时名字被改变（在类Student内部，__name变成_Student__name,如 self._Student__name)。
+		双下划线开头的实例变量是不是一定不能从外部访问呢？其实也不是。仍然可以通过_Student__name来访问__name变量。
+		
+	__xxx__，以双下划线开头，并且以双下划线结尾的
+		是内置变量，内置变量是可以直接访问的，不是private变量，如__init__，__import__或是__file__。所以，不要自己定义这类变量。
+
+	xxx_，单下划线结尾的变量一般只是为了避免与 Python 关键字的命名冲突。
+
+	USER_CONSTANT，大写加下划线，对于不会发生改变的全局变量，使用大写加下划线。
+	
+2. 获取当前类名和函数名
+	类名：self.__class__.__name__, 
+	函数名：sys._getframe().f_code.co_name
+	
+    def date_interval(self):
+        try:
+            sdf
+            self.date_parse()
+        except Exception as e:
+            print("Exception in '{}.{}':".format(self.__class__.__name__, sys._getframe().f_code.co_name), e, sep="\n\t")
