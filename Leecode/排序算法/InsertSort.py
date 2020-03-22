@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: sniky-lyu
 # @Date:   2020-03-04 15:58:25
-# @Last Modified by:   sniky-lyu
-# @Last Modified time: 2020-03-04 17:03:10
+# @Last Modified by:   Administrator
+# @Last Modified time: 2020-03-15 11:02:15
 
 '''
 性质：1、时间复杂度：O(n2)  2、空间复杂度：O(1)  3、稳定排序  4、原地排序
@@ -13,6 +13,7 @@
     3、继续选取第3，4，….n个元素,重复步骤 2 ，选择适当的位置插入。
 '''
 
+
 def InsertSort(arr):
     if len(arr) < 2:
         return arr
@@ -22,15 +23,16 @@ def InsertSort(arr):
         cursor = i - 1                          # 前向遍历的指针初始索引
         while cursor + 1:                       # cursor+1，确保index=0的元素可以被比较到
             if arr[cursor] > inserted:
-                arr[cursor+1] = arr[cursor]     # 大，则元素后裔一位
+                arr[cursor + 1] = arr[cursor]     # 大，则元素后裔一位
                 cursor -= 1                     # 同时，指针前移一位
             else:
                 break                           # 小，则推出while, 插入元素到 cursor+1 索引处即可
-        arr[cursor+1] = inserted
+        arr[cursor + 1] = inserted
 
     return arr
 
+
 if __name__ == '__main__':
-    arr = [12,433,45,2,67,4]
+    arr = [12, 433, 45, 2, 67, 4]
     res = InsertSort(arr)
     print(res)

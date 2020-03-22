@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: sniky-lyu
 # @Date:   2020-03-04 18:36:56
-# @Last Modified by:   sniky-lyu
-# @Last Modified time: 2020-03-05 23:01:13
+# @Last Modified by:   Administrator
+# @Last Modified time: 2020-03-14 19:36:02
 
 'dp的解决方法之一：选择 or 不选择'
 '''
@@ -49,10 +49,10 @@ def db_subset(arr, s):
     subset[0, arr[0]] = True
     for i in range(1, len(arr)):
         for k in range(1, s + 1):
-            if arr[i] > k:                      # 剪枝左边选i的情况
+            if arr[i] > k:                        # 剪枝左边选i的情况
                 subset[i, k] = subset[i - 1, k]
             else:
-                A = subset[i - 1, k - arr[i]]       # 选i
+                A = subset[i - 1, k - arr[i]]     # 选i
                 B = subset[i - 1, k]              # 不选i
                 subset[i, k] = A or B
     r, c = subset.shape

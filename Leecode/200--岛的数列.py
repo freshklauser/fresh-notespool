@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 # @Author: Administrator
 # @Date:   2020-03-01 13:55:02
-# @Last Modified by:   sniky-lyu
-# @Last Modified time: 2020-03-05 22:53:42
+# @Last Modified by:   Administrator
+# @Last Modified time: 2020-03-14 19:47:21
 
 
 class Solution:
     ''' 深度优先算法 '''
-
     def numIslands(self, grid):
         if grid == []:
             return 0
@@ -22,7 +21,6 @@ class Solution:
         count = 0                                          # record number of island
         island = set()
         # islands_map = {}
-
         def dfs(i, j):
             '''(i,j) 满足的条件： A[i][j] == 1,(i,j)不在islands中'''
             island.add((i, j))                             # grid[i][j]添加到islands中

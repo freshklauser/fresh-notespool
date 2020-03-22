@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: sniky-lyu
 # @Date:   2020-03-04 17:30:43
-# @Last Modified by:   sniky-lyu
-# @Last Modified time: 2020-03-05 16:25:13
+# @Last Modified by:   Administrator
+# @Last Modified time: 2020-03-15 11:06:36
 
 '''
 归并排序：
@@ -16,9 +16,11 @@
 4、非原地排序
 '''
 
-from heapq import merge
+# from heapq import merge
 
 ' 递归方式 --> 归并排序 '
+
+
 class Solution:
     ''' 递归方式 '''
 
@@ -53,10 +55,9 @@ class Solution:
 ' 非递归方式 --> 归并排序 '
 class Solution2:
     '''
-    将数组分为单个元素组成的len(arr)个subarr，对所有的子数组两两归并排序，根据low和subarr的长度确定mid和high
-    待合并的两个数组 [low:mid),[mid:high)
+    将数组分为单个元素组成的len(arr)个subarr，对子数组两两归并排序，根据low和subarr的长度
+    确定mid和high待合并的两个数组 [low:mid),[mid:high)
     '''
-
     def MergeSort(self, arr):
         sub_len = 1
         while sub_len < len(arr):                       # 只要subarr个数小于len(arr),继续分割
@@ -64,17 +65,14 @@ class Solution2:
             low = 0
             while low < len(arr):                       # low向上更新后不能超过数组长度上限
                 mid = low + sub_len                     # [low,mid)
-                high = min(low + 2 * sub_len, len(arr)) # [mid, high)
+                high = min(low + 2 * sub_len, len(arr))  # [mid, high)
                 if mid < high:
-                    # print('-->', low, mid, high, sub_len)
                     # 对当前两个子数组[low,mid)与[mid,high)归并和排序，合并后的数组索引为[mid,high]
                     self.Merge(arr, low, mid, high)
-                # 更新 low ,即next 两个带归并数组
-                low = high  # 或者 low += 2 * i
+                low = high  # # 更新 low ,即next 两个带归并数组   或者 low += 2 * i
             # 对当前sub_len长度的子数组进行归并与组内排序后，子数组长度*2, 继续下一轮合并
             sub_len *= 2
         return arr
-
     def Merge(self, arr, low, mid, high):
         """合并两个已排序好的列表，产生一个新的已排序好的列表"""
         left = arr[low:mid]
@@ -90,10 +88,8 @@ class Solution2:
             else:
                 res.append(right[j])
                 j += 1
-        # 当一个为空后，将另一个的剩余元素直接添加到res中
-        res += left[i:] or right[j:]
-        # 替换arr[low:high]的数据为res对应的数据
-        arr[low:high] = res
+        res += left[i:] or right[j:]        # # 当一个为空后，将另一个的剩余元素直接添加到res中
+        arr[low:high] = res                 # 替换arr[low:high]的数据为res对应的数据
 
 
 if __name__ == '__main__':

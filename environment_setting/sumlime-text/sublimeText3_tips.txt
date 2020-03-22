@@ -257,8 +257,13 @@ QuickGotoAnything
 	3. Press [enter] to trigger the autocomplete
 	If you don't want to trigger the parser on a docstring, simply hold down [ctrl]/[cmd] and press [enter]
 
-12.Pylinter:Color Theme 插件
-
+12.Pylinter: Python 语法检查插件 (可以不安装，提示看着很影响视觉)
+	出现代码框框：在Pylinter.sublime-settings文件中，找到"ignore":，修改为"ignore": ["R","C","W","F","E"]（也可以只加R、C两项）
+	若安装且不要框框，pylinter的user setting中设置如下：
+	{
+		"ignore": ["R","C", "W","F","E"],
+	}
+	
 13.Terminal
 	默认快捷键：ctrl+shift+T 呼出当前文件路径的控制台
 
