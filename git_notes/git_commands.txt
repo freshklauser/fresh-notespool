@@ -41,7 +41,8 @@ sudo apt-get install git
 6. 添加文件到git仓库,并未入库 
    git add abc.txt		# 添加文件
    添加多个文件： git add abc.txt def.txt  ---文件名之间用空格 
-   批量添加所有文件：git add .
+   批量添加所有(tracked files)文件：git add .
+   批量添加所有untracked files:  git add *
    
    修改文件名abc.txt --> abcd.txt
    git add abcd.txt
