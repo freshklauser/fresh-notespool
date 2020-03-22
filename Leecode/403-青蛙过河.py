@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: KlausLyu
 # @Date:   2020-03-11 12:34:00
-# @Last Modified by:   KlausLyu
-# @Last Modified time: 2020-03-11 16:24:59
+# @Last Modified by:   Administrator
+# @Last Modified time: 2020-03-14 19:48:44
 
 '''{description}
 题目
@@ -12,7 +12,6 @@
 开始时， 青蛙默认已站在第一个石子上，并可以假定它第一步只能跳跃一个单位（即只能从单元格1跳至单元格2）。
 如果青蛙上一步跳跃了 k 个单位，那么它接下来的跳跃距离只能选择为 k - 1、k 或 k + 1个单位。 
 另请注意，青蛙只能向前方（终点的方向）跳跃。
-
 请注意：
     石子的数量 ≥ 2 且 < 1100；
     每一个石子的位置序号都是一个非负整数，且其 < 231；
@@ -30,8 +29,6 @@
 思路：
 dp_dict:跳到第i块石头的距离集合
 '''
-
-
 class Solution:
     def canCross(self, stones):
         if not stones:

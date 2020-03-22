@@ -279,6 +279,29 @@ QuickGotoAnything
 		"draw_minimap_border": true,	// 右侧缩略图边框
 	}
 
+<<<<<<< HEAD
+11.DocBlockr_Python: ---> 注释插件 FOR_PYTHON
+  (输入三引号,Enter后自动生成注释; 若不自动生产，按住ctrl+enter)
+	1. Open a python file (syntax must be currently set to python)
+	2. Open a double quoted docstring (""") at one of the following places:
+		- Top of the file 		 	---> 文件开头的注释
+		- Beginning of a class	 	---> 类的注释
+		- Beginning of a function	---> 函数的注释
+	3. Press [enter] to trigger the autocomplete
+	If you don't want to trigger the parser on a docstring, simply hold down [ctrl]/[cmd] and press [enter]
+
+12.Pylinter: Python 语法检查插件 (可以不安装，提示看着很影响视觉)
+	出现代码框框：在Pylinter.sublime-settings文件中，找到"ignore":，修改为"ignore": ["R","C","W","F","E"]（也可以只加R、C两项）
+	若安装且不要框框，pylinter的user setting中设置如下：
+	{
+		"ignore": ["R","C", "W","F","E"],
+	}
+	
+13.Terminal
+	默认快捷键：ctrl+shift+T 呼出当前文件路径的控制台
+
+=======
+>>>>>>> 6572d5d4a82e92641e0e12bba3c6fa13bf841042
 ----------------------------------------------------------------------------------------------------------------------------
 NOTES:
 (1)无法下载 package 问题

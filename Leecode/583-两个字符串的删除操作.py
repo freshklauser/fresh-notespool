@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: sniky-lyu
 # @Date:   2020-03-11 22:07:09
-# @Last Modified by:   sniky-lyu
-# @Last Modified time: 2020-03-11 22:53:48
+# @Last Modified by:   Administrator
+# @Last Modified time: 2020-03-14 19:44:05
 
 '''
 给定两个单词 word1 和 word2，找到使得 word1 和 word2 相同所需的最小步数，
@@ -14,7 +14,6 @@
 '''
 
 import numpy as np
-
 
 class Solution:
     def minDistance(self, word1, word2):

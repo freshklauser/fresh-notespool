@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 # @Author: Administrator
 # @Date:   2020-02-26 16:52:43
+<<<<<<< HEAD
+# @Last Modified by:   Administrator
+# @Last Modified time: 2020-03-14 20:00:20
+=======
 # @Last Modified by:   KlausLyu
 # @Last Modified time: 2020-03-16 10:37:27
+>>>>>>> 6572d5d4a82e92641e0e12bba3c6fa13bf841042
 
 
 class Solution1:
@@ -12,7 +17,6 @@ class Solution1:
                 if index_i != index_j and num_i + num_j == target:
                     output = [index_i, index_j]
                     return output
-
 
 class Solution2:
     def twoSum(self, nums, target):

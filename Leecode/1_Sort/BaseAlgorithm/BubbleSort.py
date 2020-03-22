@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: sniky-lyu
 # @Date:   2020-03-04 17:03:52
-# @Last Modified by:   sniky-lyu
-# @Last Modified time: 2020-03-04 17:31:41
+# @Last Modified by:   Administrator
+# @Last Modified time: 2020-03-15 11:01:58
 
 '''
 冒泡排序
@@ -23,12 +23,12 @@ def BubbleSort(arr):
 
     for i in range(len(arr)):
         swap_flag = False                   # 是否交换位置
-        for j in range(len(arr)-i-1):       # end：len(arr)-i-1，注意边界问题
+        for j in range(len(arr) - i - 1):       # end：len(arr)-i-1，注意边界问题
             tmp = arr[j]
-            if arr[j+1] < arr[j]:           # 前值 > 后值，交换位置
+            if arr[j + 1] < arr[j]:           # 前值 > 后值，交换位置
                 swap_flag = True            # True:交换了位置
-                arr[j] = arr[j+1]
-                arr[j+1] = tmp
+                arr[j] = arr[j + 1]
+                arr[j + 1] = tmp
         if not swap_flag:                   # 如果都没有交换过位置，直接退出for loop
             break
     return arr
