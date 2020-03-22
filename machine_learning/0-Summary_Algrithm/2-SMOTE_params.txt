@@ -1,0 +1,105 @@
+class SMOTE(SVMSMOTE, BorderlineSMOTE)
+ |  Class to perform over-sampling using SMOTE.
+ |  
+ |  This object is an implementation of SMOTE - Synthetic Minority
+ |  Over-sampling Technique as presented in [1]_.
+ |  
+ |  Read more in the :ref:`User Guide <smote_adasyn>`.
+ |  
+ |  Parameters
+ |  ----------
+ |  sampling_strategy : float, str, dict or callable, (default='auto')
+ |      Sampling information to resample the data set.
+ |  
+ |      - When ``float``, it corresponds to the desired ratio of the number of
+ |        samples in the minority class over the number of samples in the
+ |        majority class after resampling. Therefore, the ratio is expressed as
+ |        :math:`\alpha_{os} = N_{rm} / N_{M}` where :math:`N_{rm}` is the
+ |        number of samples in the minority class after resampling and
+ |        :math:`N_{M}` is the number of samples in the majority class.
+ |  
+ |          .. warning::
+ |             ``float`` is only available for **binary** classification. An
+ |             error is raised for multi-class classification.
+ |  
+ |      - When ``str``, specify the class targeted by the resampling. The
+ |        number of samples in the different classes will be equalized.
+ |        Possible choices are:
+ |  
+ |          ``'minority'``: resample only the minority class;
+ |  
+ |          ``'not minority'``: resample all classes but the minority class;
+ |  
+ |          ``'not majority'``: resample all classes but the majority class;
+ |  
+ |          ``'all'``: resample all classes;
+ |  
+ |          ``'auto'``: equivalent to ``'not majority'``.
+ |  
+ |      - When ``dict``, the keys correspond to the targeted classes. The
+ |        values correspond to the desired number of samples for each targeted
+ |        class.
+ |  
+ |      - When callable, function taking ``y`` and returns a ``dict``. The keys
+ |        correspond to the targeted classes. The values correspond to the
+ |        desired number of samples for each class.
+ |  
+ |  random_state : int, RandomState instance or None, optional (default=None)
+ |      Control the randomization of the algorithm.
+ |  
+ |      - If int, ``random_state`` is the seed used by the random number
+ |        generator;
+ |      - If ``RandomState`` instance, random_state is the random number
+ |        generator;
+ |      - If ``None``, the random number generator is the ``RandomState``
+ |        instance used by ``np.random``.
+ |  
+ |  k_neighbors : int or object, optional (default=5)
+ |      If ``int``, number of nearest neighbours to used to construct synthetic
+ |      samples.  If object, an estimator that inherits from
+ |      :class:`sklearn.neighbors.base.KNeighborsMixin` that will be used to
+ |      find the k_neighbors.
+ |  
+ |  m_neighbors : int or object, optional (default=10)
+ |      If int, number of nearest neighbours to use to determine if a minority
+ |      sample is in danger. Used with ``kind={'borderline1', 'borderline2',
+ |      'svm'}``.  If object, an estimator that inherits
+ |      from :class:`sklearn.neighbors.base.KNeighborsMixin` that will be used
+ |      to find the k_neighbors.
+ |  
+ |      .. deprecated:: 0.4
+ |         ``m_neighbors`` is deprecated in 0.4 and will be removed in 0.6. Use
+ |         :class:`BorderlineSMOTE` or :class:`SVMSMOTE` instead to use the
+ |         intended algorithm.
+ |  
+ |  out_step : float, optional (default=0.5)
+ |      Step size when extrapolating. Used with ``kind='svm'``.
+ |  
+ |      .. deprecated:: 0.4
+ |         ``out_step`` is deprecated in 0.4 and will be removed in 0.6. Use
+ |         :class:`SVMSMOTE` instead to use the intended algorithm.
+ |  
+ |  kind : str, optional (default='regular')
+ |      The type of SMOTE algorithm to use one of the following options:
+ |      ``'regular'``, ``'borderline1'``, ``'borderline2'``, ``'svm'``.
+ |  
+ |      .. deprecated:: 0.4
+ |         ``kind`` is deprecated in 0.4 and will be removed in 0.6. Use
+ |         :class:`BorderlineSMOTE` or :class:`SVMSMOTE` instead to use the
+ |         intended algorithm.
+ |  
+ |  svm_estimator : object, optional (default=SVC())
+ |      If ``kind='svm'``, a parametrized :class:`sklearn.svm.SVC`
+ |      classifier can be passed.
+ |  
+ |      .. deprecated:: 0.4
+ |         ``out_step`` is deprecated in 0.4 and will be removed in 0.6. Use
+ |         :class:`SVMSMOTE` instead to use the intended algorithm.
+ |  
+ |  n_jobs : int, optional (default=1)
+ |      The number of threads to open if possible.
+ |  
+ |  ratio : str, dict, or callable
+ |      .. deprecated:: 0.4
+ |         Use the parameter ``sampling_strategy`` instead. It will be removed
+ |         in 0.6.

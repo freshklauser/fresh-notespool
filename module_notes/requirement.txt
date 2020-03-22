@@ -26,3 +26,5 @@ neurolab==0.3.5
 opencv-python==4.1.0.25
 Scrapy==1.6.0
 selenium==3.141.0
+imbalanced-learn==0.5.0
+imblearn==0.0
