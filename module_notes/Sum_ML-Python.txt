@@ -50,9 +50,9 @@ m' = (...) = (a+b+c)/3 - 3m/3 = 0 (mean == 0)
 A	B	C
 s = sqrt((A^2+B^2+C^2)/3)
 A/s	B/s	C/s
-s' = sqrt(...) = 1		  (std == 1)	
+s' = sqrt(...) = 1		  (std == 1)
 
-sklearn.preprocessing.scale(原始样本矩阵) 
+sklearn.preprocessing.scale(原始样本矩阵)
     --> return：均值移除后的样本矩阵(mean=0, std=1)
     def scale(X, axis=0, with_mean=True, with_std=True, copy=True):
     	Standardize a dataset along any axis
@@ -83,10 +83,10 @@ def normalize(X, norm='l2', axis=1, copy=True, return_norm=False):
     The norm to use to normalize each non zero sample (or each non-zero feature if axis is 0).
 
 4）二值化：								(sklearn.preprocessing)
-用0和1来表示样本矩阵中相对于某个给定阈值高于或低于它的元素	
+用0和1来表示样本矩阵中相对于某个给定阈值高于或低于它的元素
 sklearn.preprocessing.Binarizer(threshold=阈值, copy=True)        # copy default True
     --> return：二值化器
-                二值化器.transform(原始样本矩阵) 
+                二值化器.transform(原始样本矩阵)
                     --> return: 二值化后的样本矩阵 （不可逆过程）--考虑独热编码
 threshold: feature <= threshold: feature = 0;
                     > threshold: feature = 1.
@@ -106,7 +106,7 @@ threshold: feature <= threshold: feature = 0;
 	010100100
 	100010010
 	011000001
-独热编码     (稀疏矩阵) 
+独热编码     (稀疏矩阵)
 sklearn.preprocessing.OneHoteEncoder(sparse=是否采用压缩格式, dtype=元素类型)
     --> return：独热编码器
                 独热编码器.fit_transform(原始样本矩阵)
@@ -142,7 +142,7 @@ m个输入样本 -> m个输出标签
 	 x2 -> y2
 	 ...
 	 xm -> ym
-     xk + b -> y 
+     xk + b -> y
 
 1.预测函数：联系输出和输入的数学函数。
 y= kx + b
@@ -156,7 +156,7 @@ kxm + b = ym'
 	(y1-y1')^2 + (y2-y2')^2+...+(ym-ym')^2
 error: 	--------------------------------------- = J(k,b) --成本函数
 	 		m
-		
+
 3.成本函数：将均方误差看做是关于模型参数的函数，谓之成本函数，记做 J(k,b)。
 线性回归问题的本质就是寻找能够使成本函数J(k,b)极小值的模型参数
 4.梯度下降
@@ -216,7 +216,7 @@ x-->多项式特征扩展器 -- x x^2 x^3 ... --> 线性回归器 ---> k1,k2,k3...
 1-..	1-...	1-男	1-合格	|	7000	    |	2-高	    |
 2-..	2-..	2-..	2-..	|	20000       |		    |
 ——————————————————————————————————
-薪资预测：			
+薪资预测：
 输入：				|输出： 月薪		薪资水平(分类)
 1	1	0	3	|	？		？
 回归---平均
@@ -225,23 +225,23 @@ x-->多项式特征扩展器 -- x x^2 x^3 ... --> 线性回归器 ---> k1,k2,k3...
 1）结合业务有限选择有限的主要特征，划分子表，降低决策树的高度
    缺点：特征数量多的时候，决策树可能层级过高
 2）根据香农定理计算根据每一个特征划分子表前后的信息熵差，选择熵减少量最大的特征，优先参与子表划分；
-    信息熵（无序-->有序 熵减小过程；熵减越大，有序性越强）  
+    信息熵（无序-->有序 熵减小过程；熵减越大，有序性越强）
     特征选择：选择能使熵减最大化的特征作为主要特征
 3）集合算法：根据不同方法，构建多个决策树，利用他们的预测结果，按照区均（回归）或投票（分类）的方法，产生最终的预测结果
 A.自助聚合
     采用有放回的抽样规则，从m个样本中随机抽取n个样本，构建一棵决策树，重复以上过程b次，得到b棵决策树。利用每棵决策树的预测结果，根据平均或者投票得到最终预测结果。
 
-B.随机森林(使用较多)：行和列的挑选都是局部化    
+B.随机森林(使用较多)：行和列的挑选都是局部化
     在自助聚合算法的基础上更进一步，对特征也应用自助聚合，即每次训练时，不是用所有的特征构建树结构，而是随机选择部分特征参与构建，以此避免特殊特征对预测结果的影响。
 
-C.正向激励（不断调整样本权重）
+C.正向激励（自适应增强：不断调整样本权重）
     初始化时，针对m个样本分配初始权重，然后根据这个带有权重的模型预测训练样本，针对那些预测错误的样本，提高其权重，再构建一棵决策树模型，重复以上过程，得到b棵决策树。
 评估器数：b
 
 单棵决策树：
 sklearn.tree.DecisionTreeRegressor()
     --> 决策树回归器
-    
+
 
 正向激励：
 sklearn.ensemble.AdaBoostRegressor(元回归器，
@@ -293,7 +293,7 @@ z = k1x1 + k2x2 + b （线性输入 z=0分界，分界线k1x1 + k2x2 + b=0必然为直线）
 
 3. 成本函数
 交叉熵误差
-J(k1,k2,b) = sigma(-ylog(y')-(1-y)log(1-y'))/m + 
+J(k1,k2,b) = sigma(-ylog(y')-(1-y)log(1-y'))/m +
 	     m
              正则函数(||k1,k2,b||) * 正则强度
 
@@ -439,7 +439,7 @@ sklearn.model_selection.learning_curve(model,
 model = svm.SVC(kernel='linear', class_weight='balanced')
 
 4. 置信概率
-svm.SVM(..., probability=True,..)   
+svm.SVM(..., probability=True,..)
 支持向量机分类器.predict_proba(输入样本) --> 置信概率矩阵
 	类别1    类别2
 样本1 -> 0.99	  0.01
@@ -519,20 +519,20 @@ vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 -输入 -> 学习模型1 -> 输出 -> 学习模型2 -> 输出 -> ...
 代码：map.py  reduce.py
 
-		
+
 	      输入
 	       |
 	       V
 def 学习模型1(参数)：
     ...
     return 返回值
-	       |	
-	       V	
+	       |
+	       V
 def 学习模型2(参数)：
     ...
     return 返回值
-	     |	
-	     V	
+	     |
+	     V
 	    输出
 所谓管线，其本质就是函数的级联调用，即用一个函数的返回值作为另一个函数的参数
 代码：cc.py
@@ -635,7 +635,7 @@ running in the room is forbidden
 6. 词频逆文档频率（TF-IDF）  term frequency–inverse document frequency
 
 评估一字词对于一个文件集或一个语料库中的其中一份文件的重要程度
-			        总样本数 
+			        总样本数
 词频 * 逆文档频率 = 词频 * --------------------
 			    包含该单词的样本数
 模型思路：如果词w在一篇文档d中出现的频率高，并且在其他文档中很少出现，则认为词w具有很好的区分能力，适合用来把文章d和其他文章区开来。
@@ -657,7 +657,7 @@ import nltk
 nltk.download()
 
 性别识别
-feature 
+feature
 do -> male
 my -> female
 ...
@@ -692,7 +692,7 @@ LDA: Latent Dirichlet Allocation
 				v
 			     回放软件
 				| D/A 数模转换
-				v	
+				v
 		     电压/电流 = f(时间) -> 播放器件机械振动 -> 耳朵
 
 2. 借助傅里叶变换提取频率特征
@@ -717,7 +717,7 @@ HMM：隐马尔科夫模型 			***********重要***************
 					      |				|
 
 *********************************20180807********************************************
-十二、图像识别 
+十二、图像识别
 机器学习的图像识别处理大多数针对灰度图处理更方便
 1. 机器视觉工具包：OpenCV-Python (开源计算机视觉 Open Source Computer Vision Library)
 代码：ImagRecgn_basic.py
@@ -829,7 +829,7 @@ TensorFlow机器学习项目实战 姚鹏鹏译  人邮
 数学之美  吴军 人邮
 终极算法  黄芳萍译
 深度学习   伊恩古德弗洛著  人邮   ----墙裂
- 
+
 
 
 

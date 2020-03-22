@@ -1,0 +1,18 @@
+refer: https://xgboost.readthedocs.io/en/latest/python/python_api.html#module-xgboost.sklearn
+
+>>> dir(xgboost)
+>>> help(xgboost.cv)
+    Cross-validation with given parameters.
+    Returns
+        -------
+        evaluation history : list(string)
+>>> help(xgboost.XGBClassifier)
+>>> help(xgboost.XGBClassifier.fit)
+>>> help(xgboost.XGBClassifier.predict)
+>>> help(xgboost.plot_importance)
+>>> help(xgboost.plot_tree)
+
+
+1. 常用常用参数
+refer1: https://blog.csdn.net/han_xiaoyang/article/details/52665396 (参数中文及调优)
+refer2: https://xgboost.readthedocs.io/en/latest/parameter.html

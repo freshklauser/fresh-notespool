@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 # @Author: sniky-lyu
 # @Date:   2020-02-26 23:02:06
+<<<<<<< HEAD:Leecode/3-无重复子串的最长子串.py
 # @Last Modified by:   Administrator
 # @Last Modified time: 2020-03-14 19:48:08
+=======
+# @Last Modified by:   klaus
+# @Last Modified time: 2020-03-12 10:34:16
+>>>>>>> 6572d5d4a82e92641e0e12bba3c6fa13bf841042:Leecode/3-SubstringRepeting.py
 
 '''无重复字符的最长子串'''
 
@@ -40,6 +45,26 @@ class Solution1:
         return maxLength
 
 
+<<<<<<< HEAD:Leecode/3-无重复子串的最长子串.py
+=======
+class Solution2:
+    ''' 双指针:left, right
+    指针每移动一次都需要更新当前最大长度
+    '''
+    def lengthOfLongestSubstring(self, s):
+        maxLength = 0
+        start = 0
+        strings_map = {}
+        for cursor in range(len(s)):
+            if s[cursor] in strings_map:
+                # 更新start为map中重复字符的下一个字符的索引
+                start = max(strings_map[s[cursor]] + 1, start)      # **** 注意要与start取max
+            # 更新maxLength
+            maxLength = max(cursor - start + 1, maxLength)
+            # 更新cursor对应的字符最新map映射
+            strings_map[s[cursor]] = cursor
+        return maxLength
+>>>>>>> 6572d5d4a82e92641e0e12bba3c6fa13bf841042:Leecode/3-SubstringRepeting.py
 
 
 class Solution3:        # "abcfabcebb"
