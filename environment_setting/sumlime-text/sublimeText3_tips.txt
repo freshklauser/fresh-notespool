@@ -1,6 +1,11 @@
 建议改用中文官网的资源http://www.sublimetext.cn/
 离线安装参考：https://www.jianshu.com/p/879271e8a0f6
 
+完全卸载：
+	1. 卸载
+	2. 清除package包对应文件夹：默认为 C:\Users\{User}\AppData\Roaming\Sublime Text 3
+	3. 清除个人设置等文件夹
+
 sublime text3 version 3143 安装步骤：
 >>>>>>>>>>>>>>>>> version 3143 不要使用新版本<<<<<<<<<<<<<<<<<<<<<<,
 1. sublime text3 可用license:
@@ -219,8 +224,35 @@ QuickGotoAnything
 			// 也可以设置其他的运行方式，比如 python_virtualenv_repl
 		]
 
+10.DocBlockr_Python: ---> 注释插件 FOR_PYTHON
+  (输入三引号,Enter后自动生成注释; 若不自动生产，按住ctrl+enter)
+	1. Open a python file (syntax must be currently set to python)
+	2. Open a double quoted docstring (""") at one of the following places:
+		- Top of the file 		 	---> 文件开头的注释
+		- Beginning of a class	 	---> 类的注释
+		- Beginning of a function	---> 函数的注释
+	3. Press [enter] to trigger the autocomplete
+	If you don't want to trigger the parser on a docstring, simply hold down [ctrl]/[cmd] and press [enter]
 
-10.Settings--User:
+11.Pylinter:Color Theme 插件
+
+12.Terminal (可以不安裝，暂时不怎么用)
+	默认快捷键：ctrl+shift+T 呼出当前文件路径的控制台
+
+13.Git
+	Preferences -> Package Setting -> Git -> Setings-User:
+	{
+	    "git_command": "C:/Program Files/Git/bin/git.exe"
+	}
+	使用：
+		shift+ctrl+p调出命令窗口:
+			git:status      		---> 查看状态
+			git:add All     		---> 添加所有变更
+			git:add current file    ---> 添加当前文件
+			git:commit				---> 提交，会弹出一个文本文件，在最上面添加commit备注，关闭后自动触发commit操作
+			git:push current branch ---> push到当前分支
+
+14.Settings--User:
 	{
 		"anaconda_linting": true,		// 错误代码提醒
 		"bold_folder_labels": true,
@@ -246,21 +278,6 @@ QuickGotoAnything
 		"word_wrap": false,
 		"draw_minimap_border": true,	// 右侧缩略图边框
 	}
-
-11.DocBlockr_Python: ---> 注释插件 FOR_PYTHON
-  (输入三引号,Enter后自动生成注释; 若不自动生产，按住ctrl+enter)
-	1. Open a python file (syntax must be currently set to python)
-	2. Open a double quoted docstring (""") at one of the following places:
-		- Top of the file 		 	---> 文件开头的注释
-		- Beginning of a class	 	---> 类的注释
-		- Beginning of a function	---> 函数的注释
-	3. Press [enter] to trigger the autocomplete
-	If you don't want to trigger the parser on a docstring, simply hold down [ctrl]/[cmd] and press [enter]
-
-12.Pylinter:Color Theme 插件
-
-13.Terminal
-	默认快捷键：ctrl+shift+T 呼出当前文件路径的控制台
 
 ----------------------------------------------------------------------------------------------------------------------------
 NOTES:
