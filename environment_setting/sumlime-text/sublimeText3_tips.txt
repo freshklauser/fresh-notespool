@@ -1,6 +1,8 @@
 建议改用中文官网的资源http://www.sublimetext.cn/
 离线安装参考：https://www.jianshu.com/p/879271e8a0f6
 
+----> 如何在sublime中直接跳转python库中类或函数的源码 -- 见下文 ctags
+
 完全卸载：
 	1. 卸载
 	2. 清除package包对应文件夹：默认为 C:\Users\{User}\AppData\Roaming\Sublime Text 3
@@ -68,7 +70,7 @@ DD9AF44B 99C49590 D2DBDEE1 75860FD2
 	}
 
 
-4. 安装插件列表(ctrl+shift+p-->进入install package)：
+4. 安装插件列表(ctrl+shift+p-->进入install package)  --  以后文的插件实际安装情况为准：
 	（离线插件地址：https://packagecontrol.io/）
 	AutoPEP8
 	AutoFileName
@@ -120,6 +122,12 @@ DD9AF44B 99C49590 D2DBDEE1 75860FD2
 		C:\Users\Administrator\Anaconda3\envs\py36\Scripts;
 		C:\Users\Administrator\Anaconda3\envs\py36\Library\bin;
 --> sublime text3中不需要在anaconda插件中设置interpreter,也不需要在BuildSystem中指定，会默认采用系统环境变量中的interpreter
+
+--> Project项目管理：refer -- https://juejin.im/post/5a0baa0e5188253ee45af950
+	新建project, Open Project-->Add folders to Project-->添加project的父目录
+	目录内部可以使用 CTRL+P 快速跳转到当前Project中的其他文件和函数
+	建议：新建个文件夹统一保存所有创建Project，如：Sublime Text 3\Packages\User\project
+		  新建目录时先ctrl+shift+n新开一个窗口
 ----------------------------------------------------------------------------------------------------------------------------
 1.Goto Definition:
 	将鼠标悬停在符号上，就可以以跳转到其定义的文件。光标位于符号上时，通过快捷键 F12 同样可以实现跳转，或使用 Goto Symbol in Project 功能，通过快捷键 Ctrl+Shift+R 跳转到项目任意symbol的定义。
@@ -129,7 +137,7 @@ DD9AF44B 99C49590 D2DBDEE1 75860FD2
 2.Goto Anything 快速跳转到文件和函数:
 	使用 Ctrl+P 来打开Goto Anything 菜单, 输入xcc来选择这个文件 xla_compilation_cache.cc, 输入@ 切换到函数选择模式, 输入 :c 选择 XlaCompilationCache::C编译 方法.
 QuickGotoAnything
-====================
+	====================
 	Sublime Text Plugin to quick scroll to function/variable or quick open file, It use selected word. Works in ST2 and ST3.
 
 3.anaconda:
@@ -234,7 +242,12 @@ QuickGotoAnything
 	3. Press [enter] to trigger the autocomplete
 	If you don't want to trigger the parser on a docstring, simply hold down [ctrl]/[cmd] and press [enter]
 
-11.Pylinter:Color Theme 插件
+11.Pylinter: Python 语法检查插件 (可以不安装，提示看着很影响视觉)
+	出现代码框框：在Pylinter.sublime-settings文件中，找到"ignore":，修改为"ignore": ["R","C","W","F","E"]（也可以只加R、C两项）
+	若安装且不要框框，pylinter的user setting中设置如下：
+	{
+		"ignore": ["R","C", "W","F","E"],
+	}
 
 12.Terminal (可以不安裝，暂时不怎么用)
 	默认快捷键：ctrl+shift+T 呼出当前文件路径的控制台
@@ -252,7 +265,43 @@ QuickGotoAnything
 			git:commit				---> 提交，会弹出一个文本文件，在最上面添加commit备注，关闭后自动触发commit操作
 			git:push current branch ---> push到当前分支
 
-14.Settings--User:
+14.Sublimerge3: 文件比对
+	在文件目录中按住CTRL同时选择2个文件，鼠标右键选择Sublimerge->Compare Selected Files，就可以对比；
+	或者 在文件中鼠标右键点击，也可以对比，选择相应的菜单实现相应的功能
+	
+15.Ctags: 函数和方法跳转(与Goto Anything差不多，可以都安装)
+	(最好配合项目管理使用) 
+	(1) 系统安装ctag程序： download--http://ctags.sourceforge.net/
+		下载后解压ctags.exe移动到某个目录，比如 D:\ctags58 目录下 即可。
+	(2) 安装ctags插件
+		配置 ctags 的 Setting-User:
+		{
+			"command": "D:/ctags58/ctags.exe",
+		}
+	(3) 在project的父目录上右键，点击： Ctags:Rebuil tags
+		之后会在project的根目录下生成两个文件：
+			.tags
+			.tags_sorted_by_file
+	(4) 设置跳转和返回的快捷键 (由于已经在SublimeCodeIntel中设置了ctrl+left(mouse), 自定义函数跳转，这里设置的跳转快捷键不起作用，只在一个地方设置就可以了)
+	// Ctags
+    {
+        "command": "navigate_to_definition",
+        "keys": ["ctrl+left_click"]
+    },
+    {
+        "command": "jump_back",
+        "keys": ["ctrl+q"]
+    },
+	跳转后，ctrl+q 即可返回
+	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ATTENTION: jump to source code <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	(1) 在 project 的根目录 右键 Project --> Add Folder to Project: 选择python安装路径下的Lib文件夹 -- C:\Users\Wang\Anaconda3\Lib  （根据自己的安装路径或虚拟环境路径来定）
+	(2) 选中 Lib 文件夹，右键 点击： Ctags:Rebuild Tags, 等待 indexing files 完成
+		完成后会在 Lib目录下生成两个文件：  .tags  和 .tags_sorted_by_file 
+	NOTES: 该步骤只需要执行一次，生成 .tags和.tags_sorted_by_file文件后，可以直接在其他project中将Lib添加到project中即可
+	(3) ctrl+left_click 即可实现跳转
+	
+	
+16.Settings--User:
 	{
 		"anaconda_linting": true,		// 错误代码提醒
 		"bold_folder_labels": true,
@@ -279,29 +328,64 @@ QuickGotoAnything
 		"draw_minimap_border": true,	// 右侧缩略图边框
 	}
 
-<<<<<<< HEAD
-11.DocBlockr_Python: ---> 注释插件 FOR_PYTHON
-  (输入三引号,Enter后自动生成注释; 若不自动生产，按住ctrl+enter)
-	1. Open a python file (syntax must be currently set to python)
-	2. Open a double quoted docstring (""") at one of the following places:
-		- Top of the file 		 	---> 文件开头的注释
-		- Beginning of a class	 	---> 类的注释
-		- Beginning of a function	---> 函数的注释
-	3. Press [enter] to trigger the autocomplete
-	If you don't want to trigger the parser on a docstring, simply hold down [ctrl]/[cmd] and press [enter]
+17. 汇总上述所有的 key-bindings (都是在 Preferences --> key-bindings 中 ):
+	公司电脑中的配置：(稍后增加 笔记本 中的对应配置)
+	[
+		// 终止运行中的程序
+		{ "keys": ["ctrl+shift+c"], "command": "cancel_build" },
 
-12.Pylinter: Python 语法检查插件 (可以不安装，提示看着很影响视觉)
-	出现代码框框：在Pylinter.sublime-settings文件中，找到"ignore":，修改为"ignore": ["R","C","W","F","E"]（也可以只加R、C两项）
-	若安装且不要框框，pylinter的user setting中设置如下：
-	{
-		"ignore": ["R","C", "W","F","E"],
-	}
-	
-13.Terminal
-	默认快捷键：ctrl+shift+T 呼出当前文件路径的控制台
+		// 在 新窗口中运行当前文件，可支持 input（ctrl+b 不支持input）
+		{
+			"keys": ["ctrl+shift+u"],
+			"caption": "SublimeREPL: Python - RUN current file",
+			"command": "run_existing_window_command", "args":
+			{
+				"id": "repl_python_run",
+				"file": "config/Python/Main.sublime-menu"
+			}
+		},
 
-=======
->>>>>>> 6572d5d4a82e92641e0e12bba3c6fa13bf841042
+		// 新窗口中开启 REPL窗口（类似terminal）
+		{
+			"keys": ["ctrl+shift+h"],
+			"caption": "SublimeREPL: Python",
+			"command": "run_existing_window_command", "args":
+			{
+				"id": "repl_python",
+				"file": "config/Python/Main.sublime-menu"
+			}
+		},
+
+		// 新窗口中开启 Ipython(于conda prompt不兼容，二选一吧)
+		{
+			"keys": ["ctrl+shift+o"],
+			"caption": "SublimeREPL: Python - IPython",
+			"command": "run_existing_window_command", "args":
+			{
+				"id": "repl_python_ipython",
+				"file": "config/Python/Main.sublime-menu"
+			}
+		},
+
+		// anaconda的自动pep8格式化代码
+		{
+		"command": "anaconda_auto_format", "keys": ["ctrl+alt+r"], "context": [
+			{"key": "selector", "operator": "equal", "operand": "source.python"}
+		]},
+
+		// Ctags 跳转和返回
+		{
+			"command": "navigate_to_definition",
+			"keys": ["ctrl+left_click"]
+		},
+		{
+			"command": "jump_back",
+			"keys": ["ctrl+q"]
+		},
+	]
+
+
+
 ----------------------------------------------------------------------------------------------------------------------------
 NOTES:
 (1)无法下载 package 问题

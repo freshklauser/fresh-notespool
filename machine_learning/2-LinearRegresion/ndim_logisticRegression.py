@@ -40,7 +40,7 @@ b, t, v = x[:, 1].min() - 1, x[:, 1].max() + 1, 0.005           # 下边界，�
 grid_x = np.meshgrid(np.arange(l, r, h), np.arange(b, t, v))     # (m-array,n-array)--> list(mat(m,n), mat(m,n))
 #print(grid_x)                                                   # list
 print(grid_x[0])
-print(grid_x[1])                                          # (1800, 1440) <class 'numpy.ndarray'> 
+print(grid_x[1])                                          # (1800, 1440) <class 'numpy.ndarray'>
 #print(grid_x[1].shape)                                          # (1800, 1440) <class 'numpy.ndarray'>
 
 flat_x = np.c_[grid_x[0].ravel(), grid_x[1].ravel()]            # 保证输入散点的坐标点横纵坐标个数一样
@@ -54,7 +54,7 @@ plt.xlabel('x', fontsize=14)
 plt.ylabel('y', fontsize=14)
 plt.tick_params(labelsize=10)
 
-# pcolormesh: 伪彩图 pcolormesh(X, Y, C) 
+# pcolormesh: 伪彩图 pcolormesh(X, Y, C)
 # X,Y均为2-D array,如果为1-D 会自动广播，X和Y构成网格点阵
 # X,Y对应位置元素x[i,j]和y[i,j]组成一个坐标点(x[i,j],y[i,j])，对样本周围（包括样本所在坐标）的四
 #个坐标点进行着色，C代表着色方案

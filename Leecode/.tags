@@ -1,0 +1,292 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+A	.\0_Daily\945-Êý×éÎ¨Ò»µÄ×îÐ¡ÔöÁ¿.py	/^    A = [3, 2, 1, 2, 1, 7]$/;"	v	class:Solution
+A	.\1027-×î³¤µÈ²îÊýÁÐ.py	/^    A = [25, 78, 45, 27, 75, 10, 90, 77, 60, 8, 43, 5, 55, 47, 57, 17, 8, 63, 18, 69, 63, 87, 35, 19, 78, 42, 25, 27, 24, 23, 88, 56, 14, 42, 16, 64, 8, 62, 48, 76, 66, 75, 59, 43, 16, 11, 15, 41, 20, 34,$/;"	v	class:Solution2
+A	.\200--µºµÄÊýÁÐ.py	/^    A = [["1", "1", "0", "1", "0"], ["1", "1", "0", "1", "0"], ["1", "1", "0", "0", "1"], ["0", "0", "1", "0", "0"]]$/;"	v	class:Solution1
+A	.\934-ShortestBridge.py	/^    A = [[0,0,0,0,0,0],[0,1,0,0,0,0],[1,1,0,0,0,0],[1,1,0,0,0,0],[0,0,0,0,0,0],[0,0,1,1,0,0]]$/;"	v	class:Solution
+BubbleSort	.\1_Sort\BaseAlgorithm\BubbleSort.py	/^def BubbleSort(arr):$/;"	f
+Counter	.\0_Daily\1160-Æ´Ð´µ¥´Ê.py	/^from collections import Counter$/;"	i
+Counter	.\0_Daily\409-×î³¤»ØÎÄ´®.py	/^from collections import Counter$/;"	i
+InsertSort	.\1_Sort\BaseAlgorithm\InsertSort.py	/^def InsertSort(arr):$/;"	f
+ListNode	.\0_Daily\876-Á´±íµÄÖÐ¼ä½Úµã.py	/^class ListNode:$/;"	c
+ListNode	.\addTwoNums.py	/^class ListNode:$/;"	c
+Merge	.\1_Sort\BaseAlgorithm\MergeSort.py	/^    def Merge(self, arr, low, mid, high):$/;"	m	class:Solution2
+Merge	.\1_Sort\BaseAlgorithm\MergeSort.py	/^    def Merge(self, left_arr, right_arr):$/;"	m	class:Solution
+MergeSort	.\1_Sort\BaseAlgorithm\MergeSort.py	/^    def MergeSort(self, arr):$/;"	m	class:Solution
+MergeSort	.\1_Sort\BaseAlgorithm\MergeSort.py	/^    def MergeSort(self, arr):$/;"	m	class:Solution2
+QuickSort	.\1_Sort\BaseAlgorithm\QuickSort.py	/^def QuickSort(arr):$/;"	f
+SelectSort	.\1_Sort\BaseAlgorithm\SelectSort.py	/^def SelectSort(arr):$/;"	f
+Solution	.\0_Daily\1160-Æ´Ð´µ¥´Ê.py	/^class Solution:$/;"	c
+Solution	.\0_Daily\365-Ë®ºøÎÊÌâ.py	/^class Solution:$/;"	c
+Solution	.\0_Daily\409-×î³¤»ØÎÄ´®.py	/^class Solution:$/;"	c
+Solution	.\0_Daily\836-¾ØÐÎÖØµþ.py	/^class Solution:$/;"	c
+Solution	.\0_Daily\876-Á´±íµÄÖÐ¼ä½Úµã.py	/^class Solution:$/;"	c
+Solution	.\0_Daily\945-Êý×éÎ¨Ò»µÄ×îÐ¡ÔöÁ¿.py	/^class Solution:$/;"	c
+Solution	.\1027-×î³¤µÈ²îÊýÁÐ.py	/^class Solution:$/;"	c
+Solution	.\128-×î³¤Á¬ÐøÐòÁÐ.py	/^class Solution:$/;"	c
+Solution	.\1_Sort\BaseAlgorithm\MergeSort.py	/^class Solution:$/;"	c
+Solution	.\1_Sort\Case\56-ºÏ²¢Çø¼ä.py	/^class Solution:$/;"	c
+Solution	.\20-ÓÐÐ§µÄÀ¨ºÅ.py	/^class Solution:$/;"	c
+Solution	.\200--µºµÄÊýÁÐ.py	/^class Solution:$/;"	c
+Solution	.\221-×î´óÕý·½ÐÎ.py	/^class Solution:$/;"	c
+Solution	.\223-¾ØÐÎÃæ»ý.py	/^class Solution:$/;"	c
+Solution	.\300-×î³¤ÉÏÉý×ÓÐòÁÐ.py	/^class Solution:$/;"	c
+Solution	.\394-×Ö·û´®±àÂë.py	/^class Solution:$/;"	c
+Solution	.\403-ÇàÍÜ¹ýºÓ.py	/^class Solution:$/;"	c
+Solution	.\415-×Ö·û´®Ïà¼Ó.py	/^class Solution:$/;"	c
+Solution	.\5-»ØÎÄ×Ó´®.py	/^class Solution(object):$/;"	c
+Solution	.\516-×î³¤»ØÎÄ×ÓÐòÁÐ.py	/^class Solution:$/;"	c
+Solution	.\53-×î´óÁ¬Ðø×ÓÐòºÍ.py	/^class Solution:$/;"	c
+Solution	.\583-Á½¸ö×Ö·û´®µÄÉ¾³ý²Ù×÷.py	/^class Solution:$/;"	c
+Solution	.\64-×îÐ¡Â·¾¶ºÍ.py	/^class Solution:$/;"	c
+Solution	.\673-×î³¤ÉÏÉý×ÓÐòÁÐ¸öÊý.py	/^class Solution:$/;"	c
+Solution	.\7-intReverse.py	/^class Solution:$/;"	c
+Solution	.\881-¾ÈÉúÍ§.py	/^class Solution:$/;"	c
+Solution	.\934-ShortestBridge.py	/^class Solution:$/;"	c
+Solution	.\96-²»Í¬¶þ²æÊ÷-1.py	/^class Solution:$/;"	c
+Solution	.\Stock-121.py	/^class Solution:$/;"	c
+Solution	.\Stock-122.py	/^class Solution:$/;"	c
+Solution	.\Stock-123.py	/^class Solution:$/;"	c
+Solution	.\Stock-188.py	/^class Solution:$/;"	c
+Solution	.\Stock-309.py	/^class Solution:$/;"	c
+Solution	.\Stock-714.py	/^class Solution:$/;"	c
+Solution	.\addTwoNums.py	/^class Solution:$/;"	c
+Solution	.\±à¼­¾àÀë-72.py	/^class Solution:$/;"	c
+Solution	.\±à¼­¾àÀë-Ò»´Î±à¼­.py	/^class Solution:$/;"	c
+Solution	.\±à¼­¾àÀë¼ä¸ô1-161.py	/^class Solution:$/;"	c
+Solution1	.\0_Daily\365-Ë®ºøÎÊÌâ.py	/^class Solution1:$/;"	c
+Solution1	.\0_Daily\945-Êý×éÎ¨Ò»µÄ×îÐ¡ÔöÁ¿.py	/^class Solution1:$/;"	c
+Solution1	.\20-ÓÐÐ§µÄÀ¨ºÅ.py	/^class Solution1:$/;"	c
+Solution1	.\200--µºµÄÊýÁÐ.py	/^class Solution1:$/;"	c
+Solution1	.\3-ÎÞÖØ¸´×Ó´®µÄ×î³¤×Ó´®.py	/^class Solution1:$/;"	c
+Solution1	.\5-»ØÎÄ×Ó´®.py	/^class Solution1:$/;"	c
+Solution1	.\53-×î´óÁ¬Ðø×ÓÐòºÍ.py	/^class Solution1:$/;"	c
+Solution1	.\Stock-188.py	/^class Solution1:$/;"	c
+Solution1	.\twoSum.py	/^class Solution1:$/;"	c
+Solution1	.\±à¼­¾àÀë¼ä¸ô1-161.py	/^class Solution1:$/;"	c
+Solution2	.\0_Daily\365-Ë®ºøÎÊÌâ.py	/^class Solution2:$/;"	c
+Solution2	.\1027-×î³¤µÈ²îÊýÁÐ.py	/^class Solution2:$/;"	c
+Solution2	.\1_Sort\BaseAlgorithm\MergeSort.py	/^class Solution2:$/;"	c
+Solution2	.\3-ÎÞÖØ¸´×Ó´®µÄ×î³¤×Ó´®.py	/^class Solution2:$/;"	c
+Solution2	.\twoSum.py	/^class Solution2:$/;"	c
+Solution3	.\3-ÎÞÖØ¸´×Ó´®µÄ×î³¤×Ó´®.py	/^class Solution3:        # "abcfabcebb"$/;"	c
+Solution3	.\5-»ØÎÄ×Ó´®.py	/^class Solution3:$/;"	c
+Solution3	.\twoSum.py	/^class Solution3:$/;"	c
+Solution4	.\5-»ØÎÄ×Ó´®.py	/^class Solution4:            # è¶…æ—¶ï¼Œå¢žåŠ åˆ†éš”ç¬¦åŽæžå¤§å¢žåŠ äº†æ•°æ®é‡$/;"	c
+__init__	.\0_Daily\876-Á´±íµÄÖÐ¼ä½Úµã.py	/^    def __init__(self, x):$/;"	m	class:ListNode
+__init__	.\addTwoNums.py	/^    def __init__(self, x):$/;"	m	class:ListNode
+a	.\1027-×î³¤µÈ²îÊýÁÐ.py	/^    a = [1,2,3,1,3,5,7,6,8,6]$/;"	v	class:Solution2
+a	.\53-×î´óÁ¬Ðø×ÓÐòºÍ.py	/^    a = float("-inf")       # è´Ÿæ— ç©·$/;"	v	class:Solution1
+addStrings	.\415-×Ö·û´®Ïà¼Ó.py	/^    def addStrings(self, num1: str, num2: str) -> str:$/;"	m	class:Solution
+addTwoNumbers	.\addTwoNums.py	/^    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:$/;"	m	class:Solution
+another1	.\addTwoNums.py	/^    another1 = ListNode(5)$/;"	v	class:Solution
+another2	.\addTwoNums.py	/^    another2 = ListNode(6)$/;"	v	class:Solution
+another3	.\addTwoNums.py	/^    another3 = ListNode(8)$/;"	v	class:Solution
+arr	.\1_Sort\BaseAlgorithm\BubbleSort.py	/^    arr = [12, 433, 45, 2, 67, 4]$/;"	v
+arr	.\1_Sort\BaseAlgorithm\InsertSort.py	/^    arr = [12, 433, 45, 2, 67, 4]$/;"	v
+arr	.\1_Sort\BaseAlgorithm\MergeSort.py	/^    arr = [12, 433, 45, 2, 671, 4, 24, 67, 34, 10, 5]$/;"	v	class:Solution2
+arr	.\1_Sort\BaseAlgorithm\QuickSort.py	/^    arr = [12,33,21,132,45,2,67,4]$/;"	v
+arr	.\1_Sort\BaseAlgorithm\SelectSort.py	/^    arr = [12,433,45,2,67,4]$/;"	v
+arr	.\2_DP\BaseAlgorithm\dp_recursive_1.py	/^    arr = [1, 2, 4, 1, 7, 8, 3]$/;"	v
+arr	.\dp_recursive_2.py	/^    arr = [1, 2, 4, 1, 7, 8, 3]$/;"	v
+arr	.\×î³¤µÝÔö×ÓÐòÁÐ.py	/^    arr = [10, 9, 2, 5, 3, 7, 101, 18]$/;"	v
+b	.\53-×î´óÁ¬Ðø×ÓÐòºÍ.py	/^    b = float("inf")        # æ­£æ— ç©·$/;"	v	class:Solution1
+c	.\53-×î´óÁ¬Ðø×ÓÐòºÍ.py	/^    c = product(x, y)$/;"	v	class:Solution1
+canCross	.\403-ÇàÍÜ¹ýºÓ.py	/^    def canCross(self, stones):$/;"	m	class:Solution
+canMeasureWater	.\0_Daily\365-Ë®ºøÎÊÌâ.py	/^    def canMeasureWater(self, x, y, z):$/;"	m	class:Solution
+canMeasureWater	.\0_Daily\365-Ë®ºøÎÊÌâ.py	/^    def canMeasureWater(self, x, y, z):$/;"	m	class:Solution1
+canMeasureWater	.\0_Daily\365-Ë®ºøÎÊÌâ.py	/^    def canMeasureWater(self, x, y, z):$/;"	m	class:Solution2
+chars	.\0_Daily\1160-Æ´Ð´µ¥´Ê.py	/^    chars = "usdruypficfbpfbivlrhutcgvyjenlxzeovdyjtgvvfdjzcmikjraspdfp"$/;"	v	class:Solution
+compareSpell	.\0_Daily\1160-Æ´Ð´µ¥´Ê.py	/^    def compareSpell(self, hash_word, hash_chars):$/;"	m	class:Solution
+computeArea	.\223-¾ØÐÎÃæ»ý.py	/^    def computeArea(self, A, B, C, D, E, F, G, H) -> int:$/;"	m	class:Solution
+cost_prices	.\Ë®¹ûÌ¯Ð¡Âô²¿-Ì°ÐÄËã·¨.py	/^        cost_prices = [4, 2, 6, 4, 5, 17, 20, 7, 8, 33, 28, 35, 100, 80]$/;"	v
+countCharacters	.\0_Daily\1160-Æ´Ð´µ¥´Ê.py	/^    def countCharacters(self, words, chars):$/;"	m	class:Solution
+cur_length	.\Ë®¹ûÌ¯Ð¡Âô²¿-Ì°ÐÄËã·¨.py	/^            cur_length = len(unvisited)$/;"	v
+cur_money	.\Ë®¹ûÌ¯Ð¡Âô²¿-Ì°ÐÄËã·¨.py	/^                        cur_money = cur_money + head[2]$/;"	v
+cur_money	.\Ë®¹ûÌ¯Ð¡Âô²¿-Ì°ÐÄËã·¨.py	/^        cur_money = money$/;"	v
+db_opt	.\2_DP\BaseAlgorithm\dp_recursive_1.py	/^def db_opt(arr):$/;"	f
+db_subset	.\dp_recursive_2.py	/^def db_subset(arr, s):$/;"	f
+decodeString	.\394-×Ö·û´®±àÂë.py	/^    def decodeString(self, s: str) -> str:$/;"	m	class:Solution
+defaultdict	.\1027-×î³¤µÈ²îÊýÁÐ.py	/^    from collections import defaultdict$/;"	i
+defaultdict	.\1027-×î³¤µÈ²îÊýÁÐ.py	/^from collections import defaultdict$/;"	i
+defaultdict	.\403-ÇàÍÜ¹ýºÓ.py	/^    from collections import defaultdict$/;"	i
+dfs	.\200--µºµÄÊýÁÐ.py	/^        def dfs(i, j):$/;"	f	function:Solution.numIslands
+dfs	.\934-ShortestBridge.py	/^        def dfs(i, j):$/;"	f	function:Solution.shortestBridge
+dp	.\403-ÇàÍÜ¹ýºÓ.py	/^    dp = defaultdict(list)$/;"	v	class:Solution
+fee	.\Stock-714.py	/^    fee = 2$/;"	v	class:Solution
+findNumberOfLIS	.\673-×î³¤ÉÏÉý×ÓÐòÁÐ¸öÊý.py	/^    def findNumberOfLIS(self, nums):$/;"	m	class:Solution
+grid	.\64-×îÐ¡Â·¾¶ºÍ.py	/^    grid = [[1,3,1],[1,5,1],[4,2,1]]$/;"	v	class:Solution
+head	.\Ë®¹ûÌ¯Ð¡Âô²¿-Ì°ÐÄËã·¨.py	/^                head = unvisited[0]$/;"	v
+intervals	.\1_Sort\Case\56-ºÏ²¢Çø¼ä.py	/^    intervals = [[1, 4], [4, 5]]$/;"	v	class:Solution
+isOneEditDistance	.\±à¼­¾àÀë¼ä¸ô1-161.py	/^    def isOneEditDistance(self, s: str, t: str) -> bool:$/;"	m	class:Solution
+isOneEditDistance	.\±à¼­¾àÀë¼ä¸ô1-161.py	/^    def isOneEditDistance(self, s: str, t: str) -> bool:$/;"	m	class:Solution1
+isRectangleOverlap	.\0_Daily\836-¾ØÐÎÖØµþ.py	/^    def isRectangleOverlap(self, rec1, rec2):$/;"	m	class:Solution
+isValid	.\20-ÓÐÐ§µÄÀ¨ºÅ.py	/^    def isValid(self, s):$/;"	m	class:Solution
+isValid	.\20-ÓÐÐ§µÄÀ¨ºÅ.py	/^    def isValid(self, s):$/;"	m	class:Solution1
+k	.\Stock-188.py	/^    k = 2$/;"	v	class:Solution1
+length	.\Ë®¹ûÌ¯Ð¡Âô²¿-Ì°ÐÄËã·¨.py	/^        length = len(cost_prices)$/;"	v
+lengthOfLIS	.\300-×î³¤ÉÏÉý×ÓÐòÁÐ.py	/^    def lengthOfLIS(self, nums):$/;"	m	class:Solution
+lengthOfLongestSubstring	.\3-ÎÞÖØ¸´×Ó´®µÄ×î³¤×Ó´®.py	/^    def lengthOfLongestSubstring(self, s):$/;"	m	class:Solution1
+lengthOfLongestSubstring	.\3-ÎÞÖØ¸´×Ó´®µÄ×î³¤×Ó´®.py	/^    def lengthOfLongestSubstring(self, s):$/;"	m	class:Solution2
+lengthOfLongestSubstring	.\3-ÎÞÖØ¸´×Ó´®µÄ×î³¤×Ó´®.py	/^    def lengthOfLongestSubstring(self, s):$/;"	m	class:Solution3
+limit	.\881-¾ÈÉúÍ§.py	/^    limit = 5$/;"	v	class:Solution
+longestArithSeqLength	.\1027-×î³¤µÈ²îÊýÁÐ.py	/^    def longestArithSeqLength(self, A):$/;"	m	class:Solution
+longestArithSeqLength	.\1027-×î³¤µÈ²îÊýÁÐ.py	/^    def longestArithSeqLength(self, A):$/;"	m	class:Solution2
+longestConsecutive	.\128-×î³¤Á¬ÐøÐòÁÐ.py	/^    def longestConsecutive(self, nums):$/;"	m	class:Solution
+longestPalindrome	.\0_Daily\409-×î³¤»ØÎÄ´®.py	/^    def longestPalindrome(self, s):$/;"	m	class:Solution
+longestPalindrome	.\5-»ØÎÄ×Ó´®.py	/^    def longestPalindrome(self, s):$/;"	m	class:Solution
+longestPalindrome	.\5-»ØÎÄ×Ó´®.py	/^    def longestPalindrome(self, s):$/;"	m	class:Solution3
+longestPalindrome	.\5-»ØÎÄ×Ó´®.py	/^    def longestPalindrome(self, s: str) -> str:$/;"	m	class:Solution1
+longestPalindrome	.\5-»ØÎÄ×Ó´®.py	/^    def longestPalindrome(self, st):$/;"	m	class:Solution4
+longestPalindromeSubseq	.\516-×î³¤»ØÎÄ×ÓÐòÁÐ.py	/^    def longestPalindromeSubseq(self, s: str) -> int:$/;"	m	class:Solution
+longsetIncSubString	.\×î³¤µÝÔö×ÓÐòÁÐ.py	/^def longsetIncSubString(arr):$/;"	f
+main	.\____²âÊÔÓÃÀý.py	/^def main(s):$/;"	f
+math	.\0_Daily\365-Ë®ºøÎÊÌâ.py	/^        import math$/;"	i
+math	.\53-×î´óÁ¬Ðø×ÓÐòºÍ.py	/^    import math$/;"	i
+matrix	.\221-×î´óÕý·½ÐÎ.py	/^    matrix = [["1", "0", "1", "0", "0"], ["1", "0", "1", "1", "1"], ["1", "1", "1", "1", "1"], ["1", "0", "0", "1", "0"]]$/;"	v	class:Solution
+maxProfit	.\Stock-121.py	/^    def maxProfit(self, prices):$/;"	m	class:Solution
+maxProfit	.\Stock-122.py	/^    def maxProfit(self, prices):$/;"	m	class:Solution
+maxProfit	.\Stock-123.py	/^    def maxProfit(self, prices):$/;"	m	class:Solution
+maxProfit	.\Stock-188.py	/^    def maxProfit(self, k, prices):$/;"	m	class:Solution
+maxProfit	.\Stock-188.py	/^    def maxProfit(self, k, prices):$/;"	m	class:Solution1
+maxProfit	.\Stock-309.py	/^    def maxProfit(self, prices):$/;"	m	class:Solution
+maxProfit	.\Stock-714.py	/^    def maxProfit(self, prices, fee):$/;"	m	class:Solution
+maxProfit_k_inf	.\Stock-188.py	/^    def maxProfit_k_inf(self, prices):$/;"	m	class:Solution
+maxSubArray	.\53-×î´óÁ¬Ðø×ÓÐòºÍ.py	/^    def maxSubArray(self, nums):$/;"	m	class:Solution
+maxSubArray	.\53-×î´óÁ¬Ðø×ÓÐòºÍ.py	/^    def maxSubArray(self, nums):$/;"	m	class:Solution1
+max_profit	.\Ë®¹ûÌ¯Ð¡Âô²¿-Ì°ÐÄËã·¨.py	/^        max_profit = 0$/;"	v
+max_substrarg	.\test.py	/^def max_substrarg(word_a, word_b):$/;"	f
+maximalSquare	.\221-×î´óÕý·½ÐÎ.py	/^    def maximalSquare(self, matrix):$/;"	m	class:Solution
+merge	.\1_Sort\Case\56-ºÏ²¢Çø¼ä.py	/^    def merge(self, intervals):$/;"	m	class:Solution
+middleNone	.\0_Daily\876-Á´±íµÄÖÐ¼ä½Úµã.py	/^    def middleNone(self, head):$/;"	m	class:Solution
+middleNone_fast_slow_cursor	.\0_Daily\876-Á´±íµÄÖÐ¼ä½Úµã.py	/^    def middleNone_fast_slow_cursor(self, head):$/;"	m	class:Solution
+minDistance	.\583-Á½¸ö×Ö·û´®µÄÉ¾³ý²Ù×÷.py	/^    def minDistance(self, word1, word2):$/;"	m	class:Solution
+minDistance	.\±à¼­¾àÀë-72.py	/^    def minDistance(self, word1, word2):$/;"	m	class:Solution
+minIncrementForUnique	.\0_Daily\945-Êý×éÎ¨Ò»µÄ×îÐ¡ÔöÁ¿.py	/^    def minIncrementForUnique(self, A):$/;"	m	class:Solution
+minIncrementForUnique	.\0_Daily\945-Êý×éÎ¨Ò»µÄ×îÐ¡ÔöÁ¿.py	/^    def minIncrementForUnique(self, A):$/;"	m	class:Solution1
+minPathSum	.\64-×îÐ¡Â·¾¶ºÍ.py	/^    def minPathSum(self, grid):$/;"	m	class:Solution
+money	.\Ë®¹ûÌ¯Ð¡Âô²¿-Ì°ÐÄËã·¨.py	/^        money = 15$/;"	v
+n	.\96-²»Í¬¶þ²æÊ÷-1.py	/^    n = 4$/;"	v	class:Solution
+n	.\dp_subString\template.py	/^n = len(arr)$/;"	v
+node1	.\addTwoNums.py	/^    node1 = ListNode(2)$/;"	v	class:Solution
+node2	.\addTwoNums.py	/^    node2 = ListNode(4)$/;"	v	class:Solution
+node3	.\addTwoNums.py	/^    node3 = ListNode(3)$/;"	v	class:Solution
+node4	.\addTwoNums.py	/^    node4 = ListNode(9)$/;"	v	class:Solution
+np	.\583-Á½¸ö×Ö·û´®µÄÉ¾³ý²Ù×÷.py	/^import numpy as np$/;"	i
+np	.\dp_recursive_2.py	/^import numpy as np$/;"	i
+np	.\dp_subString\template.py	/^np = [0] * n    # æœ‰æ—¶éœ€è¦åˆå§‹åŒ–ä¸º1$/;"	v
+np	.\test.py	/^import numpy as np$/;"	i
+num1	.\415-×Ö·û´®Ïà¼Ó.py	/^    num1 = "99"$/;"	v	class:Solution
+num2	.\415-×Ö·û´®Ïà¼Ó.py	/^    num2 = "103"$/;"	v	class:Solution
+numIslands	.\200--µºµÄÊýÁÐ.py	/^    def numIslands(self, grid):$/;"	m	class:Solution
+numIslands	.\200--µºµÄÊýÁÐ.py	/^    def numIslands(self, grid):$/;"	m	class:Solution1
+numRescueBoats	.\881-¾ÈÉúÍ§.py	/^    def numRescueBoats(self, people, limit):$/;"	m	class:Solution
+numTrees	.\96-²»Í¬¶þ²æÊ÷-1.py	/^    def numTrees(self, n):$/;"	m	class:Solution
+nums	.\128-×î³¤Á¬ÐøÐòÁÐ.py	/^    nums = [1, 2, 3, 4, 100, 200, 200, 201, 199, 198, 202, 200]$/;"	v	class:Solution
+nums	.\300-×î³¤ÉÏÉý×ÓÐòÁÐ.py	/^    nums = [10, 9, 2, 5, 3, 7, 101, 18]$/;"	v	class:Solution
+nums	.\53-×î´óÁ¬Ðø×ÓÐòºÍ.py	/^    nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4, 100]$/;"	v	class:Solution1
+nums	.\673-×î³¤ÉÏÉý×ÓÐòÁÐ¸öÊý.py	/^    nums = [1, 3, 5, 4, 7, 2, 3, 6, 8]$/;"	v	class:Solution
+nums	.\twoSum.py	/^    nums = [2, 7, 11, 15]$/;"	v	class:Solution3
+oneEditAway	.\±à¼­¾àÀë-Ò»´Î±à¼­.py	/^    def oneEditAway(self, first: str, second: str) -> bool:$/;"	m	class:Solution
+output	.\1027-×î³¤µÈ²îÊýÁÐ.py	/^    output = Solution().longestArithSeqLength(A)$/;"	v	class:Solution2
+output	.\200--µºµÄÊýÁÐ.py	/^    output = Solution1().numIslands(A)$/;"	v	class:Solution1
+output	.\3-ÎÞÖØ¸´×Ó´®µÄ×î³¤×Ó´®.py	/^    output = Solution2().lengthOfLongestSubstring(s)$/;"	v	class:Solution3
+output	.\5-»ØÎÄ×Ó´®.py	/^    output = Solution3().longestPalindrome(s)$/;"	v	class:Solution4
+output	.\934-ShortestBridge.py	/^    output = Solution().shortestBridge(A)$/;"	v	class:Solution
+output	.\addTwoNums.py	/^    output = []$/;"	v	class:Solution
+output	.\twoSum.py	/^    output = Solution2().twoSum(nums, target)$/;"	v	class:Solution3
+password	.\test.py	/^def password(s):$/;"	f
+people	.\881-¾ÈÉúÍ§.py	/^    people = [3, 5, 3, 4]$/;"	v	class:Solution
+prices	.\Stock-121.py	/^    prices = [7, 1, 5, 3, 6, 4]$/;"	v	class:Solution
+prices	.\Stock-122.py	/^    prices = [7, 6, 4, 3, 1]$/;"	v	class:Solution
+prices	.\Stock-123.py	/^    prices = [3, 2, 6, 5, 0, 3]$/;"	v	class:Solution
+prices	.\Stock-188.py	/^    prices = [3, 2, 6, 5, 0, 3]$/;"	v	class:Solution1
+prices	.\Stock-309.py	/^    prices = [1, 2, 3, 0, 2]$/;"	v	class:Solution
+prices	.\Stock-714.py	/^    prices = [1, 3, 2, 8, 4, 9]$/;"	v	class:Solution
+product	.\53-×î´óÁ¬Ðø×ÓÐòºÍ.py	/^    from itertools import product$/;"	i
+profits	.\Ë®¹ûÌ¯Ð¡Âô²¿-Ì°ÐÄËã·¨.py	/^        profits = sorted(profits.items(), key=lambda x: x[1], reverse=True)$/;"	v
+profits	.\Ë®¹ûÌ¯Ð¡Âô²¿-Ì°ÐÄËã·¨.py	/^        profits = {}$/;"	v
+rec1	.\0_Daily\836-¾ØÐÎÖØµþ.py	/^    rec1 = [0,0,1,1]$/;"	v	class:Solution
+rec2	.\0_Daily\836-¾ØÐÎÖØµþ.py	/^    rec2 = [1,0,2,1]$/;"	v	class:Solution
+rec_opt	.\2_DP\BaseAlgorithm\dp_recursive_1.py	/^def rec_opt(arr, i):$/;"	f
+rec_subset	.\dp_recursive_2.py	/^def rec_subset(arr, i, s):$/;"	f
+res	.\0_Daily\1160-Æ´Ð´µ¥´Ê.py	/^    res = Solution().countCharacters(words, chars)$/;"	v	class:Solution
+res	.\0_Daily\365-Ë®ºøÎÊÌâ.py	/^    res = Solution2().canMeasureWater(x, y, z)$/;"	v	class:Solution2
+res	.\0_Daily\409-×î³¤»ØÎÄ´®.py	/^    res = Solution().longestPalindrome(s)$/;"	v	class:Solution
+res	.\0_Daily\836-¾ØÐÎÖØµþ.py	/^    res = Solution().isRectangleOverlap(rec1, rec2)$/;"	v	class:Solution
+res	.\0_Daily\945-Êý×éÎ¨Ò»µÄ×îÐ¡ÔöÁ¿.py	/^    res = Solution().minIncrementForUnique(A)$/;"	v	class:Solution
+res	.\128-×î³¤Á¬ÐøÐòÁÐ.py	/^    res = Solution().longestConsecutive(nums)$/;"	v	class:Solution
+res	.\1_Sort\BaseAlgorithm\BubbleSort.py	/^    res = BubbleSort(arr)$/;"	v
+res	.\1_Sort\BaseAlgorithm\InsertSort.py	/^    res = InsertSort(arr)$/;"	v
+res	.\1_Sort\BaseAlgorithm\MergeSort.py	/^    res = Solution2().MergeSort(arr)$/;"	v	class:Solution2
+res	.\1_Sort\BaseAlgorithm\QuickSort.py	/^    res = QuickSort(arr)$/;"	v
+res	.\1_Sort\BaseAlgorithm\SelectSort.py	/^    res = SelectSort(arr)$/;"	v
+res	.\1_Sort\Case\56-ºÏ²¢Çø¼ä.py	/^    res = Solution().merge(intervals)$/;"	v	class:Solution
+res	.\20-ÓÐÐ§µÄÀ¨ºÅ.py	/^    res = Solution().isValid(s)$/;"	v	class:Solution1
+res	.\223-¾ØÐÎÃæ»ý.py	/^    res = Solution().computeArea(A, B, C, D, E, F, G, H)$/;"	v	class:Solution
+res	.\2_DP\BaseAlgorithm\dp_recursive_1.py	/^    res = rec_opt(arr)$/;"	v
+res	.\300-×î³¤ÉÏÉý×ÓÐòÁÐ.py	/^    res = Solution().lengthOfLIS(nums)$/;"	v	class:Solution
+res	.\394-×Ö·û´®±àÂë.py	/^    res = Solution().decodeString(s)$/;"	v	class:Solution
+res	.\403-ÇàÍÜ¹ýºÓ.py	/^    res = Solution().canCross(stones)$/;"	v	class:Solution
+res	.\415-×Ö·û´®Ïà¼Ó.py	/^    res = Solution().addStrings(num1, num2)$/;"	v	class:Solution
+res	.\516-×î³¤»ØÎÄ×ÓÐòÁÐ.py	/^    res = Solution().longestPalindromeSubseq(s)$/;"	v	class:Solution
+res	.\53-×î´óÁ¬Ðø×ÓÐòºÍ.py	/^    res = Solution().maxSubArray(nums)$/;"	v	class:Solution1
+res	.\583-Á½¸ö×Ö·û´®µÄÉ¾³ý²Ù×÷.py	/^    res = Solution().minDistance(word1, word2)$/;"	v	class:Solution
+res	.\64-×îÐ¡Â·¾¶ºÍ.py	/^    res = Solution().minPathSum(grid)$/;"	v	class:Solution
+res	.\673-×î³¤ÉÏÉý×ÓÐòÁÐ¸öÊý.py	/^    res = Solution().findNumberOfLIS(nums)$/;"	v	class:Solution
+res	.\7-intReverse.py	/^    res = Solution().reverse(x)$/;"	v	class:Solution
+res	.\881-¾ÈÉúÍ§.py	/^    res = Solution().numRescueBoats(people, limit)$/;"	v	class:Solution
+res	.\96-²»Í¬¶þ²æÊ÷-1.py	/^    res = Solution().numTrees(n)$/;"	v	class:Solution
+res	.\Stock-121.py	/^    res = Solution().maxProfit(prices)$/;"	v	class:Solution
+res	.\Stock-122.py	/^    res = Solution().maxProfit(prices)$/;"	v	class:Solution
+res	.\Stock-123.py	/^    res = Solution().maxProfit(prices)$/;"	v	class:Solution
+res	.\Stock-188.py	/^    res = Solution().maxProfit(k, prices)$/;"	v	class:Solution1
+res	.\Stock-309.py	/^    res = Solution().maxProfit(prices)$/;"	v	class:Solution
+res	.\Stock-714.py	/^    res = Solution().maxProfit(prices, fee)$/;"	v	class:Solution
+res	.\addTwoNums.py	/^    res = Solution().addTwoNumbers(node1, another1)$/;"	v	class:Solution
+res	.\dp_recursive_2.py	/^    res = db_subset(arr, 11)$/;"	v
+res	.\test.py	/^    res = max_substrarg(word_a, word_b)$/;"	v
+res	.\±à¼­¾àÀë-72.py	/^    res = Solution().minDistance(word1, word2)$/;"	v	class:Solution
+res	.\±à¼­¾àÀë-Ò»´Î±à¼­.py	/^    res = Solution().oneEditAway(s, t)$/;"	v	class:Solution
+res	.\±à¼­¾àÀë¼ä¸ô1-161.py	/^    res = Solution().isOneEditDistance(s, t)$/;"	v	class:Solution1
+res	.\×î³¤µÝÔö×ÓÐòÁÐ.py	/^    res = longsetIncSubString(arr)$/;"	v
+res1	.\±à¼­¾àÀë¼ä¸ô1-161.py	/^    res1 = Solution1().isOneEditDistance(s, t)$/;"	v	class:Solution1
+res2	.\____²âÊÔÓÃÀý.py	/^res2 = main(s2)$/;"	v
+reverse	.\7-intReverse.py	/^    def reverse(self, x: int) -> int:$/;"	m	class:Solution
+s	.\0_Daily\409-×î³¤»ØÎÄ´®.py	/^    s = "bb"$/;"	v	class:Solution
+s	.\20-ÓÐÐ§µÄÀ¨ºÅ.py	/^    s = "([)]"$/;"	v	class:Solution1
+s	.\3-ÎÞÖØ¸´×Ó´®µÄ×î³¤×Ó´®.py	/^    s = 'dvdfabmnqweczxyaiuop'$/;"	v	class:Solution3
+s	.\394-×Ö·û´®±àÂë.py	/^    s = "2[abc]3[cd]ef"$/;"	v	class:Solution
+s	.\5-»ØÎÄ×Ó´®.py	/^    s = 'abb'$/;"	v	class:Solution4
+s	.\5-»ØÎÄ×Ó´®.py	/^    s = 'abc435cba'$/;"	v	class:Solution4
+s	.\516-×î³¤»ØÎÄ×ÓÐòÁÐ.py	/^    s = "bbbab"$/;"	v	class:Solution
+s	.\±à¼­¾àÀë-Ò»´Î±à¼­.py	/^    s = "dab"$/;"	v	class:Solution
+s	.\±à¼­¾àÀë¼ä¸ô1-161.py	/^    s = "dab"$/;"	v	class:Solution1
+s2	.\____²âÊÔÓÃÀý.py	/^s2 = "TJm5Jpgv9"$/;"	v
+sell_prices	.\Ë®¹ûÌ¯Ð¡Âô²¿-Ì°ÐÄËã·¨.py	/^        sell_prices = [5, 3, 8, 7, 6, 15, 25, 9, 10, 39, 35, 40, 102, 89]$/;"	v
+shortestBridge	.\934-ShortestBridge.py	/^    def shortestBridge(self, A):$/;"	m	class:Solution
+squres	.\221-×î´óÕý·½ÐÎ.py	/^    squres = Solution().maximalSquare(matrix)$/;"	v	class:Solution
+stones	.\403-ÇàÍÜ¹ýºÓ.py	/^    stones = [0, 1, 3, 5, 6, 8, 12, 17]$/;"	v	class:Solution
+t	.\±à¼­¾àÀë-Ò»´Î±à¼­.py	/^    t = "acb"$/;"	v	class:Solution
+t	.\±à¼­¾àÀë¼ä¸ô1-161.py	/^    t = "acb"$/;"	v	class:Solution1
+target	.\twoSum.py	/^    target = 9$/;"	v	class:Solution3
+twoSum	.\twoSum.py	/^    def twoSum(self, nums, target):$/;"	m	class:Solution1
+twoSum	.\twoSum.py	/^    def twoSum(self, nums, target):$/;"	m	class:Solution2
+twoSum	.\twoSum.py	/^    def twoSum(self, nums, target):$/;"	m	class:Solution3
+unvisited	.\Ë®¹ûÌ¯Ð¡Âô²¿-Ì°ÐÄËã·¨.py	/^        unvisited = []$/;"	v
+updated_length	.\Ë®¹ûÌ¯Ð¡Âô²¿-Ì°ÐÄËã·¨.py	/^                    updated_length = len(unvisited)$/;"	v
+updated_length	.\Ë®¹ûÌ¯Ð¡Âô²¿-Ì°ÐÄËã·¨.py	/^        updated_length = 0$/;"	v
+word1	.\583-Á½¸ö×Ö·û´®µÄÉ¾³ý²Ù×÷.py	/^    word1 = "seaiuyo"$/;"	v	class:Solution
+word1	.\±à¼­¾àÀë-72.py	/^    word1 = "horse"$/;"	v	class:Solution
+word2	.\583-Á½¸ö×Ö·û´®µÄÉ¾³ý²Ù×÷.py	/^    word2 = "eae"$/;"	v	class:Solution
+word2	.\±à¼­¾àÀë-72.py	/^    word2 = "rotes"$/;"	v	class:Solution
+word_a	.\test.py	/^    word_a = "atachee"$/;"	v
+word_b	.\test.py	/^    word_b = "cats"$/;"	v
+words	.\0_Daily\1160-Æ´Ð´µ¥´Ê.py	/^    words = ["dyiclysmffuhibgfvapygkorkqllqlvokosagyelotobicwcmebnpznjbirzrzsrtzjxhsfpiwyfhzyonmuabtlwin","ndqeyhhcquplmznwslewjzuyfgklssvkqxmqjpwhrshycmvrb","ulrrbpspyudncdlbkxkrqpivfftrggemkpyjl","boygirdlggnh","xmqohbyqwagkjzpyawsydmdaattthmuvjbzwpyopyafphx","nulvimegcsiwvhwuiyednoxpugfeimnnyeoczuzxgxbqjvegcxeqnjbwnbvowastqhojepisusvsidhqmszbrnynkyop","hiefuovybkpgzygprmndrkyspoiyapdwkxebgsmodhzpx","juldqdzeskpffaoqcyyxiqqowsalqumddcufhouhrskozhlmobiwzxnhdkidr","lnnvsdcrvzfmrvurucrzlfyigcycffpiuoo","oxgaskztzroxuntiwlfyufddl","tfspedteabxatkaypitjfkhkkigdwdkctqbczcugripkgcyfezpuklfqfcsccboarbfbjfrkxp","qnagrpfzlyrouolqquytwnwnsqnmuzphne","eeilfdaookieawrrbvtnqfzcricvhpiv","sisvsjzyrbdsjcwwygdnxcjhzhsxhpceqz","yhouqhjevqxtecomahbwoptzlkyvjexhzcbccusbjjdgcfzlkoqwiwue","hwxxighzvceaplsycajkhynkhzkwkouszwaiuzqcleyflqrxgjsvlegvupzqijbornbfwpefhxekgpuvgiyeudhncv","cpwcjwgbcquirnsazumgjjcltitmeyfaudbnbqhflvecjsupjmgwfbjo","teyygdmmyadppuopvqdodaczob","qaeowuwqsqffvibrtxnjnzvzuuonrkwpysyxvkijemmpdmtnqxwekbpfzs","qqxpxpmemkldghbmbyxpkwgkaykaerhmwwjonrhcsubchs"]$/;"	v	class:Solution
+x	.\53-×î´óÁ¬Ðø×ÓÐòºÍ.py	/^    x = [1, 2, 3]$/;"	v	class:Solution1
+x	.\7-intReverse.py	/^    x = -123$/;"	v	class:Solution
+y	.\53-×î´óÁ¬Ðø×ÓÐòºÍ.py	/^    y = [4, 5, 6]$/;"	v	class:Solution1
