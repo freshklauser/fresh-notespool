@@ -1,0 +1,292 @@
+Counter	0_Daily\1160-ƴд����.py	/^from collections import Counter$/;"	i
+Solution	0_Daily\1160-ƴд����.py	/^class Solution:$/;"	c
+chars	0_Daily\1160-ƴд����.py	/^    chars = "usdruypficfbpfbivlrhutcgvyjenlxzeovdyjtgvvfdjzcmikjraspdfp"$/;"	v	class:Solution
+compareSpell	0_Daily\1160-ƴд����.py	/^    def compareSpell(self, hash_word, hash_chars):$/;"	m	class:Solution
+countCharacters	0_Daily\1160-ƴд����.py	/^    def countCharacters(self, words, chars):$/;"	m	class:Solution
+res	0_Daily\1160-ƴд����.py	/^    res = Solution().countCharacters(words, chars)$/;"	v	class:Solution
+words	0_Daily\1160-ƴд����.py	/^    words = ["dyiclysmffuhibgfvapygkorkqllqlvokosagyelotobicwcmebnpznjbirzrzsrtzjxhsfpiwyfhzyonmuabtlwin","ndqeyhhcquplmznwslewjzuyfgklssvkqxmqjpwhrshycmvrb","ulrrbpspyudncdlbkxkrqpivfftrggemkpyjl","boygirdlggnh","xmqohbyqwagkjzpyawsydmdaattthmuvjbzwpyopyafphx","nulvimegcsiwvhwuiyednoxpugfeimnnyeoczuzxgxbqjvegcxeqnjbwnbvowastqhojepisusvsidhqmszbrnynkyop","hiefuovybkpgzygprmndrkyspoiyapdwkxebgsmodhzpx","juldqdzeskpffaoqcyyxiqqowsalqumddcufhouhrskozhlmobiwzxnhdkidr","lnnvsdcrvzfmrvurucrzlfyigcycffpiuoo","oxgaskztzroxuntiwlfyufddl","tfspedteabxatkaypitjfkhkkigdwdkctqbczcugripkgcyfezpuklfqfcsccboarbfbjfrkxp","qnagrpfzlyrouolqquytwnwnsqnmuzphne","eeilfdaookieawrrbvtnqfzcricvhpiv","sisvsjzyrbdsjcwwygdnxcjhzhsxhpceqz","yhouqhjevqxtecomahbwoptzlkyvjexhzcbccusbjjdgcfzlkoqwiwue","hwxxighzvceaplsycajkhynkhzkwkouszwaiuzqcleyflqrxgjsvlegvupzqijbornbfwpefhxekgpuvgiyeudhncv","cpwcjwgbcquirnsazumgjjcltitmeyfaudbnbqhflvecjsupjmgwfbjo","teyygdmmyadppuopvqdodaczob","qaeowuwqsqffvibrtxnjnzvzuuonrkwpysyxvkijemmpdmtnqxwekbpfzs","qqxpxpmemkldghbmbyxpkwgkaykaerhmwwjonrhcsubchs"]$/;"	v	class:Solution
+Solution	0_Daily\365-ˮ������.py	/^class Solution:$/;"	c
+Solution1	0_Daily\365-ˮ������.py	/^class Solution1:$/;"	c
+Solution2	0_Daily\365-ˮ������.py	/^class Solution2:$/;"	c
+canMeasureWater	0_Daily\365-ˮ������.py	/^    def canMeasureWater(self, x, y, z):$/;"	m	class:Solution
+canMeasureWater	0_Daily\365-ˮ������.py	/^    def canMeasureWater(self, x, y, z):$/;"	m	class:Solution1
+canMeasureWater	0_Daily\365-ˮ������.py	/^    def canMeasureWater(self, x, y, z):$/;"	m	class:Solution2
+math	0_Daily\365-ˮ������.py	/^        import math$/;"	i
+res	0_Daily\365-ˮ������.py	/^    res = Solution2().canMeasureWater(x, y, z)$/;"	v	class:Solution2
+Counter	0_Daily\409-����Ĵ�.py	/^from collections import Counter$/;"	i
+Solution	0_Daily\409-����Ĵ�.py	/^class Solution:$/;"	c
+longestPalindrome	0_Daily\409-����Ĵ�.py	/^    def longestPalindrome(self, s):$/;"	m	class:Solution
+res	0_Daily\409-����Ĵ�.py	/^    res = Solution().longestPalindrome(s)$/;"	v	class:Solution
+s	0_Daily\409-����Ĵ�.py	/^    s = "bb"$/;"	v	class:Solution
+Solution	0_Daily\836-�����ص�.py	/^class Solution:$/;"	c
+isRectangleOverlap	0_Daily\836-�����ص�.py	/^    def isRectangleOverlap(self, rec1, rec2):$/;"	m	class:Solution
+rec1	0_Daily\836-�����ص�.py	/^    rec1 = [0,0,1,1]$/;"	v	class:Solution
+rec2	0_Daily\836-�����ص�.py	/^    rec2 = [1,0,2,1]$/;"	v	class:Solution
+res	0_Daily\836-�����ص�.py	/^    res = Solution().isRectangleOverlap(rec1, rec2)$/;"	v	class:Solution
+ListNode	0_Daily\876-�������м�ڵ�.py	/^class ListNode:$/;"	c
+Solution	0_Daily\876-�������м�ڵ�.py	/^class Solution:$/;"	c
+__init__	0_Daily\876-�������м�ڵ�.py	/^    def __init__(self, x):$/;"	m	class:ListNode
+middleNone	0_Daily\876-�������м�ڵ�.py	/^    def middleNone(self, head):$/;"	m	class:Solution
+middleNone_fast_slow_cursor	0_Daily\876-�������м�ڵ�.py	/^    def middleNone_fast_slow_cursor(self, head):$/;"	m	class:Solution
+A	0_Daily\945-����Ψһ����С����.py	/^    A = [3, 2, 1, 2, 1, 7]$/;"	v	class:Solution
+Solution	0_Daily\945-����Ψһ����С����.py	/^class Solution:$/;"	c
+Solution1	0_Daily\945-����Ψһ����С����.py	/^class Solution1:$/;"	c
+minIncrementForUnique	0_Daily\945-����Ψһ����С����.py	/^    def minIncrementForUnique(self, A):$/;"	m	class:Solution
+minIncrementForUnique	0_Daily\945-����Ψһ����С����.py	/^    def minIncrementForUnique(self, A):$/;"	m	class:Solution1
+res	0_Daily\945-����Ψһ����С����.py	/^    res = Solution().minIncrementForUnique(A)$/;"	v	class:Solution
+A	1027-��Ȳ�����.py	/^    A = [25, 78, 45, 27, 75, 10, 90, 77, 60, 8, 43, 5, 55, 47, 57, 17, 8, 63, 18, 69, 63, 87, 35, 19, 78, 42, 25, 27, 24, 23, 88, 56, 14, 42, 16, 64, 8, 62, 48, 76, 66, 75, 59, 43, 16, 11, 15, 41, 20, 34,$/;"	v	class:Solution2
+Solution	1027-��Ȳ�����.py	/^class Solution:$/;"	c
+Solution2	1027-��Ȳ�����.py	/^class Solution2:$/;"	c
+a	1027-��Ȳ�����.py	/^    a = [1,2,3,1,3,5,7,6,8,6]$/;"	v	class:Solution2
+defaultdict	1027-��Ȳ�����.py	/^    from collections import defaultdict$/;"	i
+defaultdict	1027-��Ȳ�����.py	/^from collections import defaultdict$/;"	i
+longestArithSeqLength	1027-��Ȳ�����.py	/^    def longestArithSeqLength(self, A):$/;"	m	class:Solution
+longestArithSeqLength	1027-��Ȳ�����.py	/^    def longestArithSeqLength(self, A):$/;"	m	class:Solution2
+output	1027-��Ȳ�����.py	/^    output = Solution().longestArithSeqLength(A)$/;"	v	class:Solution2
+Solution	128-���������.py	/^class Solution:$/;"	c
+longestConsecutive	128-���������.py	/^    def longestConsecutive(self, nums):$/;"	m	class:Solution
+nums	128-���������.py	/^    nums = [1, 2, 3, 4, 100, 200, 200, 201, 199, 198, 202, 200]$/;"	v	class:Solution
+res	128-���������.py	/^    res = Solution().longestConsecutive(nums)$/;"	v	class:Solution
+BubbleSort	1_Sort\BaseAlgorithm\BubbleSort.py	/^def BubbleSort(arr):$/;"	f
+arr	1_Sort\BaseAlgorithm\BubbleSort.py	/^    arr = [12, 433, 45, 2, 67, 4]$/;"	v
+res	1_Sort\BaseAlgorithm\BubbleSort.py	/^    res = BubbleSort(arr)$/;"	v
+InsertSort	1_Sort\BaseAlgorithm\InsertSort.py	/^def InsertSort(arr):$/;"	f
+arr	1_Sort\BaseAlgorithm\InsertSort.py	/^    arr = [12, 433, 45, 2, 67, 4]$/;"	v
+res	1_Sort\BaseAlgorithm\InsertSort.py	/^    res = InsertSort(arr)$/;"	v
+Merge	1_Sort\BaseAlgorithm\MergeSort.py	/^    def Merge(self, arr, low, mid, high):$/;"	m	class:Solution2
+Merge	1_Sort\BaseAlgorithm\MergeSort.py	/^    def Merge(self, left_arr, right_arr):$/;"	m	class:Solution
+MergeSort	1_Sort\BaseAlgorithm\MergeSort.py	/^    def MergeSort(self, arr):$/;"	m	class:Solution
+MergeSort	1_Sort\BaseAlgorithm\MergeSort.py	/^    def MergeSort(self, arr):$/;"	m	class:Solution2
+Solution	1_Sort\BaseAlgorithm\MergeSort.py	/^class Solution:$/;"	c
+Solution2	1_Sort\BaseAlgorithm\MergeSort.py	/^class Solution2:$/;"	c
+arr	1_Sort\BaseAlgorithm\MergeSort.py	/^    arr = [12, 433, 45, 2, 671, 4, 24, 67, 34, 10, 5]$/;"	v	class:Solution2
+res	1_Sort\BaseAlgorithm\MergeSort.py	/^    res = Solution2().MergeSort(arr)$/;"	v	class:Solution2
+QuickSort	1_Sort\BaseAlgorithm\QuickSort.py	/^def QuickSort(arr):$/;"	f
+arr	1_Sort\BaseAlgorithm\QuickSort.py	/^    arr = [12,33,21,132,45,2,67,4]$/;"	v
+res	1_Sort\BaseAlgorithm\QuickSort.py	/^    res = QuickSort(arr)$/;"	v
+SelectSort	1_Sort\BaseAlgorithm\SelectSort.py	/^def SelectSort(arr):$/;"	f
+arr	1_Sort\BaseAlgorithm\SelectSort.py	/^    arr = [12,433,45,2,67,4]$/;"	v
+res	1_Sort\BaseAlgorithm\SelectSort.py	/^    res = SelectSort(arr)$/;"	v
+Solution	1_Sort\Case\56-�ϲ�����.py	/^class Solution:$/;"	c
+intervals	1_Sort\Case\56-�ϲ�����.py	/^    intervals = [[1, 4], [4, 5]]$/;"	v	class:Solution
+merge	1_Sort\Case\56-�ϲ�����.py	/^    def merge(self, intervals):$/;"	m	class:Solution
+res	1_Sort\Case\56-�ϲ�����.py	/^    res = Solution().merge(intervals)$/;"	v	class:Solution
+Solution	20-��Ч������.py	/^class Solution:$/;"	c
+Solution1	20-��Ч������.py	/^class Solution1:$/;"	c
+isValid	20-��Ч������.py	/^    def isValid(self, s):$/;"	m	class:Solution
+isValid	20-��Ч������.py	/^    def isValid(self, s):$/;"	m	class:Solution1
+res	20-��Ч������.py	/^    res = Solution().isValid(s)$/;"	v	class:Solution1
+s	20-��Ч������.py	/^    s = "([)]"$/;"	v	class:Solution1
+A	200--��������.py	/^    A = [["1", "1", "0", "1", "0"], ["1", "1", "0", "1", "0"], ["1", "1", "0", "0", "1"], ["0", "0", "1", "0", "0"]]$/;"	v	class:Solution1
+Solution	200--��������.py	/^class Solution:$/;"	c
+Solution1	200--��������.py	/^class Solution1:$/;"	c
+dfs	200--��������.py	/^        def dfs(i, j):$/;"	f	function:Solution.numIslands
+numIslands	200--��������.py	/^    def numIslands(self, grid):$/;"	m	class:Solution
+numIslands	200--��������.py	/^    def numIslands(self, grid):$/;"	m	class:Solution1
+output	200--��������.py	/^    output = Solution1().numIslands(A)$/;"	v	class:Solution1
+Solution	221-���������.py	/^class Solution:$/;"	c
+matrix	221-���������.py	/^    matrix = [["1", "0", "1", "0", "0"], ["1", "0", "1", "1", "1"], ["1", "1", "1", "1", "1"], ["1", "0", "0", "1", "0"]]$/;"	v	class:Solution
+maximalSquare	221-���������.py	/^    def maximalSquare(self, matrix):$/;"	m	class:Solution
+squres	221-���������.py	/^    squres = Solution().maximalSquare(matrix)$/;"	v	class:Solution
+Solution	223-�������.py	/^class Solution:$/;"	c
+computeArea	223-�������.py	/^    def computeArea(self, A, B, C, D, E, F, G, H) -> int:$/;"	m	class:Solution
+res	223-�������.py	/^    res = Solution().computeArea(A, B, C, D, E, F, G, H)$/;"	v	class:Solution
+arr	2_DP\BaseAlgorithm\dp_recursive_1.py	/^    arr = [1, 2, 4, 1, 7, 8, 3]$/;"	v
+db_opt	2_DP\BaseAlgorithm\dp_recursive_1.py	/^def db_opt(arr):$/;"	f
+rec_opt	2_DP\BaseAlgorithm\dp_recursive_1.py	/^def rec_opt(arr, i):$/;"	f
+res	2_DP\BaseAlgorithm\dp_recursive_1.py	/^    res = rec_opt(arr)$/;"	v
+Solution1	3-���ظ��Ӵ�����Ӵ�.py	/^class Solution1:$/;"	c
+Solution2	3-���ظ��Ӵ�����Ӵ�.py	/^class Solution2:$/;"	c
+Solution3	3-���ظ��Ӵ�����Ӵ�.py	/^class Solution3:        # "abcfabcebb"$/;"	c
+lengthOfLongestSubstring	3-���ظ��Ӵ�����Ӵ�.py	/^    def lengthOfLongestSubstring(self, s):$/;"	m	class:Solution1
+lengthOfLongestSubstring	3-���ظ��Ӵ�����Ӵ�.py	/^    def lengthOfLongestSubstring(self, s):$/;"	m	class:Solution2
+lengthOfLongestSubstring	3-���ظ��Ӵ�����Ӵ�.py	/^    def lengthOfLongestSubstring(self, s):$/;"	m	class:Solution3
+output	3-���ظ��Ӵ�����Ӵ�.py	/^    output = Solution2().lengthOfLongestSubstring(s)$/;"	v	class:Solution3
+s	3-���ظ��Ӵ�����Ӵ�.py	/^    s = 'dvdfabmnqweczxyaiuop'$/;"	v	class:Solution3
+Solution	300-�����������.py	/^class Solution:$/;"	c
+lengthOfLIS	300-�����������.py	/^    def lengthOfLIS(self, nums):$/;"	m	class:Solution
+nums	300-�����������.py	/^    nums = [10, 9, 2, 5, 3, 7, 101, 18]$/;"	v	class:Solution
+res	300-�����������.py	/^    res = Solution().lengthOfLIS(nums)$/;"	v	class:Solution
+Solution	394-�ַ�������.py	/^class Solution:$/;"	c
+decodeString	394-�ַ�������.py	/^    def decodeString(self, s: str) -> str:$/;"	m	class:Solution
+res	394-�ַ�������.py	/^    res = Solution().decodeString(s)$/;"	v	class:Solution
+s	394-�ַ�������.py	/^    s = "2[abc]3[cd]ef"$/;"	v	class:Solution
+Solution	403-���ܹ���.py	/^class Solution:$/;"	c
+canCross	403-���ܹ���.py	/^    def canCross(self, stones):$/;"	m	class:Solution
+defaultdict	403-���ܹ���.py	/^    from collections import defaultdict$/;"	i
+dp	403-���ܹ���.py	/^    dp = defaultdict(list)$/;"	v	class:Solution
+res	403-���ܹ���.py	/^    res = Solution().canCross(stones)$/;"	v	class:Solution
+stones	403-���ܹ���.py	/^    stones = [0, 1, 3, 5, 6, 8, 12, 17]$/;"	v	class:Solution
+Solution	415-�ַ������.py	/^class Solution:$/;"	c
+addStrings	415-�ַ������.py	/^    def addStrings(self, num1: str, num2: str) -> str:$/;"	m	class:Solution
+num1	415-�ַ������.py	/^    num1 = "99"$/;"	v	class:Solution
+num2	415-�ַ������.py	/^    num2 = "103"$/;"	v	class:Solution
+res	415-�ַ������.py	/^    res = Solution().addStrings(num1, num2)$/;"	v	class:Solution
+Solution	5-�����Ӵ�.py	/^class Solution(object):$/;"	c
+Solution1	5-�����Ӵ�.py	/^class Solution1:$/;"	c
+Solution3	5-�����Ӵ�.py	/^class Solution3:$/;"	c
+Solution4	5-�����Ӵ�.py	/^class Solution4:            # 超时，增加分隔符后极大增加了数据量$/;"	c
+longestPalindrome	5-�����Ӵ�.py	/^    def longestPalindrome(self, s):$/;"	m	class:Solution
+longestPalindrome	5-�����Ӵ�.py	/^    def longestPalindrome(self, s):$/;"	m	class:Solution3
+longestPalindrome	5-�����Ӵ�.py	/^    def longestPalindrome(self, s: str) -> str:$/;"	m	class:Solution1
+longestPalindrome	5-�����Ӵ�.py	/^    def longestPalindrome(self, st):$/;"	m	class:Solution4
+output	5-�����Ӵ�.py	/^    output = Solution3().longestPalindrome(s)$/;"	v	class:Solution4
+s	5-�����Ӵ�.py	/^    s = 'abb'$/;"	v	class:Solution4
+s	5-�����Ӵ�.py	/^    s = 'abc435cba'$/;"	v	class:Solution4
+Solution	516-�����������.py	/^class Solution:$/;"	c
+longestPalindromeSubseq	516-�����������.py	/^    def longestPalindromeSubseq(self, s: str) -> int:$/;"	m	class:Solution
+res	516-�����������.py	/^    res = Solution().longestPalindromeSubseq(s)$/;"	v	class:Solution
+s	516-�����������.py	/^    s = "bbbab"$/;"	v	class:Solution
+Solution	53-������������.py	/^class Solution:$/;"	c
+Solution1	53-������������.py	/^class Solution1:$/;"	c
+a	53-������������.py	/^    a = float("-inf")       # 负无穷$/;"	v	class:Solution1
+b	53-������������.py	/^    b = float("inf")        # 正无穷$/;"	v	class:Solution1
+c	53-������������.py	/^    c = product(x, y)$/;"	v	class:Solution1
+math	53-������������.py	/^    import math$/;"	i
+maxSubArray	53-������������.py	/^    def maxSubArray(self, nums):$/;"	m	class:Solution
+maxSubArray	53-������������.py	/^    def maxSubArray(self, nums):$/;"	m	class:Solution1
+nums	53-������������.py	/^    nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4, 100]$/;"	v	class:Solution1
+product	53-������������.py	/^    from itertools import product$/;"	i
+res	53-������������.py	/^    res = Solution().maxSubArray(nums)$/;"	v	class:Solution1
+x	53-������������.py	/^    x = [1, 2, 3]$/;"	v	class:Solution1
+y	53-������������.py	/^    y = [4, 5, 6]$/;"	v	class:Solution1
+Solution	583-�����ַ�����ɾ������.py	/^class Solution:$/;"	c
+minDistance	583-�����ַ�����ɾ������.py	/^    def minDistance(self, word1, word2):$/;"	m	class:Solution
+np	583-�����ַ�����ɾ������.py	/^import numpy as np$/;"	i
+res	583-�����ַ�����ɾ������.py	/^    res = Solution().minDistance(word1, word2)$/;"	v	class:Solution
+word1	583-�����ַ�����ɾ������.py	/^    word1 = "seaiuyo"$/;"	v	class:Solution
+word2	583-�����ַ�����ɾ������.py	/^    word2 = "eae"$/;"	v	class:Solution
+Solution	64-��С·����.py	/^class Solution:$/;"	c
+grid	64-��С·����.py	/^    grid = [[1,3,1],[1,5,1],[4,2,1]]$/;"	v	class:Solution
+minPathSum	64-��С·����.py	/^    def minPathSum(self, grid):$/;"	m	class:Solution
+res	64-��С·����.py	/^    res = Solution().minPathSum(grid)$/;"	v	class:Solution
+Solution	673-����������и���.py	/^class Solution:$/;"	c
+findNumberOfLIS	673-����������и���.py	/^    def findNumberOfLIS(self, nums):$/;"	m	class:Solution
+nums	673-����������и���.py	/^    nums = [1, 3, 5, 4, 7, 2, 3, 6, 8]$/;"	v	class:Solution
+res	673-����������и���.py	/^    res = Solution().findNumberOfLIS(nums)$/;"	v	class:Solution
+Solution	7-intReverse.py	/^class Solution:$/;"	c
+res	7-intReverse.py	/^    res = Solution().reverse(x)$/;"	v	class:Solution
+reverse	7-intReverse.py	/^    def reverse(self, x: int) -> int:$/;"	m	class:Solution
+x	7-intReverse.py	/^    x = -123$/;"	v	class:Solution
+Solution	881-����ͧ.py	/^class Solution:$/;"	c
+limit	881-����ͧ.py	/^    limit = 5$/;"	v	class:Solution
+numRescueBoats	881-����ͧ.py	/^    def numRescueBoats(self, people, limit):$/;"	m	class:Solution
+people	881-����ͧ.py	/^    people = [3, 5, 3, 4]$/;"	v	class:Solution
+res	881-����ͧ.py	/^    res = Solution().numRescueBoats(people, limit)$/;"	v	class:Solution
+A	934-ShortestBridge.py	/^    A = [[0,0,0,0,0,0],[0,1,0,0,0,0],[1,1,0,0,0,0],[1,1,0,0,0,0],[0,0,0,0,0,0],[0,0,1,1,0,0]]$/;"	v	class:Solution
+Solution	934-ShortestBridge.py	/^class Solution:$/;"	c
+dfs	934-ShortestBridge.py	/^        def dfs(i, j):$/;"	f	function:Solution.shortestBridge
+output	934-ShortestBridge.py	/^    output = Solution().shortestBridge(A)$/;"	v	class:Solution
+shortestBridge	934-ShortestBridge.py	/^    def shortestBridge(self, A):$/;"	m	class:Solution
+Solution	96-��ͬ������-1.py	/^class Solution:$/;"	c
+n	96-��ͬ������-1.py	/^    n = 4$/;"	v	class:Solution
+numTrees	96-��ͬ������-1.py	/^    def numTrees(self, n):$/;"	m	class:Solution
+res	96-��ͬ������-1.py	/^    res = Solution().numTrees(n)$/;"	v	class:Solution
+Solution	Stock-121.py	/^class Solution:$/;"	c
+maxProfit	Stock-121.py	/^    def maxProfit(self, prices):$/;"	m	class:Solution
+prices	Stock-121.py	/^    prices = [7, 1, 5, 3, 6, 4]$/;"	v	class:Solution
+res	Stock-121.py	/^    res = Solution().maxProfit(prices)$/;"	v	class:Solution
+Solution	Stock-122.py	/^class Solution:$/;"	c
+maxProfit	Stock-122.py	/^    def maxProfit(self, prices):$/;"	m	class:Solution
+prices	Stock-122.py	/^    prices = [7, 6, 4, 3, 1]$/;"	v	class:Solution
+res	Stock-122.py	/^    res = Solution().maxProfit(prices)$/;"	v	class:Solution
+Solution	Stock-123.py	/^class Solution:$/;"	c
+maxProfit	Stock-123.py	/^    def maxProfit(self, prices):$/;"	m	class:Solution
+prices	Stock-123.py	/^    prices = [3, 2, 6, 5, 0, 3]$/;"	v	class:Solution
+res	Stock-123.py	/^    res = Solution().maxProfit(prices)$/;"	v	class:Solution
+Solution	Stock-188.py	/^class Solution:$/;"	c
+Solution1	Stock-188.py	/^class Solution1:$/;"	c
+k	Stock-188.py	/^    k = 2$/;"	v	class:Solution1
+maxProfit	Stock-188.py	/^    def maxProfit(self, k, prices):$/;"	m	class:Solution
+maxProfit	Stock-188.py	/^    def maxProfit(self, k, prices):$/;"	m	class:Solution1
+maxProfit_k_inf	Stock-188.py	/^    def maxProfit_k_inf(self, prices):$/;"	m	class:Solution
+prices	Stock-188.py	/^    prices = [3, 2, 6, 5, 0, 3]$/;"	v	class:Solution1
+res	Stock-188.py	/^    res = Solution().maxProfit(k, prices)$/;"	v	class:Solution1
+Solution	Stock-309.py	/^class Solution:$/;"	c
+maxProfit	Stock-309.py	/^    def maxProfit(self, prices):$/;"	m	class:Solution
+prices	Stock-309.py	/^    prices = [1, 2, 3, 0, 2]$/;"	v	class:Solution
+res	Stock-309.py	/^    res = Solution().maxProfit(prices)$/;"	v	class:Solution
+Solution	Stock-714.py	/^class Solution:$/;"	c
+fee	Stock-714.py	/^    fee = 2$/;"	v	class:Solution
+maxProfit	Stock-714.py	/^    def maxProfit(self, prices, fee):$/;"	m	class:Solution
+prices	Stock-714.py	/^    prices = [1, 3, 2, 8, 4, 9]$/;"	v	class:Solution
+res	Stock-714.py	/^    res = Solution().maxProfit(prices, fee)$/;"	v	class:Solution
+main	____��������.py	/^def main(s):$/;"	f
+res2	____��������.py	/^res2 = main(s2)$/;"	v
+s2	____��������.py	/^s2 = "TJm5Jpgv9"$/;"	v
+ListNode	addTwoNums.py	/^class ListNode:$/;"	c
+Solution	addTwoNums.py	/^class Solution:$/;"	c
+__init__	addTwoNums.py	/^    def __init__(self, x):$/;"	m	class:ListNode
+addTwoNumbers	addTwoNums.py	/^    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:$/;"	m	class:Solution
+another1	addTwoNums.py	/^    another1 = ListNode(5)$/;"	v	class:Solution
+another2	addTwoNums.py	/^    another2 = ListNode(6)$/;"	v	class:Solution
+another3	addTwoNums.py	/^    another3 = ListNode(8)$/;"	v	class:Solution
+node1	addTwoNums.py	/^    node1 = ListNode(2)$/;"	v	class:Solution
+node2	addTwoNums.py	/^    node2 = ListNode(4)$/;"	v	class:Solution
+node3	addTwoNums.py	/^    node3 = ListNode(3)$/;"	v	class:Solution
+node4	addTwoNums.py	/^    node4 = ListNode(9)$/;"	v	class:Solution
+output	addTwoNums.py	/^    output = []$/;"	v	class:Solution
+res	addTwoNums.py	/^    res = Solution().addTwoNumbers(node1, another1)$/;"	v	class:Solution
+arr	dp_recursive_2.py	/^    arr = [1, 2, 4, 1, 7, 8, 3]$/;"	v
+db_subset	dp_recursive_2.py	/^def db_subset(arr, s):$/;"	f
+np	dp_recursive_2.py	/^import numpy as np$/;"	i
+rec_subset	dp_recursive_2.py	/^def rec_subset(arr, i, s):$/;"	f
+res	dp_recursive_2.py	/^    res = db_subset(arr, 11)$/;"	v
+n	dp_subString\template.py	/^n = len(arr)$/;"	v
+np	dp_subString\template.py	/^np = [0] * n    # 有时需要初始化为1$/;"	v
+max_substrarg	test.py	/^def max_substrarg(word_a, word_b):$/;"	f
+np	test.py	/^import numpy as np$/;"	i
+password	test.py	/^def password(s):$/;"	f
+res	test.py	/^    res = max_substrarg(word_a, word_b)$/;"	v
+word_a	test.py	/^    word_a = "atachee"$/;"	v
+word_b	test.py	/^    word_b = "cats"$/;"	v
+Solution1	twoSum.py	/^class Solution1:$/;"	c
+Solution2	twoSum.py	/^class Solution2:$/;"	c
+Solution3	twoSum.py	/^class Solution3:$/;"	c
+nums	twoSum.py	/^    nums = [2, 7, 11, 15]$/;"	v	class:Solution3
+output	twoSum.py	/^    output = Solution2().twoSum(nums, target)$/;"	v	class:Solution3
+target	twoSum.py	/^    target = 9$/;"	v	class:Solution3
+twoSum	twoSum.py	/^    def twoSum(self, nums, target):$/;"	m	class:Solution1
+twoSum	twoSum.py	/^    def twoSum(self, nums, target):$/;"	m	class:Solution2
+twoSum	twoSum.py	/^    def twoSum(self, nums, target):$/;"	m	class:Solution3
+cost_prices	ˮ��̯С����-̰���㷨.py	/^        cost_prices = [4, 2, 6, 4, 5, 17, 20, 7, 8, 33, 28, 35, 100, 80]$/;"	v
+cur_length	ˮ��̯С����-̰���㷨.py	/^            cur_length = len(unvisited)$/;"	v
+cur_money	ˮ��̯С����-̰���㷨.py	/^                        cur_money = cur_money + head[2]$/;"	v
+cur_money	ˮ��̯С����-̰���㷨.py	/^        cur_money = money$/;"	v
+head	ˮ��̯С����-̰���㷨.py	/^                head = unvisited[0]$/;"	v
+length	ˮ��̯С����-̰���㷨.py	/^        length = len(cost_prices)$/;"	v
+max_profit	ˮ��̯С����-̰���㷨.py	/^        max_profit = 0$/;"	v
+money	ˮ��̯С����-̰���㷨.py	/^        money = 15$/;"	v
+profits	ˮ��̯С����-̰���㷨.py	/^        profits = sorted(profits.items(), key=lambda x: x[1], reverse=True)$/;"	v
+profits	ˮ��̯С����-̰���㷨.py	/^        profits = {}$/;"	v
+sell_prices	ˮ��̯С����-̰���㷨.py	/^        sell_prices = [5, 3, 8, 7, 6, 15, 25, 9, 10, 39, 35, 40, 102, 89]$/;"	v
+unvisited	ˮ��̯С����-̰���㷨.py	/^        unvisited = []$/;"	v
+updated_length	ˮ��̯С����-̰���㷨.py	/^                    updated_length = len(unvisited)$/;"	v
+updated_length	ˮ��̯С����-̰���㷨.py	/^        updated_length = 0$/;"	v
+Solution	�༭����-72.py	/^class Solution:$/;"	c
+minDistance	�༭����-72.py	/^    def minDistance(self, word1, word2):$/;"	m	class:Solution
+res	�༭����-72.py	/^    res = Solution().minDistance(word1, word2)$/;"	v	class:Solution
+word1	�༭����-72.py	/^    word1 = "horse"$/;"	v	class:Solution
+word2	�༭����-72.py	/^    word2 = "rotes"$/;"	v	class:Solution
+Solution	�༭����-һ�α༭.py	/^class Solution:$/;"	c
+oneEditAway	�༭����-һ�α༭.py	/^    def oneEditAway(self, first: str, second: str) -> bool:$/;"	m	class:Solution
+res	�༭����-һ�α༭.py	/^    res = Solution().oneEditAway(s, t)$/;"	v	class:Solution
+s	�༭����-һ�α༭.py	/^    s = "dab"$/;"	v	class:Solution
+t	�༭����-һ�α༭.py	/^    t = "acb"$/;"	v	class:Solution
+Solution	�༭������1-161.py	/^class Solution:$/;"	c
+Solution1	�༭������1-161.py	/^class Solution1:$/;"	c
+isOneEditDistance	�༭������1-161.py	/^    def isOneEditDistance(self, s: str, t: str) -> bool:$/;"	m	class:Solution
+isOneEditDistance	�༭������1-161.py	/^    def isOneEditDistance(self, s: str, t: str) -> bool:$/;"	m	class:Solution1
+res	�༭������1-161.py	/^    res = Solution().isOneEditDistance(s, t)$/;"	v	class:Solution1
+res1	�༭������1-161.py	/^    res1 = Solution1().isOneEditDistance(s, t)$/;"	v	class:Solution1
+s	�༭������1-161.py	/^    s = "dab"$/;"	v	class:Solution1
+t	�༭������1-161.py	/^    t = "acb"$/;"	v	class:Solution1
+arr	�����������.py	/^    arr = [10, 9, 2, 5, 3, 7, 101, 18]$/;"	v
+longsetIncSubString	�����������.py	/^def longsetIncSubString(arr):$/;"	f
+res	�����������.py	/^    res = longsetIncSubString(arr)$/;"	v
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/

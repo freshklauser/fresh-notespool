@@ -1,0 +1,6 @@
+# ipython下查看源码：
+
+import inspect
+import collections
+
+print(inspect.getsource(collections.Counter))
