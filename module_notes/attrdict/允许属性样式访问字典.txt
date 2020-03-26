@@ -1,0 +1,17 @@
+# attrdict
+>>> attr = attrdict.AttrDict({'foo': [{'bar': 'baz'}, {'bar': 'qux'}]})
+>>> attr
+AttrDict({'foo': [{'bar': 'baz'}, {'bar': 'qux'}]})
+>>> attr['foo']
+[{'bar': 'baz'}, {'bar': 'qux'}]
+>>> attr.foo
+(AttrDict({'bar': 'baz'}), AttrDict({'bar': 'qux'}))
+
+# 字典 dict
+>>> a = {'foo': [{'bar': 'baz'}, {'bar': 'qux'}]}
+>>> a.foo			# 不能以属性方式访问
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'dict' object has no attribute 'foo'
+>>> a['foo']
+[{'bar': 'baz'}, {'bar': 'qux'}]
