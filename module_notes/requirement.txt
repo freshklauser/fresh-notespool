@@ -28,3 +28,4 @@ Scrapy==1.6.0
 selenium==3.141.0
 imbalanced-learn==0.5.0
 imblearn==0.0
+attrdict==2.0.1
