@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: klaus
 # @Date:   2020-03-19 13:55:57
-# @Last Modified by:   KlausLyu
-# @Last Modified time: 2020-03-19 14:35:21
+# @Last Modified by:   sniky-lyu
+# @Last Modified time: 2020-03-28 11:01:27
 
 '''{409-最长回文串 与5-回文子串题目有区别}
 给定一个包含大写字母和小写字母的字符串，找到通过这些字母构造成的最长的回文串。
@@ -23,6 +23,7 @@
 
 from collections import Counter
 
+
 class Solution:
     def longestPalindrome(self, s):
         n = len(s)
@@ -30,7 +31,7 @@ class Solution:
             return n
         # hash统计单词出现次数
         hash_s = Counter(s)
-        #print(hash_s)
+        # print(hash_s)
         sum_even = 0
         sum_odd = 0
         flag = False
@@ -38,7 +39,7 @@ class Solution:
             if v % 2 == 0:
                 sum_even += v
             else:
-                flag =True
+                flag = True
                 sum_odd += v - 1
         if flag:
             res = sum_even + sum_odd + 1
@@ -53,4 +54,3 @@ if __name__ == '__main__':
     # s = "civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth"
     res = Solution().longestPalindrome(s)
     print(res)
-

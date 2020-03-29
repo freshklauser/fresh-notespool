@@ -1,0 +1,13 @@
+1. 在 jupyter notebook 中添加虚拟环境下的kernel
+	python -m ipykernel install --name py366-32   # 向 jupyter 中添加虚拟环境
+	
+2. 在指定路径下启动jupyter notebook
+	1) cd 到指定目录下
+	2) jupyter notebook
+	
+3. 在jupyter notebook 中使用代码自动补全
+	1) anconda prompt激活所在的虚拟环境: conda activate py36
+	2) 安装 nbextensions
+		pip install jupyter_contrib_nbextensions
+		jupyter contrib nbextension install --user
+	

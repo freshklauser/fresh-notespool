@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: KlausLyu
 # @Date:   2020-03-11 16:01:42
-# @Last Modified by:   klaus
-# @Last Modified time: 2020-03-12 09:02:57
+# @Last Modified by:   Administrator
+# @Last Modified time: 2020-03-29 15:42:11
 
 '''{description}
 二维dp[i][j]: 以i开始 以j结尾的回文子序列长度
@@ -10,6 +10,7 @@
 如果 arr[i] == arr[j], dp[i][j] = dp[i+1][j-1] + 2
 如果 arr[i] != arr[j], dp[i][j] = max(dp[i][j-1], dp[i+1][j])
 '''
+
 
 class Solution:
     def longestPalindromeSubseq(self, s: str) -> int:
@@ -29,12 +30,11 @@ class Solution:
             for j in range(i + 1, n):
                 # base case
                 if s[i] != s[j]:
-                    dp[i][j] = max(dp[i][j-1], dp[i+1][j])
+                    dp[i][j] = max(dp[i][j - 1], dp[i + 1][j])
                 else:
-                    dp[i][j] = dp[i+1][j-1] + 2
+                    dp[i][j] = dp[i + 1][j - 1] + 2
 
-        return dp[0][n-1]
-
+        return dp[0][n - 1]
 
 
 if __name__ == '__main__':

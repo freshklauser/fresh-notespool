@@ -282,7 +282,10 @@ QuickGotoAnything
 		之后会在project的根目录下生成两个文件：
 			.tags
 			.tags_sorted_by_file
-	(4) 设置跳转和返回的快捷键 (由于已经在SublimeCodeIntel中设置了ctrl+left(mouse), 自定义函数跳转，这里设置的跳转快捷键不起作用，只在一个地方设置就可以了)
+	(4) 设置鼠标左键点击跳转：
+		......--> Ctags --> Mouse Bindings-User:
+		[ { "button": "button1", "count": 1, "modifiers": ["ctrl"], "press_command": "drag_select", "command": "goto_definition" }]
+	(5) 设置跳转和返回的快捷键 (由于已经在SublimeCodeIntel中设置了ctrl+left(mouse), 自定义函数跳转，这里设置的跳转快捷键不起作用，只在一个地方设置就可以了)
 	// Ctags
     {
         "command": "navigate_to_definition",
@@ -394,7 +397,7 @@ NOTES:
 	解决方法（成功解决问题）：
 	Select “Package Control: Add Repository”, and paste in: http://sublime.wbond.net/repositories.json
 	Using plain http will not require a certificate, which seems to be the cause of the problem.
-(2)如果有安装SublimeCodeIntel,可设置函数跳转：Goto Definition也可以
+(2)如果有安装SublimeCodeIntel,可设置函数跳转：也可以在ctags中设置
 	SublimeCodeIntel --> Mouse bindings--Users:
 		[ { "button": "button1", "count": 1, "modifiers": ["ctrl"], "press_command": "drag_select", "command": "goto_definition" }]
 		---> ctrl+left(mouse), 自定义函数跳转

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: klaus
 # @Date:   2020-03-25 09:09:19
-# @Last Modified by:   KlausLyu
-# @Last Modified time: 2020-03-25 09:15:10
+# @Last Modified by:   sniky-lyu
+# @Last Modified time: 2020-03-28 11:01:23
 
 '''{description}
 在 N * N 的网格上，我们放置一些 1 * 1 * 1  的立方体。
@@ -30,7 +30,7 @@ class Solution(object):
             for c in range(N):
                 if grid[r][c]:
                     ans += 2
-                    for nr, nc in ((r-1, c), (r+1, c), (r, c-1), (r,c+1)):
+                    for nr, nc in ((r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1)):
                         if 0 <= nr < N and 0 <= nc < N:
                             nval = grid[nr][nc]
                         else:
@@ -60,7 +60,8 @@ class Solution1(object):
                         sm -= t << 1
         return sm
 
+
 if __name__ == '__main__':
-    grid = [[1,1,1],[1,0,1],[1,1,1]]
+    grid = [[1, 1, 1], [1, 0, 1], [1, 1, 1]]
     res = Solution().surfaceArea(grid)
     print(res)
