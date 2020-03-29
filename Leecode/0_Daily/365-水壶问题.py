@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: klaus
 # @Date:   2020-03-21 11:30:33
-# @Last Modified by:   KlausLyu
-# @Last Modified time: 2020-03-21 14:18:12
+# @Last Modified by:   sniky-lyu
+# @Last Modified time: 2020-03-28 11:01:33
 
 '''{水壶问题}
 dfs
@@ -21,9 +21,10 @@ TIPS:
 
 class Solution:
     ''' DFS '''
+
     def canMeasureWater(self, x, y, z):
         stack = [(0, 0)]
-        visited =set()
+        visited = set()
         i = 1
         while stack:
             remain_x, remain_y = stack.pop()
@@ -55,12 +56,14 @@ class Solution:
             i += 1
         return False
 
+
 class Solution1:
     ''' BFS '''
+
     def canMeasureWater(self, x, y, z):
         'stack --> queue, 改变pop的位置，其他不变'
         queue = [(0, 0)]
-        visited =set()
+        visited = set()
         i = 1
         while queue:
             'TODO: dfs从栈顶取元素即pop(), bfs从队列首取元素即pop(0)'
@@ -96,6 +99,7 @@ class Solution1:
 
 class Solution2:
     ''' 贝柤定理：最大公约数 '''
+
     def canMeasureWater(self, x, y, z):
         if x + y < z:
             return False
@@ -106,6 +110,7 @@ class Solution2:
         greatest_common_divisor = math.gcd(x, y)
         # print(greatest_common_divisor)
         return z % greatest_common_divisor == 0
+
 
 if __name__ == '__main__':
     x, y, z = 7, 5, 4

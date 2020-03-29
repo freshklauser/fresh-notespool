@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: klaus
 # @Date:   2020-03-23 09:07:18
-# @Last Modified by:   klaus
-# @Last Modified time: 2020-03-23 09:16:42
+# @Last Modified by:   sniky-lyu
+# @Last Modified time: 2020-03-28 11:01:15
 
 '''{876-链表的中间节点}
 思路：
@@ -10,11 +10,14 @@
     再遍历至middle处
 '''
 
+
 class ListNode:
     """docstring for ListNod   def __init__(self, arg):"""
+
     def __init__(self, x):
         self.val = x
         self.next = None
+
 
 class Solution:
     def middleNone(self, head):
