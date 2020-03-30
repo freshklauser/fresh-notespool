@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: klaus
 # @Date:   2020-03-18 08:57:46
-# @Last Modified by:   KlausLyu
-# @Last Modified time: 2020-03-18 10:22:55
+# @Last Modified by:   Administrator
+# @Last Modified time: 2020-03-29 15:07:44
 
 '''{矩形重叠}
 矩形以列表 [x1, y1, x2, y2] 的形式表示，其中 (x1, y1) 为左下角的坐标，(x2, y2) 是右上角的坐标。
@@ -18,16 +18,18 @@
         max(rec1[1], rec2[1]) < x < min(rec1[3], rec2[3])
 '''
 
+
 class Solution:
     def isRectangleOverlap(self, rec1, rec2):
         x_range = max(rec1[0], rec2[0]) < min(rec1[2], rec2[2])
         y_range = max(rec1[1], rec2[1]) < min(rec1[3], rec2[3])
         return x_range and y_range
 
+
 if __name__ == '__main__':
     # rec1 = [0,0,2,2]
     # rec2 = [1,1,3,3]
-    rec1 = [0,0,1,1]
-    rec2 = [1,0,2,1]
+    rec1 = [0, 0, 1, 1]
+    rec2 = [1, 0, 2, 1]
     res = Solution().isRectangleOverlap(rec1, rec2)
     print(res)

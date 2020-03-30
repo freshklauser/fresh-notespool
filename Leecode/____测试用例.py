@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: sniky-lyu
 # @Date:   2020-03-13 20:12:53
-# @Last Modified by:   sniky-lyu
-# @Last Modified time: 2020-03-13 22:30:11
+# @Last Modified by:   Administrator
+# @Last Modified time: 2020-03-29 13:56:28
 
 ''' 需要用 while True: try...except:break '''
 
@@ -67,6 +67,7 @@ def main(s):
             res += str((int(s[i]) + 1) % 10)
         # break
     return s
+
 
 print("10".isdigit())
 print("a".isupper())

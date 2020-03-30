@@ -2,7 +2,7 @@
 # @Author: KlausLyu
 # @Date:   2020-03-11 12:34:00
 # @Last Modified by:   Administrator
-# @Last Modified time: 2020-03-14 19:48:44
+# @Last Modified time: 2020-03-29 14:42:38
 
 '''{description}
 题目
@@ -29,6 +29,8 @@
 思路：
 dp_dict:跳到第i块石头的距离集合
 '''
+
+
 class Solution:
     def canCross(self, stones):
         if not stones:

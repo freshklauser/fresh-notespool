@@ -2,11 +2,12 @@
 # @Author: Administrator
 # @Date:   2020-03-01 13:55:02
 # @Last Modified by:   Administrator
-# @Last Modified time: 2020-03-14 19:47:21
+# @Last Modified time: 2020-03-29 14:54:37
 
 
 class Solution:
     ''' 深度优先算法 '''
+
     def numIslands(self, grid):
         if grid == []:
             return 0
@@ -21,6 +22,7 @@ class Solution:
         count = 0                                          # record number of island
         island = set()
         # islands_map = {}
+
         def dfs(i, j):
             '''(i,j) 满足的条件： A[i][j] == 1,(i,j)不在islands中'''
             island.add((i, j))                             # grid[i][j]添加到islands中
@@ -39,10 +41,10 @@ class Solution:
                     # islands_map[count] = island           # 保存每个island的元素
                     # island = set()                        # 查找完一个island后置空
                     # print("island: ", islands_map[count])
-                    # print("island element number: ", len(islands_map[count]))
+                    # print("island element` number: ", len(islands_map[count]))
                     # print("islands number in total: ", count)
                     # print('--------------------------------------------------------')
-        # print(islands_map)
+        # print(islands_map)`
         return count
 
 
@@ -61,7 +63,7 @@ class Solution1:
 
         directions = ((-1, 0), (1, 0), (0, -1), (0, 1))
         island_num = 0
-        searched = set()
+        # searched = set()
         queue = []
         for i in range(row):
             for j in range(col):
