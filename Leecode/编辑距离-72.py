@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: KlausLyu
 # @Date:   2020-03-10 15:53:28
-# @Last Modified by:   Administrator
-# @Last Modified time: 2020-03-14 20:01:29
+# @Last Modified by:   KlausLyu
+# @Last Modified time: 2020-03-31 14:39:23
 
 '''{description}
 给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。
@@ -48,18 +48,18 @@ class Solution:
         # 二维表格边界：即0行和0列
         for i in range(1, row + 1):
             for j in range(1, col + 1):
-                if word1[i - 1] == word2[j - 1]:  # 第 i 个字符对应下标是 i-1
-                    C = dp[i - 1][j - 1]
-                else:
-                    A = dp[i][j - 1] + 1
-                    B = dp[i - 1][j] + 1
-                    C = dp[i - 1][j - 1] + 1
-                dp[i][j] = min(A, B, C)
-        return dp[row][col]
+                down = dp[i][j - 1] + 1
+                left = dp[i - 1][j] + 1
+                left_down = dp[i - 1][j - 1]
+                if word1[i - 1] != word2[j - 1]:  # 第 i 个字符对应下标不是 i-1
+                    left_down += 1
+                dp[i][j] = min(down, left, left_down)
+        return dp, dp[row][col]
 
 
 if __name__ == '__main__':
-    word1 = "horse"
-    word2 = "rotes"
-    res = Solution().minDistance(word1, word2)
+    word1 = "the"
+    word2 = "than"
+    dp, res = Solution().minDistance(word1, word2)
     print(res)
+    # print(dp)

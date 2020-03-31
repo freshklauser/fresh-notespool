@@ -241,7 +241,7 @@ git checkout本质上是修改HEAD里面的内容来让它指向不同分支的,
 
 
 
-
+git clone xxxx 之後需要在网页端设置 access 来grant哪些team或person的权限
 
 
 
