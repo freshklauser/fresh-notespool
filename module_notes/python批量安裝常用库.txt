@@ -2,14 +2,15 @@
 
 安装步骤：
 1. 创建conda虚拟环境
-conda create --name py36 python=3.6.8
+	conda create --name py36 python=3.6.8
 2. 激活环境
-conda activate py36
+	conda activate py36
 3. 在py36虚拟环境下安装spyder
-conda install spyder
+	conda install spyder
 4. 在py36虚拟环境下批量安装python库
-pip install -r requirement.txt
+	pip install -r requirement.txt
 5. 在jupter notebook中添加虚拟环境下的kernel
+	python -m ipykernel install --name py36
 
 
 # numpy==1.17.4与tensorflow=1.12.0会有冲突，卸载后安装numpy=1.16.4
