@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: sniky-lyu
 # @Date:   2020-03-04 17:30:43
-# @Last Modified by:   Administrator
-# @Last Modified time: 2020-03-15 11:06:36
+# @Last Modified by:   klaus
+# @Last Modified time: 2020-03-31 09:59:16
 
 '''
 归并排序：
@@ -62,6 +62,7 @@ class Solution2:
         sub_len = 1
         while sub_len < len(arr):                       # 只要subarr个数小于len(arr),继续分割
             # print("当前待合并的子数组长度： ", sub_len)
+            # 第一轮sub_arr元素个数为1的两个数组排序后合并依次，第二轮sub_arr元素个数为2的两个数组排序后苯丙，以此类推
             low = 0
             while low < len(arr):                       # low向上更新后不能超过数组长度上限
                 mid = low + sub_len                     # [low,mid)
@@ -69,10 +70,11 @@ class Solution2:
                 if mid < high:
                     # 对当前两个子数组[low,mid)与[mid,high)归并和排序，合并后的数组索引为[mid,high]
                     self.Merge(arr, low, mid, high)
-                low = high  # # 更新 low ,即next 两个带归并数组   或者 low += 2 * i
+                low = high  # # 更新 low ,即next 两个待归并数组   或者 low += 2 * i
             # 对当前sub_len长度的子数组进行归并与组内排序后，子数组长度*2, 继续下一轮合并
             sub_len *= 2
         return arr
+
     def Merge(self, arr, low, mid, high):
         """合并两个已排序好的列表，产生一个新的已排序好的列表"""
         left = arr[low:mid]
