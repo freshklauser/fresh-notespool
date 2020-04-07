@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 # @Author: sniky-lyu
 # @Date:   2020-02-27 20:21:56
-# @Last Modified by:   Administrator
-# @Last Modified time: 2020-03-29 15:42:30
+# @Last Modified by:   sniky-lyu
+# @Last Modified time: 2020-04-05 10:58:07
+
+import time
 
 
 class Solution:
@@ -17,6 +19,7 @@ class Solution:
                 if 0 <= ti < row and 0 <= tj < col and A[ti][tj] == 1 and (ti, tj) not in island:
                     island.add((ti, tj))     # 边界范围内，val==1 且 neighbor 不在island中(避免重复dfs)
                     dfs(ti, tj)
+                    time.sleep(1)
         # --> start point search: 遍历确定第一个值为1的点，需要注意break的正确方式
         flag = 0
         for i in range(row):
@@ -52,7 +55,8 @@ class Solution:
 
 if __name__ == '__main__':
     # A = [[0,1,1,0], [1,1,0,0], [1,0,0,1]]
-    A = [[0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 1, 1, 0, 0]]
+    A = [[0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 1, 1, 0, 0]] * 20
+    # print(len(A))
     output = Solution().shortestBridge(A)
     print()
     print(output)

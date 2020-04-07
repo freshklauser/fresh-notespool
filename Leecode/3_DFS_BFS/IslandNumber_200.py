@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # @Author: Administrator
 # @Date:   2020-03-01 13:55:02
-# @Last Modified by:   Administrator
-# @Last Modified time: 2020-03-29 14:54:37
+# @Last Modified by:   sniky-lyu
+# @Last Modified time: 2020-04-05 14:41:19
 
 
 class Solution:
-    ''' 深度优先算法 '''
 
+    # 深度优先算法 '''
     def numIslands(self, grid):
         if grid == []:
             return 0
@@ -47,11 +47,8 @@ class Solution:
         # print(islands_map)`
         return count
 
-
-class Solution1:
-    ''' 广度优先算法 '''
-
-    def numIslands(self, grid):
+    # 广度优先算法
+    def numIslands_1(self, grid):
         if grid == []:
             return 0
         row = len(grid)
@@ -85,9 +82,9 @@ class Solution1:
 
 
 if __name__ == '__main__':
-    # A = [[1,0,1,0], [1,1,0,0], [1,0,0,1]]
-    A = [["1", "1", "0", "1", "0"], ["1", "1", "0", "1", "0"], ["1", "1", "0", "0", "1"], ["0", "0", "1", "0", "0"]]
+    A = [["1", "1", "1", "1", "0"], ["1", "1", "0", "1", "0"], ["1", "1", "0", "0", "0"], ["0", "0", "0", "0", "0"]]
+    # A = [["1", "1", "0", "1", "0"], ["1", "1", "0", "1", "0"], ["1", "1", "0", "0", "1"], ["0", "0", "1", "0", "0"]] * 100
 
     # A = [[0,0,0,0,0,0],[0,1,0,0,0,0],[1,1,0,0,0,0],[1,1,0,0,0,0],[0,0,0,0,0,0],[0,0,1,1,0,0]]
-    output = Solution1().numIslands(A)
+    output = Solution().numIslands(A)
     print(output)
