@@ -2,7 +2,7 @@
 # @Author: sniky-lyu
 # @Date:   2020-03-11 22:02:43
 # @Last Modified by:   sniky-lyu
-# @Last Modified time: 2020-03-11 22:04:50
+# @Last Modified time: 2020-04-07 22:43:57
 
 '''
 给定一个未排序的整数数组，找出最长连续序列的长度。
@@ -35,8 +35,14 @@ class Solution:
         print(dp)
         return max(dp)
 
+    def __str__(self):
+        return "Longest Consecutive"
+
 
 if __name__ == '__main__':
     nums = [1, 2, 3, 4, 100, 200, 200, 201, 199, 198, 202, 200]
     res = Solution().longestConsecutive(nums)
     print(res)
+    s = Solution()
+    print(s.__dict__)
+    print(s.__str__())
