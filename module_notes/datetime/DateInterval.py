@@ -2,10 +2,12 @@
 # @Author: klaus
 # @Date:   2020-03-21 09:25:55
 # @Last Modified by:   KlausLyu
-# @Last Modified time: 2020-03-21 10:59:31
+# @Last Modified time: 2020-04-02 11:08:03
 
 '''{日期间隔}
-
+self.__class__.__name__:         获取当前的类名
+sys._getframe().f_code.co_name： 获取当前所在的函数的函数名
+'{}.{}':".format(self.__class__.__name__, sys._getframe().f_code.co_name) : 类名.函数名
 '''
 
 import sys
@@ -50,6 +52,7 @@ class DateInterval:
     def __check_type(self):
         if isinstance(self.date1, str) and isinstance(self.date2, str):
             self.instance_flag = True
+            # print(sys._getframe().f_code.co_name)
         else:
             raise AttributeError("Please make sure the type of input is correct.. str is needed.")
 
