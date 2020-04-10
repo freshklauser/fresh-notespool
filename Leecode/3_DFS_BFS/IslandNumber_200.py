@@ -1,8 +1,26 @@
 # -*- coding: utf-8 -*-
 # @Author: Administrator
 # @Date:   2020-03-01 13:55:02
-# @Last Modified by:   sniky-lyu
-# @Last Modified time: 2020-04-05 14:41:19
+# @Last Modified by:   KlausLyu
+# @Last Modified time: 2020-04-08 10:21:22
+
+''' 岛屿数量
+给定一个由 '1'（陆地）和 '0'（水）组成的的二维网格，计算岛屿的数量。一个岛被水包围，
+并且它是通过水平方向或垂直方向上相邻的陆地连接而成的。你可以假设网格的四个边均被水包围。
+
+示例 1:
+    输入:
+    11110
+    11010
+    11000
+    00000
+
+    输出: 1
+
+思路：
+    dfs(迭代)
+    bfs(遍历)
+'''
 
 
 class Solution:
