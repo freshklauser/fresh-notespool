@@ -13,7 +13,7 @@ print(doc)
 
 sentences = tk.sent_tokenize(doc)
 for i, sentence in enumerate(sentences):
-    print(i+1, sentence)
+    print(i + 1, sentence)
 
 cv = ft.CountVectorizer()                       # 矢量化器
 '''
@@ -21,10 +21,10 @@ class CountVectorizer(BaseEstimator, VectorizerMixin):
     """Convert a collection of text documents to a matrix of token counts(出现次数)
 '''
 bow = cv.fit_transform(sentences).toarray()     # 词袋矩阵
-#[[0 1 1 0 0 1 0 1 1]
+# [[0 1 1 0 0 1 0 1 1]
 # [2 0 1 0 1 1 1 0 2]
 # [0 0 0 1 1 1 1 1 1]]
 
 words = cv.get_feature_names()
 print(words)
-#['black', 'brown', 'dog', 'forbidden', 'in', 'is', 'room', 'running', 'the']
+# ['black', 'brown', 'dog', 'forbidden', 'in', 'is', 'room', 'running', 'the']

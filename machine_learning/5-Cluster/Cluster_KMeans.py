@@ -4,12 +4,14 @@ Created on Thu Aug  2 11:44:06 2018
 
 @author: Administrator
 """
-'''
-k均值聚类
-'''
+
 import numpy as np
 import sklearn.cluster as sc
 import matplotlib.pyplot as plt
+
+'''
+k均值聚类
+'''
 
 x = []
 with open('multiple3.txt', 'r') as f:
@@ -39,7 +41,7 @@ plt.pcolormesh()
 l, r, h = x[:, 0].min() - 1, x[:, 0].max() + 1, 0.005
 b, t, v = x[:, 1].min() - 1, x[:, 1].max() + 1, 0.005
 # 栅格化
-grid_x = np.meshgrid(np.arange(l, r, h), np.arange(b, t, v)) # 栅格点阵
+grid_x = np.meshgrid(np.arange(l, r, h), np.arange(b, t, v))  # 栅格点阵
 # 平面化
 flat_x = np.c_[grid_x[0].ravel(), grid_x[1].ravel()]         # 栅格横坐标拉平成1维，预测一维栅格分类值
 flat_y = model.predict(flat_x)                               # 一维栅格分类值(作为颜色区分pcolormesh的c)

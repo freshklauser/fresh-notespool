@@ -27,17 +27,17 @@ train_x, test_x, train_y, test_y = ms.train_test_split(x, y, test_size=0.25, ran
 
 # 最优超参数组合列表
 params = [
-        {'kernel': ['linear'], 'C': [1, 10, 100, 100]},
-        {'kernel': ['poly'], 'C': [1], 'degree': [2, 3]},
-        {'kernel': ['rbf'], 'C': [1, 10, 100, 100], 'gamma':[1, 0.1, 0.01, 0.001]}
-        ]
+    {'kernel': ['linear'], 'C': [1, 10, 100, 100]},
+    {'kernel': ['poly'], 'C': [1], 'degree': [2, 3]},
+    {'kernel': ['rbf'], 'C': [1, 10, 100, 100], 'gamma':[1, 0.1, 0.01, 0.001]}
+]
 
 model = ms.GridSearchCV(svm.SVC(probability=True), params, cv=5)     # 返回的就是最优的超参数组合
 model.fit(train_x, train_y)
 
-# 获取超参数得分 model.cv_results_['mean_test_score']   遍历for 
+# 获取超参数得分 model.cv_results_['mean_test_score']   遍历for
 # model.cv_results_['mean_test_score'] 与 model.cv_results_['params']对应数据的平均值
-for param, score in zip(model.cv_results_['params'],model.cv_results_['mean_test_score']): 
+for param, score in zip(model.cv_results_['params'], model.cv_results_['mean_test_score']):
     print(param, score)
     #{'C': 1, 'kernel': 'linear'} 0.6577777777777778
     # ...
@@ -60,7 +60,7 @@ grid_y = flat_y.reshape(grid_x[0].shape)
 pred_test_y = model.predict(test_x)
 print(sm.classification_report(test_y, pred_test_y))
 
-prob_x = np.array([[2, 1.5],[8, 9], [4.8, 5.2], [4,4],[2.5,7],[7.6,2],[5.4, 5.9]])
+prob_x = np.array([[2, 1.5], [8, 9], [4.8, 5.2], [4, 4], [2.5, 7], [7.6, 2], [5.4, 5.9]])
 pred_prob_y = model.predict(prob_x)
 probs = model.predict_proba(prob_x)
 
@@ -72,32 +72,32 @@ plt.tick_params(labelsize=10)
 
 
 plt.pcolormesh(grid_x[0], grid_x[1], grid_y, cmap='gray')
-c0, c1 = y==0, y==1                                                         # 掩码
+c0, c1 = y == 0, y == 1                                                         # 掩码
 plt.scatter(x[c0][:, 0], x[c0][:, 1], c='b', s=30)
 plt.scatter(x[c1][:, 0], x[c1][:, 1], c='r', s=30)
-C0, C1 = pred_prob_y==0, pred_prob_y==1
+C0, C1 = pred_prob_y == 0, pred_prob_y == 1
 plt.scatter(prob_x[C0][:, 0], prob_x[C0][:, 1], c='y', s=30, marker='D')
 plt.scatter(prob_x[C1][:, 0], prob_x[C1][:, 1], c='purple', s=30, marker='D')
 
 for i in range(len(probs[C0])):
     plt.annotate(
-            '{}% {}%'.format(round(probs[C0][:, 0][i],2)*100, round(probs[C0][:, 1][i],2)*100),
-            xy=(prob_x[C0][:, 0][i], prob_x[C0][:, 1][i]),                  # 点坐标
-            xytext=(12, -12),textcoords='offset points',
-            horizontalalignment='left',
-            verticalalignment='top',
-            fontsize=9,
-            bbox={'boxstyle':'round, pad=0.6','fc':'deepskyblue', 'alpha':0.4})
+        '{}% {}%'.format(round(probs[C0][:, 0][i], 2) * 100, round(probs[C0][:, 1][i], 2) * 100),
+        xy=(prob_x[C0][:, 0][i], prob_x[C0][:, 1][i]),                  # 点坐标
+        xytext=(12, -12), textcoords='offset points',
+        horizontalalignment='left',
+        verticalalignment='top',
+        fontsize=9,
+        bbox={'boxstyle': 'round, pad=0.6', 'fc': 'deepskyblue', 'alpha': 0.4})
 
 for i in range(len(probs[C1])):
     plt.annotate(
-            '{}% {}%'.format(round(probs[C1][:, 0][i], 2)*100, round(probs[C1][:, 1][i], 2)*100),
-            xy=(prob_x[C1][:, 0][i], prob_x[C1][:, 1][i]),
-            xytext=(12, -12),textcoords='offset points',
-            horizontalalignment='left',
-            verticalalignment='top',
-            fontsize=9,
-            bbox={'boxstyle':'round, pad=0.6','fc':'green', 'alpha':0.4})
+        '{}% {}%'.format(round(probs[C1][:, 0][i], 2) * 100, round(probs[C1][:, 1][i], 2) * 100),
+        xy=(prob_x[C1][:, 0][i], prob_x[C1][:, 1][i]),
+        xytext=(12, -12), textcoords='offset points',
+        horizontalalignment='left',
+        verticalalignment='top',
+        fontsize=9,
+        bbox={'boxstyle': 'round, pad=0.6', 'fc': 'green', 'alpha': 0.4})
 
 plt.show()
 
@@ -105,7 +105,7 @@ plt.show()
 '''
 class SVC(sklearn.svm.base.BaseSVC)
     C-Support Vector Classification.
- 
+
     C : float, optional (default=1.0)
         Penalty parameter C of the error term.
     kernel : string, optional (default='rbf')

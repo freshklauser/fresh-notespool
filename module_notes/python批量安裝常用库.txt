@@ -21,3 +21,9 @@ pip freeze > requirement.txt  # 将已经安装的包名及其版本写入txt文
 pip install -r requirement.txt	# pip 批量安装包/库
 pip uninstall -r requirement.txt	# 批量卸载包
 
+
+# 自然语言处理 
+conda install nltk
+# python
+import nltk
+nltk.download()

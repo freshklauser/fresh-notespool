@@ -4,14 +4,14 @@ Created on Fri Aug  3 14:05:33 2018
 
 @author: Administrator
 """
-'''
-基于KNN的有监督分类
-'''
 
 import numpy as np
 import sklearn.neighbors as sn
 import matplotlib.pyplot as plt
 
+'''
+基于KNN的有监督分类
+'''
 train_x, train_y = [], []
 with open('knn.txt', 'r') as f:
     for line in f.readlines():
@@ -33,7 +33,6 @@ KNN模型区别于其他模型的地方之一：模型训练属于惰性学习�
 model.fit(train_x, train_y)
 
 
-
 l, r, h = train_x[:, 0].min() - 1, train_x[:, 0].max() + 1, 0.005
 b, t, v = train_x[:, 1].min() - 1, train_x[:, 1].max() + 1, 0.005
 grid_x = np.meshgrid(np.arange(l, r, h), np.arange(b, t, v))
@@ -42,7 +41,7 @@ flat_y = model.predict(flat_x)
 grid_y = flat_y.reshape(grid_x[0].shape)
 
 # test_set
-test_x = np.array([[2.2,6.2],[3.6,1.8],[4.5,3.6]])
+test_x = np.array([[2.2, 6.2], [3.6, 1.8], [4.5, 3.6]])
 pred_test_y = model.predict(test_x)
 
 '''
@@ -51,16 +50,16 @@ def kneighbors(self, X=None, n_neighbors=None, return_distance=True):
     Returns indices of and distances to the neighbors of each point. (注意return值顺序)
 '''
 nn_distance, nn_indices = model.kneighbors(test_x)
-print('nn_distance:',nn_distance,'nn_indices:',nn_indices, sep='\n')
-#nn_distance:
-#[[0.4936598  0.64776539 0.66370174 0.73824115 0.73979727 0.74094534
+print('nn_distance:', nn_distance, 'nn_indices:', nn_indices, sep='\n')
+# nn_distance:
+# [[0.4936598  0.64776539 0.66370174 0.73824115 0.73979727 0.74094534
 #  0.74953319 0.79195959 0.80305666 0.82292162]
 # [0.43324358 0.57384667 0.57801384 0.65       0.76321688 0.83677954
 #  0.8832327  0.9060905  0.94894678 1.00404183]
 # [0.55542776 0.75213031 0.7823682  0.93150416 0.99322706 1.11305885
 #  1.11682586 1.12361025 1.1461239  1.18680243]]
-#nn_indices:
-#[[139  25  91 118 124  40  82 142  52  22]
+# nn_indices:
+# [[139  25  91 118 124  40  82 142  52  22]
 # [132 111  47 102  95  87  42 138  39 140]
 # [ 92  79 119  64 128 131  44  77  23  83]]
 
@@ -81,7 +80,7 @@ def unique(ar, return_index=False, return_inverse=False, return_counts=False, ax
     默认返回经过排序后的唯一元素数组。(可接受其他return值，需要设置True)
 '''
 classes = np.unique(train_y)               # [0 1 2] ,类别去重并排序, 不需要calsses.sort()
-#classes.sort()
+# classes.sort()
 
 '''
 构建色级，注意用法：plt.get_cmap(..)(..)
@@ -108,12 +107,12 @@ plt.scatter(test_x[:, 0], test_x[:, 1], c=cs[pred_test_y], s=30, marker='+', )
 for nn_indice, y in zip(nn_indices, pred_test_y):
     plt.scatter(train_x[nn_indice, 0],                      # x坐标
                 train_x[nn_indice, 1],                      # x坐标
-                edgecolor=cs[np.ones_like(nn_indice)*y],    # np.ones_like(..)*y: 近邻点颜色与test点保持一致
+                edgecolor=cs[np.ones_like(nn_indice) * y],    # np.ones_like(..)*y: 近邻点颜色与test点保持一致
                 facecolor='none',                           # 填充色空白
                 marker='D', s=70
                 )
     print(nn_indice)
-    print(y, np.ones_like(nn_indice)*y)
+    print(y, np.ones_like(nn_indice) * y)
 #    [139  25  91 118 124  40  82 142  52  22] -- nn_indice
 #    1 [1 1 1 1 1 1 1 1 1 1]
 #    [132 111  47 102  95  87  42 138  39 140] -- nn_indice
@@ -122,7 +121,6 @@ for nn_indice, y in zip(nn_indices, pred_test_y):
 #    2 [2 2 2 2 2 2 2 2 2 2]
 
 plt.show()
-
 
 
 '''

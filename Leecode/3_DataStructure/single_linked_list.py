@@ -4,7 +4,7 @@
 # @Last Modified by:   sniky-lyu
 # @Last Modified time: 2020-05-03 23:18:30
 
-'''目录
+"""目录
 - Node
 - NodeRandom          # 带随机指针的Node(val, next, random)
 - SingleLinkedList
@@ -31,15 +31,16 @@
     -- merge_two_sorted_linkedlist      # 合并两个有序链表
     -- sum_two_linkedlist               # 链表求和
     -- partition                        # 基于结点值与基准x的大小分割链表，左小右大
-'''
+"""
 
 from classtools import ClassTreeAttributesDisplay
 
+
 class Node(object):
-    '''定义节点类
+    """定义节点类
     data: 节点保存的数据
     _next: 保存下一个节点对象
-    '''
+    """
 
     def __init__(self, data, next_node=None):
         self.data = data
@@ -218,7 +219,7 @@ class SingleLinkedList(ClassTreeAttributesDisplay):
                 self.length += 1
 
     def update(self, index, data):
-        '''更新index处的节点值
+        """更新index处的节点值
         Arguments:
             index {[type]} -- [索引]
             data {[type]} -- [更新后的节点值]
@@ -226,7 +227,7 @@ class SingleLinkedList(ClassTreeAttributesDisplay):
             IndexError -- [description]
         Tips:
             1) 头节点的不需要单独考虑
-        '''
+        """
         if self._boundary_check(index):
             raise IndexError('Index out of range')
         if self.is_empty():
@@ -265,7 +266,7 @@ class SingleLinkedList(ClassTreeAttributesDisplay):
         return cursor.data
 
     def get_all_index(self, data, all_instead_first=True):
-        '''获取data对应的所有索引
+        """获取data对应的所有索引
         Arguments:
             data {[type]} -- [description]
         Keyword Arguments:
@@ -275,7 +276,7 @@ class SingleLinkedList(ClassTreeAttributesDisplay):
             [list] -- [所有index的list]
         Raises:
             ValueError -- [description]
-        '''
+        """
         if self.is_empty():
             print("ATTENTION: empty single linked list")
             return
@@ -295,14 +296,14 @@ class SingleLinkedList(ClassTreeAttributesDisplay):
         return indices
 
     def get_first_index(self, data):
-        '''获取data对应的第一条索引
+        """获取data对应的第一条索引
         Arguments:
             data {[type]} -- [description]
         Returns:
             [type] -- [description]
         Raises:
             ValueError -- [description]
-        '''
+        """
         if self.is_empty():
             print("ATTENTION: empty single linked list")
             return
@@ -335,7 +336,7 @@ class SingleLinkedList(ClassTreeAttributesDisplay):
         self.head = pre_node
 
     def get_middle_node(self, print_flag=True):
-        '''获取链表中间节点(index_mid)
+        """获取链表中间节点(index_mid)
         偶数/奇数长度： left [0, index_mid], right = [index_mid+1, length-1]
         奇数长度： len(left) = len(right) + 1
         Keyword Arguments:
@@ -348,7 +349,7 @@ class SingleLinkedList(ClassTreeAttributesDisplay):
                 但是，会把self.head一起裁剪掉
             [singleLinkedList] -- [right, 左链表]
             [Node] -- [mid_node, 中间节点]
-        '''
+        """
         if self.is_empty():
             print("ATTENTION: empty single linked list")
             return
@@ -380,14 +381,15 @@ class SingleLinkedList(ClassTreeAttributesDisplay):
         node.next = self.deepcopy(head.next) if head.next else None
         return node
 
-    def deepcopy_with_random(self, headNode):
-        '''带随机指针的链表深拷贝
+    @staticmethod
+    def deepcopy_with_random(headNode):
+        """带随机指针的链表深拷贝
         思路：深拷贝， 新旧节点交替，完善random指针引用, 拆链(A.random=B, 则A'.random=B')
         Arguments:
             headNode {[NodeRandom]} -- [头结点]
         Returns:
             {[LinkedList]} -- [带随机指针的链表深拷贝的副本]
-        '''
+        """
         head = headNode if isinstance(headNode, NodeRandom) else NodeRandom(headNode)
         if not head:
             return None
@@ -424,8 +426,9 @@ class SingleLinkedList(ClassTreeAttributesDisplay):
 
         return root
 
-    def view(self, listnode, node_type=Node):
-        ''' 查看列表中的所有元素 '''
+    @staticmethod
+    def view(listnode, node_type=Node):
+        """ 查看列表中的所有元素 """
         if not isinstance(listnode, node_type):
             raise AttributeError("Node type of input is expected")
         link_str = ''
@@ -435,17 +438,18 @@ class SingleLinkedList(ClassTreeAttributesDisplay):
             else:
                 link_str += str(listnode.data)
             listnode = listnode.next
-        print('The Linklist is: {}'.format(link_str))
+        print('The linked list is: {}'.format(link_str))
 
 
-class operate_linkedlist(object):
-    """docstring for operate_two_linkedlist"""
+class OperateLinkedList(object):
+    """docstring for OperateLinkedList"""
 
     def __init__(self):
         pass
 
-    def merge_two_linkedlist_interval(self, l1, l2):
-        ''' 间隔合并两个单链表, l2合并到l1上 '''
+    @staticmethod
+    def merge_two_linked_list_interval(l1, l2):
+        """ 间隔合并两个单链表, l2合并到l1上 """
         new_head = Node(None)
         new_head.next = l1
         while l1 and l2:
@@ -457,8 +461,9 @@ class operate_linkedlist(object):
             l1 = link.next
         return new_head.next
 
-    def merge_two_sorted_linkedlist(self, l1, l2):
-        ''' 合并两个有序单链表 '''
+    @staticmethod
+    def merge_two_sorted_linked_list(l1, l2):
+        """ 合并两个有序单链表 """
         new_head = Node(None)
         cursor = new_head
         while l1 and l2:
@@ -474,8 +479,9 @@ class operate_linkedlist(object):
         cursor.next = l1 or l2
         return new_head.next
 
-   def sum_two_linkedlist(self, l1, l2):
-        ''' 链表求和 '''
+    @staticmethod
+    def sum_two_linked_list(l1, l2):
+        """ 链表求和 """
         cursor = None
         flag = 0
         while l1 or l2 or flag:
@@ -488,8 +494,9 @@ class operate_linkedlist(object):
             cursor = node
         return cursor
 
-    def sum_two_linkedlist_1(self, l1, l2):
-        ''' 链表求和 '''
+    @staticmethod
+    def sum_two_linked_list_1(l1, l2):
+        """ 链表求和 """
         if not (l1 and l2):
             return l1 or l2
         head = Node(0)
@@ -512,14 +519,15 @@ class operate_linkedlist(object):
 
         return head.next
 
-    def kth_node_to_end(self, head, k):
-        '''返回倒数第 k 个节点
+    @staticmethod
+    def kth_node_to_end(head, k):
+        """返回倒数第 k 个节点
         hash表，存储 index 对应的 node.val
         Arguments:
             head {[type]} -- [头结点]
         Returns:
             [type] -- [倒数第k个节点的值]
-        '''
+        """
         items = dict()
         cursor = head
         index = 0
@@ -529,10 +537,11 @@ class operate_linkedlist(object):
             index += 1
         return items.get(index - k)
 
-    def partition(self, head, x):
-        '''头插法 -- 基于结点值与x的大小分割链表
+    @staticmethod
+    def partition(head, x):
+        """头插法 -- 基于结点值与x的大小分割链表
         所有小于x的结点都插入到头部
-        '''
+        """
         if not (head and head.next):
             return head
         prev = head
@@ -564,6 +573,7 @@ if __name__ == '__main__':
     #     print(word)
 
     sll = SingleLinkedList()
+    print(sll, '\n', '~~~~~~~~~~~~~~~~~~~~~')
     for i in range(10):
         sll.append(i)
     sll_list = sll.to_list()
@@ -609,7 +619,7 @@ if __name__ == '__main__':
     l1 = root1.next
     l2 = root2.next
     print('***************************')
-    res = operate_linkedlist().merge_two_sorted_linkedlist(l1, l2)
+    res = OperateLinkedList.merge_two_sorted_linked_list(l1, l2)
     sll.view(res)
     sll.view(l2)
 
@@ -637,7 +647,6 @@ if __name__ == '__main__':
     res = sll.deepcopy(k1)
     print('Deepcopy: >>>>>>>>>>>>>>>>')
     sll.view(res)
-
     r1 = NodeRandom(0)
     k1_NodeRandom1 = NodeRandom(21)
     k1_NodeRandom2 = NodeRandom(13)

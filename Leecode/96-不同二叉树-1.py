@@ -28,12 +28,12 @@ refer: https://leetcode-cn.com/problems/unique-binary-search-trees/solution/bu-t
 
 class Solution:
     def numTrees(self, n):
-        '''
+        """
         Arguments:
             n {[int]} -- 序列的长度
         Returns:
             [int] -- [description]
-        '''
+        """
         # G(n): 长度为n的序列的不同二叉搜索树个数。
         G = [0] * (n + 1)
         G[0], G[1] = 1, 1

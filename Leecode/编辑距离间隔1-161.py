@@ -48,7 +48,8 @@ class Solution1:
         k = 0
         if m == n and m != 0:
             while True:
-                if shorter[k] != longer[k] and shorter[k + 1:] == longer[k + 1:]:
+                if shorter[k] != longer[k] and shorter[k +
+                                                       1:] == longer[k + 1:]:
                     return True
                 elif shorter[k] != longer[k] and shorter[k + 1:] != longer[k + 1:]:
                     return False

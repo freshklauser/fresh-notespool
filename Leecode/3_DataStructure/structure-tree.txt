@@ -1,9 +1,9 @@
-<Instance of SingleLinkedList, address 2583040355464:
+<Instance of SingleLinkedList, address 1952845989088:
     _ClassTreeAttributesDisplay__visited={}
     head=100
     length=13
 
-........<Class SingleLinkedList, address 2583007843208:
+........<Class SingleLinkedList, address 1952812189944:
         __doc__=<>
         __getitem__=<>
         __init__=<>
@@ -11,34 +11,34 @@
         __module__=<>
         __repr__=<>
         __setitem__=<>
-        _boundary_check=<function SingleLinkedList._boundary_check at 0x0000025969325D90>
-        append=<function SingleLinkedList.append at 0x000002596934E048>
-        chaine_table=<function SingleLinkedList.chaine_table at 0x0000025969325F28>
-        clear=<function SingleLinkedList.clear at 0x0000025969325EA0>
-        deepcopy=<function SingleLinkedList.deepcopy at 0x000002596934E598>
-        deepcopy_with_random=<function SingleLinkedList.deepcopy_with_random at 0x000002596934E620>
-        delete=<function SingleLinkedList.delete at 0x000002596934E0D0>
-        get_all_index=<function SingleLinkedList.get_all_index at 0x000002596934E2F0>
-        get_first_index=<function SingleLinkedList.get_first_index at 0x000002596934E378>
-        get_item=<function SingleLinkedList.get_item at 0x000002596934E268>
-        get_middle_node=<function SingleLinkedList.get_middle_node at 0x000002596934E510>
-        insert=<function SingleLinkedList.insert at 0x000002596934E158>
-        is_empty=<function SingleLinkedList.is_empty at 0x0000025969325E18>
-        reverse=<function SingleLinkedList.reverse at 0x000002596934E488>
-        to_list=<function SingleLinkedList.to_list at 0x000002596934E400>
-        update=<function SingleLinkedList.update at 0x000002596934E1E0>
-        view=<function SingleLinkedList.view at 0x000002596934E6A8>
+        _boundary_check=<function SingleLinkedList._boundary_check at 0x000001C6AEAE9EA0>
+        append=<function SingleLinkedList.append at 0x000001C6AEB09158>
+        chaine_table=<function SingleLinkedList.chaine_table at 0x000001C6AEB090D0>
+        clear=<function SingleLinkedList.clear at 0x000001C6AEB09048>
+        deepcopy=<function SingleLinkedList.deepcopy at 0x000001C6AEB096A8>
+        deepcopy_with_random=<function SingleLinkedList.deepcopy_with_random at 0x000001C6AEB09730>
+        delete=<function SingleLinkedList.delete at 0x000001C6AEB091E0>
+        get_all_index=<function SingleLinkedList.get_all_index at 0x000001C6AEB09400>
+        get_first_index=<function SingleLinkedList.get_first_index at 0x000001C6AEB09488>
+        get_item=<function SingleLinkedList.get_item at 0x000001C6AEB09378>
+        get_middle_node=<function SingleLinkedList.get_middle_node at 0x000001C6AEB09620>
+        insert=<function SingleLinkedList.insert at 0x000001C6AEB09268>
+        is_empty=<function SingleLinkedList.is_empty at 0x000001C6AEAE9F28>
+        reverse=<function SingleLinkedList.reverse at 0x000001C6AEB09598>
+        to_list=<function SingleLinkedList.to_list at 0x000001C6AEB09510>
+        update=<function SingleLinkedList.update at 0x000001C6AEB092F0>
+        view=<function SingleLinkedList.view at 0x000001C6AEB097B8>
 
-............<Class ClassTreeAttributesDisplay, address 2583007832824:
-            _ClassTreeAttributesDisplay__gatherAttrs=<function ClassTreeAttributesDisplay.__gatherAttrs at 0x00000259693258C8>
-            _ClassTreeAttributesDisplay__gatherClass=<function ClassTreeAttributesDisplay.__gatherClass at 0x0000025969325840>
+............<Class ClassTreeAttributesDisplay, address 1952812181448:
+            _ClassTreeAttributesDisplay__gatherAttrs=<function ClassTreeAttributesDisplay.__gatherAttrs at 0x000001C6AEAE99D8>
+            _ClassTreeAttributesDisplay__gatherClass=<function ClassTreeAttributesDisplay.__gatherClass at 0x000001C6AEAE9950>
             __dict__=<>
             __doc__=<>
             __module__=<>
             __str__=<>
             __weakref__=<>
 
-................<Class object, address 1841481088:
+................<Class object, address 1780860288:
                 __class__=<>
                 __delattr__=<>
                 __dir__=<>

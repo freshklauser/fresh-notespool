@@ -4,7 +4,7 @@
 # @Last Modified by:   Administrator
 # @Last Modified time: 2020-03-29 14:42:38
 
-'''{description}
+"""{description}
 题目
 一只青蛙想要过河。 假定河流被等分为 x 个单元格，并且在每一个单元格内都有可能放有一石子（也有可能没有）。
 青蛙可以跳上石头，但是不可以跳入水中。
@@ -28,7 +28,7 @@
 
 思路：
 dp_dict:跳到第i块石头的距离集合
-'''
+"""
 
 
 class Solution:
@@ -42,11 +42,11 @@ class Solution:
 
         dp_dict[stones[0]].add(0)
 
-        for stone in stones:                        # 遍历stone
-            for k in dp_dict[stone]:                # 遍历stone对应的可到达距离
+        for STONE in stones:                        # 遍历stone
+            for k in dp_dict[STONE]:                # 遍历stone对应的可到达距离
                 for distance in [k - 1, k, k + 1]:  # 到达下一个stone的距离
-                    if distance > 0 and stone + distance in dp_dict.keys():
-                        dp_dict[stone + distance].add(distance)
+                    if distance > 0 and STONE + distance in dp_dict.keys():
+                        dp_dict[STONE + distance].add(distance)
         return dp_dict[stones[-1]] != set()
 
 

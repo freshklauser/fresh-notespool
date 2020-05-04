@@ -10,6 +10,8 @@ import sklearn.decomposition as dc
 import sklearn.preprocessing as sp
 import sklearn.pipeline as pl
 
+np.set_printoptions(precision=3)
+
 # 原始样本
 A = np.mat('3 2000; 2 3000; 4 5000; 5 8000; 1 2000', dtype=float)
 print('A:', A, sep='\n')
@@ -17,8 +19,8 @@ print('A:', A, sep='\n')
 # 管线(范围缩放, PCA模型)      sp.MinMaxScaler()计算原理？？？？？？？？？？？？？？？？
 # 创建管线函数的PCA模型
 model = pl.Pipeline([('MinMaxScaler', sp.MinMaxScaler()),       # 归一化缩放   # 均值为0, 极差为1 ？？
-                      ('PCA', dc.PCA(n_components=1))           # n_componebts=1, 降为1维
-                      ])
+                     ('PCA', dc.PCA(n_components=1))           # n_componebts=1, 降为1维
+                     ])
 # 降维样本
 Z = model.fit_transform(A)
 print('----', Z)
