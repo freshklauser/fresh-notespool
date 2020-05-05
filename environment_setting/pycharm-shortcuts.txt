@@ -47,6 +47,11 @@ Ctrl + Alt + T： 打开配置页
 	Ctrl + F1 				显示错误描述或警告信息(光标移至错误或警告区域任意位置后ctrl+f1)
 
 	Shift + Enter			往下另起一行（不破坏当前行结构）
+	
+	Ctrl + Q 				查看函数的属性参数
+	
+
+
 
 2、导航
 	Alt + Right/Left 		跳转到下一个、前一个编辑的选项卡（文件tab切换）
@@ -59,6 +64,8 @@ Ctrl + Alt + T： 打开配置页
 							
 	Alt + 1					左侧栏显示和隐藏
 	
+	
+	
 3、Usages
 	Alt + F7				查询当前文件中在 Project和Libs 中的使用情况 Usages 
 **	Ctrl + Alt + F7			显示在 project-files 中的使用情况
@@ -67,6 +74,7 @@ Ctrl + Alt + T： 打开配置页
 **	Shift + F11				显示书签
 **	Shift + F11\Ctrl + Enter编辑书签
 
+
 	
 4、运行
 	Shift + F9 				调试
@@ -74,6 +82,8 @@ Ctrl + Alt + T： 打开配置页
 *	Shift + F10 			运行
 	Alt + Shift + F10 		运行模式配置
 	Ctrl + Shift + F10 		运行编辑器配置 （没看出来干嘛的）
+
+
 
 5、调试(Debugging)
 	F8					 	跳过
@@ -104,6 +114,7 @@ plugins:
 	Statistic
 	Rainbow Brackets
 	wakatime (公司不能转，可能会泄露项目信息)
+
 tools:
 	autopep8
 		https://www.jianshu.com/p/86b36c2b47d9
@@ -115,6 +126,17 @@ tools:
 			Working directory: $ProjectFileDir$
 			Output filters: $FILE_PATH$\:$LINE$\:$COLUMN$\:.*
 			完成后点击OK，在Settings界面点击Apply。
+			
 	Flake8 静态代码检查工具
+		pip isntall flake8
+		Name: Flake8（也可以是其他名字）
+		Setting --> Tool --> Extra tools
+			Program: $PyInterpreterDirectory$/python  
+		       // 配置下的python解释器的python目录
+			Arguments: -m flake8 --show-source --statistics $ProjectFileDir$  
+			      // 参数
+			Working directory: $ProjectFileDir$  
+			     // 当前的项目路径
+			Output Filter: (留空就可以了, pycharm能自动识别路径.)
 		
 
