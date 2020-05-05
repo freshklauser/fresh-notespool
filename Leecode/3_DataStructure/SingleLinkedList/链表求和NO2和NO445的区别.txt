@@ -1,0 +1,64 @@
+NO.2和NO.445在while l1 or l2 or flag 中的 指针移动的区别留意一下
+
+NO. 2
+
+class Solution:
+    def addTwoNumbers(self, l1, l2):
+        ''' 链表求和 '''
+        root = ListNode(None)
+        cursor = root
+        flag = 0
+        while l1 or l2 or flag:
+            x = l1.val if l1 else 0
+            y = l2.val if l2 else 0
+            sum_val = x + y + flag
+            flag = sum_val // 10
+            node = ListNode(sum_val % 10)
+
+            cursor.next = node
+            cursor = node
+
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+        return root.next
+
+NO.445
+
+class Solution:
+    def addTwoNumbers_stack(self, l1, l2):
+        stack1, stack2 = [], []
+        while l1:
+            stack1.append(l1)
+            l1 = l1.next
+        # print([node.val for node in stack1])
+        while l2:
+            stack2.append(l2)
+            l2 = l2.next
+
+        # 依次出栈，相加，构造链表
+        cursor = None
+        flag = 0
+        while stack1 or stack2 or flag:
+            x = stack1.pop().val if stack1 else 0
+            y = stack2.pop().val if stack2 else 0
+            sum_val = x + y + flag
+            flag = sum_val // 10
+            node = ListNode(sum_val % 10)
+
+            node.next = cursor
+            cursor = node
+
+        return cursor
+
+
+--------------------------------------------------------------------------------
+NO.2:
+    给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，
+    并且它们的每个节点只能存储 一位 数字。如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+    您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+
+NO.445:
+    给你两个 非空 链表来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。
+    将这两数相加会返回一个新的链表。你可以假设除了数字 0 之外，这两个数字都不会以零开头。
+    进阶：
+    如果输入链表不能修改该如何处理？换句话说，你不能对列表中的节点进行翻转。

@@ -1,0 +1,120 @@
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Shortcuts <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Ctrl + Alt + T： 打开配置页
+
+1、编辑（Editing）
+	CTRL + Y 				删除当前行
+**	Ctrl + Delete			删除至 当前字符串 的结尾 derect|tion --> derect
+	Ctrl + Backspace		删除至 当前字符串 的开头 derect|tion --> tion
+	
+*	Ctrl + Alt + Space 快速导入任意类
+
+	Ctrl+X / Shift+Delete 	剪切当前行 或 选定的代码块到剪贴板
+	Ctrl+C / Ctrl+Insert 	复制当前行 或 选定的代码块到剪贴板	
+	
+	Ctrl + R 				替换 （选中区域后默认时区域内替换）
+	Ctrl + F 				查找
+	F3 						下一个
+	Shift + F3 				前一个
+	Shift + Shift 			全局查找 (弹窗可选择查找 class/Files/Symbols/Actions)
+	
+	Ctrl + G 				查看当前行号、列号  [line_no,]:[culumn_no]
+
+	Ctrl + / 				注释/取消注释
+	
+	Shift + HOME			选中当前光标至当前 行首 的代码 (光标移至行尾 Shift + HOME可选中整行`代码块`)
+	Shift + END 			选中当前光标至当前 行尾 的代码 (光标移至行首 Shift + END 可选中整行`代码块`)
+*	LeftMouse-TribleClik	选中当前整行， 代码块+所有空
+
+	LeftMouse-DoubleClik	选中单词
+*	Ctrl + W 				选中单词，多次W可连续选中 前和后 的单词
+							---> 与Ctrl + Alt + T连用效果不错, 给代码块添加 surround
+	Ctrl + Shift + W 		回到 Ctrl + W 之前状态  
+	
+*	Ctrl + ]/[				跳转到代码块结束、开始
+**	Ctrl + Shift + ]/[ 		选中光标至代码块结束/开始
+
+***	Ctrl + Alt + T 			surround with, 选中代码块后添加 if\while\try-except\()\{}等
+							与20-30行搭配使用效果很好
+	
+	
+**	Ctrl + '+'/'-' 			展开/折叠代码块（当前位置的：函数，注释等）
+	Ctrl + shift + '+'/'-'  展开/折叠所有代码块
+	
+	Ctrl + Q 				快速查看文档 (鼠标悬停在左侧 Project 的文件上，ctrl+q查看docstring)
+	F1 		 				外部文档
+	Shift + F1 				外部文档，进入web文档主页
+	
+	Ctrl + F1 				显示错误描述或警告信息(光标移至错误或警告区域任意位置后ctrl+f1)
+
+	Shift + Enter			往下另起一行（不破坏当前行结构）
+
+2、导航
+	Alt + Right/Left 		跳转到下一个、前一个编辑的选项卡（文件tab切换）
+**	Alt + Up/Down			跳转到上一个、下一个方法def
+*	Ctrl + E 				打开最近使用的文件列表 Recent Files
+
+	Ctrl+B / Ctrl+Click 	跳转到声明 -- 函数跳转
+***	Ctrl + Shift + I		查看光标所在函数的源码定义 ---------> 非常有用
+							如：obj().get_middle(): 查看get_middle的函数源码
+							
+	Alt + 1					左侧栏显示和隐藏
+	
+3、Usages
+	Alt + F7				查询当前文件中在 Project和Libs 中的使用情况 Usages 
+**	Ctrl + Alt + F7			显示在 project-files 中的使用情况
+*	Ctrl + F7				文件中用法高亮显示 / 取消高亮显示
+***	F11						添加书签
+**	Shift + F11				显示书签
+**	Shift + F11\Ctrl + Enter编辑书签
+
+	
+4、运行
+	Shift + F9 				调试
+	Alt + Shift + F9 		调试模式配置
+*	Shift + F10 			运行
+	Alt + Shift + F10 		运行模式配置
+	Ctrl + Shift + F10 		运行编辑器配置 （没看出来干嘛的）
+
+5、调试(Debugging)
+	F8					 	跳过
+*	F7 						进入
+	Shift + F8 				退出
+	Alt + F9 				运行游标
+	Alt + F8 				验证表达式
+	Ctrl + Alt + F8 		快速验证表达式
+	F9 						恢复程序
+	Ctrl + F8 				断点开关
+	Ctrl + Shift + F8 		查看断点
+	
+	
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Tips <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+1. arr.print ---> print(arr)
+2. iter 	 ---> for ... in ... / for ... in enumerate(...)
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> plugins <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+refers: https://blog.csdn.net/stormdony/article/details/90261391
+
+plugins:
+	Material Theme UI
+	markdown
+	CodeGlance
+	Translation
+	Json Parser
+	Statistic
+	Rainbow Brackets
+	wakatime (公司不能转，可能会泄露项目信息)
+tools:
+	autopep8
+		https://www.jianshu.com/p/86b36c2b47d9
+		pip isntall autopep8
+		Name: AutoPEP8 （也可以是其他名字）
+		Setting --> Tool --> Extra tools
+			Program: autopep8
+			Arguments: --in-place --aggressive --aggressive $FilePath$
+			Working directory: $ProjectFileDir$
+			Output filters: $FILE_PATH$\:$LINE$\:$COLUMN$\:.*
+			完成后点击OK，在Settings界面点击Apply。
+	Flake8 静态代码检查工具
+		
+

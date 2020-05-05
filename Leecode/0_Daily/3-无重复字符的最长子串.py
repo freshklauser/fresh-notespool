@@ -5,7 +5,7 @@
 # @Last Modified time: 2020-05-02 16:03:05
 
 
-'''[无重复字符的最长子串]
+"""[无重复字符的最长子串]
 Given a string, find the length of the longest substring without repeating characters.
 
 Example 1:
@@ -16,7 +16,7 @@ Example 1:
 思路：
     hash表 + 双指针，每一次遍历时存储 item 对应的索引到 hash表中
     当item在hash表中出现过时，更新 start为 max(index_in_hash + 1, start)
-'''
+"""
 
 
 class Solution:

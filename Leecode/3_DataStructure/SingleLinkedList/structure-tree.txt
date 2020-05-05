@@ -1,0 +1,68 @@
+<Instance of SingleLinkedList, address 1860914810216:
+    _ClassTreeAttributesDisplay__visited={}
+    head=100
+    length=13
+
+........<Class SingleLinkedList, address 1860913070392:
+        __doc__=<>
+        __getitem__=<>
+        __init__=<>
+        __len__=<>
+        __module__=<>
+        __repr__=<>
+        __setitem__=<>
+        _boundary_check=<function SingleLinkedList._boundary_check at 0x000001B1471E8F28>
+        append=<function SingleLinkedList.append at 0x000001B1472A91E0>
+        chaine_table=<function SingleLinkedList.chaine_table at 0x000001B1472A9158>
+        clear=<function SingleLinkedList.clear at 0x000001B1472A90D0>
+        deepcopy=<function SingleLinkedList.deepcopy at 0x000001B1472A9730>
+        deepcopy_with_random=<function SingleLinkedList.deepcopy_with_random at 0x000001B1472A97B8>
+        delete=<function SingleLinkedList.delete at 0x000001B1472A9268>
+        get_all_index=<function SingleLinkedList.get_all_index at 0x000001B1472A9488>
+        get_first_index=<function SingleLinkedList.get_first_index at 0x000001B1472A9510>
+        get_item=<function SingleLinkedList.get_item at 0x000001B1472A9400>
+        get_middle_node=<function SingleLinkedList.get_middle_node at 0x000001B1472A96A8>
+        insert=<function SingleLinkedList.insert at 0x000001B1472A92F0>
+        is_empty=<function SingleLinkedList.is_empty at 0x000001B1472A9048>
+        reverse=<function SingleLinkedList.reverse at 0x000001B1472A9620>
+        to_list=<function SingleLinkedList.to_list at 0x000001B1472A9598>
+        update=<function SingleLinkedList.update at 0x000001B1472A9378>
+        view=<function SingleLinkedList.view at 0x000001B1472A9840>
+
+............<Class ClassTreeAttributesDisplay, address 1860913060008:
+            _ClassTreeAttributesDisplay__gatherAttrs=<function ClassTreeAttributesDisplay.__gatherAttrs at 0x000001B1471E8A60>
+            _ClassTreeAttributesDisplay__gatherClass=<function ClassTreeAttributesDisplay.__gatherClass at 0x000001B1471E89D8>
+            __dict__=<>
+            __doc__=<>
+            __module__=<>
+            __str__=<>
+            __weakref__=<>
+
+................<Class object, address 1791804800:
+                __class__=<>
+                __delattr__=<>
+                __dir__=<>
+                __doc__=<>
+                __eq__=<>
+                __format__=<>
+                __ge__=<>
+                __getattribute__=<>
+                __gt__=<>
+                __hash__=<>
+                __init__=<>
+                __init_subclass__=<>
+                __le__=<>
+                __lt__=<>
+                __ne__=<>
+                __new__=<>
+                __reduce__=<>
+                __reduce_ex__=<>
+                __repr__=<>
+                __setattr__=<>
+                __sizeof__=<>
+                __str__=<>
+                __subclasshook__=<>
+................
+>............
+>........
+>>
