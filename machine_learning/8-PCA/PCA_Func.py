@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: Klaus
 # @Date:   2019-05-26 15:50:23
-# @Last Modified by:   Klaus
-# @Last Modified time: 2019-06-16 22:12:30
+# @Last Modified by:   sniky-lyu
+# @Last Modified time: 2020-04-16 14:41:00
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -38,7 +38,7 @@ class pcaFunc(object):
         # Generate specified rotated Gaussin distribution
         self.dataGauss = base_coordinate * np.mat(dataRnd.T) + mean_val
         self.dataGauss = self.dataGauss.T
-        print('GenerateGaussData', type(self.dataGauss))
+        print('GenerateGaussData', type(self.dataGauss), self.dataGauss.shape)
 
     def NormalizeData(self, data):
         '''
@@ -57,8 +57,7 @@ class pcaFunc(object):
         self.dataNormed = (data - self.mean_val) / self.std_val
         self.std_val = np.mat(self.std_val)
 
-        print('NormalizeData:', type(self.dataNormed),
-              type(self.mean_val), self.std_val.shape)
+        print('NormalizeData:', type(self.dataNormed), type(self.mean_val), self.std_val.shape)
 
     def Get_Covariance(self, x, y=None):
         '''
@@ -134,13 +133,12 @@ class pcaFunc(object):
         # For matrix, slice's shape for one column is a 2D matrix while plot x should be a 1D seq
         # So slice should be transfered to array, 2D matrix (2000,1) --> 1D array (2000,)
         plt.scatter(np.array(self.dataGauss[:, 0]), np.array(self.dataGauss[:, 1]), color=color[0], marker=marker[0])
-        plt.scatter(np.array(self.dataNormed[:, 0]), np.array(
-            self.dataNormed[:, 1]), color=color[2], marker=marker[1])
+        plt.scatter(np.array(self.dataNormed[:, 0]), np.array(self.dataNormed[:, 1]), color=color[0], marker=marker[1])
         plt.plot(x, k * x, c=color[1])
         plt.xlim((-8, 8))
         plt.ylim((-8, 8))
         plt.subplot(122)
-        plt.hist(self.dataRestore[:, self.eigValIndTop], 40, color='green')
+        plt.hist(self.dataRestore[:, self.eigValIndTop], 40, color=color)
         plt.show()
 
     def main_run(self):
@@ -150,11 +148,11 @@ class pcaFunc(object):
         self.Get_Eigen()
         self.Get_ReductDim_Data()
         self.Restored_Data()
-        self.plot_fig(color=['r', 'g', 'y'], marker=['+', '^'])
+        self.plot_fig(color=['r', 'y'], marker=['+', '^'])
 
 
 if __name__ == '__main__':
-    cl = pcaFunc(dimension=1)
+    cl = pcaFunc(dimension=2)
     cl.main_run()
 
 

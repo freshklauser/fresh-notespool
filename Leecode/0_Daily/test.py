@@ -3,7 +3,7 @@
 # @Date:   2020-04-05 14:25:12
 # @Last Modified by:   sniky-lyu
 # @Last Modified time: 2020-04-05 14:45:02
-
+import numpy
 
 class Solution:
 
@@ -45,3 +45,4 @@ if __name__ == '__main__':
     grid = [[1, 1, 0], [1, 1, 0], [0, 0, 1]]
     res = Solution().numIslands(grid)
     print(res)
+    arr = numpy.array([1, 2, 3])

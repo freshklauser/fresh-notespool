@@ -15,7 +15,7 @@ print(A.shape)
 # 均值为0, 极差为1
 mu = A.mean(axis=0)
 print(mu.shape, type(mu))
-#print(mu)
+# print(mu)
 s = A.max(axis=0) - A.min(axis=0)       # axis=0
 X = (A - mu) / s
 print('X:', X, type(s), sep='\n')

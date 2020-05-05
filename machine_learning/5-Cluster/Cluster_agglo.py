@@ -4,17 +4,20 @@ Created on Thu Aug  2 11:44:06 2018
 
 @author: Administrator
 """
+
+import numpy as np
+# import sklearn.preprocessing as sp
+# import sklearn.model_selection as ms
+# import sklearn.svm as svm
+# import sklearn.metrics as sm
+import sklearn.cluster as sc
+import matplotlib.pyplot as plt
+
 '''
 agglo聚类：凝聚层次
 基于距离而非连续性方向的聚类
+对一些在空间上具有明显连续性，但彼此间的距离未必最近的样本，可以优先聚集
 '''
-import numpy as np
-import sklearn.preprocessing as sp
-import sklearn.model_selection as ms
-import sklearn.svm as svm
-import sklearn.metrics as sm
-import sklearn.cluster as sc
-import matplotlib.pyplot as plt
 
 x = []
 with open('multiple3.txt', 'r') as f:

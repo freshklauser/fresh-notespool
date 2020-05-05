@@ -9,6 +9,7 @@
 	conda install spyder
 4. 在py36虚拟环境下批量安装python库
 	pip install -r requirement.txt
+	
 5. 在jupter notebook中添加虚拟环境下的kernel
 	python -m ipykernel install --name py36
 
@@ -21,3 +22,12 @@ pip freeze > requirement.txt  # 将已经安装的包名及其版本写入txt文
 pip install -r requirement.txt	# pip 批量安装包/库
 pip uninstall -r requirement.txt	# 批量卸载包
 
+
+# 数据结构
+pip install binarytree
+
+# 自然语言处理 
+conda install nltk
+# python
+import nltk
+nltk.download()
