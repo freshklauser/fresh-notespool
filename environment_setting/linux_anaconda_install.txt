@@ -1,0 +1,38 @@
+
+anaconda版本： Anaconda3-5.2.0-Linux-x86_64.sh  
+下载地址：
+	https://repo.anaconda.com/archive/    (官方源)
+	https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/  (清华镜像源)
+	
+	
+安装：
+	（1）校验文件完整性：
+		源文件hashs： https://docs.anaconda.com/anaconda/install/hashes/all/
+		官方：Anaconda3-5.2.0-Linux-x86_64.sh 	621.6 MiB 	2018-05-30 13:05:43 	09f53738b0cd3bb96f5b1bac488e5528df9906be2480fe61df40e0e0d19e3d48
+		命令：$ sha256sum Anaconda3-5.2.0-Linux-x86_64.sh
+			[klaus@messi Documents]$ sha256sum Anaconda3-5.2.0-Linux-x86_64.sh 
+			09f53738b0cd3bb96f5b1bac488e5528df9906be2480fe61df40e0e0d19e3d48  Anaconda3-5.2.0-Linux-x86_64.sh
+	（2）安装：
+		命令：$ bash Anaconda3-5.2.0-Linux-x86_64.sh
+			[yes/no]问题, 安装路径问题，直接yes 或 enter过即可
+			在安装快结束时, Anaconda Python 安装程序可能会问你是否要在 CentOS 7的 PATH 变量中添加 Anaconda Python。 这样你就可以在不指定完整的安装路径的情况下执行蟒蛇。 大多数人都希望这样。 所以输入'yes'然后按回车继续。
+	（3）验证：
+			  $ conda --version
+	（4）如何忘记选择添加环境变量，可手动添加(profile中的应该不用source就可以吧？？)
+		 可在 ~/.bashrc 中添加，也可在 /etc/profile 中添加
+		$ sudo vim /etc/profile
+			# set anaconda
+			export PATH=/home/klaus/anaconda3/bin:$PATH
+		$ source /etc/profile
+
+卸载：
+	直接删除安装路径下的 anaconda 文件夹
+
+
+
+# --------------------------------------------------------------------------
+anaconda -- python 版本对应关系：Anaconda3-5.2.0 (python 3.6.5)
+版本对应关系refer: https://blog.csdn.net/yuejisuo1948/article/details/81043823
+anaconda安装源文件refer: 
+	https://repo.anaconda.com/archive/    (官方源)
+	https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/  (清华镜像源)
