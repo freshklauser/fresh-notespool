@@ -6,7 +6,7 @@ Ctrl + Alt + T： 打开配置页
 **	Ctrl + Delete			删除至 当前字符串 的结尾 derect|tion --> derect
 	Ctrl + Backspace		删除至 当前字符串 的开头 derect|tion --> tion
 	
-*	Ctrl + Alt + Space 快速导入任意类
+***	Ctrl + Alt + Space 		快速导入任意类
 
 	Ctrl+X / Shift+Delete 	剪切当前行 或 选定的代码块到剪贴板
 	Ctrl+C / Ctrl+Insert 	复制当前行 或 选定的代码块到剪贴板	
@@ -35,6 +35,8 @@ Ctrl + Alt + T： 打开配置页
 
 ***	Ctrl + Alt + T 			surround with, 选中代码块后添加 if\while\try-except\()\{}等
 							与20-30行搭配使用效果很好
+							
+**  Ctrl + Alt + U			大小写字母转换
 	
 	
 **	Ctrl + '+'/'-' 			展开/折叠代码块（当前位置的：函数，注释等）
@@ -127,7 +129,7 @@ tools:
 			Output filters: $FILE_PATH$\:$LINE$\:$COLUMN$\:.*
 			完成后点击OK，在Settings界面点击Apply。
 			
-	Flake8 静态代码检查工具
+	Flake8 静态代码检查工具 （默认是检查整个 project 的所有代码？？？？？？）
 		pip isntall flake8
 		Name: Flake8（也可以是其他名字）
 		Setting --> Tool --> Extra tools
@@ -139,4 +141,15 @@ tools:
 			     // 当前的项目路径
 			Output Filter: (留空就可以了, pycharm能自动识别路径.)
 		
-
+	Pylink 静态代码检查工具
+		pip install pylink
+		Name: pylink （也可以是其他名字）
+		Setting --> Tool --> Extra tools
+			Program：C:\Users\Administrator\Anaconda3\envs\py36\Scripts\pylint.exe
+			Arguments: 
+				--output-format=parseable --disable=R -rn --msg-template="{abspath}:{line}: [{msg_id}({symbol}), {obj}] {msg}" $FilePath$
+				# 或
+				# -rn --msg-template="{abspath}:{line}: [{msg_id}({symbol}), {obj}] {msg}" $FilePath$
+			Output Filter: (留空就可以了, pycharm能自动识别路径.)
+			
+			
