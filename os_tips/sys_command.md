@@ -153,9 +153,31 @@
   tmpfs           197M   84K  197M    1% /run/user/1000
   /dev/loop0       89M   89M     0  100% /snap/core/7396
   /dev/loop1      145M  145M     0  100% /snap/notepadqq/855
+  
+  # du 查看目录占用大小情况
+  [klaus@messi Downloads]$ du -sh
+  1.9M	.
+  [klaus@messi Downloads]$ du -h
+  4.0K	./notes/logs
+  12K	./notes
+  1.9M	.
+  [klaus@messi Downloads]$ du -h -d 1
+  12K	./notes
+  1.9M	.
+  [klaus@messi Downloads]$ du -sh
+  1.9M	.
+  [klaus@messi Downloads]$ ll
+  总用量 1912
+  -rw-rw-r--. 1 klaus klaus 1955024 7月   5 17:10 07-McMojave-circle-orange.tar.xz
+  drwxrwxr-x. 3 klaus klaus      50 7月   5 23:22 notes
+  
+  # 查看文件大小
+  [klaus@messi ~]$ ll anaconda3.tar.gz 
+  -rw-rw-r--. 1 klaus klaus 1550711041 7月  11 16:47 anaconda3.tar.gz
+  [klaus@messi ~]$ ll anaconda3.tar.gz -h
+  -rw-rw-r--. 1 klaus klaus 1.5G 7月  11 16:47 anaconda3.tar.gz
   ```
 
-  
 
 1、命令：touch [文件]（创建文件）
 
@@ -571,3 +593,32 @@ Mytest.7z 是压缩好后的压缩包名
     卸载：yum remove 【软件包名】；
     帮助：yum -help、man yum；
     例如安装gcc：yum install gcc；
+
+48、
+
+```
+netstat命令各个参数说明如下：
+　　-t : 指明显示TCP端口
+　　-u : 指明显示UDP端口
+　　-l : 仅显示监听套接字(套接字就是使应用程序能够读写与收发通讯协议(protocol)与资料的程序)
+　　-p : 显示进程标识符和程序名称，每一个套接字/端口都属于一个程序。
+　　-n : 不进行DNS轮询，显示IP(可以加速操作)
+netstat -ntlp   //查看当前所有tcp端口
+netstat -ntulp |grep 80   //查看所有80端口使用情况
+netstat -an | grep 3306   //查看所有3306端口使用情况
+
+lsof -i:80  # 查看端口80是否开放
+
+linux防火墙开放端口
+    以oracle的1521端口为例
+    # 阻止所有服务器访问1521端口
+    iptables -I INPUT -p tcp --dport 1521 -j DROP
+    # 放行172.17.79.4
+    iptables -I INPUT -s 172.17.79.4 -p tcp --dport 1521 -j ACCEPT
+    # 保存配置
+    service iptables save
+    # 重启防火墙
+    service iptables restart
+    后续如果想继续添加ip，执行2、3、4步骤即可
+```
+
