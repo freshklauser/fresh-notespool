@@ -1,4 +1,4 @@
-
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> SUSE LINUX <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 anaconda版本： Anaconda3-5.2.0-Linux-x86_64.sh  
 下载地址：
 	https://repo.anaconda.com/archive/    (官方源)
@@ -28,6 +28,52 @@ anaconda版本： Anaconda3-5.2.0-Linux-x86_64.sh
 卸载：
 	直接删除安装路径下的 anaconda 文件夹
 
+
+虚拟环境搭建：
+	# 具体库见requirement.txt，有新的库需要安装直接在里面添加
+
+	安装步骤：
+	1. 创建conda虚拟环境
+		conda create --name py36 python=3.6.5
+	2. 激活环境
+		conda activate py36
+	3. 在py36虚拟环境下安装spyder
+		conda install spyder
+	4. 在py36虚拟环境下批量安装python库 (pip freeze )
+		pip install -r requirement.txt
+		
+	5. 在jupter notebook中添加虚拟环境下的kernel
+		python -m ipykernel install --name py36
+		
+	6. 若离线安装(.whl文件)
+		pip install xxxxx.whl
+		
+		
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> SUSE LINUX <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+SUSE linux安装python库：
+	???????????????????????????????
+	可参考 ？ https://www.cnblogs.com/wglIT/p/7525046.html
+	
+
+
+TIPS:
+	# numpy==1.17.4与tensorflow=1.12.0会有冲突，卸载后安装numpy=1.16.4
+
+	# python库的导出和批量安装与卸载
+	pip freeze 	# 显示已经安装的包名及其版本
+	pip freeze > requirement.txt  # 将已经安装的包名及其版本写入txt文件
+	pip install -r requirement.txt	# pip 批量安装包/库
+	pip uninstall -r requirement.txt	# 批量卸载包
+
+
+	# 数据结构
+	pip install binarytree
+
+	# 自然语言处理 
+	conda install nltk
+	# python
+	import nltk
+	nltk.download()
 
 
 # --------------------------------------------------------------------------
